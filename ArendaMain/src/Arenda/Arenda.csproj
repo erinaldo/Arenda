@@ -1,0 +1,767 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D8C83C82-1F21-421A-B733-8A4308E4CE9F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Arenda</RootNamespace>
+    <AssemblyName>Arenda</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Arenda.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ArendaFileExport, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\ArendaFileExport.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="dllArendaDictonary">
+      <HintPath>..\..\..\dllArendaDictonary\dllArendaDictonary\dllArendaDictonary\bin\Debug\dllArendaDictonary.dll</HintPath>
+    </Reference>
+    <Reference Include="Framework, Version=2.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Ducan\Desktop\src_Gosha\Framework\bin\Debug\Framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Interop.Excel, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+    <Reference Include="Microsoft.Office.Interop.Word, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\WINDOWS\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddEditBasement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditBasement.Designer.cs">
+      <DependentUpon>AddEditBasement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditDevice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditDevice.Designer.cs">
+      <DependentUpon>AddEditDevice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddeditDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddeditDoc.Designer.cs">
+      <DependentUpon>AddeditDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditFloor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditFloor.Designer.cs">
+      <DependentUpon>AddEditFloor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditPost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditPost.Designer.cs">
+      <DependentUpon>AddEditPost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditTenant.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditTenant.Designer.cs">
+      <DependentUpon>AddEditTenant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditTypePremis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditTypePremis.Designer.cs">
+      <DependentUpon>AddEditTypePremis.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEditZdanie.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEditZdanie.Designer.cs">
+      <DependentUpon>AddEditZdanie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEquipment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEquipment.Designer.cs">
+      <DependentUpon>AddEquipment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddEqVsSec.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddEqVsSec.Designer.cs">
+      <DependentUpon>AddEqVsSec.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AdditionalDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdditionalDoc.Designer.cs">
+      <DependentUpon>AdditionalDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddSec.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddSec.Designer.cs">
+      <DependentUpon>AddSec.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddType_o_o.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddType_o_o.Designer.cs">
+      <DependentUpon>AddType_o_o.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Banks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Banks.Designer.cs">
+      <DependentUpon>Banks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Basement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Basement.Designer.cs">
+      <DependentUpon>Basement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config.Designer.cs">
+      <DependentUpon>Config.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Device.cs" />
+    <Compile Include="FolderNameEditor2.cs" />
+    <Compile Include="frmAddDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddDoc.Designer.cs">
+      <DependentUpon>frmAddDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddEditBank.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddEditBank.Designer.cs">
+      <DependentUpon>frmAddEditBank.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddEditObject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddEditObject.Designer.cs">
+      <DependentUpon>frmAddEditObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmBanks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBanks.Designer.cs">
+      <DependentUpon>frmBanks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDocument.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDocument.Designer.cs">
+      <DependentUpon>frmDocument.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLoad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLoad.Designer.cs">
+      <DependentUpon>frmLoad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmNameFile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNameFile.Designer.cs">
+      <DependentUpon>frmNameFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmObjects.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmObjects.Designer.cs">
+      <DependentUpon>frmObjects.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSealSections.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSealSections.Designer.cs">
+      <DependentUpon>frmSealSections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSelectDate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSelectDate.Designer.cs">
+      <DependentUpon>frmSelectDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImagePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImagePanel.Designer.cs">
+      <DependentUpon>ImagePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Section.cs" />
+    <Compile Include="Equipment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Equipment.Designer.cs">
+      <DependentUpon>Equipment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Floors.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Floors.Designer.cs">
+      <DependentUpon>Floors.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddEditAnotherPayments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddEditAnotherPayments.Designer.cs">
+      <DependentUpon>frmAddEditAnotherPayments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddEditDeviceToEquipment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddEditDeviceToEquipment.Designer.cs">
+      <DependentUpon>frmAddEditDeviceToEquipment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddPayment.Designer.cs">
+      <DependentUpon>frmAddPayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddTaxes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddTaxes.Designer.cs">
+      <DependentUpon>frmAddTaxes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmAnotherPayments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAnotherPayments.Designer.cs">
+      <DependentUpon>frmAnotherPayments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDevices.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDevices.Designer.cs">
+      <DependentUpon>frmDevices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmListPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmListPayment.Designer.cs">
+      <DependentUpon>frmListPayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmListTaxes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmListTaxes.Designer.cs">
+      <DependentUpon>frmListTaxes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLordlandDailyReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLordlandDailyReport.Designer.cs">
+      <DependentUpon>frmLordlandDailyReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPrintPlanOtchet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPrintPlanOtchet.Designer.cs">
+      <DependentUpon>frmPrintPlanOtchet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReport.Designer.cs">
+      <DependentUpon>frmReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmScannedDocs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmScannedDocs.Designer.cs">
+      <DependentUpon>frmScannedDocs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmScannedFileName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmScannedFileName.Designer.cs">
+      <DependentUpon>frmScannedFileName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTaxPayments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTaxPayments.Designer.cs">
+      <DependentUpon>frmTaxPayments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTenantReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTenantReport.Designer.cs">
+      <DependentUpon>frmTenantReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GdiPlusLib.cs" />
+    <Compile Include="GetX.cs" />
+    <Compile Include="GetY.cs" />
+    <Compile Include="GridToDataTable.cs" />
+    <Compile Include="ImageClass.cs" />
+    <Compile Include="numTextBox.cs" />
+    <Compile Include="PicForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrintForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrintForm.Designer.cs">
+      <DependentUpon>PrintForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Looktenant.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Looktenant.Designer.cs">
+      <DependentUpon>Looktenant.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Post.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Post.Designer.cs">
+      <DependentUpon>Post.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Procedures.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddEditBasement.resx">
+      <DependentUpon>AddEditBasement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditDevice.resx">
+      <DependentUpon>AddEditDevice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddeditDoc.resx">
+      <DependentUpon>AddeditDoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditFloor.resx">
+      <DependentUpon>AddEditFloor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditPost.resx">
+      <DependentUpon>AddEditPost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditTenant.resx">
+      <DependentUpon>AddEditTenant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditTypePremis.resx">
+      <DependentUpon>AddEditTypePremis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEditZdanie.resx">
+      <DependentUpon>AddEditZdanie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEquipment.resx">
+      <DependentUpon>AddEquipment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddEqVsSec.resx">
+      <DependentUpon>AddEqVsSec.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AdditionalDoc.resx">
+      <DependentUpon>AdditionalDoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddSec.resx">
+      <DependentUpon>AddSec.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddType_o_o.resx">
+      <DependentUpon>AddType_o_o.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Banks.resx">
+      <DependentUpon>Banks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Basement.resx">
+      <DependentUpon>Basement.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config.resx">
+      <DependentUpon>Config.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Equipment.resx">
+      <DependentUpon>Equipment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Floors.resx">
+      <DependentUpon>Floors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddDoc.resx">
+      <DependentUpon>frmAddDoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddEditAnotherPayments.resx">
+      <DependentUpon>frmAddEditAnotherPayments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddEditBank.resx">
+      <DependentUpon>frmAddEditBank.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddEditDeviceToEquipment.resx">
+      <DependentUpon>frmAddEditDeviceToEquipment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddEditObject.resx">
+      <DependentUpon>frmAddEditObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddPayment.resx">
+      <DependentUpon>frmAddPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddTaxes.resx">
+      <DependentUpon>frmAddTaxes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAnotherPayments.resx">
+      <DependentUpon>frmAnotherPayments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBanks.resx">
+      <DependentUpon>frmBanks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDevices.resx">
+      <DependentUpon>frmDevices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDocument.resx">
+      <DependentUpon>frmDocument.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmListPayment.resx">
+      <DependentUpon>frmListPayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmListTaxes.resx">
+      <DependentUpon>frmListTaxes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLoad.resx">
+      <DependentUpon>frmLoad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLordlandDailyReport.resx">
+      <DependentUpon>frmLordlandDailyReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNameFile.resx">
+      <DependentUpon>frmNameFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmObjects.resx">
+      <DependentUpon>frmObjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPrintPlanOtchet.resx">
+      <DependentUpon>frmPrintPlanOtchet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReport.resx">
+      <DependentUpon>frmReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmScannedDocs.resx">
+      <DependentUpon>frmScannedDocs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmScannedFileName.resx">
+      <DependentUpon>frmScannedFileName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSealSections.resx">
+      <DependentUpon>frmSealSections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSelectDate.resx">
+      <DependentUpon>frmSelectDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTaxPayments.resx">
+      <DependentUpon>frmTaxPayments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmTenantReport.resx">
+      <DependentUpon>frmTenantReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImagePanel.resx">
+      <DependentUpon>ImagePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PicForm.resx">
+      <DependentUpon>PicForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrintForm.resx">
+      <DependentUpon>PrintForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Looktenant.resx">
+      <DependentUpon>Looktenant.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Post.resx">
+      <DependentUpon>Post.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rptActG.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptActG.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rptAct.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptAct.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rptActVozvr.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptActVozvr.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sections.resx">
+      <DependentUpon>Sections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="test.resx">
+      <DependentUpon>test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Type_o_o.resx">
+      <DependentUpon>Type_o_o.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Type_Premises.resx">
+      <DependentUpon>Type_Premises.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Zdania.resx">
+      <DependentUpon>Zdania.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="rptActG.cs">
+      <DependentUpon>rptActG.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="rptAct.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptAct.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rptActVozvr.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>rptActVozvr.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Sections.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sections.Designer.cs">
+      <DependentUpon>Sections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="s_Building.cs" />
+    <Compile Include="test.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="test.Designer.cs">
+      <DependentUpon>test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TwainDefs.cs" />
+    <Compile Include="TwainLib.cs" />
+    <Compile Include="Type_o_o.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Type_o_o.Designer.cs">
+      <DependentUpon>Type_o_o.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Type_Premises.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Type_Premises.Designer.cs">
+      <DependentUpon>Type_Premises.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Zdania.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Zdania.Designer.cs">
+      <DependentUpon>Zdania.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Templates\Agreements.xls" />
+    <None Include="Templates\Landlord.xls" />
+    <None Include="Templates\Tenant.xls" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="pic\pict_excel.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="pic\pict_ok.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{967B4E0D-AD0C-4609-AB67-0FA40C0206D8}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scanner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\upload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scanner2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pict_delete.BMP" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrowleft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrowright.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom-in.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom-out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log-Out-icon1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Log-Out-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\glaz.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Arenda.ico" />
+    <None Include="Resources\shop.png" />
+    <None Include="Resources\close.png" />
+    <Content Include="Resources\pict_edit.BMP" />
+    <Content Include="Resources\pict_save.BMP" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="dtAct" msprop:Generator_UserTableName="dtAct" msprop:Generator_RowEvArgName="dtActRowChangeEvent" msprop:Generator_TableVarName="tabledtAct" msprop:Generator_TablePropName="dtAct" msprop:Generator_RowDeletingName="dtActRowDeleting" msprop:Generator_RowChangingName="dtActRowChanging" msprop:Generator_RowDeletedName="dtActRowDeleted" msprop:Generator_RowEvHandlerName="dtActRowChangeEventHandler" msprop:Generator_TableClassName="dtActDataTable" msprop:Generator_RowChangedName="dtActRowChanged" msprop:Generator_RowClassName="dtActRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="equipment" msprop:Generator_ColumnVarNameInTable="columnequipment" msprop:Generator_ColumnPropNameInRow="equipment" msprop:Generator_ColumnPropNameInTable="equipmentColumn" msprop:Generator_UserColumnName="equipment" type="xs:string" minOccurs="0" />
+              <xs:element name="count" msprop:Generator_ColumnVarNameInTable="columncount" msprop:Generator_ColumnPropNameInRow="count" msprop:Generator_ColumnPropNameInTable="countColumn" msprop:Generator_UserColumnName="count" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="dtFailCom" msprop:Generator_TableClassName="dtFailComDataTable" msprop:Generator_TableVarName="tabledtFailCom" msprop:Generator_TablePropName="dtFailCom" msprop:Generator_RowDeletingName="dtFailComRowDeleting" msprop:Generator_RowChangingName="dtFailComRowChanging" msprop:Generator_RowEvHandlerName="dtFailComRowChangeEventHandler" msprop:Generator_RowDeletedName="dtFailComRowDeleted" msprop:Generator_UserTableName="dtFailCom" msprop:Generator_RowChangedName="dtFailComRowChanged" msprop:Generator_RowEvArgName="dtFailComRowChangeEvent" msprop:Generator_RowClassName="dtFailComRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="text" msprop:Generator_ColumnVarNameInTable="columntext" msprop:Generator_ColumnPropNameInRow="text" msprop:Generator_ColumnPropNameInTable="textColumn" msprop:Generator_UserColumnName="text" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
