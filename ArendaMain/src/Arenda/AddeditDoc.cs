@@ -25,7 +25,7 @@ namespace Arenda
         string errorload = "";
         int _id = 0, id_ten, id_lord, pay;
         int id_build, id_floor, id_sec, id_type, _old_id_ten, _old_id_lord, _id_zdan,
-          _id_floo, _id_sec, _id_tp, _id_td, _idObj;
+          _id_floo, _id_sec, _id_tp, _id_td, _idObj,_id_ReklamPlace;
         string rezhim, remark, oldTen, oldLord;
         bool floorFill;
         bool click, reklamm, nal;
@@ -94,16 +94,39 @@ namespace Arenda
             cmbSavePayment.SelectedIndex = -1;
         }
 
+
+        private void TypeToVisibleElement()
+        {
+            lReclamaPlace.Visible = cmbReclamaPlace.Visible = lbReklPrice.Visible = txtReklamma.Visible = lblReklNumber.Visible
+                  = tbReklNumber.Visible = lblReklSize.Visible = tbReklSize1.Visible
+                  = tbReklSize2.Visible = (int)cmbTypeDog.SelectedValue == 2;
+
+            label5.Visible = cbZdan.Visible = (int)cmbTypeDog.SelectedValue != 3;
+            lLandPlot.Visible = cbLandPlot.Visible = (int)cmbTypeDog.SelectedValue == 3;
+
+            //label7.Visible = cbSec.Visible = 
+            lblS.Visible = tbS.Visible = lbPrice.Visible = tbcbm.Visible = (int)cmbTypeDog.SelectedValue != 2;
+
+            label7.Visible = cbSec.Visible = lTp.Visible = cbTp.Visible = cbFloor.Visible = lFloor.Visible = lblSt.Visible = tbSt.Visible = lblPhone.Visible = tbphone.Visible
+              = (int)cmbTypeDog.SelectedValue == 1;
+        }
+
         private void AddLoad()
         {
+            Rec = _proc.GetLD(0);
             cbZdan.Enabled = false;
             Fillcb();
-            lbReklPrice.Visible = txtReklamma.Visible = lblReklNumber.Visible
-              = tbReklNumber.Visible = lblReklSize.Visible = tbReklSize1.Visible
-              = tbReklSize2.Visible = (int)cmbTypeDog.SelectedValue == 2;
-            lbPrice.Visible = tbcbm.Visible = (int)cmbTypeDog.SelectedValue != 2;
-            lblSt.Visible = tbSt.Visible = lblPhone.Visible = tbphone.Visible
-              = (int)cmbTypeDog.SelectedValue == 1;
+
+            TypeToVisibleElement();
+            //lReclamaPlace.Visible = cmbReclamaPlace.Visible = lbReklPrice.Visible = txtReklamma.Visible = lblReklNumber.Visible
+            //  = tbReklNumber.Visible = lblReklSize.Visible = tbReklSize1.Visible
+            //  = tbReklSize2.Visible = (int)cmbTypeDog.SelectedValue == 2;
+
+            //label7.Visible = cbSec.Visible = lbPrice.Visible = tbcbm.Visible = (int)cmbTypeDog.SelectedValue != 2;
+
+            //lTp.Visible = cbTp.Visible =  cbFloor.Visible = lFloor.Visible = lblSt.Visible = tbSt.Visible = lblPhone.Visible = tbphone.Visible
+            //  = (int)cmbTypeDog.SelectedValue == 1;
+
             rezhim = "add";
             _id = 0;
             radioButton1.Checked = true;
@@ -229,6 +252,21 @@ namespace Arenda
             FillCbSec(false);
 
             FillCbTP(false);
+
+
+            if ((int)Rec.Rows[0]["id_TypeContract"] == 2)
+            {
+                GetDataReklamPlaceInfo(id_build);
+                cmbReclamaPlace.SelectedValue = (int)Rec.Rows[0]["id_Section"];
+                cmbReclamaPlace_SelectionChangeCommitted(null, null);
+            }
+            else if ((int)Rec.Rows[0]["id_TypeContract"] == 3)
+            {
+                GetLandPlot();
+                cbLandPlot.SelectedValue = (int)Rec.Rows[0]["id_Section"];
+                cbLandPlot_SelectionChangeCommitted(null, null);
+            }
+
 
             phone = tbphone.Text = numTextBox.CheckAndChange(Rec.Rows[0]["Phone"].ToString(),
               2, 0, 9999999999, false, defaultVal, format);
@@ -366,22 +404,27 @@ namespace Arenda
             _old_id_lord = id_lord;
             _id_td = cmbTypeDog.SelectedValue == null ? 0 : (int)cmbTypeDog.SelectedValue;
             _id_zdan = _id_td != 3 ? (int)cbZdan.SelectedValue : -1;
-            _id_floo = _id_td != 3 ? (int)cbFloor.SelectedValue : -1;
-            _id_sec = _id_td != 3 ? (int)cbSec.SelectedValue : -1;
-            _id_tp = _id_td != 3 ? (int)cbTp.SelectedValue : -1;
+            _id_floo = _id_td == 1 ? (int)cbFloor.SelectedValue : -1;
+            _id_sec = _id_td == 1 ? (int)cbSec.SelectedValue : -1;
+            _id_tp = _id_td == 1 ? (int)cbTp.SelectedValue : -1;
+
             _telrab = telrab.Text;
             _telhome = telhome.Text;
             _telsot = telsot.Text;
             cadNum = tbKadNum.Text;
+            
+            TypeToVisibleElement();
 
-            lbReklPrice.Visible = txtReklamma.Visible = lblReklNumber.Visible
-              = tbReklNumber.Visible = lblReklSize.Visible = tbReklSize1.Visible
-              = tbReklSize2.Visible = cmbTypeDog.SelectedValue != null
-              && (int)cmbTypeDog.SelectedValue == 2;
-            lbPrice.Visible = tbcbm.Visible = cmbTypeDog.SelectedValue != null
-              && (int)cmbTypeDog.SelectedValue != 2;
-            lblSt.Visible = tbSt.Visible = lblPhone.Visible = tbphone.Visible
-              = cmbTypeDog.SelectedValue != null && (int)cmbTypeDog.SelectedValue == 1;
+            //lReclamaPlace.Visible = cmbReclamaPlace.Visible = lbReklPrice.Visible = txtReklamma.Visible = lblReklNumber.Visible
+            //  = tbReklNumber.Visible = lblReklSize.Visible = tbReklSize1.Visible
+            //  = tbReklSize2.Visible = cmbTypeDog.SelectedValue != null
+            //  && (int)cmbTypeDog.SelectedValue == 2;
+
+            //label7.Visible = cbSec.Visible = lbPrice.Visible = tbcbm.Visible = cmbTypeDog.SelectedValue != null
+            //  && (int)cmbTypeDog.SelectedValue != 2;
+
+            //lTp.Visible = cbTp.Visible = cbFloor.Visible = lFloor.Visible = lblSt.Visible = tbSt.Visible = lblPhone.Visible = tbphone.Visible
+            //  = cmbTypeDog.SelectedValue != null && (int)cmbTypeDog.SelectedValue == 1;
         }
 
         private void ErrorMessageLoad(string err)
@@ -451,7 +494,9 @@ namespace Arenda
 
         private void FillCbTP(bool onClick)
         {
-            Rec = _proc.GetLD(_id);
+            if (Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 1) return;
+
+            //Rec = _proc.GetLD(_id);
             tp = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? Rec.Rows[0]["tofp"].ToString() : "";
             id_type = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? int.Parse(Rec.Rows[0]["id_Type_of_Premises"].ToString()) : -1;
 
@@ -711,6 +756,8 @@ namespace Arenda
                 {
                     obj = tbObj.Text = dataTen.aren.Substring(dataTen.aren.IndexOf('/') + 1);
                     _idObj = dataTen.id_Obj;
+                    tbKadNum.Text = dataTen.CadastralNumber;
+                    GetLandPlot();
                 }
             }
         }
@@ -786,7 +833,7 @@ namespace Arenda
                             Convert.ToDateTime(stopdate.Text),
                             (int)cmbTypeDog.SelectedValue == 3 ? "0" : cbZdan.SelectedValue.ToString(),
                             (int)cmbTypeDog.SelectedValue == 3 ? "0" : cbFloor.SelectedValue.ToString(),
-                            (int)cmbTypeDog.SelectedValue == 3 ? "0" : cbSec.SelectedValue.ToString(),
+                            (int)cmbTypeDog.SelectedValue == 3 ? cbLandPlot.SelectedValue.ToString() : (int)cmbTypeDog.SelectedValue == 1? cbSec.SelectedValue.ToString(): cmbReclamaPlace.SelectedValue.ToString(),
                             (int)cmbTypeDog.SelectedValue == 3 ? "0" : cbTp.SelectedValue.ToString(),
                             //если реклама, передаем 0
                             (int)cmbTypeDog.SelectedValue == 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbS.Text)),
@@ -928,7 +975,12 @@ namespace Arenda
                         {
                             Logging.Comment("Здание ID: " + cbFloor.SelectedValue + "; Наименование: " + cbZdan.Text);
                             Logging.Comment("Этаж ID: " + cbFloor.SelectedValue + "; Наименование: " + cbFloor.Text);
-                            Logging.Comment("Номер секции ID: " + cbSec.SelectedValue + "; Наименование: " + cbSec.Text);
+                            
+                            if ((int)cmbTypeDog.SelectedValue == 1)
+                                Logging.Comment("Номер секции ID: " + cbSec.SelectedValue + "; Наименование: " + cbSec.Text);
+                            else if ((int)cmbTypeDog.SelectedValue == 2)
+                                Logging.Comment("Рекламное место ID: " + cmbReclamaPlace.SelectedValue + "; Наименование: " + cmbReclamaPlace.Text);
+
                             Logging.Comment("Тип помещения ID: " + cbTp.SelectedValue + "; Наименование: " + cbTp.Text);
                         }
                         Logging.Comment("Аренда: " + tbAr.Text);
@@ -987,7 +1039,7 @@ namespace Arenda
                     _id_td = (int)cmbTypeDog.SelectedValue;
                     _id_zdan = _id_td == 3 ? -1 : (int)cbZdan.SelectedValue;
                     _id_floo = _id_td == 3 ? -1 : (int)cbFloor.SelectedValue;
-                    _id_sec = _id_td == 3 ? -1 : (int)cbSec.SelectedValue;
+                    _id_sec = _id_td == 3 ? -1 : _id_td == 1 ? (int)cbSec.SelectedValue : (int)cmbReclamaPlace.SelectedValue;
                     _id_tp = _id_td == 3 ? -1 : (int)cbTp.SelectedValue;
                     _telrab = telrab.Text;
                     _telhome = telhome.Text;
@@ -1144,16 +1196,19 @@ namespace Arenda
             bool err = false;
             string errmes = "";
 
-            if (id_type == 0)
+            #region "Шапка"
+            if (cmbTypeDog.SelectedValue == null)
             {
                 err = true;
                 errmes += "\n- Тип договора";
             }
+
             if (id_ten == 0)
             {
                 err = true;
                 errmes += "\n- Арендатор";
             }
+
             if (id_lord == 0)
             {
                 err = true;
@@ -1166,34 +1221,41 @@ namespace Arenda
                 if (!errmes.Contains("Арендатор"))
                     errmes += "\n- Арендатор";
             }
+
             if (tbLord.Text.Trim() == "")
             {
                 err = true;
                 if (!errmes.Contains("Арендодатель"))
                     errmes += "\n- Арендодатель";
             }
+
             if (tbnumd.Text == "")
             {
                 err = true;
                 errmes += "\n- Номер договора";
             }
+
             if (doc == null)
             {
                 err = true;
                 errmes += "\n- Дата заключения";
             }
+
             if (startdate == null)
             {
                 err = true;
                 errmes += "\n- Начало аренды";
             }
+
             if (stopdate == null)
             {
                 err = true;
                 errmes += "\n- Конец аренды";
             }
+            #endregion
 
-            if ((int)cmbTypeDog.SelectedValue != 3)
+
+            if ((int)cmbTypeDog.SelectedValue == 1)
             {
                 if (cbZdan.SelectedValue == null)
                 {
@@ -1205,17 +1267,41 @@ namespace Arenda
                     err = true;
                     errmes += "\n- Этаж";
                 }
-                if (cbSec.SelectedValue == null)
-                {
-                    err = true;
-                    errmes += "\n- Секция";
-                }
                 if (cbTp.SelectedValue == null)
                 {
                     err = true;
                     errmes += "\n- Тип помещения";
                 }
+                if (cbSec.SelectedValue == null)
+                {
+                    err = true;
+                    errmes += "\n- Секция";
+                }
             }
+            else if ((int)cmbTypeDog.SelectedValue == 2)
+            {
+                if (cbZdan.SelectedValue == null)
+                {
+                    err = true;
+                    errmes += "\n- Здание";
+                }
+
+                if (cmbReclamaPlace.SelectedValue == null)
+                {
+                    err = true;
+                    errmes += "\n- Рекламное место";
+                }
+            }
+            else if ((int)cmbTypeDog.SelectedValue == 3)
+            {
+                if (cbLandPlot.SelectedValue == null)
+                {
+                    err = true;
+                    errmes += "\n- Земальный участок";
+                }
+            }
+
+
 
             if (decimal.Parse(numTextBox.ConvertToCompPunctuation(tbS.Text)) == decimal.Parse(numTextBox.ConvertToCompPunctuation(defaultVal)))
             {
@@ -1517,6 +1603,84 @@ namespace Arenda
                 (sender as TextBox).Text = int.Parse((sender as TextBox).Text).ToString("0");
         }
 
+        private void cbZdan_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (lbReklPrice.Visible)
+            {
+                //Console.WriteLine(cbZdan.SelectedValue);
+                GetDataReklamPlaceInfo((int)cbZdan.SelectedValue);
+            }
+        }
+
+        private void GetDataReklamPlaceInfo(int id_Build)
+        {
+            //_idObj
+
+            DataTable dtReklamPLace = _proc.getReclamaPlace(_idObj, id_Build);
+            cmbReclamaPlace.DataSource = dtReklamPLace;
+            cmbReclamaPlace.DisplayMember = "NumberPlace";
+            cmbReclamaPlace.ValueMember = "id";
+            cmbReclamaPlace.SelectedIndex = -1;
+
+            tbReklSize1.Text = "0.00";
+            tbReklSize2.Text = "0.00";
+            //tbKadNum.Text = "";
+        }
+
+        private void GetLandPlot()
+        {
+            if ((int)cmbTypeDog.SelectedValue == 3)
+            {
+                DataTable dtLandPlot = _proc.getLandPlot(_idObj);
+                cbLandPlot.DataSource = dtLandPlot;
+                cbLandPlot.DisplayMember = "NumberPlot";
+                cbLandPlot.ValueMember = "id";
+                cbLandPlot.SelectedIndex = -1;
+            }
+        }
+
+        private void cbLandPlot_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (cbLandPlot.SelectedValue != null)
+            {
+                EnumerableRowCollection<DataRow> rowCollect = (cbLandPlot.DataSource as DataTable).AsEnumerable()
+                    .Where(r => r.Field<int>("id") == (int)cbLandPlot.SelectedValue);
+
+                if (rowCollect.Count() > 0)
+                {
+                    tbS.Text = rowCollect.First()["AreaPlot"].ToString();
+                }
+                else
+                {
+                    tbS.Text = "0.00";
+                    //tbKadNum.Text = "";
+                }
+            }
+        }
+
+        private void cmbReclamaPlace_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (cmbReclamaPlace.SelectedValue != null)
+            {
+                EnumerableRowCollection<DataRow> rowCollect = (cmbReclamaPlace.DataSource as DataTable).AsEnumerable()
+                    .Where(r => r.Field<int>("id") == (int)cmbReclamaPlace.SelectedValue);
+
+                if (rowCollect.Count() > 0)
+                {
+                    tbReklSize1.Text = rowCollect.First()["Length"].ToString();
+                    tbReklSize2.Text = rowCollect.First()["Width"].ToString();
+                    //tbKadNum.Text = rowCollect.First()[""].ToString();
+
+                }
+                else
+                {
+                    tbReklSize1.Text = "0.00";
+                    tbReklSize2.Text = "0.00";
+                    //tbKadNum.Text = "";
+                }
+            }
+        }
+
         private void tbS_KeyPress(object sender, KeyPressEventArgs e)
         {
             numTextBox.KeyPress(tbS, e, false, false);
@@ -1760,7 +1924,8 @@ namespace Arenda
 
         private void FillCbZdan(bool onClick)
         {
-            Rec = _proc.GetLD(_id);
+            if (Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] == 3) return;
+            //Rec = _proc.GetLD(_id);
             zdan = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? Rec.Rows[0]["build"].ToString() : "";
             id_build = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? int.Parse(Rec.Rows[0]["id_Buildings"].ToString()) : -1;
 
@@ -1824,7 +1989,8 @@ namespace Arenda
 
         private void FillCbFloor(bool onClick)
         {
-            Rec = _proc.GetLD(_id);
+            if (Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 1) return;
+            //Rec = _proc.GetLD(_id);
             floo = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? Rec.Rows[0]["floo"].ToString() : "";
             id_floor = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? int.Parse(Rec.Rows[0]["id_Floor"].ToString()) : -1;
 
@@ -1880,7 +2046,9 @@ namespace Arenda
 
         private void FillCbSec(bool onClick)
         {
-            Rec = _proc.GetLD(_id);
+            if (Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 1) return;
+
+            //Rec = _proc.GetLD(_id);
             sec = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? Rec.Rows[0]["sec"].ToString() : "";
             id_sec = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? int.Parse(Rec.Rows[0]["id_Section"].ToString()) : -1;
 
@@ -1977,12 +2145,19 @@ namespace Arenda
 
         private void cmbTypeDog_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            lbReklPrice.Visible = txtReklamma.Visible = lblReklNumber.Visible
-              = tbReklNumber.Visible = lblReklSize.Visible = tbReklSize1.Visible
-              = tbReklSize2.Visible = (int)cmbTypeDog.SelectedValue == 2;
-            lbPrice.Visible = tbcbm.Visible = (int)cmbTypeDog.SelectedValue != 2;
-            lblSt.Visible = tbSt.Visible = lblPhone.Visible = tbphone.Visible
-              = (int)cmbTypeDog.SelectedValue == 1;
+            TypeToVisibleElement();
+            GetLandPlot();
+            //lReclamaPlace.Visible = cmbReclamaPlace.Visible=  lbReklPrice.Visible = txtReklamma.Visible = lblReklNumber.Visible
+            //    = tbReklNumber.Visible = lblReklSize.Visible = tbReklSize1.Visible
+            //    = tbReklSize2.Visible = (int)cmbTypeDog.SelectedValue == 2;
+
+            //  label7.Visible = cbSec.Visible = lbPrice.Visible = tbcbm.Visible = (int)cmbTypeDog.SelectedValue != 2;
+
+            //  lTp.Visible = cbTp.Visible = cbFloor.Visible = lFloor.Visible = lblSt.Visible = tbSt.Visible = lblPhone.Visible = tbphone.Visible
+            //    = (int)cmbTypeDog.SelectedValue == 1;
+
+            if ((int)cmbTypeDog.SelectedValue == 2 && cbZdan.SelectedValue != null && _idObj !=0)
+                GetDataReklamPlaceInfo((int)cbZdan.SelectedValue);
         }
 
         private void tbObj_TextChanged(object sender, EventArgs e)

@@ -62,6 +62,8 @@ namespace Arenda
         public static long inn { get; set; }
         public static int id_Obj { get; set; }
 
+        public static string CadastralNumber { get; set; }
+
         public static void ClearDataTen()
         {
             id = 0;
@@ -70,6 +72,7 @@ namespace Arenda
             name = "";
             midname = "";
             inn = 0;
+            CadastralNumber = "";
         }
 
     }

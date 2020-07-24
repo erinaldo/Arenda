@@ -462,7 +462,7 @@ namespace Arenda
             _ListDoc = _proc.GetListDoc();
             bds1.DataSource = _ListDoc;
             dgListDoc.DataSource = bds1;
-            dgLordland.DataSource = dbs2;
+            //dgLordland.DataSource = dbs2;
             DataTable dt = new DataTable();
             dt.Columns.Add("id");
             dt.Columns.Add("cName");

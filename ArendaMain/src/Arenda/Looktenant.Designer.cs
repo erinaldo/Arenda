@@ -30,6 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dglookten = new System.Windows.Forms.DataGridView();
+            this.btExit = new System.Windows.Forms.Button();
+            this.btChoose = new System.Windows.Forms.Button();
+            this.bds = new System.Windows.Forms.BindingSource(this.components);
+            this.tbINN = new System.Windows.Forms.TextBox();
+            this.tbTenant = new System.Windows.Forms.TextBox();
+            this.tbFIO = new System.Windows.Forms.TextBox();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.inn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aren = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,12 +46,7 @@
             this.id_ObjectLease = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id_TenantParent = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id_TenantChild = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btExit = new System.Windows.Forms.Button();
-            this.btChoose = new System.Windows.Forms.Button();
-            this.bds = new System.Windows.Forms.BindingSource(this.components);
-            this.tbINN = new System.Windows.Forms.TextBox();
-            this.tbTenant = new System.Windows.Forms.TextBox();
-            this.tbFIO = new System.Windows.Forms.TextBox();
+            this.CadastralNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dglookten)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bds)).BeginInit();
             this.SuspendLayout();
@@ -68,7 +69,8 @@
             this.Address_trade_premises,
             this.id_ObjectLease,
             this.id_TenantParent,
-            this.id_TenantChild});
+            this.id_TenantChild,
+            this.CadastralNumber});
             this.dglookten.Location = new System.Drawing.Point(12, 38);
             this.dglookten.MultiSelect = false;
             this.dglookten.Name = "dglookten";
@@ -80,6 +82,53 @@
             this.dglookten.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dglookten_CellDoubleClick);
             this.dglookten.Paint += new System.Windows.Forms.PaintEventHandler(this.dglookten_Paint);
             this.dglookten.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dglookten_KeyDown);
+            // 
+            // btExit
+            // 
+            this.btExit.Image = global::Arenda.Properties.Resources.Log_Out_icon1;
+            this.btExit.Location = new System.Drawing.Point(495, 275);
+            this.btExit.Name = "btExit";
+            this.btExit.Size = new System.Drawing.Size(32, 32);
+            this.btExit.TabIndex = 35;
+            this.btExit.UseVisualStyleBackColor = true;
+            this.btExit.Click += new System.EventHandler(this.btExit_Click);
+            // 
+            // btChoose
+            // 
+            this.btChoose.Image = global::Arenda.Properties.Resources.pict_ok;
+            this.btChoose.Location = new System.Drawing.Point(447, 275);
+            this.btChoose.Name = "btChoose";
+            this.btChoose.Size = new System.Drawing.Size(32, 32);
+            this.btChoose.TabIndex = 34;
+            this.btChoose.UseVisualStyleBackColor = true;
+            this.btChoose.Click += new System.EventHandler(this.btChoose_Click);
+            // 
+            // tbINN
+            // 
+            this.tbINN.Location = new System.Drawing.Point(12, 12);
+            this.tbINN.Name = "tbINN";
+            this.tbINN.Size = new System.Drawing.Size(131, 20);
+            this.tbINN.TabIndex = 36;
+            this.tbINN.TextChanged += new System.EventHandler(this.tbINN_TextChanged);
+            this.tbINN.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
+            // 
+            // tbTenant
+            // 
+            this.tbTenant.Location = new System.Drawing.Point(174, 12);
+            this.tbTenant.Name = "tbTenant";
+            this.tbTenant.Size = new System.Drawing.Size(131, 20);
+            this.tbTenant.TabIndex = 37;
+            this.tbTenant.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
+            this.tbTenant.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress2);
+            // 
+            // tbFIO
+            // 
+            this.tbFIO.Location = new System.Drawing.Point(348, 12);
+            this.tbFIO.Name = "tbFIO";
+            this.tbFIO.Size = new System.Drawing.Size(131, 20);
+            this.tbFIO.TabIndex = 38;
+            this.tbFIO.TextChanged += new System.EventHandler(this.tbFIO_TextChanged);
+            this.tbFIO.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress2);
             // 
             // id
             // 
@@ -157,52 +206,13 @@
             this.id_TenantChild.ReadOnly = true;
             this.id_TenantChild.Visible = false;
             // 
-            // btExit
+            // CadastralNumber
             // 
-            this.btExit.Image = global::Arenda.Properties.Resources.Log_Out_icon1;
-            this.btExit.Location = new System.Drawing.Point(495, 275);
-            this.btExit.Name = "btExit";
-            this.btExit.Size = new System.Drawing.Size(32, 32);
-            this.btExit.TabIndex = 35;
-            this.btExit.UseVisualStyleBackColor = true;
-            this.btExit.Click += new System.EventHandler(this.btExit_Click);
-            // 
-            // btChoose
-            // 
-            this.btChoose.Image = global::Arenda.Properties.Resources.pict_ok;
-            this.btChoose.Location = new System.Drawing.Point(447, 275);
-            this.btChoose.Name = "btChoose";
-            this.btChoose.Size = new System.Drawing.Size(32, 32);
-            this.btChoose.TabIndex = 34;
-            this.btChoose.UseVisualStyleBackColor = true;
-            this.btChoose.Click += new System.EventHandler(this.btChoose_Click);
-            // 
-            // tbINN
-            // 
-            this.tbINN.Location = new System.Drawing.Point(12, 12);
-            this.tbINN.Name = "tbINN";
-            this.tbINN.Size = new System.Drawing.Size(131, 20);
-            this.tbINN.TabIndex = 36;
-            this.tbINN.TextChanged += new System.EventHandler(this.tbINN_TextChanged);
-            this.tbINN.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress);
-            // 
-            // tbTenant
-            // 
-            this.tbTenant.Location = new System.Drawing.Point(174, 12);
-            this.tbTenant.Name = "tbTenant";
-            this.tbTenant.Size = new System.Drawing.Size(131, 20);
-            this.tbTenant.TabIndex = 37;
-            this.tbTenant.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
-            this.tbTenant.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress2);
-            // 
-            // tbFIO
-            // 
-            this.tbFIO.Location = new System.Drawing.Point(348, 12);
-            this.tbFIO.Name = "tbFIO";
-            this.tbFIO.Size = new System.Drawing.Size(131, 20);
-            this.tbFIO.TabIndex = 38;
-            this.tbFIO.TextChanged += new System.EventHandler(this.tbFIO_TextChanged);
-            this.tbFIO.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tb_KeyPress2);
+            this.CadastralNumber.DataPropertyName = "CadastralNumber";
+            this.CadastralNumber.HeaderText = "CadastralNumber";
+            this.CadastralNumber.Name = "CadastralNumber";
+            this.CadastralNumber.ReadOnly = true;
+            this.CadastralNumber.Visible = false;
             // 
             // Looktenant
             // 
@@ -250,5 +260,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn id_ObjectLease;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_TenantParent;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_TenantChild;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CadastralNumber;
     }
 }

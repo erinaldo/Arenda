@@ -63,6 +63,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <Optimize>true</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -647,6 +648,7 @@
       <DependentUpon>Sections.cs</DependentUpon>
     </Compile>
     <Compile Include="s_Building.cs" />
+    <Compile Include="TempData.cs" />
     <Compile Include="test.cs">
       <SubType>Form</SubType>
     </Compile>

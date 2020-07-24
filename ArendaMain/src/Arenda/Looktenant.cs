@@ -80,42 +80,45 @@ namespace Arenda
 
         private void Choose()
         {
-          if (dglookten != null && dglookten.SelectedRows != null && dglookten.SelectedRows.Count > 0)
-          {
-            if(idcp != 0)
+            if (dglookten != null && dglookten.SelectedRows != null && dglookten.SelectedRows.Count > 0)
             {
-              DataTable dtp = _proc.CheckParentChildTenant(Convert.ToInt32(dglookten.SelectedRows[0].Cells["id"].Value),
-                1);
-              if(dtp != null && dtp.Rows.Count > 0)
-              {
-                MessageBox.Show("Арендатор " + dtp.Rows[0]["CurrentTenant"].ToString() + " уже имеет связь в\nкачестве ребенка с арендатором " + dtp.Rows[0]["ConTenant"].ToString() + ".\n                         Добавление арендатора для связи\n                                   невозможно.",
-                  "Добавление связи арендаторов", MessageBoxButtons.OK,
-                  MessageBoxIcon.Error);
-                return;
-              }
-              DataTable dtc = _proc.CheckParentChildTenant(Convert.ToInt32(dglookten.SelectedRows[0].Cells["id"].Value),
-                0);
-              if (dtc != null && dtc.Rows.Count > 0)
-              {
-                MessageBox.Show("Арендатор " + dtc.Rows[0]["CurrentTenant"].ToString() + " уже имеет связь в\nкачестве родителя с арендатором " + dtc.Rows[0]["ConTenant"].ToString() + ".\n                         Добавление арендатора для связи\n                                   невозможно.",
-                  "Добавление связи арендаторов", MessageBoxButtons.OK,
-                  MessageBoxIcon.Error);
-                return;
-              }
+                if (idcp != 0)
+                {
+                    DataTable dtp = _proc.CheckParentChildTenant(Convert.ToInt32(dglookten.SelectedRows[0].Cells["id"].Value),
+                      1);
+                    if (dtp != null && dtp.Rows.Count > 0)
+                    {
+                        MessageBox.Show("Арендатор " + dtp.Rows[0]["CurrentTenant"].ToString() + " уже имеет связь в\nкачестве ребенка с арендатором " + dtp.Rows[0]["ConTenant"].ToString() + ".\n                         Добавление арендатора для связи\n                                   невозможно.",
+                          "Добавление связи арендаторов", MessageBoxButtons.OK,
+                          MessageBoxIcon.Error);
+                        return;
+                    }
+                    DataTable dtc = _proc.CheckParentChildTenant(Convert.ToInt32(dglookten.SelectedRows[0].Cells["id"].Value),
+                      0);
+                    if (dtc != null && dtc.Rows.Count > 0)
+                    {
+                        MessageBox.Show("Арендатор " + dtc.Rows[0]["CurrentTenant"].ToString() + " уже имеет связь в\nкачестве родителя с арендатором " + dtc.Rows[0]["ConTenant"].ToString() + ".\n                         Добавление арендатора для связи\n                                   невозможно.",
+                          "Добавление связи арендаторов", MessageBoxButtons.OK,
+                          MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                long inn;
+                int id_Obj;
+                dataTen.id = Convert.ToInt32(dglookten.SelectedRows[0].Cells["id"].Value);
+                dataTen.aren = dglookten.SelectedRows[0].Cells["aren"].Value.ToString();
+                dataTen.fam = dglookten.SelectedRows[0].Cells["fam"].Value.ToString();
+                dataTen.name = dglookten.SelectedRows[0].Cells["name"].Value.ToString();
+                dataTen.midname = dglookten.SelectedRows[0].Cells["midname"].Value.ToString();
+                if (long.TryParse(dglookten.SelectedRows[0].Cells["INN"].Value.ToString(), out inn))
+                    dataTen.inn = inn;
+                if (int.TryParse(dglookten.SelectedRows[0].Cells["id_ObjectLease"].Value.ToString(), out id_Obj))
+                    dataTen.id_Obj = id_Obj;
+
+                dataTen.CadastralNumber = dglookten.SelectedRows[0].Cells["CadastralNumber"].Value.ToString();
+
+                DialogResult = DialogResult.Cancel;
             }
-            long inn;
-            int id_Obj;
-            dataTen.id = Convert.ToInt32(dglookten.SelectedRows[0].Cells["id"].Value);
-            dataTen.aren = dglookten.SelectedRows[0].Cells["aren"].Value.ToString();
-            dataTen.fam = dglookten.SelectedRows[0].Cells["fam"].Value.ToString();
-            dataTen.name = dglookten.SelectedRows[0].Cells["name"].Value.ToString();
-            dataTen.midname = dglookten.SelectedRows[0].Cells["midname"].Value.ToString();
-            if (long.TryParse(dglookten.SelectedRows[0].Cells["INN"].Value.ToString(), out inn))
-              dataTen.inn = inn;
-            if (int.TryParse(dglookten.SelectedRows[0].Cells["id_ObjectLease"].Value.ToString(), out id_Obj))
-              dataTen.id_Obj = id_Obj;
-            DialogResult = DialogResult.Cancel;
-          }
         }
 
         private void dglookten_KeyDown(object sender, KeyEventArgs e)

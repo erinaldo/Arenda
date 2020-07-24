@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddeditDoc));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
             this.cmbTypeDog = new System.Windows.Forms.ComboBox();
@@ -48,12 +48,16 @@
             this.doc = new System.Windows.Forms.DateTimePicker();
             this.tbnumd = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lLandPlot = new System.Windows.Forms.Label();
+            this.cmbReclamaPlace = new System.Windows.Forms.ComboBox();
+            this.cbLandPlot = new System.Windows.Forms.ComboBox();
+            this.lReclamaPlace = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.tbObj = new System.Windows.Forms.TextBox();
             this.cbSec = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.lTp = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lFloor = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.cbTp = new System.Windows.Forms.ComboBox();
             this.cbFloor = new System.Windows.Forms.ComboBox();
@@ -125,6 +129,9 @@
             this.tbRentalVacation = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.cmbSavePayment = new System.Windows.Forms.ComboBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -134,6 +141,8 @@
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bds)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -153,7 +162,7 @@
             this.groupBox1.Controls.Add(this.startdate);
             this.groupBox1.Controls.Add(this.doc);
             this.groupBox1.Controls.Add(this.tbnumd);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(287, 175);
             this.groupBox1.TabIndex = 0;
@@ -305,22 +314,65 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lLandPlot);
+            this.groupBox2.Controls.Add(this.cmbReclamaPlace);
+            this.groupBox2.Controls.Add(this.cbLandPlot);
+            this.groupBox2.Controls.Add(this.lReclamaPlace);
             this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Controls.Add(this.tbObj);
             this.groupBox2.Controls.Add(this.cbSec);
-            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.lTp);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.lFloor);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.cbTp);
             this.groupBox2.Controls.Add(this.cbFloor);
             this.groupBox2.Controls.Add(this.cbZdan);
-            this.groupBox2.Location = new System.Drawing.Point(12, 193);
+            this.groupBox2.Location = new System.Drawing.Point(6, 187);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(287, 151);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Местоположение";
+            // 
+            // lLandPlot
+            // 
+            this.lLandPlot.AutoSize = true;
+            this.lLandPlot.Location = new System.Drawing.Point(6, 51);
+            this.lLandPlot.Name = "lLandPlot";
+            this.lLandPlot.Size = new System.Drawing.Size(108, 13);
+            this.lLandPlot.TabIndex = 15;
+            this.lLandPlot.Text = "Земельный участок";
+            // 
+            // cmbReclamaPlace
+            // 
+            this.cmbReclamaPlace.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbReclamaPlace.FormattingEnabled = true;
+            this.cmbReclamaPlace.Location = new System.Drawing.Point(139, 72);
+            this.cmbReclamaPlace.MaxDropDownItems = 10;
+            this.cmbReclamaPlace.Name = "cmbReclamaPlace";
+            this.cmbReclamaPlace.Size = new System.Drawing.Size(142, 21);
+            this.cmbReclamaPlace.TabIndex = 14;
+            this.cmbReclamaPlace.SelectionChangeCommitted += new System.EventHandler(this.cmbReclamaPlace_SelectionChangeCommitted);
+            // 
+            // cbLandPlot
+            // 
+            this.cbLandPlot.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbLandPlot.FormattingEnabled = true;
+            this.cbLandPlot.Location = new System.Drawing.Point(139, 45);
+            this.cbLandPlot.Name = "cbLandPlot";
+            this.cbLandPlot.Size = new System.Drawing.Size(142, 21);
+            this.cbLandPlot.TabIndex = 16;
+            this.cbLandPlot.SelectionChangeCommitted += new System.EventHandler(this.cbLandPlot_SelectionChangeCommitted);
+            // 
+            // lReclamaPlace
+            // 
+            this.lReclamaPlace.AutoSize = true;
+            this.lReclamaPlace.Location = new System.Drawing.Point(6, 76);
+            this.lReclamaPlace.Name = "lReclamaPlace";
+            this.lReclamaPlace.Size = new System.Drawing.Size(98, 13);
+            this.lReclamaPlace.TabIndex = 13;
+            this.lReclamaPlace.Text = "Рекламное место";
             // 
             // label15
             // 
@@ -352,14 +404,14 @@
             this.cbSec.SelectedIndexChanged += new System.EventHandler(this.cbSec_SelectedIndexChanged);
             this.cbSec.Click += new System.EventHandler(this.cbSec_Click);
             // 
-            // label8
+            // lTp
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 128);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(88, 13);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "Тип помещения";
+            this.lTp.AutoSize = true;
+            this.lTp.Location = new System.Drawing.Point(6, 128);
+            this.lTp.Name = "lTp";
+            this.lTp.Size = new System.Drawing.Size(88, 13);
+            this.lTp.TabIndex = 8;
+            this.lTp.Text = "Тип помещения";
             // 
             // label7
             // 
@@ -370,14 +422,14 @@
             this.label7.TabIndex = 7;
             this.label7.Text = "Номер секции";
             // 
-            // label6
+            // lFloor
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 75);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(33, 13);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Этаж";
+            this.lFloor.AutoSize = true;
+            this.lFloor.Location = new System.Drawing.Point(6, 75);
+            this.lFloor.Name = "lFloor";
+            this.lFloor.Size = new System.Drawing.Size(33, 13);
+            this.lFloor.TabIndex = 6;
+            this.lFloor.Text = "Этаж";
             // 
             // label5
             // 
@@ -419,6 +471,7 @@
             this.cbZdan.Size = new System.Drawing.Size(142, 21);
             this.cbZdan.TabIndex = 7;
             this.cbZdan.SelectedIndexChanged += new System.EventHandler(this.cbZdan_SelectedIndexChanged);
+            this.cbZdan.SelectionChangeCommitted += new System.EventHandler(this.cbZdan_SelectionChangeCommitted);
             this.cbZdan.Click += new System.EventHandler(this.cbZdan_Click);
             // 
             // groupBox3
@@ -432,7 +485,7 @@
             this.groupBox3.Controls.Add(this.tbSt);
             this.groupBox3.Controls.Add(this.tbS);
             this.groupBox3.Controls.Add(this.lblReklSize);
-            this.groupBox3.Location = new System.Drawing.Point(12, 350);
+            this.groupBox3.Location = new System.Drawing.Point(6, 344);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(287, 126);
             this.groupBox3.TabIndex = 2;
@@ -452,6 +505,7 @@
             // 
             this.tbKadNum.Location = new System.Drawing.Point(139, 45);
             this.tbKadNum.Name = "tbKadNum";
+            this.tbKadNum.ReadOnly = true;
             this.tbKadNum.Size = new System.Drawing.Size(142, 20);
             this.tbKadNum.TabIndex = 16;
             // 
@@ -460,6 +514,7 @@
             this.tbReklSize1.Location = new System.Drawing.Point(110, 71);
             this.tbReklSize1.MaxLength = 12;
             this.tbReklSize1.Name = "tbReklSize1";
+            this.tbReklSize1.ReadOnly = true;
             this.tbReklSize1.Size = new System.Drawing.Size(70, 20);
             this.tbReklSize1.TabIndex = 15;
             this.tbReklSize1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -471,6 +526,7 @@
             this.tbReklSize2.Location = new System.Drawing.Point(211, 71);
             this.tbReklSize2.MaxLength = 12;
             this.tbReklSize2.Name = "tbReklSize2";
+            this.tbReklSize2.ReadOnly = true;
             this.tbReklSize2.Size = new System.Drawing.Size(70, 20);
             this.tbReklSize2.TabIndex = 14;
             this.tbReklSize2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -511,6 +567,7 @@
             this.tbS.Location = new System.Drawing.Point(198, 19);
             this.tbS.MaxLength = 12;
             this.tbS.Name = "tbS";
+            this.tbS.ReadOnly = true;
             this.tbS.Size = new System.Drawing.Size(83, 20);
             this.tbS.TabIndex = 11;
             this.tbS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -541,7 +598,7 @@
             this.groupBox4.Controls.Add(this.tbcbm);
             this.groupBox4.Controls.Add(this.tbphone);
             this.groupBox4.Controls.Add(this.tbAr);
-            this.groupBox4.Location = new System.Drawing.Point(322, 12);
+            this.groupBox4.Location = new System.Drawing.Point(316, 6);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(383, 91);
             this.groupBox4.TabIndex = 3;
@@ -680,7 +737,7 @@
             this.groupBox5.Controls.Add(this.button3);
             this.groupBox5.Controls.Add(this.button4);
             this.groupBox5.Controls.Add(this.dgAddDoc);
-            this.groupBox5.Location = new System.Drawing.Point(322, 109);
+            this.groupBox5.Location = new System.Drawing.Point(316, 103);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(383, 169);
             this.groupBox5.TabIndex = 4;
@@ -734,14 +791,14 @@
             this.dgAddDoc.AllowUserToDeleteRows = false;
             this.dgAddDoc.AllowUserToResizeRows = false;
             this.dgAddDoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgAddDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgAddDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgAddDoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgAddDoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.number,
@@ -885,7 +942,7 @@
             // 
             // tbremark
             // 
-            this.tbremark.Location = new System.Drawing.Point(322, 376);
+            this.tbremark.Location = new System.Drawing.Point(316, 370);
             this.tbremark.MaxLength = 300;
             this.tbremark.Multiline = true;
             this.tbremark.Name = "tbremark";
@@ -896,7 +953,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(319, 360);
+            this.label18.Location = new System.Drawing.Point(313, 354);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(70, 13);
             this.label18.TabIndex = 4;
@@ -908,9 +965,8 @@
             // 
             // btAddDoc
             // 
-            this.btAddDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btAddDoc.Image = ((System.Drawing.Image)(resources.GetObject("btAddDoc.Image")));
-            this.btAddDoc.Location = new System.Drawing.Point(553, 546);
+            this.btAddDoc.Location = new System.Drawing.Point(547, 540);
             this.btAddDoc.Name = "btAddDoc";
             this.btAddDoc.Size = new System.Drawing.Size(32, 32);
             this.btAddDoc.TabIndex = 42;
@@ -921,9 +977,8 @@
             // 
             // btExit
             // 
-            this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btExit.Image = ((System.Drawing.Image)(resources.GetObject("btExit.Image")));
-            this.btExit.Location = new System.Drawing.Point(673, 546);
+            this.btExit.Location = new System.Drawing.Point(667, 540);
             this.btExit.Name = "btExit";
             this.btExit.Size = new System.Drawing.Size(32, 32);
             this.btExit.TabIndex = 19;
@@ -933,9 +988,8 @@
             // 
             // btAdd
             // 
-            this.btAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btAdd.Image = ((System.Drawing.Image)(resources.GetObject("btAdd.Image")));
-            this.btAdd.Location = new System.Drawing.Point(616, 546);
+            this.btAdd.Location = new System.Drawing.Point(610, 540);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(32, 32);
             this.btAdd.TabIndex = 18;
@@ -963,19 +1017,19 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.пиуToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(114, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(112, 26);
             this.contextMenuStrip1.Text = "Печать";
             // 
             // пиуToolStripMenuItem
             // 
             this.пиуToolStripMenuItem.Name = "пиуToolStripMenuItem";
-            this.пиуToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.пиуToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.пиуToolStripMenuItem.Text = "Печать";
             this.пиуToolStripMenuItem.Click += new System.EventHandler(this.пиуToolStripMenuItem_Click);
             // 
             // tbFailComment
             // 
-            this.tbFailComment.Location = new System.Drawing.Point(322, 297);
+            this.tbFailComment.Location = new System.Drawing.Point(316, 291);
             this.tbFailComment.MaxLength = 170;
             this.tbFailComment.Multiline = true;
             this.tbFailComment.Name = "tbFailComment";
@@ -986,7 +1040,7 @@
             // lFailComment
             // 
             this.lFailComment.AutoSize = true;
-            this.lFailComment.Location = new System.Drawing.Point(319, 281);
+            this.lFailComment.Location = new System.Drawing.Point(313, 275);
             this.lFailComment.Name = "lFailComment";
             this.lFailComment.Size = new System.Drawing.Size(131, 13);
             this.lFailComment.TabIndex = 4;
@@ -1000,7 +1054,7 @@
             this.groupBox6.Controls.Add(this.telhome);
             this.groupBox6.Controls.Add(this.label12);
             this.groupBox6.Controls.Add(this.telrab);
-            this.groupBox6.Location = new System.Drawing.Point(12, 482);
+            this.groupBox6.Location = new System.Drawing.Point(6, 476);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(287, 100);
             this.groupBox6.TabIndex = 20;
@@ -1064,7 +1118,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(322, 450);
+            this.label13.Location = new System.Drawing.Point(316, 444);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(113, 13);
             this.label13.TabIndex = 4;
@@ -1072,7 +1126,7 @@
             // 
             // tbRentalVacation
             // 
-            this.tbRentalVacation.Location = new System.Drawing.Point(441, 447);
+            this.tbRentalVacation.Location = new System.Drawing.Point(435, 441);
             this.tbRentalVacation.MaxLength = 12;
             this.tbRentalVacation.Name = "tbRentalVacation";
             this.tbRentalVacation.Size = new System.Drawing.Size(144, 20);
@@ -1086,7 +1140,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(322, 478);
+            this.label17.Location = new System.Drawing.Point(316, 472);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(142, 13);
             this.label17.TabIndex = 4;
@@ -1096,33 +1150,65 @@
             // 
             this.cmbSavePayment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSavePayment.FormattingEnabled = true;
-            this.cmbSavePayment.Location = new System.Drawing.Point(322, 494);
+            this.cmbSavePayment.Location = new System.Drawing.Point(316, 488);
             this.cmbSavePayment.Name = "cmbSavePayment";
             this.cmbSavePayment.Size = new System.Drawing.Size(383, 21);
             this.cmbSavePayment.TabIndex = 43;
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(733, 614);
+            this.tabControl1.TabIndex = 44;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Controls.Add(this.groupBox2);
+            this.tabPage1.Controls.Add(this.cmbSavePayment);
+            this.tabPage1.Controls.Add(this.groupBox3);
+            this.tabPage1.Controls.Add(this.tbRentalVacation);
+            this.tabPage1.Controls.Add(this.groupBox4);
+            this.tabPage1.Controls.Add(this.btAddDoc);
+            this.tabPage1.Controls.Add(this.groupBox5);
+            this.tabPage1.Controls.Add(this.groupBox6);
+            this.tabPage1.Controls.Add(this.tbremark);
+            this.tabPage1.Controls.Add(this.btExit);
+            this.tabPage1.Controls.Add(this.tbFailComment);
+            this.tabPage1.Controls.Add(this.btAdd);
+            this.tabPage1.Controls.Add(this.label18);
+            this.tabPage1.Controls.Add(this.lFailComment);
+            this.tabPage1.Controls.Add(this.label13);
+            this.tabPage1.Controls.Add(this.label17);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(725, 588);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Основная";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(725, 588);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Скидка";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // AddeditDoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(717, 590);
-            this.Controls.Add(this.cmbSavePayment);
-            this.Controls.Add(this.tbRentalVacation);
-            this.Controls.Add(this.btAddDoc);
-            this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.btExit);
-            this.Controls.Add(this.btAdd);
-            this.Controls.Add(this.lFailComment);
-            this.Controls.Add(this.label17);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.label18);
-            this.Controls.Add(this.tbFailComment);
-            this.Controls.Add(this.tbremark);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(733, 614);
+            this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -1145,8 +1231,10 @@
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bds)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -1174,9 +1262,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lTp;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lFloor;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
@@ -1246,5 +1334,12 @@
         private System.Windows.Forms.TextBox tbRentalVacation;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ComboBox cmbSavePayment;
+        private System.Windows.Forms.ComboBox cmbReclamaPlace;
+        private System.Windows.Forms.Label lReclamaPlace;
+        private System.Windows.Forms.Label lLandPlot;
+        private System.Windows.Forms.ComboBox cbLandPlot;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
     }
 }
