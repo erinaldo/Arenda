@@ -63,6 +63,16 @@ namespace Arenda.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _1493746719_shopping_cart {
+            get {
+                object obj = ResourceManager.GetObject("1493746719_shopping cart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap arrowleft {
             get {
                 object obj = ResourceManager.GetObject("arrowleft", resourceCulture);

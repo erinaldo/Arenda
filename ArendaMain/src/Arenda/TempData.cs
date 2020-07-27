@@ -80,4 +80,15 @@ namespace Arenda
             return newString;
         }
     }
+
+    public static class infoPay
+    {
+        public static int id { set; get; }
+        public static decimal Summa { set; get; }
+        public static DateTime DateFines { set; get; }
+        public static string cName { set; get; }
+        public static decimal pfSumma { set; get; }
+        public static decimal resDolg { set; get; }
+        public static string PlanDate { set; get; }
+    }
 }

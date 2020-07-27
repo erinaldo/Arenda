@@ -290,6 +290,12 @@
     <Compile Include="ImagePanel.Designer.cs">
       <DependentUpon>ImagePanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Payments\frmSelectFines.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payments\frmSelectFines.Designer.cs">
+      <DependentUpon>frmSelectFines.cs</DependentUpon>
+    </Compile>
     <Compile Include="Section.cs" />
     <Compile Include="Equipment.cs">
       <SubType>Form</SubType>
@@ -565,6 +571,9 @@
     <EmbeddedResource Include="ImagePanel.resx">
       <DependentUpon>ImagePanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Payments\frmSelectFines.resx">
+      <DependentUpon>frmSelectFines.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PicForm.resx">
       <DependentUpon>PicForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -755,6 +764,7 @@
     <Content Include="Arenda.ico" />
     <None Include="Resources\shop.png" />
     <None Include="Resources\close.png" />
+    <None Include="Resources\1493746719_shopping cart.png" />
     <Content Include="Resources\pict_edit.BMP" />
     <Content Include="Resources\pict_save.BMP" />
   </ItemGroup>

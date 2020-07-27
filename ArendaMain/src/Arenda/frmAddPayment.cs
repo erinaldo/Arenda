@@ -28,19 +28,39 @@ namespace Arenda
         string oldSum;
         int oldSign;
         DataTable dtY;
+        int? id_SavePayment= null, id_Fine= null;
 
-        public frmAddPayment(int _id, int _id_agreement, string _num, bool _Reklama)
+        public frmAddPayment(int _id, int _id_agreement, string _num, bool _Reklama,int? id_SavePayment)
         {
             id = _id;
             id_agreement = _id_agreement;
             Reklama = _Reklama;
             mode = (_id == 0) ? "add" : "edit";
-            num = _num;            
+            num = _num;
+            this.id_SavePayment = id_SavePayment;
             InitializeComponent();
         }
 
         private void frmAddPayment_Load(object sender, EventArgs e)
         {
+
+            DateTime nowDate = _proc.getdate();
+
+            DataTable dtPlaneDate = new DataTable();
+            dtPlaneDate.Columns.Add("Date", typeof(string));
+            dtPlaneDate.Rows.Add($"{nowDate.Month}.{nowDate.Year}");
+            dtPlaneDate.Rows.Add($"{nowDate.AddMonths(1).Month}.{nowDate.AddMonths(1).Year}");
+            cmbPlaneDate.DataSource = dtPlaneDate;
+            cmbPlaneDate.DisplayMember = "Date";
+            cmbPlaneDate.ValueMember = "Date";
+
+
+            DataTable dtPayType = _proc.getPayType();
+            cmbPayType.DataSource = dtPayType;
+            cmbPayType.DisplayMember = "cName";
+            cmbPayType.ValueMember = "id";
+            cmbPayType.SelectedIndex = -1;
+
             load = true;
             
             EmptyAlgoritmResults();
@@ -54,11 +74,11 @@ namespace Arenda
             if (mode == "add")
             {
                 this.Text = "Добавить оплату договора № " + num;
-                if (Reklama)
-                {
-                    rbRek.Checked = true;
-                    sign = 2;
-                }
+                //if (Reklama)
+                //{
+                //    rbRek.Checked = true;
+                //    sign = 2;
+                //}
                 
                 dtpDate.Value = CurDate.Date;
             }
@@ -81,10 +101,10 @@ namespace Arenda
                     sign = 2;
                 }                
                 
-                if (sign == 0)
-                    rbAr.Checked = true;
-                if (sign == 2)
-                    rbRek.Checked = true;
+                //if (sign == 0)
+                //    rbAr.Checked = true;
+                //if (sign == 2)
+                //    rbRek.Checked = true;
             }
             oldDate = dtpDate.Value.Date;
             oldSum = txtSum.Text = numTextBox.CheckAndChange(txtSum.Text, 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}");
@@ -93,10 +113,10 @@ namespace Arenda
 
             dtpDate.MaxDate = CurDate;
 
-            lblTel.Visible
-                = txtTel.Visible
-                = lblTelRub.Visible
-                = false;
+            //lblTel.Visible
+            //    = txtTel.Visible
+            //    = lblTelRub.Visible
+            //    = false;
 
             load = false;
         }
@@ -108,26 +128,26 @@ namespace Arenda
                 con.Enabled = isActive;
             }
 
-            if (isActive)
-            {
-                if (Reklama)
-                {
-                    rbAr.Enabled = false;
-                    rbRek.Enabled = true;                    
-                }
-                else
-                {
-                    rbAr.Enabled = true;
-                    rbRek.Enabled = false;
-                }
-            }
+            //if (isActive)
+            //{
+            //    if (Reklama)
+            //    {
+            //        rbAr.Enabled = false;
+            //        rbRek.Enabled = true;                    
+            //    }
+            //    else
+            //    {
+            //        rbAr.Enabled = true;
+            //        rbRek.Enabled = false;
+            //    }
+            //}
         }
 
         private void btnQuit_Click(object sender, EventArgs e)
         {
             int curSign = 0;            
-            if (rbRek.Checked)
-                curSign = 2;
+            //if (rbRek.Checked)
+            //    curSign = 2;
 
             if ((oldDate != dtpDate.Value) || (oldSum != txtSum.Text) || (curSign != oldSign))
             {
@@ -185,9 +205,9 @@ namespace Arenda
                 return;
             }            
 
-            int curSign = 0;            
-            if (rbRek.Checked)
-                curSign = 2;
+            //int curSign = 0;            
+            //if (rbRek.Checked)
+            //    curSign = 2;
 
             DataTable dtAfterPayments = new DataTable();
             dtAfterPayments = _proc.CheckAfterPayments(id, id_agreement, dtpDate.Value.Date);
@@ -242,8 +262,8 @@ namespace Arenda
             }
 
             int curSign = 0;            
-            if (rbRek.Checked)
-                curSign = 2;
+            //if (rbRek.Checked)
+            //    curSign = 2;
 
             int id_row = 0;
             
@@ -251,7 +271,12 @@ namespace Arenda
             dt = _proc.AddEditPayment(id,
                      id_agreement,
                      dtpDate.Value.Date,
-                     decimal.Parse(numTextBox.ConvertToCompPunctuation(txtSum.Text))                     
+                     decimal.Parse(numTextBox.ConvertToCompPunctuation(txtSum.Text)),
+                     (int)cmbPayType.SelectedValue,
+                     DateTime.Parse(cmbPlaneDate.Text),
+                     rbRealMoney.Checked,
+                     rbSendMoney.Checked,
+                     id_Fine
                      );
 
             if ((dt != null) && (dt.Rows.Count > 0))
@@ -276,7 +301,7 @@ namespace Arenda
                 Logging.Comment("id оплаты = " + id_row.ToString());
                 Logging.Comment("Дата: " + dtpDate.Value.ToShortDateString());
                 Logging.Comment("Сумма оплаты: " + txtSum.Text);
-                Logging.Comment("Признак оплаты: " + (rbAr.Checked ? "Аренда" : "Реклама"));
+                //Logging.Comment("Признак оплаты: " + (rbAr.Checked ? "Аренда" : "Реклама"));
                 Logging.Comment("");
                 Logging.Comment("Оплата просрочена на " + dt.Rows[0]["days"].ToString() + " дней."); 
                 Logging.Comment("Начислено пени в размере " + numTextBox.CheckAndChange(dt.Rows[0]["peni"].ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}") + " руб. "); 
@@ -292,9 +317,9 @@ namespace Arenda
                 Logging.Comment("id оплаты = " + id.ToString());
                 Logging.VariableChange("Дата", dtpDate.Value.ToShortDateString(), oldDate.ToShortDateString());
                 Logging.VariableChange("Сумма оплаты", txtSum.Text, oldSum);
-                Logging.VariableChange("Признак оплаты",
-                    (rbAr.Checked ? "Аренда" : "Реклама"),
-                    (oldSign == 0) ? "Аренда" : "Реклама");
+               //Logging.VariableChange("Признак оплаты",
+                //    (rbAr.Checked ? "Аренда" : "Реклама"),
+                //    (oldSign == 0) ? "Аренда" : "Реклама");
                 Logging.Comment("");
                 Logging.Comment("Оплата просрочена на " + dt.Rows[0]["days"].ToString() + " дней.");
                 Logging.Comment("Начислено пени в размере " + numTextBox.CheckAndChange(dt.Rows[0]["peni"].ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}") + " руб. ");
@@ -318,8 +343,8 @@ namespace Arenda
             oldSum = txtSum.Text = numTextBox.CheckAndChange(txtSum.Text, 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}");
 
             oldSign = 0;
-            if (rbRek.Checked)
-                oldSign = 2;
+            //if (rbRek.Checked)
+            //    oldSign = 2;
 
             saveDetails(id_row);
             
@@ -544,10 +569,50 @@ namespace Arenda
 
         private void ShowTel(bool isActive)
         {
-            lblTel.Visible
-                    = txtTel.Visible
-                    = lblTelRub.Visible
-                    = isActive;
+            //lblTel.Visible
+            //        = txtTel.Visible
+            //        = lblTelRub.Visible
+            //        = isActive;
+        }
+
+        private void cmbPayType_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if ((int)cmbPayType.SelectedValue == 3)
+            {
+                groupBox3.Visible = true;
+            }
+            else if ((int)cmbPayType.SelectedValue == 1 && id_SavePayment == 3)
+            {
+                groupBox3.Visible = true;
+            }
+            else
+            {
+                groupBox3.Visible = false;
+                id_Fine = null;
+            }
+            //id_SavePayment
+        }
+
+        private void btSelectJFines_Click(object sender, EventArgs e)
+        {
+            //id_agreement
+            Payments.frmSelectFines frmSF = new Payments.frmSelectFines() { id_agreements = id_agreement };
+            if (DialogResult.OK == frmSF.ShowDialog())
+            {
+                tbDateCreate.Text = infoPay.DateFines.ToShortDateString();
+                tbMonth.Text = infoPay.PlanDate;
+                tbTypePay.Text = infoPay.cName;
+                tbSummaPay.Text = infoPay.Summa.ToString("0.00");
+                id_Fine = infoPay.id;
+            }
+            else
+            {
+                id_Fine = null;
+                tbDateCreate.Text =
+                tbMonth.Text =
+                tbTypePay.Text =
+                tbSummaPay.Text = "";
+            }
         }
 
         private void bgwToExcel_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -562,7 +627,7 @@ namespace Arenda
 
                 MessageBox.Show("Введенная сумма превышает максимальную \nсумму по договору на " + TempData.SumProgAfterCount.ToString());
 
-                txtTel.Text = numTextBox.CheckAndChange(defaultVal, 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}");
+                //txtTel.Text = numTextBox.CheckAndChange(defaultVal, 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}");
                 txtSum.Text = numTextBox.CheckAndChange(defaultVal, 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}");
 
                 EmptyAlgoritmResults();
@@ -587,7 +652,7 @@ namespace Arenda
                         {
                             ShowTel(true);
 
-                            txtTel.Text = numTextBox.CheckAndChange(ph.ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}");
+                            //txtTel.Text = numTextBox.CheckAndChange(ph.ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}");
                         }
                         else
                         {

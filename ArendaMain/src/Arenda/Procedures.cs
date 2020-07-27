@@ -1224,19 +1224,25 @@ namespace Arenda
                 new DbType[] { DbType.Int32, DbType.Int32, DbType.DateTime }, ap);
         }        
 
-        public DataTable AddEditPayment(int id, int id_Agreements, DateTime Date, decimal Summa)
+        public DataTable AddEditPayment(int id, int id_Agreements, DateTime Date, decimal Summa, int id_PayType,DateTime PlaneDate,bool isRealMoney,bool isSendMoney,int? id_Fine)
         {
             ap.Clear();
             ap.Add(id);
             ap.Add(id_Agreements);
             ap.Add(Date);
-            ap.Add(Summa);            
+            ap.Add(Summa);
+            ap.Add(id_PayType);
+            ap.Add(PlaneDate);
+            ap.Add(isRealMoney);
+            ap.Add(isSendMoney);
+            ap.Add(id_Fine);
+
             ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
 
             return executeProcedure("[Arenda].[AddEditPayment]",
-                new string[] { "@id", "@id_Agreements", "@Date", "@Summa",  
+                new string[] { "@id", "@id_Agreements", "@Date", "@Summa", "@id_PayType","@PlaneDate","@isRealMoney","@isSendMoney","@id_Fines",
                                "@id_Editor" },
-                new DbType[] { DbType.Int32, DbType.Int32, DbType.DateTime, DbType.Decimal, 
+                new DbType[] { DbType.Int32, DbType.Int32, DbType.DateTime, DbType.Decimal, DbType.Int32,DbType.DateTime,DbType.Boolean,DbType.Boolean,DbType.Int32,
                                DbType.Int32 }, ap);                        
         }
 
@@ -2291,6 +2297,60 @@ namespace Arenda
               new DbType[5] { DbType.Int32,DbType.Date,DbType.Date,DbType.Int32,DbType.Int32 }, ap);
         }
 
+        public DataTable getPayType(bool withAllDeps = false)
+        { 
+            ap.Clear();
+
+            DataTable dtResult = executeProcedure("[Arenda].[spg_getPayType]",
+                 new string[0] { },
+                 new DbType[0] { }, ap);
+
+            if (withAllDeps)
+            {
+                if (dtResult != null)
+                {
+                    if (!dtResult.Columns.Contains("isMain"))
+                    {
+                        DataColumn col = new DataColumn("isMain", typeof(int));
+                        col.DefaultValue = 1;
+                        dtResult.Columns.Add(col);
+                        dtResult.AcceptChanges();
+                    }
+
+                    DataRow row = dtResult.NewRow();
+
+                    row["cName"] = "Все Типы";
+                    row["id"] = 0;
+                    row["isMain"] = 0;
+                    row["isActive"] = 1;
+                    dtResult.Rows.Add(row);
+                    dtResult.AcceptChanges();
+                    dtResult.DefaultView.RowFilter = "isActive = 1";
+                    dtResult.DefaultView.Sort = "isMain asc, cName asc";
+                    dtResult = dtResult.DefaultView.ToTable().Copy();
+                }
+            }
+            else
+            {
+                dtResult.DefaultView.RowFilter = "isActive = 1";
+                dtResult.DefaultView.Sort = "cName asc";
+                dtResult = dtResult.DefaultView.ToTable().Copy();
+            }
+
+            return dtResult;
+        }
+
+        public DataTable getFineConfirmed(int id_Agreements,DateTime dateStart, DateTime dateEnd)
+        {
+            ap.Clear();
+            ap.Add(id_Agreements);
+            ap.Add(dateStart);
+            ap.Add(dateEnd);
+
+            return executeProcedure("Arenda.spg_getFineConfirmed",
+              new string[3] { "@id_Agreements", "@dateStart", "@dateEnd" },
+              new DbType[3] { DbType.Int32,DbType.Date,DbType.Date }, ap);
+        }
     }    
 }
 

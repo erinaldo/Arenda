@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,48 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+  <metadata name="DateFines.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
-  <metadata name="bgwToExcel.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>103, 20</value>
+  <metadata name="cName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        Qk1mAQAAAAAAAHYAAAAoAAAAFAAAABQAAAABAAQAAAAAAAAAAADEDgAAxA4AABAAAAAQAAAAAAAA/wAA
-        gP8AgAD/AICA/4AAAP+AAID/gIAA/4CAgP/AwMD/AAD//wD/AP8A/////wAA//8A/////wD/////////
-        //////////8AAP////////////8AAP////////////8AAP//AAAAAAAAD/8AAP/wiwAAAIgLD/8AAP/w
-        uAAAAIgID/8AAP/wiwAAAIgLD/8AAP/wuAAAAAAID/8AAP/wi4uLi4uLD/8AAP/wuAAAAAC4D/8AAP/w
-        gIiIiIgLD/8AAP/wsIiIiIgID/8AAP/wgIiIiIgLD/8AAP/wsIiIiIgID/8AAP/wgIiIiIgAD/8AAP/w
-        sIiIiIgID/8AAP/wAAAAAAAAD/8AAP////////////8AAP////////////8AAP////////////8AAA==
-</value>
-  </data>
-  <data name="btnQuit.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        Qk02BQAAAAAAADYAAAAoAAAAFQAAABQAAAABABgAAAAAAAAAAAB6EgAAcBIAAAAAAAAAAAAAyNDUyNDU
-        yNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUAMjQ
-        1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ
-        1ADI0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NTI
-        0NTI0NQAyNDUyNDUyNDUyNDUyNDUyNDUyNDUAAAAyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDU
-        yNDUyNDUyNDUAMjQ1MjQ1MjQ1MjQ1MjQ1MjQ1AAAAAAAAMjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ
-        1MjQ1MjQ1MjQ1MjQ1ADI0NTI0NTI0NTI0NTI0NQAAAAAf38AAADI0NTI0NTI0NTI0NTI0NTI0NTI0NTI
-        0NTI0NTI0NTI0NTI0NTI0NQAyNDUyNDUyNDUyNDUAAAAAH9/AH9/AAAAyNDUyNDUyNDUyNDUyNDUyNDU
-        yNDUyNDUyNDUyNDUyNDUyNDUyNDUAMjQ1MjQ1AAAAAAAAAB/fwB/fwB/fwAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAMjQ1MjQ1MjQ1MjQ1MjQ1MjQ1ADI0NTI0NTI0NQAAAAAf38Af38Af38AAAD///////8AAADI
-        0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NQAyNDUyNDUyNDUAAAAAH9/AH9/AAAAAAAA////////
-        AAAAyNDUyNDUyNDUyNDUfwAAyNDUyNDUyNDUyNDUyNDUAMjQ1MjQ1MjQ1AAAAAB/fwB/fwB/fwAAAP//
-        /////wAAAMjQ1MjQ1MjQ1H8AAH8AAMjQ1MjQ1MjQ1MjQ1MjQ1ADI0NTI0NTI0NQAAAAAf38Af38Af38A
-        AAD///////8AAADI0NTI0NR/AAB/AAB/AAB/AAB/AADI0NTI0NTI0NQAyNDUyNDUyNDUAAAAAH9/AH9/
-        AH9/AAAA////////AAAAyNDUfwAAfwAAfwAAfwAAfwAAfwAAyNDUyNDUyNDUAMjQ1MjQ1MjQ1AAAAAB/
-        fwB/fwB/fwAAAP///////wAAAMjQ1MjQ1H8AAH8AAH8AAH8AAH8AAMjQ1MjQ1MjQ1ADI0NTI0NTI0NQA
-        AAAAf38Af38AAAD///////////8AAADI0NTI0NTI0NR/AAB/AADI0NTI0NTI0NTI0NTI0NQAyNDUyNDU
-        yNDUAAAAAH9/AAAA////////////////AAAAyNDUyNDUyNDUyNDUfwAAyNDUyNDUyNDUyNDUyNDUAMjQ
-        1MjQ1MjQ1AAAAAAAAP///////////////////wAAAMjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ
-        1ADI0NTI0NTI0NQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADI0NTI0NTI0NTI0NTI0NTI0NTI0NTI0NTI
-        0NTI0NQAyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDUyNDU
-        yNDUyNDUyNDUAMjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ1MjQ
-        1MjQ1MjQ1MjQ1MjQ1AA=
-</value>
-  </data>
+  <metadata name="Summa.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="pfSumma.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="resDolg.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

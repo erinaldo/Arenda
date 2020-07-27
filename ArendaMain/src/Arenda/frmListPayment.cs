@@ -101,7 +101,8 @@ namespace Arenda
         {
             if (e.KeyCode == Keys.Insert)
             {
-                Add();
+                //Add();
+                btnAdd_Click(null, null);
             }
         }
 
@@ -116,14 +117,16 @@ namespace Arenda
                 }
                 else
                 {
-                    Add();
+                    int? id_savePayment = null;
+                    if (dt.Rows[0]["id_SavePayment"] != DBNull.Value) id_savePayment = (int?)dt.Rows[0]["id_SavePayment"];
+                    Add(id_savePayment);
                 }                
             }            
         }
 
-        private void Add()
+        private void Add(int? id_SavePayment)
         {
-            frmAddPayment frmAddP = new frmAddPayment(0, id, txtNum.Text, Reklama);
+            frmAddPayment frmAddP = new frmAddPayment(0, id, txtNum.Text, Reklama, id_SavePayment);
             frmAddP.ShowDialog();
             GetData();
         }
@@ -133,7 +136,7 @@ namespace Arenda
             try
             {
                 int id_payment = int.Parse(grdPayments.CurrentRow.Cells["id_payment"].Value.ToString());
-                frmAddPayment frmAddP = new frmAddPayment(id_payment, id, txtNum.Text, Reklama);
+                frmAddPayment frmAddP = new frmAddPayment(id_payment, id, txtNum.Text, Reklama, null);
                 frmAddP.ShowDialog();
                 GetData();
             }
