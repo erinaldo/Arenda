@@ -96,6 +96,7 @@ namespace Arenda
             btnListPayment.Enabled = false;
             btnListTaxes.Enabled = false;
             btnView.Enabled = false;
+            btCopyDoc.Enabled = false;
 
             btnListPayment.Visible = false;
             btnListTaxes.Visible = false;
@@ -180,6 +181,7 @@ namespace Arenda
 
             btJournalSealSections.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
             btAcceptDoc.Visible = new List<string> { "СОА", "РКВ","КНТ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
+            btCopyDoc.Visible = new List<string> { "СОА", "РКВ"}.Contains(TempData.Rezhim) && pListDoc.Visible;
         }
 
         private void арендаторыToolStripMenuItem_Click(object sender, EventArgs e)
@@ -405,6 +407,7 @@ namespace Arenda
                 btnListPayment.Enabled = false;
                 btnListTaxes.Enabled = false;
                 btnView.Enabled = false;
+                btCopyDoc.Enabled = false;
             }
             else
             {
@@ -414,6 +417,7 @@ namespace Arenda
                 btnListPayment.Enabled = true;
                 btnListTaxes.Enabled = true;
                 btnView.Enabled = true;
+                btCopyDoc.Enabled = true;
             }
             btAdd.Enabled = true;
             btExel.Enabled = true;
@@ -1071,6 +1075,7 @@ namespace Arenda
                     btnView.Enabled = false;
                     btnReport.Enabled = false;
                     btAcceptDoc.Enabled = false;
+                    btCopyDoc.Enabled = false;
                 }
                 else
                 {
@@ -1081,6 +1086,7 @@ namespace Arenda
                     btnListTaxes.Enabled = true;
                     btnView.Enabled = true;
                     btAcceptDoc.Enabled = true;
+                    btCopyDoc.Enabled = true;
                     //btnReport.Enabled = true;
                 }
             }
@@ -2355,6 +2361,27 @@ namespace Arenda
             catch
             {
                 btAcceptDoc.Enabled = false;
+            }
+        }
+
+        private void btCopyDoc_Click(object sender, EventArgs e)
+        {
+            if (pListDoc.Visible == true)
+            {
+                dt = new DataTable();
+                dt = _proc.GetLD(Convert.ToInt32(dgListDoc.SelectedRows[0].Cells[0].Value.ToString()));
+                if (dt.Rows.Count == 0)
+                {
+                    MessageBox.Show("Редактирование договора невозможно. Договор удален.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    bool isConfirmed = (bool)dgListDoc.SelectedRows[0].Cells["cisConfirmed"].Value;
+                    var editDoc = new AddeditDoc(Convert.ToInt32(dgListDoc.SelectedRows[0].Cells[0].Value.ToString()), false, isConfirmed,true);
+                    //editDoc.isCopyDoc = true;
+                    editDoc.ShowDialog();
+                }
+                iniListDoc();
             }
         }
 

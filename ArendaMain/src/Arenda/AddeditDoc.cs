@@ -44,9 +44,12 @@ namespace Arenda
 
         private bool isConfirmed;
 
+        public bool isCopyDoc { set; private get; }
+
         public AddeditDoc()
         {
             InitializeComponent();
+            dgAddDoc.AutoGenerateColumns = false;
             init_SavePayment();
             AddLoad();
         }
@@ -54,6 +57,7 @@ namespace Arenda
         public AddeditDoc(int id, string p)
         {
             InitializeComponent();
+            dgAddDoc.AutoGenerateColumns = false;
             init_SavePayment();
             AddLoad();
 
@@ -64,11 +68,12 @@ namespace Arenda
             this.Text += " для " + p;
         }
 
-        public AddeditDoc(int id, bool prosmotr, bool isConfirmed)
+        public AddeditDoc(int id, bool prosmotr, bool isConfirmed,bool isCopyDoc = false)
         {
             IsView = prosmotr;
             this.isConfirmed = isConfirmed;
             InitializeComponent();
+            dgAddDoc.AutoGenerateColumns = false;
             init_SavePayment();
             if (!prosmotr)
             {
@@ -82,6 +87,18 @@ namespace Arenda
                 this.Text = "Просмотр документа";
             }
             EditLoad(id);
+
+            if (isCopyDoc)
+            {
+                _id = 0;
+                rezhim = "add";
+                this.Text = "Копирование документа";
+                DopSoglButtons();
+                doc.Value = DateTime.Now;
+                startdate.Value = DateTime.Now;
+                stopdate.Value = DateTime.Now.AddMonths(GetSRKA());
+                tbnumd.Text = "";
+            }
         }
 
 
@@ -212,7 +229,7 @@ namespace Arenda
                 cmbSavePayment.SelectedValue = Rec.Rows[0]["id_SavePayment"];
 
             if (Rec.Rows[0]["RentalVacation"] != DBNull.Value)
-                tbRentalVacation.Text = decimal.Parse(Rec.Rows[0]["RentalVacation"].ToString()).ToString("### ### ##0.00");
+                tbRentalVacation.Text = Rec.Rows[0]["RentalVacation"].ToString();
             //
 
             DataTable Land_Tenant = new DataTable();
@@ -254,18 +271,7 @@ namespace Arenda
             FillCbTP(false);
 
 
-            if ((int)Rec.Rows[0]["id_TypeContract"] == 2)
-            {
-                GetDataReklamPlaceInfo(id_build);
-                cmbReclamaPlace.SelectedValue = (int)Rec.Rows[0]["id_Section"];
-                cmbReclamaPlace_SelectionChangeCommitted(null, null);
-            }
-            else if ((int)Rec.Rows[0]["id_TypeContract"] == 3)
-            {
-                GetLandPlot();
-                cbLandPlot.SelectedValue = (int)Rec.Rows[0]["id_Section"];
-                cbLandPlot_SelectionChangeCommitted(null, null);
-            }
+            
 
 
             phone = tbphone.Text = numTextBox.CheckAndChange(Rec.Rows[0]["Phone"].ToString(),
@@ -323,6 +329,21 @@ namespace Arenda
                 }
             }
 
+            #region "Формировнаие рекламного места или земельного участка"
+            if ((int)Rec.Rows[0]["id_TypeContract"] == 2)
+            {
+                GetDataReklamPlaceInfo(id_build);
+                cmbReclamaPlace.SelectedValue = (int)Rec.Rows[0]["id_Section"];
+                cmbReclamaPlace_SelectionChangeCommitted(null, null);
+            }
+            else if ((int)Rec.Rows[0]["id_TypeContract"] == 3)
+            {
+                GetLandPlot();
+                cbLandPlot.SelectedValue = (int)Rec.Rows[0]["id_Section"];
+                cbLandPlot_SelectionChangeCommitted(null, null);
+            }
+            #endregion
+
             typeDog = cmbTypeDog.Text;
             cadNum = tbKadNum.Text = Rec.Rows[0]["CadastralNumber"] == null ? ""
               : Rec.Rows[0]["CadastralNumber"].ToString();
@@ -368,9 +389,18 @@ namespace Arenda
 
             if (rezhim == "view" || isConfirmed)
             {
-                for (int i = 0; i < this.Controls.Count; i++)
+                for (int i = 0; i < this.tabPage1.Controls.Count; i++)
                 {
-                    this.Controls[i].Enabled = false;
+                    //if (this.Controls[i] is TabControl) continue;
+
+                    this.tabPage1.Controls[i].Enabled = false;
+                }
+
+                for (int i = 0; i < this.tabPage2.Controls.Count; i++)
+                {
+                    //if (this.Controls[i] is TabControl) continue;
+
+                    this.tabPage2.Controls[i].Enabled = false;
                 }
 
                 button4.Visible = false;
@@ -670,8 +700,6 @@ namespace Arenda
             return rez;
         }
 
-
-
         private void Fillcb()
         {
             FillCbZdan(false);
@@ -757,6 +785,9 @@ namespace Arenda
                     obj = tbObj.Text = dataTen.aren.Substring(dataTen.aren.IndexOf('/') + 1);
                     _idObj = dataTen.id_Obj;
                     tbKadNum.Text = dataTen.CadastralNumber;
+                    if (cbZdan.SelectedValue != null)
+                        GetDataReklamPlaceInfo((int)cbZdan.SelectedValue);
+
                     GetLandPlot();
                 }
             }
@@ -822,6 +853,20 @@ namespace Arenda
                     if (cmbSavePayment.SelectedIndex != -1)
                         id_SavePayment = (int)cmbSavePayment.SelectedValue;
 
+
+                    DataTable dtTmp =  _proc.getInfoUsedSection(_id, startdate.Value.Date, stopdate.Value.Date,
+                        (int)cmbTypeDog.SelectedValue == 3 ? (int)cbLandPlot.SelectedValue
+                                : (int)cmbTypeDog.SelectedValue == 1 ? (int)cbSec.SelectedValue
+                                : (int)cmbReclamaPlace.SelectedValue, (int)cmbTypeDog.SelectedValue);
+
+                    if (dtTmp != null && dtTmp.Rows.Count > 0)
+                    {
+                        if ((int)dtTmp.Rows[0]["id"] == 1)
+                        {
+                            MessageBox.Show($"Данная секция\\Рекламное место\\Земельный участок занят!", "Инфрмирование", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+
                     DataTable SaveResult = new DataTable();
 
                     SaveResult = _proc.AddEditLD(_id,
@@ -831,10 +876,13 @@ namespace Arenda
                             Convert.ToDateTime(doc.Text),
                             Convert.ToDateTime(startdate.Text),
                             Convert.ToDateTime(stopdate.Text),
-                            (int)cmbTypeDog.SelectedValue == 3 ? "0" : cbZdan.SelectedValue.ToString(),
-                            (int)cmbTypeDog.SelectedValue == 3 ? "0" : cbFloor.SelectedValue.ToString(),
-                            (int)cmbTypeDog.SelectedValue == 3 ? cbLandPlot.SelectedValue.ToString() : (int)cmbTypeDog.SelectedValue == 1? cbSec.SelectedValue.ToString(): cmbReclamaPlace.SelectedValue.ToString(),
-                            (int)cmbTypeDog.SelectedValue == 3 ? "0" : cbTp.SelectedValue.ToString(),
+                            (int)cmbTypeDog.SelectedValue == 3 ? null : (int?)cbZdan.SelectedValue,
+                            (int)cmbTypeDog.SelectedValue == 3 ? null : (int?)cbFloor.SelectedValue,
+                            (int)cmbTypeDog.SelectedValue == 3 ? (int)cbLandPlot.SelectedValue
+                                : (int)cmbTypeDog.SelectedValue == 1? (int)cbSec.SelectedValue
+                                : (int)cmbReclamaPlace.SelectedValue,
+
+                            (int)cmbTypeDog.SelectedValue == 3 ? null : (int?)cbTp.SelectedValue,
                             //если реклама, передаем 0
                             (int)cmbTypeDog.SelectedValue == 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbS.Text)),
                             (int)cmbTypeDog.SelectedValue == 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbSt.Text)),
@@ -894,15 +942,26 @@ namespace Arenda
                             Logging.VariableChange("Здание ID: ", cbZdan.SelectedValue, _id_zdan);
                             Logging.VariableChange("Здание: ", cbZdan.Text, zdan);
 
-                            Logging.VariableChange("Этаж ID: ", cbFloor.SelectedValue, _id_floo);
-                            Logging.VariableChange("Этаж Наименование: ", cbFloor.Text, floo);
+                            if (cbFloor.SelectedValue != null)
+                            {
+                                Logging.VariableChange("Этаж ID: ", cbFloor.SelectedValue, _id_floo);
+                                Logging.VariableChange("Этаж Наименование: ", cbFloor.Text, floo);
+                            }
 
-                            Logging.VariableChange("Номер секции ID: ", cbSec.SelectedValue, _id_sec);
-                            Logging.VariableChange("Номер секции Наименование: ", cbSec.Text, sec);
+                            if (cbSec.SelectedValue != null)
+                            {
+                                Logging.VariableChange("Номер секции ID: ", cbSec.SelectedValue, _id_sec);
+                                Logging.VariableChange("Номер секции Наименование: ", cbSec.Text, sec);
+                            }
 
-                            Logging.VariableChange("Тип помещения ID: ", cbTp.SelectedValue, _id_tp);
-                            Logging.VariableChange("Тип помещения Наименование: ", cbTp.Text, tp);
+                            if (cbTp.SelectedValue != null)
+                            {
+                                Logging.VariableChange("Тип помещения ID: ", cbTp.SelectedValue, _id_tp);
+                                Logging.VariableChange("Тип помещения Наименование: ", cbTp.Text, tp);
+                            }
                         }
+
+
 
                         Logging.VariableChange("Общ.площадь: ", tbS.Text, s);
                         Logging.VariableChange("Аренда: ", tbAr.Text, ar);
@@ -1038,9 +1097,9 @@ namespace Arenda
                     _old_id_lord = id_lord;
                     _id_td = (int)cmbTypeDog.SelectedValue;
                     _id_zdan = _id_td == 3 ? -1 : (int)cbZdan.SelectedValue;
-                    _id_floo = _id_td == 3 ? -1 : (int)cbFloor.SelectedValue;
-                    _id_sec = _id_td == 3 ? -1 : _id_td == 1 ? (int)cbSec.SelectedValue : (int)cmbReclamaPlace.SelectedValue;
-                    _id_tp = _id_td == 3 ? -1 : (int)cbTp.SelectedValue;
+                    _id_floo = _id_td != 1 ? -1 : (int)cbFloor.SelectedValue;
+                    _id_sec = _id_td == 3 ? (int)cbLandPlot.SelectedValue : _id_td == 1 ? (int)cbSec.SelectedValue : (int)cmbReclamaPlace.SelectedValue;
+                    _id_tp = _id_td != 1 ? -1 : (int)cbTp.SelectedValue;
                     _telrab = telrab.Text;
                     _telhome = telhome.Text;
                     _telsot = telsot.Text;
@@ -1302,12 +1361,12 @@ namespace Arenda
             }
 
 
-
-            if (decimal.Parse(numTextBox.ConvertToCompPunctuation(tbS.Text)) == decimal.Parse(numTextBox.ConvertToCompPunctuation(defaultVal)))
-            {
-                err = true;
-                errmes += "\n- Общая площадь";
-            }
+            if ((int)cmbTypeDog.SelectedValue != 2)
+                if (decimal.Parse(numTextBox.ConvertToCompPunctuation(tbS.Text)) == decimal.Parse(numTextBox.ConvertToCompPunctuation(defaultVal)))
+                {
+                    err = true;
+                    errmes += "\n- Общая площадь";
+                }
 
             if ((int)cmbTypeDog.SelectedValue == 3 && tbKadNum.Text.Length == 0)
             {
@@ -1615,16 +1674,18 @@ namespace Arenda
         private void GetDataReklamPlaceInfo(int id_Build)
         {
             //_idObj
+            if ((int)cmbTypeDog.SelectedValue == 2)
+            {
+                DataTable dtReklamPLace = _proc.getReclamaPlace(_idObj, id_Build);
+                cmbReclamaPlace.DataSource = dtReklamPLace;
+                cmbReclamaPlace.DisplayMember = "NumberPlace";
+                cmbReclamaPlace.ValueMember = "id";
+                cmbReclamaPlace.SelectedIndex = -1;
 
-            DataTable dtReklamPLace = _proc.getReclamaPlace(_idObj, id_Build);
-            cmbReclamaPlace.DataSource = dtReklamPLace;
-            cmbReclamaPlace.DisplayMember = "NumberPlace";
-            cmbReclamaPlace.ValueMember = "id";
-            cmbReclamaPlace.SelectedIndex = -1;
-
-            tbReklSize1.Text = "0.00";
-            tbReklSize2.Text = "0.00";
-            //tbKadNum.Text = "";
+                tbReklSize1.Text = "0.00";
+                tbReklSize2.Text = "0.00";
+                //tbKadNum.Text = "";
+            }
         }
 
         private void GetLandPlot()

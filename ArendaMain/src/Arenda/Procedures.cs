@@ -600,14 +600,35 @@ namespace Arenda
             }
         }
 
-        public DataTable AddEditLD(int id, int id_ten, int id_lord, string agr,
-            DateTime doc, DateTime startdate, DateTime stopdate,
-            string build, string floor, string sec, string tp, decimal totalarea,
-            decimal totalareaoftrade, decimal costofmetr, decimal phone, decimal totalsum,
-            int payment, string remark, decimal reklama,
-            decimal ReklLength, decimal ReklWidth, decimal ReklArea, int ReklNumber,
-            string failComment, int id_TypeDog, string KadNum, int idObj, 
-            int RentalVacation, int? id_SavePayment)
+        public DataTable AddEditLD(int id,
+            int id_ten,
+            int id_lord,
+            string agr,
+            DateTime doc,
+            DateTime startdate,
+            DateTime stopdate,
+            int? build,
+            int? floor,
+            int sec,
+            int? tp,
+            decimal totalarea,
+            decimal totalareaoftrade,
+            decimal costofmetr,
+            decimal phone,
+            decimal totalsum,
+            int payment,
+            string remark,
+            decimal reklama,
+            decimal ReklLength,
+            decimal ReklWidth,
+            decimal ReklArea,
+            int ReklNumber,
+            string failComment,
+            int id_TypeDog,
+            string KadNum,
+            int idObj,
+            int RentalVacation,
+            int? id_SavePayment)
         {
             ap.Clear();
             ap.Add(id);
@@ -643,22 +664,69 @@ namespace Arenda
 
 
             return executeProcedure("Arenda.AddEditLD",
-                new string[] { "@id", "@ten", "@lord", "@agreement",
-                  "@Date_of_Conclusion", "@Start_Date", "@Stop_Date", "@build",
-                  "@Floor", "@Section", "@Type_of_Premises", "@Total_Area",
-                  "@Area_of_Trading_Hall", "@Cost_of_Meter", "@Phone", "@Total_Sum",
-                  "@Payment_Type",  "@Remark", "@Reklama", "@ReklLength",
-                  "@ReklWidth", "@ReklArea", "@ReklNumber", "@failComment",
-                  "@id_TypeDog", "@KadNum", "@id_obg",
-                  "@RentalVacation","@id_SavePayment","@id_user"},
-                new DbType[] { DbType.Int32, DbType.Int32, DbType.Int32,
-                  DbType.String, DbType.DateTime, DbType.DateTime, DbType.DateTime,
-                  DbType.String, DbType.String, DbType.String, DbType.String,
-                  DbType.Decimal, DbType.Decimal, DbType.Decimal, DbType.Decimal,
-                  DbType.Decimal, DbType.Int32,  DbType.String, DbType.Decimal,
-                  DbType.Decimal, DbType.Decimal, DbType.Decimal, DbType.Int32,
-                  DbType.String, DbType.Int32, DbType.String, DbType.Int32
-                , DbType.Int32, DbType.Int32, DbType.Int32}, ap);
+                new string[] { 
+                    "@id",
+                    "@ten",
+                    "@lord",
+                    "@agreement",
+                    "@Date_of_Conclusion",
+                    "@Start_Date",
+                    "@Stop_Date",
+                    "@build",
+                    "@Floor",
+                    "@Section",
+                    "@Type_of_Premises",
+                    "@Total_Area",
+                    "@Area_of_Trading_Hall",
+                    "@Cost_of_Meter",
+                    "@Phone", 
+                    "@Total_Sum",
+                    "@Payment_Type",  
+                    "@Remark", 
+                    "@Reklama", 
+                    "@ReklLength",
+                    "@ReklWidth", 
+                    "@ReklArea", 
+                    "@ReklNumber", 
+                    "@failComment",
+                    "@id_TypeDog", 
+                    "@KadNum", 
+                    "@id_obg",
+                    "@RentalVacation",
+                    "@id_SavePayment",
+                    "@id_user"},
+                new DbType[] { 
+                    DbType.Int32,
+                    DbType.Int32,
+                    DbType.Int32,
+                    DbType.String,
+                    DbType.DateTime,
+                    DbType.DateTime,
+                    DbType.DateTime,
+                    DbType.Int32,
+                    DbType.Int32,
+                    DbType.Int32, 
+                    DbType.Int32,   
+                    DbType.Decimal, 
+                    DbType.Decimal, 
+                    DbType.Decimal, 
+                    DbType.Decimal,
+                    DbType.Decimal, 
+                    DbType.Int32,  
+                    DbType.String, 
+                    DbType.Decimal,
+                    DbType.Decimal, 
+                    DbType.Decimal, 
+                    DbType.Decimal, 
+                    DbType.Int32,
+                    DbType.String, 
+                    DbType.Int32, 
+                    DbType.String, 
+                    DbType.Int32,
+                    DbType.Int32, 
+                    DbType.Int32, 
+                    DbType.Int32
+                }, ap);
         }
 
         public DataTable CheckDogNum(int id, string num)
@@ -2207,6 +2275,20 @@ namespace Arenda
             return executeProcedure("Arenda.spg_getLandPlot",
               new string[1] { "@id_ObjectLease" },
               new DbType[1] { DbType.Int32 }, ap);
+        }
+
+        public DataTable getInfoUsedSection(int id,DateTime dateStart,DateTime dateEnd,int id_section,int id_TypeContract)
+        {
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(dateStart);
+            ap.Add(dateEnd);
+            ap.Add(id_section);
+            ap.Add(id_TypeContract);
+
+            return executeProcedure("Arenda.spg_getInfoUsedSection",
+              new string[5] { "@id", "@dateStart", "@dateEnd", "@id_section", "@id_TypeContract" },
+              new DbType[5] { DbType.Int32,DbType.Date,DbType.Date,DbType.Int32,DbType.Int32 }, ap);
         }
 
     }    
