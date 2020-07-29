@@ -1719,6 +1719,14 @@ namespace Arenda
             }
         }
 
+        private void btAddDiscount_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.OK == new Payments.frmAddDiscount() { id_Agreements = _id }.ShowDialog())
+            { 
+            
+            }
+        }
+
         private void cmbReclamaPlace_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (cmbReclamaPlace.SelectedValue != null)

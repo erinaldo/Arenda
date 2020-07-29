@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAddPayment));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btSelectJFines = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnQuit = new System.Windows.Forms.Button();
             this.lblDate = new System.Windows.Forms.Label();
             this.lblSum = new System.Windows.Forms.Label();
             this.dtpDate = new System.Windows.Forms.DateTimePicker();
@@ -58,13 +61,46 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tbMonth = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.btSelectJFines = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnQuit = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // btSelectJFines
+            // 
+            this.btSelectJFines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btSelectJFines.Image = global::Arenda.Properties.Resources._1493746719_shopping_cart;
+            this.btSelectJFines.Location = new System.Drawing.Point(258, 95);
+            this.btSelectJFines.Name = "btSelectJFines";
+            this.btSelectJFines.Size = new System.Drawing.Size(30, 30);
+            this.btSelectJFines.TabIndex = 57;
+            this.toolTip1.SetToolTip(this.btSelectJFines, "Выбор счёта");
+            this.btSelectJFines.UseVisualStyleBackColor = true;
+            this.btSelectJFines.Click += new System.EventHandler(this.btSelectJFines_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
+            this.btnSave.Location = new System.Drawing.Point(250, 370);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(30, 30);
+            this.btnSave.TabIndex = 41;
+            this.toolTip1.SetToolTip(this.btnSave, "Сохранить");
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnQuit
+            // 
+            this.btnQuit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnQuit.Image = ((System.Drawing.Image)(resources.GetObject("btnQuit.Image")));
+            this.btnQuit.Location = new System.Drawing.Point(286, 370);
+            this.btnQuit.Name = "btnQuit";
+            this.btnQuit.Size = new System.Drawing.Size(30, 30);
+            this.btnQuit.TabIndex = 40;
+            this.toolTip1.SetToolTip(this.btnQuit, "Выход");
+            this.btnQuit.UseVisualStyleBackColor = true;
+            this.btnQuit.Click += new System.EventHandler(this.btnQuit_Click);
             // 
             // lblDate
             // 
@@ -329,47 +365,11 @@
             this.label3.TabIndex = 57;
             this.label3.Text = "Месяц";
             // 
-            // btSelectJFines
-            // 
-            this.btSelectJFines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btSelectJFines.Image = global::Arenda.Properties.Resources._1493746719_shopping_cart;
-            this.btSelectJFines.Location = new System.Drawing.Point(258, 95);
-            this.btSelectJFines.Name = "btSelectJFines";
-            this.btSelectJFines.Size = new System.Drawing.Size(30, 30);
-            this.btSelectJFines.TabIndex = 57;
-            this.toolTip1.SetToolTip(this.btSelectJFines, "Выбор счёта");
-            this.btSelectJFines.UseVisualStyleBackColor = true;
-            this.btSelectJFines.Click += new System.EventHandler(this.btSelectJFines_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(253, 368);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(30, 30);
-            this.btnSave.TabIndex = 41;
-            this.toolTip1.SetToolTip(this.btnSave, "Сохранить");
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnQuit
-            // 
-            this.btnQuit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnQuit.Image = ((System.Drawing.Image)(resources.GetObject("btnQuit.Image")));
-            this.btnQuit.Location = new System.Drawing.Point(289, 368);
-            this.btnQuit.Name = "btnQuit";
-            this.btnQuit.Size = new System.Drawing.Size(30, 30);
-            this.btnQuit.TabIndex = 40;
-            this.toolTip1.SetToolTip(this.btnQuit, "Выход");
-            this.btnQuit.UseVisualStyleBackColor = true;
-            this.btnQuit.Click += new System.EventHandler(this.btnQuit_Click);
-            // 
             // frmAddPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(323, 402);
+            this.ClientSize = new System.Drawing.Size(336, 412);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);

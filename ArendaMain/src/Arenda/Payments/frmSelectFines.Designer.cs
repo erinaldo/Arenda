@@ -74,7 +74,7 @@
             this.dgvData.ReadOnly = true;
             this.dgvData.RowHeadersVisible = false;
             this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvData.Size = new System.Drawing.Size(776, 359);
+            this.dgvData.Size = new System.Drawing.Size(768, 359);
             this.dgvData.TabIndex = 22;
             // 
             // DateFines
@@ -127,7 +127,7 @@
             // 
             this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btClose.Image = global::Arenda.Properties.Resources.Log_Out_icon1;
-            this.btClose.Location = new System.Drawing.Point(756, 406);
+            this.btClose.Location = new System.Drawing.Point(748, 406);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(32, 32);
             this.btClose.TabIndex = 20;
@@ -177,7 +177,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(796, 446);
+            this.ClientSize = new System.Drawing.Size(792, 442);
             this.ControlBox = false;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dtpEnd);

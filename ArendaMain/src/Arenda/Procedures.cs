@@ -1290,7 +1290,7 @@ namespace Arenda
                 new DbType[] { DbType.Int32, DbType.Int32, DbType.DateTime, DbType.Int32 }, ap);
         }
 
-        public int AddEditTaxes(int id, int id_Agreements, DateTime Date, decimal Summa, string Comment, int id_АddPayment)
+        public int AddEditTaxes(int id, int id_Agreements, DateTime Date, decimal Summa, string Comment, int id_АddPayment,DateTime datePlane, decimal? meters)
         {
             ap.Clear();
             ap.Add(id);
@@ -1299,14 +1299,16 @@ namespace Arenda
             ap.Add(Summa);
             ap.Add(Comment);
             ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
-            ap.Add(id_АddPayment);            
+            ap.Add(id_АddPayment);
+            ap.Add(datePlane);
+            ap.Add(meters);
 
             DataTable dt = new DataTable();
             dt = executeProcedure("[Arenda].[AddEditTaxes]",
-                new string[] { "@id", "@id_Agreements", "@Date", "@Summa", "@Comment", 
-                               "@id_Editor", "@id_АddPayment" },
+                new string[] { "@id", "@id_Agreements", "@Date", "@Summa", "@Comment",
+                               "@id_Editor", "@id_АddPayment","@datePlane","@meters" },
                 new DbType[] { DbType.Int32, DbType.Int32, DbType.DateTime, DbType.Decimal, DbType.String,
-                               DbType.Int32, DbType.Int32 }, ap);
+                               DbType.Int32, DbType.Int32,DbType.Date,DbType.Decimal }, ap);
 
             int id_row = 0;
             if ((dt != null) && (dt.Rows.Count > 0))
@@ -2350,6 +2352,63 @@ namespace Arenda
             return executeProcedure("Arenda.spg_getFineConfirmed",
               new string[3] { "@id_Agreements", "@dateStart", "@dateEnd" },
               new DbType[3] { DbType.Int32,DbType.Date,DbType.Date }, ap);
+        }
+
+        public DataTable GetListTaxesForKnt(DateTime DatePlane)
+        {
+            ap.Clear();
+            ap.Add(DatePlane);
+
+            return executeProcedure("Arenda.spg_GetListTaxesForKnt",
+              new string[1] { "@DatePlane" },
+              new DbType[1] { DbType.Date }, ap);
+        }
+
+        public DataTable setConfirmedTaxes(int id)
+        {
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
+
+
+            return executeProcedure("Arenda.spg_setConfirmedTaxes",
+              new string[2] { "@id", "@id_user" },
+              new DbType[2] { DbType.Int32, DbType.Int32 }, ap);
+        }
+
+        public DataTable getTypeDiscount(bool withAllDeps = false)
+        {
+            ap.Clear();
+
+            DataTable dtResult = executeProcedure("[Arenda].[spg_getTypeDiscount]",
+                 new string[0] { },
+                 new DbType[0] { }, ap);
+
+            if (withAllDeps)
+            {
+                if (dtResult != null)
+                {
+                    if (!dtResult.Columns.Contains("isMain"))
+                    {
+                        DataColumn col = new DataColumn("isMain", typeof(int));
+                        col.DefaultValue = 1;
+                        dtResult.Columns.Add(col);
+                        dtResult.AcceptChanges();
+                    }
+
+                    DataRow row = dtResult.NewRow();
+
+                    row["cName"] = "Все Типы скидки";
+                    row["id"] = 0;
+                    row["isMain"] = 0;
+                    dtResult.Rows.Add(row);
+                    dtResult.AcceptChanges();
+                    dtResult.DefaultView.Sort = "isMain asc, cName asc";
+                    dtResult = dtResult.DefaultView.ToTable().Copy();
+                }
+            }
+
+            return dtResult;
         }
     }    
 }

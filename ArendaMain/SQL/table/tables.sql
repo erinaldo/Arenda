@@ -22,5 +22,9 @@ ALTER TABLE Arenda.[j_PaymentContract] ADD PlaneDate Date null
 
 
 ALTER TABLE Arenda.[j_Fines] ADD isConfirmed bit null 
-ALTER TABLE Arenda.[j_Fines] ADD MetersData int null 
+ALTER TABLE Arenda.[j_Fines] ADD MetersData numeric(16,2) null 
 ALTER TABLE Arenda.[j_Fines] ADD PlanDate Date null 
+
+
+
+ALTER TABLE Arenda.[s_AddPayment] ADD isMeter bit not null DEFAULT 0

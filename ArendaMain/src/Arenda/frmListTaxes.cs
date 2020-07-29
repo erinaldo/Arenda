@@ -22,6 +22,8 @@ namespace Arenda
         {
             id = _id;
             InitializeComponent();
+            grdPayments.AutoGenerateColumns = false;
+            
         }
 
         private void frmListTaxes_Load(object sender, EventArgs e)
@@ -89,7 +91,7 @@ namespace Arenda
             }
 
             dtTaxes.AcceptChanges();
-            FilterDataView();
+            FilterDataView();            
         }
 
         private void FilterDataView()
@@ -107,6 +109,7 @@ namespace Arenda
             }
 
             ButtonsAndTexts();
+            grdPayments_SelectionChanged(null, null);
         }
 
         private void Filter()
@@ -219,8 +222,13 @@ namespace Arenda
                 txtEditor.Text = grdPayments.CurrentRow.Cells["Editor"].Value.ToString();
                 txtDateEdit.Text = grdPayments.CurrentRow.Cells["DateEdit"].Value.ToString();
                 txtComment.Text = grdPayments.CurrentRow.Cells["Comment"].Value.ToString();
+                btnDel.Enabled = btnEdit.Enabled = !(bool)grdPayments.CurrentRow.Cells["isConfirmed"].Value;
             }
-            catch { txtEditor.Text = ""; txtDateEdit.Text = ""; txtComment.Text = ""; }
+            catch
+            {
+                txtEditor.Text = ""; txtDateEdit.Text = ""; txtComment.Text = "";
+                btnDel.Enabled = btnEdit.Enabled = false;
+            }
         }
 
         private void btnDel_Click(object sender, EventArgs e)

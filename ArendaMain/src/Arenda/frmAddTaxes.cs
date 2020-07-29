@@ -37,12 +37,29 @@ namespace Arenda
         }
 
         private void frmAddTaxes_Load(object sender, EventArgs e)
-        {            
+        {
+
+            DateTime nowDate = _proc.getdate();
+
+            nowDate = nowDate.AddDays(-nowDate.Day+1);
+
+            DataTable dtPlaneDate = new DataTable();
+            dtPlaneDate.Columns.Add("Date", typeof(string));
+            dtPlaneDate.Columns.Add("valueDate", typeof(DateTime));
+            dtPlaneDate.Rows.Add($"{nowDate.AddMonths(-1).Month}.{nowDate.AddMonths(-1).Year}", nowDate.AddMonths(-1));
+            dtPlaneDate.Rows.Add($"{nowDate.Month}.{nowDate.Year}", nowDate);
+            dtPlaneDate.Rows.Add($"{nowDate.AddMonths(1).Month}.{nowDate.AddMonths(1).Year}", nowDate.AddMonths(1));
+            cmbPlaneDate.DataSource = dtPlaneDate;
+            cmbPlaneDate.DisplayMember = "Date";
+            cmbPlaneDate.ValueMember = "valueDate";
+
+
             if (mode == "add")
             {
                 this.Text = "Добавить доп. оплату по договору № " + num;
                 cboAnotherPayFill(false);
                 cboAnotherPay.SelectedValue = -1;
+                cboAnotherPay_SelectionChangeCommitted(null, null);
             }
             else
             {
@@ -65,14 +82,30 @@ namespace Arenda
                 {
                     cboAnotherPay.SelectedValue = -1;
                 }
+                cboAnotherPay_SelectionChangeCommitted(null, null);
 
+                if (dr["PlanDate"] != DBNull.Value)
+                {
+                    cmbPlaneDate.SelectedValue = dr["PlanDate"];
+                }
+
+                if (dr["MetersData"] != DBNull.Value)
+                {
+                    tbDataMeters.Text = dr["MetersData"].ToString();
+                }
+
+                cmbPlaneDate.Enabled = false;
             }
             oldDate = dtpDate.Value;
             oldSum = txtSum.Text = numTextBox.CheckAndChange(txtSum.Text, 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}");
             oldComment = txtComment.Text.Trim();
             oldPayment = cboAnotherPay.Text;
             oldAnotherPayID = (cboAnotherPay.SelectedValue == null) ? 0 : int.Parse(cboAnotherPay.SelectedValue.ToString());
-            oldAnotherPay = cboAnotherPay.Text;            
+            oldAnotherPay = cboAnotherPay.Text;
+
+
+            tbDataMeters.Text = numTextBox.CheckAndChange(tbDataMeters.Text, 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}");
+
         }
 
         private void cboAnotherPayFill(bool all)
@@ -83,7 +116,7 @@ namespace Arenda
 
             cboAnotherPay.DataSource = dtAnotherPay;
             cboAnotherPay.DisplayMember = "cName";
-            cboAnotherPay.ValueMember = "id";      
+            cboAnotherPay.ValueMember = "id";            
         }
 
         private void btnQuit_Click(object sender, EventArgs e)
@@ -186,16 +219,48 @@ namespace Arenda
             }
         }
 
+        private void cboAnotherPay_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (cboAnotherPay.SelectedValue == null)
+            {
+                lMeters.Visible = tbDataMeters.Visible = false;
+                return;
+            }
+            EnumerableRowCollection<DataRow> rowCollect = (cboAnotherPay.DataSource as DataTable).AsEnumerable().Where(r => r.Field<int>("id") == (int)cboAnotherPay.SelectedValue && r.Field<bool>("isMeter"));
+
+            if (rowCollect.Count() > 0)
+            {
+                lMeters.Visible = tbDataMeters.Visible = true;
+            }
+            else
+            {
+                lMeters.Visible = tbDataMeters.Visible = false;
+            }
+        }
+
+        private void tbDataMeters_Leave(object sender, EventArgs e)
+        {
+            tbDataMeters.Text = numTextBox.CheckAndChange(tbDataMeters.Text, 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}");
+        }
+
         private void save()
         {
             int id_row = 0;
+
+            DateTime datePlane = DateTime.Parse(cmbPlaneDate.Text);
+            decimal? _metes = null;
+            if (tbDataMeters.Visible)
+                _metes = decimal.Parse(tbDataMeters.Text.Replace(".", ","));
+
 
             id_row  = _proc.AddEditTaxes(id,
                      id_agreement,
                      dtpDate.Value.Date,
                      decimal.Parse(numTextBox.ConvertToCompPunctuation(txtSum.Text)),
                      txtComment.Text.Trim(),
-                     int.Parse(cboAnotherPay.SelectedValue.ToString())
+                     int.Parse(cboAnotherPay.SelectedValue.ToString()),
+                     datePlane,
+                     _metes
                      );
 
             

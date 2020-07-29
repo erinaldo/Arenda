@@ -97,6 +97,7 @@ namespace Arenda
             btnListTaxes.Enabled = false;
             btnView.Enabled = false;
             btCopyDoc.Enabled = false;
+            //btKntListTaxes.Enabled = false;
 
             btnListPayment.Visible = false;
             btnListTaxes.Visible = false;
@@ -182,6 +183,7 @@ namespace Arenda
             btJournalSealSections.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
             btAcceptDoc.Visible = new List<string> { "СОА", "РКВ","КНТ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
             btCopyDoc.Visible = new List<string> { "СОА", "РКВ"}.Contains(TempData.Rezhim) && pListDoc.Visible;
+            btKntListTaxes.Visible = new List<string> { "КНТ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
         }
 
         private void арендаторыToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2383,6 +2385,11 @@ namespace Arenda
                 }
                 iniListDoc();
             }
+        }
+
+        private void btKntListTaxes_Click(object sender, EventArgs e)
+        {
+            new Payments.frmKntListTaxes().ShowDialog();
         }
 
         private void sPhone_KeyPress(object sender, KeyPressEventArgs e)

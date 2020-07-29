@@ -290,6 +290,18 @@
     <Compile Include="ImagePanel.Designer.cs">
       <DependentUpon>ImagePanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Payments\frmAddDiscount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payments\frmAddDiscount.Designer.cs">
+      <DependentUpon>frmAddDiscount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Payments\frmKntListTaxes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payments\frmKntListTaxes.Designer.cs">
+      <DependentUpon>frmKntListTaxes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Payments\frmSelectFines.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -571,6 +583,12 @@
     <EmbeddedResource Include="ImagePanel.resx">
       <DependentUpon>ImagePanel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Payments\frmAddDiscount.resx">
+      <DependentUpon>frmAddDiscount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payments\frmKntListTaxes.resx">
+      <DependentUpon>frmKntListTaxes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Payments\frmSelectFines.resx">
       <DependentUpon>frmSelectFines.cs</DependentUpon>
     </EmbeddedResource>
@@ -765,6 +783,8 @@
     <None Include="Resources\shop.png" />
     <None Include="Resources\close.png" />
     <None Include="Resources\1493746719_shopping cart.png" />
+    <None Include="Resources\document_add.png" />
+    <None Include="Resources\document_delete.png" />
     <Content Include="Resources\pict_edit.BMP" />
     <Content Include="Resources\pict_save.BMP" />
   </ItemGroup>

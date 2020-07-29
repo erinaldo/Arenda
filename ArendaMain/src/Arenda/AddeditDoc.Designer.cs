@@ -29,8 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddeditDoc));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
             this.cmbTypeDog = new System.Windows.Forms.ComboBox();
@@ -85,11 +86,32 @@
             this.tbcbm = new System.Windows.Forms.TextBox();
             this.tbphone = new System.Windows.Forms.TextBox();
             this.tbAr = new System.Windows.Forms.TextBox();
+            this.tbremark = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.did = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numberDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.пиуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbFailComment = new System.Windows.Forms.TextBox();
+            this.lFailComment = new System.Windows.Forms.Label();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.telsot = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.telhome = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.telrab = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.tbRentalVacation = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.cmbSavePayment = new System.Windows.Forms.ComboBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.lblDopS = new System.Windows.Forms.Label();
             this.tbDopS = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.dgAddDoc = new System.Windows.Forms.DataGridView();
             this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.td = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -105,44 +127,35 @@
             this.id_TypeDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total_Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date_of_Departure = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tbremark = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.dgvData = new System.Windows.Forms.DataGridView();
+            this.cStartDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cStopDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cTypeDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cSumDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cConfirmD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btAddDiscount = new System.Windows.Forms.Button();
+            this.btDelDiscount = new System.Windows.Forms.Button();
             this.btAddDoc = new System.Windows.Forms.Button();
             this.btExit = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
-            this.did = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numberDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.пиуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tbFailComment = new System.Windows.Forms.TextBox();
-            this.lFailComment = new System.Windows.Forms.Label();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.telsot = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.telhome = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.telrab = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.bds = new System.Windows.Forms.BindingSource(this.components);
-            this.label13 = new System.Windows.Forms.Label();
-            this.tbRentalVacation = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.cmbSavePayment = new System.Windows.Forms.ComboBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgAddDoc)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bds)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgAddDoc)).BeginInit();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bds)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -730,216 +743,6 @@
             this.tbAr.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbAr.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbAr_KeyPress);
             // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.lblDopS);
-            this.groupBox5.Controls.Add(this.tbDopS);
-            this.groupBox5.Controls.Add(this.button3);
-            this.groupBox5.Controls.Add(this.button4);
-            this.groupBox5.Controls.Add(this.dgAddDoc);
-            this.groupBox5.Location = new System.Drawing.Point(316, 102);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(383, 169);
-            this.groupBox5.TabIndex = 4;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Доп. соглашения";
-            // 
-            // lblDopS
-            // 
-            this.lblDopS.AutoSize = true;
-            this.lblDopS.Location = new System.Drawing.Point(22, 134);
-            this.lblDopS.Name = "lblDopS";
-            this.lblDopS.Size = new System.Drawing.Size(81, 13);
-            this.lblDopS.TabIndex = 13;
-            this.lblDopS.Text = "Общ. площадь";
-            // 
-            // tbDopS
-            // 
-            this.tbDopS.Location = new System.Drawing.Point(109, 131);
-            this.tbDopS.MaxLength = 12;
-            this.tbDopS.Name = "tbDopS";
-            this.tbDopS.ReadOnly = true;
-            this.tbDopS.Size = new System.Drawing.Size(118, 20);
-            this.tbDopS.TabIndex = 14;
-            this.tbDopS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // button3
-            // 
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(345, 131);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(32, 32);
-            this.button3.TabIndex = 41;
-            this.button3.TabStop = false;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
-            this.button4.Location = new System.Drawing.Point(293, 131);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(32, 32);
-            this.button4.TabIndex = 40;
-            this.button4.TabStop = false;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // dgAddDoc
-            // 
-            this.dgAddDoc.AllowUserToAddRows = false;
-            this.dgAddDoc.AllowUserToDeleteRows = false;
-            this.dgAddDoc.AllowUserToResizeRows = false;
-            this.dgAddDoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgAddDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgAddDoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgAddDoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.number,
-            this.td,
-            this.datetd,
-            this.tdid,
-            this.id_agree,
-            this.isActive,
-            this.DateRenewal,
-            this.id_Creator,
-            this.DateCreate,
-            this.id_Editor,
-            this.DateEdit,
-            this.id_TypeDoc,
-            this.Total_Area,
-            this.Date_of_Departure});
-            this.dgAddDoc.Location = new System.Drawing.Point(17, 17);
-            this.dgAddDoc.Name = "dgAddDoc";
-            this.dgAddDoc.ReadOnly = true;
-            this.dgAddDoc.RowHeadersVisible = false;
-            this.dgAddDoc.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgAddDoc.Size = new System.Drawing.Size(360, 108);
-            this.dgAddDoc.TabIndex = 0;
-            this.dgAddDoc.TabStop = false;
-            this.dgAddDoc.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgAddDoc_CellClick);
-            this.dgAddDoc.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgAddDoc_CellDoubleClick);
-            this.dgAddDoc.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgAddDoc_RowStateChanged);
-            this.dgAddDoc.SelectionChanged += new System.EventHandler(this.dgAddDoc_SelectionChanged);
-            // 
-            // number
-            // 
-            this.number.DataPropertyName = "Number";
-            this.number.FillWeight = 30F;
-            this.number.HeaderText = "№";
-            this.number.Name = "number";
-            this.number.ReadOnly = true;
-            // 
-            // td
-            // 
-            this.td.DataPropertyName = "Rus";
-            this.td.FillWeight = 110F;
-            this.td.HeaderText = "Тип документа";
-            this.td.Name = "td";
-            this.td.ReadOnly = true;
-            // 
-            // datetd
-            // 
-            this.datetd.DataPropertyName = "DateDocument";
-            this.datetd.FillWeight = 70F;
-            this.datetd.HeaderText = "Дата документа";
-            this.datetd.Name = "datetd";
-            this.datetd.ReadOnly = true;
-            // 
-            // tdid
-            // 
-            this.tdid.DataPropertyName = "id";
-            this.tdid.HeaderText = "id";
-            this.tdid.Name = "tdid";
-            this.tdid.ReadOnly = true;
-            this.tdid.Visible = false;
-            // 
-            // id_agree
-            // 
-            this.id_agree.DataPropertyName = "id_Agreements";
-            this.id_agree.HeaderText = "id_agree";
-            this.id_agree.Name = "id_agree";
-            this.id_agree.ReadOnly = true;
-            this.id_agree.Visible = false;
-            // 
-            // isActive
-            // 
-            this.isActive.DataPropertyName = "isActive";
-            this.isActive.HeaderText = "isActive";
-            this.isActive.Name = "isActive";
-            this.isActive.ReadOnly = true;
-            this.isActive.Visible = false;
-            // 
-            // DateRenewal
-            // 
-            this.DateRenewal.DataPropertyName = "DateRenewal";
-            this.DateRenewal.HeaderText = "DR";
-            this.DateRenewal.Name = "DateRenewal";
-            this.DateRenewal.ReadOnly = true;
-            this.DateRenewal.Visible = false;
-            // 
-            // id_Creator
-            // 
-            this.id_Creator.DataPropertyName = "id_Creator";
-            this.id_Creator.HeaderText = "id_Cerator";
-            this.id_Creator.Name = "id_Creator";
-            this.id_Creator.ReadOnly = true;
-            this.id_Creator.Visible = false;
-            // 
-            // DateCreate
-            // 
-            this.DateCreate.DataPropertyName = "DateCreate";
-            this.DateCreate.HeaderText = "DC";
-            this.DateCreate.Name = "DateCreate";
-            this.DateCreate.ReadOnly = true;
-            this.DateCreate.Visible = false;
-            // 
-            // id_Editor
-            // 
-            this.id_Editor.DataPropertyName = "id_Editor";
-            this.id_Editor.HeaderText = "id_Editor";
-            this.id_Editor.Name = "id_Editor";
-            this.id_Editor.ReadOnly = true;
-            this.id_Editor.Visible = false;
-            // 
-            // DateEdit
-            // 
-            this.DateEdit.DataPropertyName = "DateEdit";
-            this.DateEdit.HeaderText = "DE";
-            this.DateEdit.Name = "DateEdit";
-            this.DateEdit.ReadOnly = true;
-            this.DateEdit.Visible = false;
-            // 
-            // id_TypeDoc
-            // 
-            this.id_TypeDoc.DataPropertyName = "id_TypeDoc";
-            this.id_TypeDoc.HeaderText = "id_TypeDoc";
-            this.id_TypeDoc.Name = "id_TypeDoc";
-            this.id_TypeDoc.ReadOnly = true;
-            this.id_TypeDoc.Visible = false;
-            // 
-            // Total_Area
-            // 
-            this.Total_Area.DataPropertyName = "Total_Area";
-            this.Total_Area.HeaderText = "Total_Area";
-            this.Total_Area.Name = "Total_Area";
-            this.Total_Area.ReadOnly = true;
-            this.Total_Area.Visible = false;
-            // 
-            // Date_of_Departure
-            // 
-            this.Date_of_Departure.DataPropertyName = "Date_of_Departure";
-            this.Date_of_Departure.HeaderText = "Date_of_Departure";
-            this.Date_of_Departure.Name = "Date_of_Departure";
-            this.Date_of_Departure.ReadOnly = true;
-            this.Date_of_Departure.Visible = false;
-            // 
             // tbremark
             // 
             this.tbremark.Location = new System.Drawing.Point(316, 370);
@@ -962,40 +765,6 @@
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
-            // 
-            // btAddDoc
-            // 
-            this.btAddDoc.Image = ((System.Drawing.Image)(resources.GetObject("btAddDoc.Image")));
-            this.btAddDoc.Location = new System.Drawing.Point(547, 540);
-            this.btAddDoc.Name = "btAddDoc";
-            this.btAddDoc.Size = new System.Drawing.Size(32, 32);
-            this.btAddDoc.TabIndex = 42;
-            this.btAddDoc.TabStop = false;
-            this.toolTip1.SetToolTip(this.btAddDoc, "Работа с документами");
-            this.btAddDoc.UseVisualStyleBackColor = true;
-            this.btAddDoc.Click += new System.EventHandler(this.btAddDoc_Click);
-            // 
-            // btExit
-            // 
-            this.btExit.Image = ((System.Drawing.Image)(resources.GetObject("btExit.Image")));
-            this.btExit.Location = new System.Drawing.Point(667, 540);
-            this.btExit.Name = "btExit";
-            this.btExit.Size = new System.Drawing.Size(32, 32);
-            this.btExit.TabIndex = 19;
-            this.toolTip1.SetToolTip(this.btExit, "Выйти");
-            this.btExit.UseVisualStyleBackColor = true;
-            this.btExit.Click += new System.EventHandler(this.btExit_Click);
-            // 
-            // btAdd
-            // 
-            this.btAdd.Image = ((System.Drawing.Image)(resources.GetObject("btAdd.Image")));
-            this.btAdd.Location = new System.Drawing.Point(610, 540);
-            this.btAdd.Name = "btAdd";
-            this.btAdd.Size = new System.Drawing.Size(32, 32);
-            this.btAdd.TabIndex = 18;
-            this.toolTip1.SetToolTip(this.btAdd, "Сохранить");
-            this.btAdd.UseVisualStyleBackColor = true;
-            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
             // did
             // 
@@ -1168,6 +937,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox7);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.cmbSavePayment);
@@ -1175,7 +945,6 @@
             this.tabPage1.Controls.Add(this.tbRentalVacation);
             this.tabPage1.Controls.Add(this.groupBox4);
             this.tabPage1.Controls.Add(this.btAddDoc);
-            this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.groupBox6);
             this.tabPage1.Controls.Add(this.tbremark);
             this.tabPage1.Controls.Add(this.btExit);
@@ -1195,13 +964,360 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(725, 588);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Скидка";
+            this.tabPage2.Text = "Доп. соглашения";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.lblDopS);
+            this.groupBox5.Controls.Add(this.tbDopS);
+            this.groupBox5.Controls.Add(this.button3);
+            this.groupBox5.Controls.Add(this.button4);
+            this.groupBox5.Controls.Add(this.dgAddDoc);
+            this.groupBox5.Location = new System.Drawing.Point(8, 6);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(709, 169);
+            this.groupBox5.TabIndex = 5;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Доп. соглашения";
+            // 
+            // lblDopS
+            // 
+            this.lblDopS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblDopS.AutoSize = true;
+            this.lblDopS.Location = new System.Drawing.Point(22, 141);
+            this.lblDopS.Name = "lblDopS";
+            this.lblDopS.Size = new System.Drawing.Size(81, 13);
+            this.lblDopS.TabIndex = 13;
+            this.lblDopS.Text = "Общ. площадь";
+            // 
+            // tbDopS
+            // 
+            this.tbDopS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbDopS.Location = new System.Drawing.Point(109, 137);
+            this.tbDopS.MaxLength = 12;
+            this.tbDopS.Name = "tbDopS";
+            this.tbDopS.ReadOnly = true;
+            this.tbDopS.Size = new System.Drawing.Size(118, 20);
+            this.tbDopS.TabIndex = 14;
+            this.tbDopS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // dgAddDoc
+            // 
+            this.dgAddDoc.AllowUserToAddRows = false;
+            this.dgAddDoc.AllowUserToDeleteRows = false;
+            this.dgAddDoc.AllowUserToResizeRows = false;
+            this.dgAddDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgAddDoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgAddDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgAddDoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgAddDoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.number,
+            this.td,
+            this.datetd,
+            this.tdid,
+            this.id_agree,
+            this.isActive,
+            this.DateRenewal,
+            this.id_Creator,
+            this.DateCreate,
+            this.id_Editor,
+            this.DateEdit,
+            this.id_TypeDoc,
+            this.Total_Area,
+            this.Date_of_Departure});
+            this.dgAddDoc.Location = new System.Drawing.Point(17, 17);
+            this.dgAddDoc.Name = "dgAddDoc";
+            this.dgAddDoc.ReadOnly = true;
+            this.dgAddDoc.RowHeadersVisible = false;
+            this.dgAddDoc.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgAddDoc.Size = new System.Drawing.Size(680, 108);
+            this.dgAddDoc.TabIndex = 0;
+            this.dgAddDoc.TabStop = false;
+            this.dgAddDoc.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgAddDoc_CellClick);
+            this.dgAddDoc.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgAddDoc_CellDoubleClick);
+            this.dgAddDoc.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgAddDoc_RowStateChanged);
+            this.dgAddDoc.SelectionChanged += new System.EventHandler(this.dgAddDoc_SelectionChanged);
+            // 
+            // number
+            // 
+            this.number.DataPropertyName = "Number";
+            this.number.FillWeight = 30F;
+            this.number.HeaderText = "№";
+            this.number.Name = "number";
+            this.number.ReadOnly = true;
+            // 
+            // td
+            // 
+            this.td.DataPropertyName = "Rus";
+            this.td.FillWeight = 110F;
+            this.td.HeaderText = "Тип документа";
+            this.td.Name = "td";
+            this.td.ReadOnly = true;
+            // 
+            // datetd
+            // 
+            this.datetd.DataPropertyName = "DateDocument";
+            this.datetd.FillWeight = 70F;
+            this.datetd.HeaderText = "Дата документа";
+            this.datetd.Name = "datetd";
+            this.datetd.ReadOnly = true;
+            // 
+            // tdid
+            // 
+            this.tdid.DataPropertyName = "id";
+            this.tdid.HeaderText = "id";
+            this.tdid.Name = "tdid";
+            this.tdid.ReadOnly = true;
+            this.tdid.Visible = false;
+            // 
+            // id_agree
+            // 
+            this.id_agree.DataPropertyName = "id_Agreements";
+            this.id_agree.HeaderText = "id_agree";
+            this.id_agree.Name = "id_agree";
+            this.id_agree.ReadOnly = true;
+            this.id_agree.Visible = false;
+            // 
+            // isActive
+            // 
+            this.isActive.DataPropertyName = "isActive";
+            this.isActive.HeaderText = "isActive";
+            this.isActive.Name = "isActive";
+            this.isActive.ReadOnly = true;
+            this.isActive.Visible = false;
+            // 
+            // DateRenewal
+            // 
+            this.DateRenewal.DataPropertyName = "DateRenewal";
+            this.DateRenewal.HeaderText = "DR";
+            this.DateRenewal.Name = "DateRenewal";
+            this.DateRenewal.ReadOnly = true;
+            this.DateRenewal.Visible = false;
+            // 
+            // id_Creator
+            // 
+            this.id_Creator.DataPropertyName = "id_Creator";
+            this.id_Creator.HeaderText = "id_Cerator";
+            this.id_Creator.Name = "id_Creator";
+            this.id_Creator.ReadOnly = true;
+            this.id_Creator.Visible = false;
+            // 
+            // DateCreate
+            // 
+            this.DateCreate.DataPropertyName = "DateCreate";
+            this.DateCreate.HeaderText = "DC";
+            this.DateCreate.Name = "DateCreate";
+            this.DateCreate.ReadOnly = true;
+            this.DateCreate.Visible = false;
+            // 
+            // id_Editor
+            // 
+            this.id_Editor.DataPropertyName = "id_Editor";
+            this.id_Editor.HeaderText = "id_Editor";
+            this.id_Editor.Name = "id_Editor";
+            this.id_Editor.ReadOnly = true;
+            this.id_Editor.Visible = false;
+            // 
+            // DateEdit
+            // 
+            this.DateEdit.DataPropertyName = "DateEdit";
+            this.DateEdit.HeaderText = "DE";
+            this.DateEdit.Name = "DateEdit";
+            this.DateEdit.ReadOnly = true;
+            this.DateEdit.Visible = false;
+            // 
+            // id_TypeDoc
+            // 
+            this.id_TypeDoc.DataPropertyName = "id_TypeDoc";
+            this.id_TypeDoc.HeaderText = "id_TypeDoc";
+            this.id_TypeDoc.Name = "id_TypeDoc";
+            this.id_TypeDoc.ReadOnly = true;
+            this.id_TypeDoc.Visible = false;
+            // 
+            // Total_Area
+            // 
+            this.Total_Area.DataPropertyName = "Total_Area";
+            this.Total_Area.HeaderText = "Total_Area";
+            this.Total_Area.Name = "Total_Area";
+            this.Total_Area.ReadOnly = true;
+            this.Total_Area.Visible = false;
+            // 
+            // Date_of_Departure
+            // 
+            this.Date_of_Departure.DataPropertyName = "Date_of_Departure";
+            this.Date_of_Departure.HeaderText = "Date_of_Departure";
+            this.Date_of_Departure.Name = "Date_of_Departure";
+            this.Date_of_Departure.ReadOnly = true;
+            this.Date_of_Departure.Visible = false;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.btAddDiscount);
+            this.groupBox7.Controls.Add(this.btDelDiscount);
+            this.groupBox7.Controls.Add(this.dgvData);
+            this.groupBox7.Location = new System.Drawing.Point(316, 105);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(383, 167);
+            this.groupBox7.TabIndex = 44;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Скидки";
+            // 
+            // dgvData
+            // 
+            this.dgvData.AllowUserToAddRows = false;
+            this.dgvData.AllowUserToDeleteRows = false;
+            this.dgvData.AllowUserToResizeRows = false;
+            this.dgvData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.cStartDiscount,
+            this.cStopDiscount,
+            this.cTypeDiscount,
+            this.cSumDiscount,
+            this.cConfirmD});
+            this.dgvData.Location = new System.Drawing.Point(6, 19);
+            this.dgvData.MultiSelect = false;
+            this.dgvData.Name = "dgvData";
+            this.dgvData.ReadOnly = true;
+            this.dgvData.RowHeadersVisible = false;
+            this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvData.Size = new System.Drawing.Size(371, 102);
+            this.dgvData.TabIndex = 23;
+            // 
+            // cStartDiscount
+            // 
+            this.cStartDiscount.HeaderText = "Дата  начала";
+            this.cStartDiscount.Name = "cStartDiscount";
+            this.cStartDiscount.ReadOnly = true;
+            // 
+            // cStopDiscount
+            // 
+            this.cStopDiscount.HeaderText = "Дата окончания";
+            this.cStopDiscount.Name = "cStopDiscount";
+            this.cStopDiscount.ReadOnly = true;
+            // 
+            // cTypeDiscount
+            // 
+            this.cTypeDiscount.HeaderText = "Тип";
+            this.cTypeDiscount.Name = "cTypeDiscount";
+            this.cTypeDiscount.ReadOnly = true;
+            // 
+            // cSumDiscount
+            // 
+            this.cSumDiscount.HeaderText = "Скидка";
+            this.cSumDiscount.Name = "cSumDiscount";
+            this.cSumDiscount.ReadOnly = true;
+            // 
+            // cConfirmD
+            // 
+            this.cConfirmD.HeaderText = "D";
+            this.cConfirmD.Name = "cConfirmD";
+            this.cConfirmD.ReadOnly = true;
+            // 
+            // btAddDiscount
+            // 
+            this.btAddDiscount.Image = global::Arenda.Properties.Resources.document_add;
+            this.btAddDiscount.Location = new System.Drawing.Point(307, 127);
+            this.btAddDiscount.Name = "btAddDiscount";
+            this.btAddDiscount.Size = new System.Drawing.Size(32, 32);
+            this.btAddDiscount.TabIndex = 45;
+            this.btAddDiscount.UseVisualStyleBackColor = true;
+            this.btAddDiscount.Click += new System.EventHandler(this.btAddDiscount_Click);
+            // 
+            // btDelDiscount
+            // 
+            this.btDelDiscount.Image = global::Arenda.Properties.Resources.document_delete;
+            this.btDelDiscount.Location = new System.Drawing.Point(345, 127);
+            this.btDelDiscount.Name = "btDelDiscount";
+            this.btDelDiscount.Size = new System.Drawing.Size(32, 32);
+            this.btDelDiscount.TabIndex = 45;
+            this.toolTip1.SetToolTip(this.btDelDiscount, "Сохранить");
+            this.btDelDiscount.UseVisualStyleBackColor = true;
+            // 
+            // btAddDoc
+            // 
+            this.btAddDoc.Image = ((System.Drawing.Image)(resources.GetObject("btAddDoc.Image")));
+            this.btAddDoc.Location = new System.Drawing.Point(547, 540);
+            this.btAddDoc.Name = "btAddDoc";
+            this.btAddDoc.Size = new System.Drawing.Size(32, 32);
+            this.btAddDoc.TabIndex = 42;
+            this.btAddDoc.TabStop = false;
+            this.toolTip1.SetToolTip(this.btAddDoc, "Работа с документами");
+            this.btAddDoc.UseVisualStyleBackColor = true;
+            this.btAddDoc.Click += new System.EventHandler(this.btAddDoc_Click);
+            // 
+            // btExit
+            // 
+            this.btExit.Image = ((System.Drawing.Image)(resources.GetObject("btExit.Image")));
+            this.btExit.Location = new System.Drawing.Point(667, 540);
+            this.btExit.Name = "btExit";
+            this.btExit.Size = new System.Drawing.Size(32, 32);
+            this.btExit.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.btExit, "Выйти");
+            this.btExit.UseVisualStyleBackColor = true;
+            this.btExit.Click += new System.EventHandler(this.btExit_Click);
+            // 
+            // btAdd
+            // 
+            this.btAdd.Image = ((System.Drawing.Image)(resources.GetObject("btAdd.Image")));
+            this.btAdd.Location = new System.Drawing.Point(610, 540);
+            this.btAdd.Name = "btAdd";
+            this.btAdd.Size = new System.Drawing.Size(32, 32);
+            this.btAdd.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.btAdd, "Сохранить");
+            this.btAdd.UseVisualStyleBackColor = true;
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
+            this.button3.Location = new System.Drawing.Point(665, 131);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(32, 32);
+            this.button3.TabIndex = 41;
+            this.button3.TabStop = false;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
+            this.button4.Location = new System.Drawing.Point(613, 131);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(32, 32);
+            this.button4.TabIndex = 40;
+            this.button4.TabStop = false;
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // AddeditDoc
             // 
@@ -1224,16 +1340,19 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgAddDoc)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bds)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgAddDoc)).EndInit();
+            this.groupBox7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bds)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1256,7 +1375,6 @@
         private System.Windows.Forms.TextBox tbcbm;
         private System.Windows.Forms.TextBox tbphone;
         private System.Windows.Forms.TextBox tbAr;
-        private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox tbremark;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
@@ -1283,30 +1401,11 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox tbLord;
-        private System.Windows.Forms.DataGridView dgAddDoc;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.BindingSource bds;
         private System.Windows.Forms.DataGridViewTextBoxColumn did;
         private System.Windows.Forms.DataGridViewTextBoxColumn numberDoc;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem пиуToolStripMenuItem;
-        private System.Windows.Forms.Label lblDopS;
-        private System.Windows.Forms.TextBox tbDopS;
-        private System.Windows.Forms.DataGridViewTextBoxColumn number;
-        private System.Windows.Forms.DataGridViewTextBoxColumn td;
-        private System.Windows.Forms.DataGridViewTextBoxColumn datetd;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tdid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_agree;
-        private System.Windows.Forms.DataGridViewTextBoxColumn isActive;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateRenewal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_Creator;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateCreate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_Editor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateEdit;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_TypeDoc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Total_Area;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Date_of_Departure;
         private System.Windows.Forms.Label lblReklNumber;
         private System.Windows.Forms.TextBox tbReklNumber;
         private System.Windows.Forms.TextBox tbReklSize1;
@@ -1341,5 +1440,34 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label lblDopS;
+        private System.Windows.Forms.TextBox tbDopS;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.DataGridView dgAddDoc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn td;
+        private System.Windows.Forms.DataGridViewTextBoxColumn datetd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tdid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_agree;
+        private System.Windows.Forms.DataGridViewTextBoxColumn isActive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateRenewal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_Creator;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateCreate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_Editor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateEdit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_TypeDoc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Total_Area;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date_of_Departure;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.DataGridView dgvData;
+        private System.Windows.Forms.Button btAddDiscount;
+        private System.Windows.Forms.Button btDelDiscount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cStartDiscount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cStopDiscount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cTypeDiscount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cSumDiscount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cConfirmD;
     }
 }
