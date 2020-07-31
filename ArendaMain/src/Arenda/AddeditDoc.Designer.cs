@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddeditDoc));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
             this.cmbTypeDog = new System.Windows.Forms.ComboBox();
@@ -89,6 +89,10 @@
             this.tbremark = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btDelDiscount = new System.Windows.Forms.Button();
+            this.btAddDoc = new System.Windows.Forms.Button();
+            this.btExit = new System.Windows.Forms.Button();
+            this.btAdd = new System.Windows.Forms.Button();
             this.did = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numberDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -108,10 +112,15 @@
             this.cmbSavePayment = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.btAddDiscount = new System.Windows.Forms.Button();
+            this.dgvData = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.lblDopS = new System.Windows.Forms.Label();
             this.tbDopS = new System.Windows.Forms.TextBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
             this.dgAddDoc = new System.Windows.Forms.DataGridView();
             this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.td = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -127,21 +136,15 @@
             this.id_TypeDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total_Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date_of_Departure = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.dgvData = new System.Windows.Forms.DataGridView();
+            this.bds = new System.Windows.Forms.BindingSource(this.components);
             this.cStartDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cStopDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cTypeDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cSumDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cConfirmD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btAddDiscount = new System.Windows.Forms.Button();
-            this.btDelDiscount = new System.Windows.Forms.Button();
-            this.btAddDoc = new System.Windows.Forms.Button();
-            this.btExit = new System.Windows.Forms.Button();
-            this.btAdd = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.bds = new System.Windows.Forms.BindingSource(this.components);
+            this.cmsDiscount = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.подтвердитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отклонитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -150,12 +153,13 @@
             this.groupBox6.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgAddDoc)).BeginInit();
-            this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bds)).BeginInit();
+            this.cmsDiscount.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -766,6 +770,52 @@
             // 
             this.toolTip1.IsBalloon = true;
             // 
+            // btDelDiscount
+            // 
+            this.btDelDiscount.Image = global::Arenda.Properties.Resources.document_delete;
+            this.btDelDiscount.Location = new System.Drawing.Point(345, 127);
+            this.btDelDiscount.Name = "btDelDiscount";
+            this.btDelDiscount.Size = new System.Drawing.Size(32, 32);
+            this.btDelDiscount.TabIndex = 45;
+            this.toolTip1.SetToolTip(this.btDelDiscount, "Сохранить");
+            this.btDelDiscount.UseVisualStyleBackColor = true;
+            this.btDelDiscount.Visible = false;
+            this.btDelDiscount.Click += new System.EventHandler(this.btDelDiscount_Click);
+            // 
+            // btAddDoc
+            // 
+            this.btAddDoc.Image = ((System.Drawing.Image)(resources.GetObject("btAddDoc.Image")));
+            this.btAddDoc.Location = new System.Drawing.Point(547, 540);
+            this.btAddDoc.Name = "btAddDoc";
+            this.btAddDoc.Size = new System.Drawing.Size(32, 32);
+            this.btAddDoc.TabIndex = 42;
+            this.btAddDoc.TabStop = false;
+            this.toolTip1.SetToolTip(this.btAddDoc, "Работа с документами");
+            this.btAddDoc.UseVisualStyleBackColor = true;
+            this.btAddDoc.Click += new System.EventHandler(this.btAddDoc_Click);
+            // 
+            // btExit
+            // 
+            this.btExit.Image = ((System.Drawing.Image)(resources.GetObject("btExit.Image")));
+            this.btExit.Location = new System.Drawing.Point(667, 540);
+            this.btExit.Name = "btExit";
+            this.btExit.Size = new System.Drawing.Size(32, 32);
+            this.btExit.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.btExit, "Выйти");
+            this.btExit.UseVisualStyleBackColor = true;
+            this.btExit.Click += new System.EventHandler(this.btExit_Click);
+            // 
+            // btAdd
+            // 
+            this.btAdd.Image = ((System.Drawing.Image)(resources.GetObject("btAdd.Image")));
+            this.btAdd.Location = new System.Drawing.Point(610, 540);
+            this.btAdd.Name = "btAdd";
+            this.btAdd.Size = new System.Drawing.Size(32, 32);
+            this.btAdd.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.btAdd, "Сохранить");
+            this.btAdd.UseVisualStyleBackColor = true;
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
+            // 
             // did
             // 
             this.did.DataPropertyName = "id";
@@ -962,6 +1012,66 @@
             this.tabPage1.Text = "Основная";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.btAddDiscount);
+            this.groupBox7.Controls.Add(this.btDelDiscount);
+            this.groupBox7.Controls.Add(this.dgvData);
+            this.groupBox7.Location = new System.Drawing.Point(316, 105);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(383, 167);
+            this.groupBox7.TabIndex = 44;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Скидки";
+            // 
+            // btAddDiscount
+            // 
+            this.btAddDiscount.Image = global::Arenda.Properties.Resources.document_add;
+            this.btAddDiscount.Location = new System.Drawing.Point(307, 127);
+            this.btAddDiscount.Name = "btAddDiscount";
+            this.btAddDiscount.Size = new System.Drawing.Size(32, 32);
+            this.btAddDiscount.TabIndex = 45;
+            this.btAddDiscount.UseVisualStyleBackColor = true;
+            this.btAddDiscount.Visible = false;
+            this.btAddDiscount.Click += new System.EventHandler(this.btAddDiscount_Click);
+            // 
+            // dgvData
+            // 
+            this.dgvData.AllowUserToAddRows = false;
+            this.dgvData.AllowUserToDeleteRows = false;
+            this.dgvData.AllowUserToResizeRows = false;
+            this.dgvData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.cStartDiscount,
+            this.cStopDiscount,
+            this.cTypeDiscount,
+            this.cSumDiscount,
+            this.cConfirmD});
+            this.dgvData.Location = new System.Drawing.Point(6, 19);
+            this.dgvData.MultiSelect = false;
+            this.dgvData.Name = "dgvData";
+            this.dgvData.ReadOnly = true;
+            this.dgvData.RowHeadersVisible = false;
+            this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvData.Size = new System.Drawing.Size(371, 102);
+            this.dgvData.TabIndex = 23;
+            this.dgvData.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvData_CellMouseClick);
+            this.dgvData.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvData_RowPostPaint);
+            this.dgvData.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
+            this.dgvData.SelectionChanged += new System.EventHandler(this.dgvData_SelectionChanged);
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.groupBox5);
@@ -1007,6 +1117,30 @@
             this.tbDopS.Size = new System.Drawing.Size(118, 20);
             this.tbDopS.TabIndex = 14;
             this.tbDopS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
+            this.button3.Location = new System.Drawing.Point(665, 131);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(32, 32);
+            this.button3.TabIndex = 41;
+            this.button3.TabStop = false;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
+            this.button4.Location = new System.Drawing.Point(613, 131);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(32, 32);
+            this.button4.TabIndex = 40;
+            this.button4.TabStop = false;
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // dgAddDoc
             // 
@@ -1166,158 +1300,63 @@
             this.Date_of_Departure.ReadOnly = true;
             this.Date_of_Departure.Visible = false;
             // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.btAddDiscount);
-            this.groupBox7.Controls.Add(this.btDelDiscount);
-            this.groupBox7.Controls.Add(this.dgvData);
-            this.groupBox7.Location = new System.Drawing.Point(316, 105);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(383, 167);
-            this.groupBox7.TabIndex = 44;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Скидки";
-            // 
-            // dgvData
-            // 
-            this.dgvData.AllowUserToAddRows = false;
-            this.dgvData.AllowUserToDeleteRows = false;
-            this.dgvData.AllowUserToResizeRows = false;
-            this.dgvData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.cStartDiscount,
-            this.cStopDiscount,
-            this.cTypeDiscount,
-            this.cSumDiscount,
-            this.cConfirmD});
-            this.dgvData.Location = new System.Drawing.Point(6, 19);
-            this.dgvData.MultiSelect = false;
-            this.dgvData.Name = "dgvData";
-            this.dgvData.ReadOnly = true;
-            this.dgvData.RowHeadersVisible = false;
-            this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvData.Size = new System.Drawing.Size(371, 102);
-            this.dgvData.TabIndex = 23;
-            // 
             // cStartDiscount
             // 
+            this.cStartDiscount.DataPropertyName = "DateStart";
             this.cStartDiscount.HeaderText = "Дата  начала";
             this.cStartDiscount.Name = "cStartDiscount";
             this.cStartDiscount.ReadOnly = true;
             // 
             // cStopDiscount
             // 
+            this.cStopDiscount.DataPropertyName = "DateEnd";
             this.cStopDiscount.HeaderText = "Дата окончания";
             this.cStopDiscount.Name = "cStopDiscount";
             this.cStopDiscount.ReadOnly = true;
             // 
             // cTypeDiscount
             // 
+            this.cTypeDiscount.DataPropertyName = "nameTypeDiscount";
             this.cTypeDiscount.HeaderText = "Тип";
             this.cTypeDiscount.Name = "cTypeDiscount";
             this.cTypeDiscount.ReadOnly = true;
             // 
             // cSumDiscount
             // 
+            this.cSumDiscount.DataPropertyName = "Discount";
             this.cSumDiscount.HeaderText = "Скидка";
             this.cSumDiscount.Name = "cSumDiscount";
             this.cSumDiscount.ReadOnly = true;
             // 
             // cConfirmD
             // 
+            this.cConfirmD.DataPropertyName = "nameStatusDiscount";
             this.cConfirmD.HeaderText = "D";
             this.cConfirmD.Name = "cConfirmD";
             this.cConfirmD.ReadOnly = true;
             // 
-            // btAddDiscount
+            // cmsDiscount
             // 
-            this.btAddDiscount.Image = global::Arenda.Properties.Resources.document_add;
-            this.btAddDiscount.Location = new System.Drawing.Point(307, 127);
-            this.btAddDiscount.Name = "btAddDiscount";
-            this.btAddDiscount.Size = new System.Drawing.Size(32, 32);
-            this.btAddDiscount.TabIndex = 45;
-            this.btAddDiscount.UseVisualStyleBackColor = true;
-            this.btAddDiscount.Click += new System.EventHandler(this.btAddDiscount_Click);
+            this.cmsDiscount.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.подтвердитьToolStripMenuItem,
+            this.отклонитьToolStripMenuItem});
+            this.cmsDiscount.Name = "cmsDiscount";
+            this.cmsDiscount.Size = new System.Drawing.Size(181, 70);
+            this.cmsDiscount.Opening += new System.ComponentModel.CancelEventHandler(this.cmsDiscount_Opening);
             // 
-            // btDelDiscount
+            // подтвердитьToolStripMenuItem
             // 
-            this.btDelDiscount.Image = global::Arenda.Properties.Resources.document_delete;
-            this.btDelDiscount.Location = new System.Drawing.Point(345, 127);
-            this.btDelDiscount.Name = "btDelDiscount";
-            this.btDelDiscount.Size = new System.Drawing.Size(32, 32);
-            this.btDelDiscount.TabIndex = 45;
-            this.toolTip1.SetToolTip(this.btDelDiscount, "Сохранить");
-            this.btDelDiscount.UseVisualStyleBackColor = true;
+            this.подтвердитьToolStripMenuItem.Name = "подтвердитьToolStripMenuItem";
+            this.подтвердитьToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.подтвердитьToolStripMenuItem.Text = "Подтвердить";
+            this.подтвердитьToolStripMenuItem.Click += new System.EventHandler(this.подтвердитьToolStripMenuItem_Click);
             // 
-            // btAddDoc
+            // отклонитьToolStripMenuItem
             // 
-            this.btAddDoc.Image = ((System.Drawing.Image)(resources.GetObject("btAddDoc.Image")));
-            this.btAddDoc.Location = new System.Drawing.Point(547, 540);
-            this.btAddDoc.Name = "btAddDoc";
-            this.btAddDoc.Size = new System.Drawing.Size(32, 32);
-            this.btAddDoc.TabIndex = 42;
-            this.btAddDoc.TabStop = false;
-            this.toolTip1.SetToolTip(this.btAddDoc, "Работа с документами");
-            this.btAddDoc.UseVisualStyleBackColor = true;
-            this.btAddDoc.Click += new System.EventHandler(this.btAddDoc_Click);
-            // 
-            // btExit
-            // 
-            this.btExit.Image = ((System.Drawing.Image)(resources.GetObject("btExit.Image")));
-            this.btExit.Location = new System.Drawing.Point(667, 540);
-            this.btExit.Name = "btExit";
-            this.btExit.Size = new System.Drawing.Size(32, 32);
-            this.btExit.TabIndex = 19;
-            this.toolTip1.SetToolTip(this.btExit, "Выйти");
-            this.btExit.UseVisualStyleBackColor = true;
-            this.btExit.Click += new System.EventHandler(this.btExit_Click);
-            // 
-            // btAdd
-            // 
-            this.btAdd.Image = ((System.Drawing.Image)(resources.GetObject("btAdd.Image")));
-            this.btAdd.Location = new System.Drawing.Point(610, 540);
-            this.btAdd.Name = "btAdd";
-            this.btAdd.Size = new System.Drawing.Size(32, 32);
-            this.btAdd.TabIndex = 18;
-            this.toolTip1.SetToolTip(this.btAdd, "Сохранить");
-            this.btAdd.UseVisualStyleBackColor = true;
-            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(665, 131);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(32, 32);
-            this.button3.TabIndex = 41;
-            this.button3.TabStop = false;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
-            this.button4.Location = new System.Drawing.Point(613, 131);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(32, 32);
-            this.button4.TabIndex = 40;
-            this.button4.TabStop = false;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.отклонитьToolStripMenuItem.Name = "отклонитьToolStripMenuItem";
+            this.отклонитьToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.отклонитьToolStripMenuItem.Text = "Отклонить";
+            this.отклонитьToolStripMenuItem.Click += new System.EventHandler(this.отклонитьToolStripMenuItem_Click);
             // 
             // AddeditDoc
             // 
@@ -1346,13 +1385,14 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgAddDoc)).EndInit();
-            this.groupBox7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bds)).EndInit();
+            this.cmsDiscount.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1469,5 +1509,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cTypeDiscount;
         private System.Windows.Forms.DataGridViewTextBoxColumn cSumDiscount;
         private System.Windows.Forms.DataGridViewTextBoxColumn cConfirmD;
+        private System.Windows.Forms.ContextMenuStrip cmsDiscount;
+        private System.Windows.Forms.ToolStripMenuItem подтвердитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem отклонитьToolStripMenuItem;
     }
 }

@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using Nwuram.Framework.ToExcel;
 using Nwuram.Framework.Logging;
+using Nwuram.Framework.Settings.User;
 
 namespace Arenda
 {
@@ -36,6 +37,7 @@ namespace Arenda
         DataTable dtZdan;
         DataTable Rec;
         DataTable conf;
+        DataTable dtDiscount;
         string defaultVal = "0.00";
         string format = "{0:### ### ##0.00}";
         string defaultValInt = "0";
@@ -87,6 +89,8 @@ namespace Arenda
                 this.Text = "Просмотр документа";
             }
             EditLoad(id);
+            getDiscount();
+
 
             if (isCopyDoc)
             {
@@ -98,7 +102,13 @@ namespace Arenda
                 startdate.Value = DateTime.Now;
                 stopdate.Value = DateTime.Now.AddMonths(GetSRKA());
                 tbnumd.Text = "";
+
+                if (dtDiscount != null)
+                    foreach (DataRow row in dtDiscount.Rows)
+                        row["id"] = 0;
             }
+
+            btAddDiscount.Visible = btDelDiscount.Visible = rezhim.Equals("edit");
         }
 
 
@@ -1131,6 +1141,7 @@ namespace Arenda
                         button4.Enabled = true;
                         this.Text = "Редактирование документа";
                         btAddDoc.Visible = true;
+                        btAddDiscount.Visible = btDelDiscount.Visible = rezhim.Equals("edit");
                     }
                 }
                 catch (Exception ex)
@@ -1722,8 +1733,8 @@ namespace Arenda
         private void btAddDiscount_Click(object sender, EventArgs e)
         {
             if (DialogResult.OK == new Payments.frmAddDiscount() { id_Agreements = _id }.ShowDialog())
-            { 
-            
+            {
+                getDiscount();
             }
         }
 
@@ -1748,6 +1759,149 @@ namespace Arenda
                     //tbKadNum.Text = "";
                 }
             }
+        }
+
+        private void btDelDiscount_Click(object sender, EventArgs e)
+        {
+            if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtDiscount != null && dtDiscount.DefaultView.Count != 0)
+            {
+                int id_discount = (int)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["id"];
+
+
+                DataTable dtResult = _proc.setTDiscount(id_discount, _id, DateTime.Now, null, 0, 0, 0, 0, true);
+
+                if (dtResult == null)
+                {
+                    MessageBox.Show(TempData.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                int result = (int)dtResult.Rows[0]["id"];
+
+                if (result == -1)
+                {
+                    MessageBox.Show(TempData.centralText("Запись уже удалена другим пользователем\n"), "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    getDiscount();
+                    return;
+                }
+
+                if (DialogResult.Yes == MessageBox.Show("Удалить выбранную запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                {
+                    dtResult = _proc.setTDiscount(id_discount, _id, DateTime.Now, null, 0, 0, 0, 1, true);
+                    if (dtResult == null)
+                    {
+                        MessageBox.Show(TempData.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    getDiscount();
+                    return;
+                }
+
+                
+            }
+        }
+
+        private void dgvData_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvData.CurrentRow == null || dgvData.CurrentRow.Index == -1 || dtDiscount == null || dtDiscount.DefaultView.Count == 0 || dgvData.CurrentRow.Index >= dtDiscount.DefaultView.Count)
+            {
+                btDelDiscount.Enabled = false;                
+                return;
+            }
+
+            btDelDiscount.Enabled = (int)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["id_StatusDiscount"]==1;
+        }
+
+        private void dgvData_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            DataGridView dgv = sender as DataGridView;
+            //Рисуем рамку для выделеной строки
+            if (dgv.Rows[e.RowIndex].Selected)
+            {
+                int width = dgv.Width;
+                Rectangle r = dgv.GetRowDisplayRectangle(e.RowIndex, false);
+                Rectangle rect = new Rectangle(r.X, r.Y, width - 1, r.Height - 1);
+
+                ControlPaint.DrawBorder(e.Graphics, rect,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid);
+            }
+        }
+
+        private void dgvData_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            if (e.RowIndex != -1 && dtDiscount != null && dtDiscount.DefaultView.Count != 0)
+            {
+                Color rColor = Color.White;
+                //if (!(bool)dtData.DefaultView[e.RowIndex]["isActive"])
+                //    rColor = panel1.BackColor;
+                dgvData.Rows[e.RowIndex].DefaultCellStyle.BackColor = rColor;
+                dgvData.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = rColor;
+                dgvData.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            }
+        }
+
+        private void подтвердитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int id_discount = (int)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["id"];
+            DateTime dStart = (DateTime)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
+            DateTime? dEnd = null;
+            if (dtDiscount.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] != DBNull.Value) dEnd = (DateTime)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
+            int id_TypeDiscount = (int)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
+            decimal discount = (decimal)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["Discount"];
+            int id_Status = 2;
+
+            DataTable dtResult = _proc.setTDiscount(id_discount, _id, dStart, dEnd, id_TypeDiscount, id_Status, discount);
+
+            if (dtResult == null)
+            {
+                MessageBox.Show(TempData.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            int result = (int)dtResult.Rows[0]["id"];
+            getDiscount();
+        }
+
+        private void отклонитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int id_discount = (int)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["id"];
+            DateTime dStart = (DateTime)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
+            DateTime? dEnd = null;
+            if (dtDiscount.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] != DBNull.Value) dEnd = (DateTime)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
+            int id_TypeDiscount = (int)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
+            decimal discount = (decimal)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["Discount"];
+            int id_Status = 3;
+
+            DataTable dtResult = _proc.setTDiscount(id_discount, _id, dStart, dEnd, id_TypeDiscount, id_Status, discount);
+
+            if (dtResult == null)
+            {
+                MessageBox.Show(TempData.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            int result = (int)dtResult.Rows[0]["id"];
+            getDiscount();
+        }
+
+        private void dgvData_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && e.RowIndex != -1 && new List<string> { "Д" }.Contains(UserSettings.User.StatusCode))
+            {
+                dgvData.CurrentCell = dgvData[e.ColumnIndex, e.RowIndex];
+                dgvData_SelectionChanged(null, null);
+                cmsDiscount.Show(MousePosition);
+            }
+        }
+
+        private void cmsDiscount_Opening(object sender, CancelEventArgs e)
+        {
+            if ((int)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["id_StatusDiscount"] != 1)
+                e.Cancel = true;
         }
 
         private void tbS_KeyPress(object sender, KeyPressEventArgs e)
@@ -2232,6 +2386,14 @@ namespace Arenda
         private void tbObj_TextChanged(object sender, EventArgs e)
         {
             cbZdan.Enabled = tbObj.Text != "";
+        }
+
+        private void getDiscount()
+        {
+            dgvData.AutoGenerateColumns = false;
+            dtDiscount = _proc.getTDiscount(_id);
+            dgvData.DataSource = dtDiscount;
+
         }
     }
 }
