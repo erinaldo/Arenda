@@ -447,6 +447,17 @@
         b1gEqEslQCjYsgjwZ6YSsBOA3cPMti5VLglQl+u65DiOcr4FdLsDqABlQy4zQucAAAAASUVORK5CYII=
 </value>
   </data>
+  <data name="btKntListTaxes.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
+        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABLklEQVRIS8WUPW6EMBhE9wg5Sm5JAWeg
+        A1Eh0dCmoQSlJy1CVERCFPx/63GAwAZjvHGUJ41s1sYPT7G3LWEYkixBEJBt25h/srzOr/6AiHjWCYID
+        rpAkCcVxDMk7y8t85g627XlBWZZU1/WphG07F2Auy1ld7Ai54AqiutiSHoGoLrakR5DnOR8fJewnPYIs
+        y+bZlySKIi5hj3oETdNQVVVUFAWlacoFnudhSY/gkWma1AVvycelLJimiUEswFc8ewNgGAaGfxSM4/ir
+        ipQEuI1KgFQwDMPfCvq+XwW4zVEdR8FeIBW0bbsTqARIBV3XrQLUpRIgFYBljrqO6jgK9gKhwPd9siyL
+        b1gEqEslQCjYsgjwZ6YSsBOA3cPMti5VLglQl+u65DiOcr4FdLsDqABlQy4zQucAAAAASUVORK5CYII=
+</value>
+  </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>535, 17</value>
   </metadata>
@@ -459,17 +470,6 @@
   <metadata name="dbs2.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>270, 17</value>
   </metadata>
-  <data name="btKntListTaxes.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
-        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAABLklEQVRIS8WUPW6EMBhE9wg5Sm5JAWeg
-        A1Eh0dCmoQSlJy1CVERCFPx/63GAwAZjvHGUJ41s1sYPT7G3LWEYkixBEJBt25h/srzOr/6AiHjWCYID
-        rpAkCcVxDMk7y8t85g627XlBWZZU1/WphG07F2Auy1ld7Ai54AqiutiSHoGoLrakR5DnOR8fJewnPYIs
-        y+bZlySKIi5hj3oETdNQVVVUFAWlacoFnudhSY/gkWma1AVvycelLJimiUEswFc8ewNgGAaGfxSM4/ir
-        ipQEuI1KgFQwDMPfCvq+XwW4zVEdR8FeIBW0bbsTqARIBV3XrQLUpRIgFYBljrqO6jgK9gKhwPd9siyL
-        b1gEqEslQCjYsgjwZ6YSsBOA3cPMti5VLglQl+u65DiOcr4FdLsDqABlQy4zQucAAAAASUVORK5CYII=
-</value>
-  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>54</value>
   </metadata>

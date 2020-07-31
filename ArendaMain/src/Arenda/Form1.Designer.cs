@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -168,6 +168,7 @@
             this.btAdd = new System.Windows.Forms.Button();
             this.btAcceptDoc = new System.Windows.Forms.Button();
             this.btCopyDoc = new System.Windows.Forms.Button();
+            this.btKntListTaxes = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -176,7 +177,6 @@
             this.bds = new System.Windows.Forms.BindingSource(this.components);
             this.bds1 = new System.Windows.Forms.BindingSource(this.components);
             this.dbs2 = new System.Windows.Forms.BindingSource(this.components);
-            this.btKntListTaxes = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.pTenant.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).BeginInit();
@@ -1025,14 +1025,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgListDoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgListDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgListDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgListDoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgListDoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Date,
@@ -1059,14 +1059,14 @@
             this.dgListDoc.MultiSelect = false;
             this.dgListDoc.Name = "dgListDoc";
             this.dgListDoc.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgListDoc.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgListDoc.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgListDoc.RowHeadersVisible = false;
             this.dgListDoc.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgListDoc.Size = new System.Drawing.Size(710, 259);
@@ -1283,8 +1283,9 @@
             // 
             // label16
             // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(239, 379);
+            this.label16.Location = new System.Drawing.Point(239, 382);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(226, 13);
             this.label16.TabIndex = 47;
@@ -1292,17 +1293,19 @@
             // 
             // pUseDopData
             // 
+            this.pUseDopData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pUseDopData.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.pUseDopData.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pUseDopData.Location = new System.Drawing.Point(213, 375);
+            this.pUseDopData.Location = new System.Drawing.Point(213, 378);
             this.pUseDopData.Name = "pUseDopData";
             this.pUseDopData.Size = new System.Drawing.Size(20, 20);
             this.pUseDopData.TabIndex = 46;
             // 
             // label15
             // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(39, 376);
+            this.label15.Location = new System.Drawing.Point(39, 379);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(132, 13);
             this.label15.TabIndex = 47;
@@ -1310,17 +1313,19 @@
             // 
             // pDocForLostTime
             // 
+            this.pDocForLostTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pDocForLostTime.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.pDocForLostTime.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pDocForLostTime.Location = new System.Drawing.Point(13, 375);
+            this.pDocForLostTime.Location = new System.Drawing.Point(13, 378);
             this.pDocForLostTime.Name = "pDocForLostTime";
             this.pDocForLostTime.Size = new System.Drawing.Size(20, 20);
             this.pDocForLostTime.TabIndex = 46;
             // 
             // label14
             // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(239, 350);
+            this.label14.Location = new System.Drawing.Point(239, 353);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(155, 13);
             this.label14.TabIndex = 47;
@@ -1328,26 +1333,29 @@
             // 
             // pEndingDoc
             // 
+            this.pEndingDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pEndingDoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.pEndingDoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pEndingDoc.Location = new System.Drawing.Point(213, 346);
+            this.pEndingDoc.Location = new System.Drawing.Point(213, 349);
             this.pEndingDoc.Name = "pEndingDoc";
             this.pEndingDoc.Size = new System.Drawing.Size(20, 20);
             this.pEndingDoc.TabIndex = 46;
             // 
             // pCancelDoc
             // 
+            this.pCancelDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pCancelDoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.pCancelDoc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pCancelDoc.Location = new System.Drawing.Point(13, 346);
+            this.pCancelDoc.Location = new System.Drawing.Point(13, 349);
             this.pCancelDoc.Name = "pCancelDoc";
             this.pCancelDoc.Size = new System.Drawing.Size(20, 20);
             this.pCancelDoc.TabIndex = 46;
             // 
             // chbCancelDoc
             // 
+            this.chbCancelDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chbCancelDoc.AutoSize = true;
-            this.chbCancelDoc.Location = new System.Drawing.Point(40, 348);
+            this.chbCancelDoc.Location = new System.Drawing.Point(40, 351);
             this.chbCancelDoc.Name = "chbCancelDoc";
             this.chbCancelDoc.Size = new System.Drawing.Size(150, 17);
             this.chbCancelDoc.TabIndex = 45;
@@ -1595,6 +1603,19 @@
             this.btCopyDoc.Visible = false;
             this.btCopyDoc.Click += new System.EventHandler(this.btCopyDoc_Click);
             // 
+            // btKntListTaxes
+            // 
+            this.btKntListTaxes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btKntListTaxes.Image = ((System.Drawing.Image)(resources.GetObject("btKntListTaxes.Image")));
+            this.btKntListTaxes.Location = new System.Drawing.Point(61, 435);
+            this.btKntListTaxes.Name = "btKntListTaxes";
+            this.btKntListTaxes.Size = new System.Drawing.Size(32, 32);
+            this.btKntListTaxes.TabIndex = 54;
+            this.toolTip1.SetToolTip(this.btKntListTaxes, "Подтверждение доп оплат");
+            this.btKntListTaxes.UseVisualStyleBackColor = true;
+            this.btKntListTaxes.Visible = false;
+            this.btKntListTaxes.Click += new System.EventHandler(this.btKntListTaxes_Click);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1641,24 +1662,12 @@
             this.btnReport.Visible = false;
             this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
             // 
-            // btKntListTaxes
-            // 
-            this.btKntListTaxes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btKntListTaxes.Image = ((System.Drawing.Image)(resources.GetObject("btKntListTaxes.Image")));
-            this.btKntListTaxes.Location = new System.Drawing.Point(61, 435);
-            this.btKntListTaxes.Name = "btKntListTaxes";
-            this.btKntListTaxes.Size = new System.Drawing.Size(32, 32);
-            this.btKntListTaxes.TabIndex = 54;
-            this.toolTip1.SetToolTip(this.btKntListTaxes, "Подтверждение доп оплат");
-            this.btKntListTaxes.UseVisualStyleBackColor = true;
-            this.btKntListTaxes.Visible = false;
-            this.btKntListTaxes.Click += new System.EventHandler(this.btKntListTaxes_Click);
-            // 
             // mForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(767, 512);
+            this.Controls.Add(this.pListDoc);
             this.Controls.Add(this.btKntListTaxes);
             this.Controls.Add(this.btCopyDoc);
             this.Controls.Add(this.pLordland);
@@ -1678,7 +1687,6 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.pListDoc);
             this.Controls.Add(this.pTenant);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
