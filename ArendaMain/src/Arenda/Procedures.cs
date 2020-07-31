@@ -750,7 +750,7 @@ namespace Arenda
         }
 
         public DataTable AddeditTD(int id, int id_agreements, DateTime datedoc, int id_typedoc, int? number,
-            DateTime? daterenewal, decimal? Total_Area, DateTime? departureDate)
+            DateTime? daterenewal, decimal? Total_Area, DateTime? departureDate, string comment)
         {
             DbType x, w, depDateType, numType;
 
@@ -763,7 +763,7 @@ namespace Arenda
             ap.Add(daterenewal);
             ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
             ap.Add(Total_Area);
-            ap.Add(departureDate);            
+            ap.Add(departureDate);
 
             if (number == null)
                 numType = DbType.Boolean;
@@ -780,14 +780,17 @@ namespace Arenda
             if (departureDate == null)
                 depDateType = DbType.Boolean;
             else depDateType = DbType.DateTime;
-                         
-                                                                                                                                                                                                                                                       //"@id",        "@id_agr",    "@datedoc",    "@id_type_doc", "@number",   "@isActive" ,   "@daterenewal", "@id_creator", "@datecreate", "@id_editors", "@dateedit",    "@mode"
-          return  executeProcedure("Arenda.AddEditTD",
-              new string[] { "@id", "@id_agr", "@datedoc", "@id_type_doc", "@number", 
-                             "@daterenewal", "@id_user", "@Total_Area", "@DepartureDate" },
-              new DbType[] { DbType.Int32, DbType.Int32, DbType.DateTime, DbType.Int32, numType, 
-                             x, DbType.Int32, w, depDateType }, ap);
-        
+
+            ap.Add(comment);
+
+
+            //"@id",        "@id_agr",    "@datedoc",    "@id_type_doc", "@number",   "@isActive" ,   "@daterenewal", "@id_creator", "@datecreate", "@id_editors", "@dateedit",    "@mode"
+            return executeProcedure("Arenda.AddEditTD",
+                new string[10] { "@id", "@id_agr", "@datedoc", "@id_type_doc", "@number",
+                             "@daterenewal", "@id_user", "@Total_Area", "@DepartureDate","@comment" },
+                new DbType[10] { DbType.Int32, DbType.Int32, DbType.DateTime, DbType.Int32, numType,
+                             x, DbType.Int32, w, depDateType,DbType.String }, ap);
+
         }
 
         #endregion 

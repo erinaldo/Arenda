@@ -76,3 +76,8 @@ GO
 
 ALTER TABLE [Arenda].[j_tDiscount] CHECK CONSTRAINT [FK_j_tDiscount_id_TypeDiscount]
 GO
+
+
+
+ALTER TABLE Arenda.[j_AdditionalDocuments] ADD Comment varchar(1024) null
+GO

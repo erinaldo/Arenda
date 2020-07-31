@@ -115,7 +115,16 @@ namespace Arenda
             else
                 departureDate = null;
 
-            _proc.AddeditTD(1, _id, Convert.ToDateTime(dateadddoc.Text), _id_type_doc, num, prolong, AreaS, departureDate);
+            if(dtpOutDate.Visible)
+                departureDate = dtpOutDate.Value.Date;
+
+            string comment = null;
+            if (tbComment.Visible)
+                comment = tbComment.Text;
+
+
+
+            _proc.AddeditTD(1, _id, Convert.ToDateTime(dateadddoc.Text), _id_type_doc, num, prolong, AreaS, departureDate, comment);
 
             Logging.StartFirstLevel(1402);
             //Logging.Comment("ID: " + id_DopDoc);
@@ -156,52 +165,77 @@ namespace Arenda
 
         private void cbTypeDoc_SelectedValueChanged(object sender, EventArgs e)
         {
-          if (cbTypeDoc.SelectedValue != null)
-          {
-            //DataTable dtTypeDoc = new DataTable();
-            //dtTypeDoc = _proc.FillCbTD();
-            //y = cbTypeDoc.SelectedIndex;
-            //_id_type_doc = Convert.ToInt32(_proc.FillCbTD().Rows[y][0].ToString());
-            _id_type_doc = int.Parse(cbTypeDoc.SelectedValue.ToString());
-            y = dtTypes.Rows.IndexOf(dtTypes.Select("id = " + _id_type_doc.ToString())[0]);
-
-            lblDeparture.Visible = false;
-            dtpDeparture.Visible = false;
-            lblAreaNew.Visible = false;
-            tbAreaNew.Visible = false;
-            label4.Visible = false;
-            dateren.Visible = false;
-
-
-            if (dtTypes.Rows[y]["NeedProlong"].ToString() == "True")
+            if (cbTypeDoc.SelectedValue != null)
             {
-              label4.Text = "Дата продления \nдоговора";
-              mes = "Дата продления договора";
-              if (_proc.FillCbTD().Rows[y]["Rus_Name"].ToString() == "Соглашение о расторжении договора")
-              {
-                label4.Text = "Дата расторжения \nдоговора";
-                mes = "Дата расторжения договора";
-                lblDeparture.Visible = true;
-                dtpDeparture.Visible = true;
-              }
+                //DataTable dtTypeDoc = new DataTable();
+                //dtTypeDoc = _proc.FillCbTD();
+                //y = cbTypeDoc.SelectedIndex;
+                //_id_type_doc = Convert.ToInt32(_proc.FillCbTD().Rows[y][0].ToString());
+                _id_type_doc = int.Parse(cbTypeDoc.SelectedValue.ToString());
+                y = dtTypes.Rows.IndexOf(dtTypes.Select("id = " + _id_type_doc.ToString())[0]);
 
-              if (dtTypes.Rows[y]["Rus_Name"].ToString() == "Доп. соглашение на изменение площади")
-              {
-                label4.Text = "Дата вступления \nв силу";
-                mes = "Дата вступления в силу";
-              }
+                lblDeparture.Visible = false;
+                dtpDeparture.Visible = false;
+                lblAreaNew.Visible = false;
+                tbAreaNew.Visible = false;
+                label4.Visible = false;
+                dateren.Visible = false;
 
-              label4.Visible = true;
-              dateren.Visible = true;
+                tbComment.Visible = false;
+                dtpOutDate.Visible = false;
+                tbNumber.Visible = true;
+
+                label4.Text = "Дата продления\nдоговора";
+                label3.Text = "№";
+                dateadddoc.Location = new Point(128, 40);
+                label2.Text = "Дата доп. документа:";
+
+                if (dtTypes.Rows[y]["NeedProlong"].ToString() == "True")
+                {
+                    label4.Text = "Дата продления \nдоговора";
+                    mes = "Дата продления договора";
+                    if (_proc.FillCbTD().Rows[y]["Rus_Name"].ToString() == "Соглашение о расторжении договора")
+                    {
+                        label4.Text = "Дата расторжения \nдоговора";
+                        mes = "Дата расторжения договора";
+                        lblDeparture.Visible = true;
+                        dtpDeparture.Visible = true;
+                    }
+
+                    if (dtTypes.Rows[y]["Rus_Name"].ToString() == "Доп. соглашение на изменение площади")
+                    {
+                        label4.Text = "Дата вступления \nв силу";
+                        mes = "Дата вступления в силу";
+                    }
+
+                    label4.Visible = true;
+                    dateren.Visible = true;
+                }
+
+
+                if (dtTypes.Rows[y]["NeedChangeArea"].ToString() == "True")
+                {
+                    lblAreaNew.Visible = true;
+                    tbAreaNew.Visible = true;
+                }
+
+                if (dtTypes.Rows[y]["Rus_Name"].Equals("Заявление на съезд"))
+                {
+                    label4.Visible = true;
+                    label4.Text = "Примечание";
+                    tbComment.Visible = true;
+                    dtpOutDate.Visible = true;
+                    label3.Text = "Планируемая дата съезда:";
+                    tbNumber.Visible = false;
+                    dateadddoc.Location = new Point(190, 40);
+                    label2.Text = "Дата подачи заявления: ";
+                }
+                else
+                    if (dtTypes.Rows[y]["Rus_Name"].Equals("Аннуляция заявления на съезд"))
+                {
+
+                }
             }
-
-
-            if (dtTypes.Rows[y]["NeedChangeArea"].ToString() == "True")
-            {
-              lblAreaNew.Visible = true;
-              tbAreaNew.Visible = true;
-            }
-          }
         }
 
         private bool CheckDate()

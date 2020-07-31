@@ -44,6 +44,8 @@
             this.dtpDeparture = new System.Windows.Forms.DateTimePicker();
             this.lblDeparture = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tbComment = new System.Windows.Forms.TextBox();
+            this.dtpOutDate = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // btExit
@@ -82,7 +84,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 46);
+            this.label2.Location = new System.Drawing.Point(12, 44);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(117, 13);
             this.label2.TabIndex = 41;
@@ -121,7 +123,7 @@
             // dateadddoc
             // 
             this.dateadddoc.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateadddoc.Location = new System.Drawing.Point(128, 42);
+            this.dateadddoc.Location = new System.Drawing.Point(190, 40);
             this.dateadddoc.Name = "dateadddoc";
             this.dateadddoc.Size = new System.Drawing.Size(100, 20);
             this.dateadddoc.TabIndex = 45;
@@ -181,12 +183,34 @@
             this.lblDeparture.Text = "Дата выезда";
             this.lblDeparture.Visible = false;
             // 
+            // tbComment
+            // 
+            this.tbComment.Location = new System.Drawing.Point(15, 115);
+            this.tbComment.MaxLength = 9;
+            this.tbComment.Multiline = true;
+            this.tbComment.Name = "tbComment";
+            this.tbComment.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbComment.Size = new System.Drawing.Size(316, 43);
+            this.tbComment.TabIndex = 52;
+            this.tbComment.Visible = false;
+            // 
+            // dtpOutDate
+            // 
+            this.dtpOutDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpOutDate.Location = new System.Drawing.Point(190, 68);
+            this.dtpOutDate.Name = "dtpOutDate";
+            this.dtpOutDate.Size = new System.Drawing.Size(100, 20);
+            this.dtpOutDate.TabIndex = 53;
+            this.dtpOutDate.Visible = false;
+            // 
             // AdditionalDoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(424, 167);
             this.ControlBox = false;
+            this.Controls.Add(this.dtpOutDate);
+            this.Controls.Add(this.tbComment);
             this.Controls.Add(this.lblDeparture);
             this.Controls.Add(this.lblAreaNew);
             this.Controls.Add(this.dateren);
@@ -231,5 +255,7 @@
         private System.Windows.Forms.DateTimePicker dtpDeparture;
         private System.Windows.Forms.Label lblDeparture;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.TextBox tbComment;
+        private System.Windows.Forms.DateTimePicker dtpOutDate;
     }
 }
