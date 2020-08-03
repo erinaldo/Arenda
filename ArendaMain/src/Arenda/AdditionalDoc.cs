@@ -16,15 +16,17 @@ namespace Arenda
     {
         readonly Procedures _proc = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
 
-        int _id , _id_type_doc, _id_type_dog;
+        int _id, _id_type_doc, _id_type_dog;
         int y;
         string Area;
         string mes;
         DateTime start, stop, depart;
         DataTable dtTypes;
+        private bool isNullRequestOut = false;
+        private int? id_PetitionLeave = null;
 
-        public AdditionalDoc(int id , DateTime str, DateTime st, int idtd)
-        {            
+        public AdditionalDoc(int id, DateTime str, DateTime st, int idtd)
+        {
             InitializeComponent();
             _id = id;
             _id_type_dog = idtd;
@@ -36,7 +38,7 @@ namespace Arenda
         {
             if (tbAreaNew.Text == "")
                 tbAreaNew.Text = "0";
-            tbAreaNew.Text = String.Format("{0:### ### ##0.00}", decimal.Parse(tbAreaNew.Text)).Trim();            
+            tbAreaNew.Text = String.Format("{0:### ### ##0.00}", decimal.Parse(tbAreaNew.Text)).Trim();
         }
 
         private void fillcb()
@@ -47,7 +49,7 @@ namespace Arenda
             {
                 cbTypeDoc.DataSource = dtTypes;
                 if (_id_type_dog == 3)
-                  dtTypes.DefaultView.RowFilter = "id in (3, 6, 7)";
+                    dtTypes.DefaultView.RowFilter = "id in (3, 6, 7)";
             }
             else
             {
@@ -64,14 +66,15 @@ namespace Arenda
                                           MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                 { DialogResult = DialogResult.Cancel; }
             }
-            else*/   DialogResult = DialogResult.Cancel;
+            else*/
+            DialogResult = DialogResult.Cancel;
         }
 
         private void btAdd_Click(object sender, EventArgs e)
-        {  
-            int? num=0;
+        {
+            int? num = 0;
             decimal? AreaS;
-            
+
             if (tbAreaNew.Text == Area)
             {
                 AreaS = null;
@@ -80,14 +83,14 @@ namespace Arenda
             {
                 AreaS = decimal.Parse(tbAreaNew.Text);
             }
-            
+
             if (tbNumber.Text == "")
             { num = null; }
             else
             { num = Convert.ToInt32(tbNumber.Text); }
 
             if (cbTypeDoc.Text == "")
-            { 
+            {
                 MessageBox.Show("Не выбран тип доп. документа.\nСохранение невозможно", "Сохранение доп.документа");
                 return;
             }
@@ -115,7 +118,7 @@ namespace Arenda
             else
                 departureDate = null;
 
-            if(dtpOutDate.Visible)
+            if (dtpOutDate.Visible)
                 departureDate = dtpOutDate.Value.Date;
 
             string comment = null;
@@ -124,7 +127,7 @@ namespace Arenda
 
 
 
-            _proc.AddeditTD(1, _id, Convert.ToDateTime(dateadddoc.Text), _id_type_doc, num, prolong, AreaS, departureDate, comment);
+            _proc.AddeditTD(1, _id, Convert.ToDateTime(dateadddoc.Text), _id_type_doc, num, prolong, AreaS, departureDate, comment, id_PetitionLeave);
 
             Logging.StartFirstLevel(1402);
             //Logging.Comment("ID: " + id_DopDoc);
@@ -151,7 +154,7 @@ namespace Arenda
         private int _old_id_ten, _old_id_lord;
         private DateTime oldDoc;
 
-        public void setDocData (string num_doc, string oldTen, string oldLord, int _old_id_ten, int _old_id_lord,DateTime oldDoc)
+        public void setDocData(string num_doc, string oldTen, string oldLord, int _old_id_ten, int _old_id_lord, DateTime oldDoc)
         {
             this.num_doc = num_doc;
             this.oldTen = oldTen;
@@ -174,6 +177,9 @@ namespace Arenda
                 _id_type_doc = int.Parse(cbTypeDoc.SelectedValue.ToString());
                 y = dtTypes.Rows.IndexOf(dtTypes.Select("id = " + _id_type_doc.ToString())[0]);
 
+                dateadddoc.Format = DateTimePickerFormat.Short;
+                dateadddoc.Enabled = true;
+
                 lblDeparture.Visible = false;
                 dtpDeparture.Visible = false;
                 lblAreaNew.Visible = false;
@@ -184,11 +190,21 @@ namespace Arenda
                 tbComment.Visible = false;
                 dtpOutDate.Visible = false;
                 tbNumber.Visible = true;
+                tbError.Visible = false;
+
+                this.Size = new Size(430, 192);
+
 
                 label4.Text = "Дата продления\nдоговора";
                 label3.Text = "№";
                 dateadddoc.Location = new Point(128, 40);
                 label2.Text = "Дата доп. документа:";
+
+                isNullRequestOut = false;
+                dtpOutDate.Enabled = true;
+                tbComment.Enabled = true;
+                btAdd.Enabled = true;
+                id_PetitionLeave = null;
 
                 if (dtTypes.Rows[y]["NeedProlong"].ToString() == "True")
                 {
@@ -228,104 +244,204 @@ namespace Arenda
                     label3.Text = "Планируемая дата съезда:";
                     tbNumber.Visible = false;
                     dateadddoc.Location = new Point(190, 40);
+                    //dateadddoc.Enabled = false;
+
                     label2.Text = "Дата подачи заявления: ";
+                    dtpOutDate.Location = new Point(190, 68);
+
                 }
                 else
                     if (dtTypes.Rows[y]["Rus_Name"].Equals("Аннуляция заявления на съезд"))
                 {
+                    this.Size = new Size(430, 215);
 
+                    tbNumber.Visible = false;
+
+                    label3.Text = "Дата подачи аннуляции на съезд";
+
+                    label2.Text = "Дата подачи заявления на съезд";
+                    dateadddoc.Location = new Point(312, 40);
+                    dateadddoc.Enabled = false;
+
+                    dtpOutDate.Visible = true;
+                    dtpOutDate.Location = new Point(312, 91);
+
+                    label4.Visible = true;
+                    label4.Text = "Примечание";
+                    tbComment.Visible = true;
+
+                    tbError.Visible = true;
+
+                    isNullRequestOut = true;
+                    getDataNullRequestOut();
                 }
             }
         }
 
+        private void dateadddoc_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dateadddoc.Value.Date > dtpOutDate.Value.Date)
+                    dtpOutDate.Value = dateadddoc.Value.Date;
+            }
+            catch { }
+        }
+
+        private void dtpOutDate_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dateadddoc.Value.Date > dtpOutDate.Value.Date)
+                    dateadddoc.Value = dtpOutDate.Value.Date;
+            }
+            catch { }
+        }
+
+        private void dateadddoc_CloseUp(object sender, EventArgs e)
+        {
+            if (isNullRequestOut)
+            {
+                getDataNullRequestOut();
+            }
+        }
+
+        private void dateadddoc_Leave(object sender, EventArgs e)
+        {
+            if (isNullRequestOut)
+            {
+                getDataNullRequestOut();
+            }
+        }
+
+        private void getDataNullRequestOut()
+        {
+            DataTable dtTmp = _proc.getDataNullRequestOut(_id);
+            if (dtTmp == null || dtTmp.Rows.Count == 0 || (int)dtTmp.Rows[0]["id"] == 0)
+            {
+                tbError.Text = "Заявление на съезда не найдено";
+                this.tbError.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+                this.tbError.BackColor = Color.FromArgb(255, 0, 0);
+                //this.tbError.BackColor = System.Drawing.Color.Red;
+                //tbError.Font = new Font()
+                dateadddoc.Format = DateTimePickerFormat.Custom;
+                dateadddoc.CustomFormat = " ";
+                dtpOutDate.Enabled = false;
+                tbComment.Enabled = false;
+                btAdd.Enabled = false;
+                id_PetitionLeave = null;
+            }
+            else
+            {
+                this.tbError.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+                tbError.Text = "Заявление на съезда найдено";
+                this.tbError.BackColor = Color.FromArgb(0, 127, 14);
+                dateadddoc.Format = DateTimePickerFormat.Short;
+                dateadddoc.Value = ((DateTime)dtTmp.Rows[0]["DateDocument"]).Date;
+                dtpOutDate.Enabled = true;
+                tbComment.Enabled = true;
+                btAdd.Enabled = true;
+                id_PetitionLeave = (int)dtTmp.Rows[0]["id"];
+            }
+
+        }
+
         private bool CheckDate()
         {
-          if (cbTypeDoc.SelectedValue != null)
-          {
-            if (dateadddoc.Value < start)
+            if (cbTypeDoc.SelectedValue != null)
             {
-              MessageBox.Show("Дата доп. документа \nне должна быть меньше даты договора");
-              return true;
-            }
-
-            if (dateren.Visible == true)
-            {
-              if ((dtTypes.Rows[y][1].ToString() == "Соглашение о расторжении договора")
-                    || (dtTypes.Rows[y][1].ToString() == "Доп. соглашение на изменение площади"))
-              {
-                if (dateren.Value < start)
+                if (dateadddoc.Value < start)
                 {
-                  MessageBox.Show(mes + " не должна быть \nменьше даты договора");
-                  return true;
+                    MessageBox.Show("Дата доп. документа \nне должна быть меньше даты договора");
+                    return true;
                 }
-              }
-              else
-              {
-                if (dateren.Value < stop)
+
+                if (dateren.Visible == true)
                 {
-                  MessageBox.Show(mes + " не должна быть \nменьше даты окончания договора +1 ");
-                  return true;
+                    if ((dtTypes.Rows[y][1].ToString() == "Соглашение о расторжении договора")
+                          || (dtTypes.Rows[y][1].ToString() == "Доп. соглашение на изменение площади"))
+                    {
+                        if (dateren.Value < start)
+                        {
+                            MessageBox.Show(mes + " не должна быть \nменьше даты договора");
+                            return true;
+                        }
+                    }
+                    else
+                    {
+                        if (dateren.Value < stop)
+                        {
+                            MessageBox.Show(mes + " не должна быть \nменьше даты окончания договора +1 ");
+                            return true;
+                        }
+                    }
                 }
-              }
+
+                if (dtpDeparture.Visible == true)
+                {
+                    DataTable dtAgreement = new DataTable();
+                    dtAgreement = _proc.GetLD(_id);
+
+                    if ((dtAgreement == null) || (dtAgreement.Rows.Count == 0))
+                    {
+                        MessageBox.Show("Ошибка получения данных по договору!");
+                        return true;
+                    }
+
+                    DateTime AgrDate = DateTime.Parse(dtAgreement.Rows[0]["Date_of_Conclusion"].ToString()).Date;
+                    if (dtpDeparture.Value.Date < AgrDate)
+                    {
+                        MessageBox.Show("Дата договора - " + AgrDate.ToShortDateString() + "\nДата выезда не может быть меньше!");
+                        return true;
+                    }
+                }
+
+                DataTable dtCheckSameDocTypeAndDateExists = new DataTable();
+                dtCheckSameDocTypeAndDateExists = _proc.CheckSameDocTypeAndDateExists(
+                            _id,
+                            int.Parse(cbTypeDoc.SelectedValue.ToString()),
+                            dateadddoc.Value.Date);
+
+                if (dtCheckSameDocTypeAndDateExists.Rows.Count > 0)
+                {
+                    if (dtCheckSameDocTypeAndDateExists.Columns.Contains("msg"))
+                    {
+                        MessageBox.Show(TempData.centralText(dtCheckSameDocTypeAndDateExists.Rows[0]["msg"].ToString().Replace(@"\n", "\n")), "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Для договора уже существует документ \n\"" + cbTypeDoc.Text
+                            + "\" от " + dateadddoc.Value.ToShortDateString() + "\nСохранение невозможно.");
+                        return true;
+                    }
+                }
+
+                //если выбрано "Доп.соглашение на изменение площади"
+                if (int.Parse(cbTypeDoc.SelectedValue.ToString()) == 5)
+                {
+                    if (CheckPaymentsOnMonthth(_id, dateren.Value.Date, "Дата вступления в силу"))
+                    {
+                        return true;
+                    }
+                }
+
+                //если выбрано "Соглашение о расторжении договора"
+                if (int.Parse(cbTypeDoc.SelectedValue.ToString()) == 4)
+                {
+                    if (CheckPaymentsOnMonthth(_id, dtpDeparture.Value.Date, "Дата выезда"))
+                    {
+                        return true;
+                    }
+                }
+                return false;
             }
-
-            if (dtpDeparture.Visible == true)
-            {
-              DataTable dtAgreement = new DataTable();
-              dtAgreement = _proc.GetLD(_id);
-
-              if ((dtAgreement == null) || (dtAgreement.Rows.Count == 0))
-              {
-                MessageBox.Show("Ошибка получения данных по договору!");
-                return true;
-              }
-
-              DateTime AgrDate = DateTime.Parse(dtAgreement.Rows[0]["Date_of_Conclusion"].ToString()).Date;
-              if (dtpDeparture.Value.Date < AgrDate)
-              {
-                MessageBox.Show("Дата договора - " + AgrDate.ToShortDateString() + "\nДата выезда не может быть меньше!");
-                return true;
-              }
-            }
-
-            DataTable dtCheckSameDocTypeAndDateExists = new DataTable();
-            dtCheckSameDocTypeAndDateExists = _proc.CheckSameDocTypeAndDateExists(
-                        _id,
-                        int.Parse(cbTypeDoc.SelectedValue.ToString()),
-                        dateadddoc.Value.Date);
-
-            if (dtCheckSameDocTypeAndDateExists.Rows.Count > 0)
-            {
-              MessageBox.Show("Для договора уже существует документ \n\"" + cbTypeDoc.Text
-                  + "\" от " + dateadddoc.Value.ToShortDateString() + "\nСохранение невозможно.");
-              return true;
-            }
-
-            //если выбрано "Доп.соглашение на изменение площади"
-            if (int.Parse(cbTypeDoc.SelectedValue.ToString()) == 5)
-            {
-              if (CheckPaymentsOnMonthth(_id, dateren.Value.Date, "Дата вступления в силу"))
-              {
-                return true;
-              }
-            }
-
-            //если выбрано "Соглашение о расторжении договора"
-            if (int.Parse(cbTypeDoc.SelectedValue.ToString()) == 4)
-            {
-              if (CheckPaymentsOnMonthth(_id, dtpDeparture.Value.Date, "Дата выезда"))
-              {
-                return true;
-              }
-            }
-            return false;
-          }
             return false;
         }
 
         private bool CheckPaymentsOnMonthth(int id, DateTime date, string CalendarName)
         {
-            bool res = false;            
+            bool res = false;
 
             DataTable dt = new DataTable();
             dt = _proc.CheckPaymentsOnMonth(id, date);

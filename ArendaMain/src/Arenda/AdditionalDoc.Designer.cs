@@ -46,6 +46,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tbComment = new System.Windows.Forms.TextBox();
             this.dtpOutDate = new System.Windows.Forms.DateTimePicker();
+            this.tbError = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btExit
@@ -92,6 +93,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 72);
             this.label3.Name = "label3";
@@ -101,6 +103,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(12, 99);
             this.label4.Name = "label4";
@@ -127,10 +130,14 @@
             this.dateadddoc.Name = "dateadddoc";
             this.dateadddoc.Size = new System.Drawing.Size(100, 20);
             this.dateadddoc.TabIndex = 45;
+            this.dateadddoc.CloseUp += new System.EventHandler(this.dateadddoc_CloseUp);
+            this.dateadddoc.ValueChanged += new System.EventHandler(this.dateadddoc_ValueChanged);
+            this.dateadddoc.Leave += new System.EventHandler(this.dateadddoc_Leave);
             // 
             // tbNumber
             // 
-            this.tbNumber.Location = new System.Drawing.Point(128, 69);
+            this.tbNumber.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbNumber.Location = new System.Drawing.Point(128, 68);
             this.tbNumber.MaxLength = 9;
             this.tbNumber.Name = "tbNumber";
             this.tbNumber.Size = new System.Drawing.Size(100, 20);
@@ -139,6 +146,7 @@
             // 
             // dateren
             // 
+            this.dateren.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dateren.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateren.Location = new System.Drawing.Point(128, 95);
             this.dateren.Name = "dateren";
@@ -166,6 +174,7 @@
             // 
             // dtpDeparture
             // 
+            this.dtpDeparture.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dtpDeparture.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDeparture.Location = new System.Drawing.Point(312, 95);
             this.dtpDeparture.Name = "dtpDeparture";
@@ -175,6 +184,7 @@
             // 
             // lblDeparture
             // 
+            this.lblDeparture.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblDeparture.AutoSize = true;
             this.lblDeparture.Location = new System.Drawing.Point(232, 99);
             this.lblDeparture.Name = "lblDeparture";
@@ -185,6 +195,7 @@
             // 
             // tbComment
             // 
+            this.tbComment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.tbComment.Location = new System.Drawing.Point(15, 115);
             this.tbComment.MaxLength = 9;
             this.tbComment.Multiline = true;
@@ -196,12 +207,27 @@
             // 
             // dtpOutDate
             // 
+            this.dtpOutDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dtpOutDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpOutDate.Location = new System.Drawing.Point(190, 68);
             this.dtpOutDate.Name = "dtpOutDate";
             this.dtpOutDate.Size = new System.Drawing.Size(100, 20);
             this.dtpOutDate.TabIndex = 53;
             this.dtpOutDate.Visible = false;
+            this.dtpOutDate.ValueChanged += new System.EventHandler(this.dtpOutDate_ValueChanged);
+            // 
+            // tbError
+            // 
+            this.tbError.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbError.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.tbError.Location = new System.Drawing.Point(190, 67);
+            this.tbError.Name = "tbError";
+            this.tbError.ReadOnly = true;
+            this.tbError.Size = new System.Drawing.Size(222, 20);
+            this.tbError.TabIndex = 54;
+            this.tbError.Text = "Заявление на съезд не найдено";
+            this.tbError.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tbError.Visible = false;
             // 
             // AdditionalDoc
             // 
@@ -209,6 +235,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(424, 167);
             this.ControlBox = false;
+            this.Controls.Add(this.tbError);
             this.Controls.Add(this.dtpOutDate);
             this.Controls.Add(this.tbComment);
             this.Controls.Add(this.lblDeparture);
@@ -257,5 +284,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TextBox tbComment;
         private System.Windows.Forms.DateTimePicker dtpOutDate;
+        private System.Windows.Forms.TextBox tbError;
     }
 }

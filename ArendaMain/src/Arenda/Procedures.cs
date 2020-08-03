@@ -750,7 +750,7 @@ namespace Arenda
         }
 
         public DataTable AddeditTD(int id, int id_agreements, DateTime datedoc, int id_typedoc, int? number,
-            DateTime? daterenewal, decimal? Total_Area, DateTime? departureDate, string comment)
+            DateTime? daterenewal, decimal? Total_Area, DateTime? departureDate, string comment,int? id_PetitionLeave)
         {
             DbType x, w, depDateType, numType;
 
@@ -782,14 +782,15 @@ namespace Arenda
             else depDateType = DbType.DateTime;
 
             ap.Add(comment);
+            ap.Add(id_PetitionLeave);
 
 
             //"@id",        "@id_agr",    "@datedoc",    "@id_type_doc", "@number",   "@isActive" ,   "@daterenewal", "@id_creator", "@datecreate", "@id_editors", "@dateedit",    "@mode"
             return executeProcedure("Arenda.AddEditTD",
-                new string[10] { "@id", "@id_agr", "@datedoc", "@id_type_doc", "@number",
-                             "@daterenewal", "@id_user", "@Total_Area", "@DepartureDate","@comment" },
-                new DbType[10] { DbType.Int32, DbType.Int32, DbType.DateTime, DbType.Int32, numType,
-                             x, DbType.Int32, w, depDateType,DbType.String }, ap);
+                new string[11] { "@id", "@id_agr", "@datedoc", "@id_type_doc", "@number",
+                             "@daterenewal", "@id_user", "@Total_Area", "@DepartureDate","@comment","@id_PetitionLeave" },
+                new DbType[11] { DbType.Int32, DbType.Int32, DbType.DateTime, DbType.Int32, numType,
+                             x, DbType.Int32, w, depDateType,DbType.String,DbType.Int32 }, ap);
 
         }
 
@@ -2442,6 +2443,16 @@ namespace Arenda
             return executeProcedure("Arenda.spg_getTDiscount",
               new string[1] { "@id_Agreements" },
               new DbType[1] { DbType.Int32}, ap);
+        }
+
+        public DataTable getDataNullRequestOut(int id_Agreements)
+        {
+            ap.Clear();
+            ap.Add(id_Agreements);
+
+            return executeProcedure("Arenda.spg_getDataNullRequestOut",
+              new string[1] { "@id_Agreements" },
+              new DbType[1] { DbType.Int32 }, ap);
         }
     }    
 }
