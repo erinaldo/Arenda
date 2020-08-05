@@ -1,4 +1,5 @@
-﻿using Nwuram.Framework.Settings.User;
+﻿using Nwuram.Framework.Logging;
+using Nwuram.Framework.Settings.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -595,6 +596,38 @@ namespace dllArendaJournalAccrualsPenalties
                 return;
             }
 
+            if (preProName.Equals("PercentPenalty"))                       
+            {
+                Logging.StartFirstLevel(1570);
+                foreach (DataGridViewColumn col in dgvData.Columns)
+                {
+                    if (col.Visible && new List<string> {nameTenant.Name,cTypeContract.Name,cAgreements.Name,cPeriodCredit.Name,
+                        cSummaCredit.Name,cDatePay.Name,cSumma.Name,cCountDaysCredit.Name }.Contains(col.Name))
+                    {
+                        Logging.Comment($"{col.HeaderText}: {dgvData.CurrentRow.Cells[col.Name].Value.ToString()}");
+                    }
+
+                    Logging.VariableChange(cPrcPenalty.HeaderText, postCountFeedBack, preCountFeedBack);
+                }
+                Logging.StopFirstLevel();
+            }
+            else
+            {
+                Logging.StartFirstLevel(1571);
+                foreach (DataGridViewColumn col in dgvData.Columns)
+                {
+                    if (col.Visible && new List<string> {nameTenant.Name,cTypeContract.Name,cAgreements.Name,cPeriodCredit.Name,
+                        cSummaCredit.Name,cDatePay.Name,cSumma.Name,cCountDaysCredit.Name }.Contains(col.Name))
+                    {
+                        Logging.Comment($"{col.HeaderText}: {dgvData.CurrentRow.Cells[col.Name].Value.ToString()}");
+                    }
+
+                    Logging.VariableChange(cSummaPenalty.HeaderText, postCountFeedBack, preCountFeedBack);
+                }
+                Logging.StopFirstLevel();
+            }
+
+
             isEditCell = false;
             
             if (preProName.Equals("PercentPenalty"))
@@ -693,6 +726,15 @@ namespace dllArendaJournalAccrualsPenalties
                         isEditCell = false;
                         return;
                     }
+
+                    Logging.StartFirstLevel(1569);
+                    Logging.Comment($"ID: {id}");
+                    foreach (DataGridViewColumn col in dgvData.Columns)
+                    {
+                        if (col.Visible)
+                            Logging.Comment($"{col.HeaderText}: {dgvData.CurrentRow.Cells[col.Name].Value.ToString()}");
+                    }
+                    Logging.StopFirstLevel();
 
                     getData();
                 }

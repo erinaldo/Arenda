@@ -91,7 +91,7 @@ namespace dllArendaDictonary.dicTypeActivities
                 {
                     if (DialogResult.Yes == MessageBox.Show(Config.centralText("Выбранная для удаления запись используется в программе.\nСделать запись недействующей?\n"), "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
-                        setLog(id, 3);
+                        setLog(id, 1542);
                         task = Config.hCntMain.setTypeActivities(id, cName, !isActive, false, 0);
                         task.Wait();
                         if (task.Result == null)
@@ -108,7 +108,7 @@ namespace dllArendaDictonary.dicTypeActivities
                 {
                     if (DialogResult.Yes == MessageBox.Show("Удалить выбранную запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
-                        setLog(id, 2);
+                        setLog(id, 1566);
                         task = Config.hCntMain.setTypeActivities(id, cName, isActive, true, 1);
                         task.Wait();
                         if (task.Result == null)
@@ -124,7 +124,7 @@ namespace dllArendaDictonary.dicTypeActivities
                 {
                     if (DialogResult.Yes == MessageBox.Show("Сделать выбранную запись действующей?", "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
-                        setLog(id, 4);
+                        setLog(id, 1543);
                         task = Config.hCntMain.setTypeActivities(id, cName, !isActive, false, 0);
                         task.Wait();
                         if (task.Result == null)
@@ -286,8 +286,10 @@ namespace dllArendaDictonary.dicTypeActivities
                 default: break;
             }
 
+            string cName = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["cName"];
+
             Logging.Comment($"ID:{id}");
-            //Logging.Comment($"Наименование: {(string)dtData.DefaultView[dgvData.CurrentRow.Index]["cName"]}");
+            Logging.Comment($"Наименование: {cName}");
 
             Logging.StopFirstLevel();
         }

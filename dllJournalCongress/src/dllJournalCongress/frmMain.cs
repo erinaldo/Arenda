@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Nwuram.Framework.Logging;
 using Nwuram.Framework.Settings.User;
 
 
@@ -285,6 +286,29 @@ namespace dllJournalCongress
                     {
                         MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
+                    }
+
+                    if (isLinkPetitionLeave)
+                    {
+                        Logging.StartFirstLevel(1568);
+                        Logging.Comment($"ID: {id}");
+                        foreach (DataGridViewColumn col in dgvData.Columns)
+                        {
+                            if (col.Visible)
+                                Logging.Comment($"{col.HeaderText}: {dgvData.CurrentRow.Cells[col.Name].Value.ToString()}");
+                        }
+                        Logging.StopFirstLevel();
+                    }
+                    else
+                    {
+                        Logging.StartFirstLevel(1567);
+                        Logging.Comment($"ID: {id}");
+                        foreach (DataGridViewColumn col in dgvData.Columns)
+                        {
+                            if (col.Visible)
+                                Logging.Comment($"{col.HeaderText}: {dgvData.CurrentRow.Cells[col.Name].Value.ToString()}");
+                        }
+                        Logging.StopFirstLevel();
                     }
 
                     getData();

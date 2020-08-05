@@ -106,7 +106,7 @@ namespace dllArendaDictonary.dicAdvertisingSpace
                 {
                     if (DialogResult.Yes == MessageBox.Show(Config.centralText("Выбранная для удаления запись используется в программе.\nСделать запись недействующей?\n"), "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
-                        setLog(id, 3);
+                        setLog(id, 1542);
                         task = Config.hCntMain.setReclamaPlace(id, NumberPlace, id_ObjectLease, id_Building, Length, Width, !isActive, false, 0);
                         task.Wait();
                         if (task.Result == null)
@@ -123,7 +123,7 @@ namespace dllArendaDictonary.dicAdvertisingSpace
                 {
                     if (DialogResult.Yes == MessageBox.Show("Удалить выбранную запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
-                        setLog(id, 2);
+                        setLog(id, 1560);
                         task = Config.hCntMain.setReclamaPlace(id, NumberPlace, id_ObjectLease, id_Building, Length, Width, isActive, true, 1);
                         task.Wait();
                         if (task.Result == null)
@@ -139,7 +139,7 @@ namespace dllArendaDictonary.dicAdvertisingSpace
                 {
                     if (DialogResult.Yes == MessageBox.Show("Сделать выбранную запись действующей?", "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
-                        setLog(id, 4);
+                        setLog(id, 1543);
                         task = Config.hCntMain.setReclamaPlace(id, NumberPlace, id_ObjectLease, id_Building, Length, Width, !isActive, false, 0);
                         task.Wait();
                         if (task.Result == null)
@@ -298,15 +298,28 @@ namespace dllArendaDictonary.dicAdvertisingSpace
             Logging.StartFirstLevel(id_log);
             switch (id_log)
             {
-                case 2: Logging.Comment("Удаление Типа документа"); break;
-                case 3: Logging.Comment("Тип документа переведён в недействующие "); break;
-                case 4: Logging.Comment("Тип документа переведён  в действующие"); break;
+                //case 2: Logging.Comment("Удаление Типа документа"); break;
+                //case 3: Logging.Comment("Тип документа переведён в недействующие "); break;
+                //case 4: Logging.Comment("Тип документа переведён  в действующие"); break;
                 default: break;
             }
 
-            Logging.Comment($"ID:{id}");
-            //Logging.Comment($"Наименование: {(string)dtData.DefaultView[dgvData.CurrentRow.Index]["cName"]}");
+            int id_Building = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_Building"];
+            int id_ObjectLease = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_ObjectLease"];
 
+            Int64 Length = (Int64)dtData.DefaultView[dgvData.CurrentRow.Index]["Length"];
+            Int64 Width = (Int64)dtData.DefaultView[dgvData.CurrentRow.Index]["Width"];
+
+            string NumberPlace = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["NumberPlace"];
+            string nameObject = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["nameObject"];
+            string nameBuild = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["nameBuild"];
+
+            Logging.Comment($"ID: {id}");
+            Logging.Comment($"Объект расположения рекламного места ID:{id_ObjectLease}; Наименование: {nameObject}");
+            Logging.Comment($"Здание, на котором располагается рекламное место ID:{id_Building}; Наименование: {nameBuild}");
+            Logging.Comment($"Номер рекламного места : {NumberPlace}");
+            Logging.Comment($"Размер места Длина: {Length} мм");
+            Logging.Comment($"Размер места Ширина: {Width} мм");
             Logging.StopFirstLevel();
         }
 

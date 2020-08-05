@@ -90,16 +90,16 @@ namespace dllArendaDictonary.dicTypeActivities
             if (id == 0)
             {
                 id = (int)dtResult.Rows[0]["id"];
-                Logging.StartFirstLevel(1);
-                Logging.Comment("Добавить Тип документа");
+                Logging.StartFirstLevel(1564);
+                //Logging.Comment("Добавить Тип документа");
                 Logging.Comment($"ID: {id}");
                 Logging.Comment($"Наименование: {tbName.Text.Trim()}");
                 Logging.StopFirstLevel();
             }
             else
             {
-                Logging.StartFirstLevel(1);
-                Logging.Comment("Редактировать Тип документа");
+                Logging.StartFirstLevel(1565);
+                //Logging.Comment("Редактировать Тип документа");
                 Logging.Comment($"ID: {id}");
                 Logging.VariableChange("Наименование", tbName.Text.Trim(), oldName);
                 Logging.StopFirstLevel();

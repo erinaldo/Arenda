@@ -101,7 +101,7 @@ namespace dllArendaDictonary.dicLandPlot
                 {
                     if (DialogResult.Yes == MessageBox.Show(Config.centralText("Выбранная для удаления запись используется в программе.\nСделать запись недействующей?\n"), "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
-                        setLog(id, 3);
+                        setLog(id, 1542);
                         task = Config.hCntMain.setLandPlot(id, NumberPlot, id_ObjectLease, AreaPlot, !isActive, false, 0);
                         task.Wait();
                         if (task.Result == null)
@@ -118,7 +118,7 @@ namespace dllArendaDictonary.dicLandPlot
                 {
                     if (DialogResult.Yes == MessageBox.Show("Удалить выбранную запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
-                        setLog(id, 2);
+                        setLog(id, 1563);
                         task = Config.hCntMain.setLandPlot(id, NumberPlot, id_ObjectLease, AreaPlot, isActive, true, 1);
                         task.Wait();
                         if (task.Result == null)
@@ -134,7 +134,7 @@ namespace dllArendaDictonary.dicLandPlot
                 {
                     if (DialogResult.Yes == MessageBox.Show("Сделать выбранную запись действующей?", "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
-                        setLog(id, 4);
+                        setLog(id, 1543);
                         task = Config.hCntMain.setLandPlot(id, NumberPlot, id_ObjectLease, AreaPlot, !isActive, false, 0);
                         task.Wait();
                         if (task.Result == null)
@@ -299,8 +299,17 @@ namespace dllArendaDictonary.dicLandPlot
                 default: break;
             }
 
-            Logging.Comment($"ID:{id}");
-            //Logging.Comment($"Наименование: {(string)dtData.DefaultView[dgvData.CurrentRow.Index]["cName"]}");
+
+            int id_ObjectLease = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_ObjectLease"];
+            Int64 AreaPlot = (Int64)dtData.DefaultView[dgvData.CurrentRow.Index]["AreaPlot"];
+            string NumberPlot = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["NumberPlot"];
+            string nameObject = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["NumberPlot"];
+
+
+            Logging.Comment($"ID: {id}");
+            Logging.Comment($"Объект расположения земельного участка ID:{id_ObjectLease}; Наименование: {nameObject}");
+            Logging.Comment($"Номер земельного участка : {NumberPlot}");
+            Logging.Comment($"Размер земельного участка: {AreaPlot} м2");
 
             Logging.StopFirstLevel();
         }

@@ -17,8 +17,8 @@ namespace dllArendaDictonary.dicLandPlot
         public DataRowView row { set; private get; }
 
         private bool isEditData = false;
-        private string oldName;
-        private int id = 0;        
+        private string oldName, oldObjectName, oldArea;
+        private int id = 0, oldIdObject;        
 
         public frmAdd()
         {
@@ -38,8 +38,11 @@ namespace dllArendaDictonary.dicLandPlot
                 oldName = tbNumber.Text.Trim();
 
                 cmbObject.SelectedValue = row["id_ObjectLease"];
+                oldObjectName = cmbObject.Text.Trim();
+                oldIdObject = (int)cmbObject.SelectedValue;
 
-                tbArea.Text = row["AreaPlot"].ToString();               
+                tbArea.Text = row["AreaPlot"].ToString();
+                oldArea = tbArea.Text.Trim();
             }
 
             isEditData = false;
@@ -120,18 +123,25 @@ namespace dllArendaDictonary.dicLandPlot
             if (id == 0)
             {
                 id = (int)dtResult.Rows[0]["id"];
-                Logging.StartFirstLevel(1);
-                Logging.Comment("Добавить Тип документа");
+                Logging.StartFirstLevel(1561);
+                //Logging.Comment("Добавить Тип документа");
                 Logging.Comment($"ID: {id}");
-                Logging.Comment($"Наименование: {tbNumber.Text.Trim()}");
+                Logging.Comment($"Объект расположения земельного участка ID:{cmbObject.SelectedValue}; Наименование: {cmbObject.Text}");
+                Logging.Comment($"Номер земельного участка : {tbNumber.Text.Trim()}");
+                Logging.Comment($"Размер земельного участка: {tbArea.Text.Trim()} м2");
                 Logging.StopFirstLevel();
             }
             else
             {
-                Logging.StartFirstLevel(1);
-                Logging.Comment("Редактировать Тип документа");
+                Logging.StartFirstLevel(1562);
+                //Logging.Comment("Редактировать Тип документа");
                 Logging.Comment($"ID: {id}");
-                Logging.VariableChange("Наименование", tbNumber.Text.Trim(), oldName);
+                Logging.VariableChange($"Объект расположения земельного участка ID", cmbObject.SelectedValue, oldIdObject);
+                Logging.VariableChange($"Объект расположения земельного участка Наименование", cmbObject.Text, oldObjectName);
+
+                Logging.VariableChange($"Номер земельного участка", tbNumber.Text.Trim(), oldName);
+                Logging.VariableChange($"Размер земельного участка", tbArea.Text.Trim(), oldArea);
+
                 Logging.StopFirstLevel();
             }
 

@@ -17,8 +17,9 @@ namespace dllArendaDictonary.dicAdvertisingSpace
         public DataRowView row { set; private get; }
 
         private bool isEditData = false;
-        private string oldName;
-        private int id = 0;        
+        private string oldName,oldObjectName,oldBuildName,oldLenght,oldWidth;
+        private int id = 0,oldIdObject,oldIdBuild;    
+        
 
         public frmAdd()
         {
@@ -38,10 +39,18 @@ namespace dllArendaDictonary.dicAdvertisingSpace
                 oldName = tbNumber.Text.Trim();
 
                 cmbObject.SelectedValue = row["id_ObjectLease"];
+                oldObjectName = cmbObject.Text.Trim();
+                oldIdObject = (int)cmbObject.SelectedValue;
+
                 cmbBuilding.SelectedValue = row["id_Building"];
+                oldBuildName = cmbBuilding.Text.Trim();
+                oldIdBuild = (int)cmbBuilding.SelectedValue;
 
                 tbLength.Text = row["Length"].ToString();
+                oldLenght = tbLength.Text.Trim();
+
                 tbWidth.Text = row["Width"].ToString();
+                oldWidth = tbWidth.Text.Trim();
 
             }
 
@@ -148,18 +157,35 @@ namespace dllArendaDictonary.dicAdvertisingSpace
             if (id == 0)
             {
                 id = (int)dtResult.Rows[0]["id"];
-                Logging.StartFirstLevel(1);
-                Logging.Comment("Добавить Тип документа");
+                Logging.StartFirstLevel(1558);
+                //Logging.Comment("Добавить Тип документа");
                 Logging.Comment($"ID: {id}");
-                Logging.Comment($"Наименование: {tbNumber.Text.Trim()}");
+                Logging.Comment($"Объект расположения рекламного места ID:{cmbObject.SelectedValue}; Наименование: {cmbObject.Text}");
+                Logging.Comment($"Здание, на котором располагается рекламное место ID:{cmbBuilding.SelectedValue}; Наименование: {cmbBuilding.Text}");
+                Logging.Comment($"Номер рекламного места : {tbNumber.Text.Trim()}");
+                Logging.Comment($"Размер места Длина: {tbLength.Text.Trim()} мм");
+                Logging.Comment($"Размер места Ширина: {tbWidth.Text.Trim()} мм");
                 Logging.StopFirstLevel();
+
             }
             else
             {
-                Logging.StartFirstLevel(1);
-                Logging.Comment("Редактировать Тип документа");
+                Logging.StartFirstLevel(1559);
+                //Logging.Comment("Редактировать Тип документа");
                 Logging.Comment($"ID: {id}");
-                Logging.VariableChange("Наименование", tbNumber.Text.Trim(), oldName);
+                //Logging.VariableChange("Наименование", tbNumber.Text.Trim(), oldName);
+
+                Logging.VariableChange($"Объект расположения рекламного места ID", cmbObject.SelectedValue, oldIdObject);
+                Logging.VariableChange($"Объект расположения рекламного места Наименование", cmbObject.Text, oldObjectName);
+
+                Logging.VariableChange($"Здание, на котором располагается рекламное место ID", cmbBuilding.SelectedValue, oldIdBuild);
+                Logging.VariableChange($"Здание, на котором располагается рекламное место Наименование", cmbBuilding.Text, oldBuildName);
+
+                Logging.VariableChange($"Номер рекламного места", tbNumber.Text.Trim(), oldName);
+
+                Logging.VariableChange($"Размер места Длина",tbLength.Text.Trim(),oldLenght);
+                Logging.VariableChange($"Размер места Ширина", tbWidth.Text.Trim(), oldWidth);
+
                 Logging.StopFirstLevel();
             }
 
