@@ -91,13 +91,15 @@ namespace Arenda
 
             if (cbTypeDoc.Text == "")
             {
-                MessageBox.Show("Не выбран тип доп. документа.\nСохранение невозможно", "Сохранение доп.документа");
+                MessageBox.Show("Не выбран тип доп. документа.\nСохранение невозможно", "Сохранение доп.документа",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if ((tbAreaNew.Visible == true) && (tbAreaNew.Text == Area))
             {
-                MessageBox.Show("Не заполнено поле \"Общ. площадь\".\nСохранение невозможно", "Сохранение доп.документа");
+                MessageBox.Show("Не заполнено поле \"Общ. площадь\".\nСохранение невозможно", "Сохранение доп.документа",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -146,7 +148,7 @@ namespace Arenda
             + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
             Logging.StopFirstLevel();
 
-            MessageBox.Show("Данные сохранены", "Сохранение доп.документа");
+            MessageBox.Show("Данные сохранены.", "Сохранение доп.документа",MessageBoxButtons.OK,MessageBoxIcon.Information);
             DialogResult = DialogResult.Cancel;
         }
 
@@ -352,7 +354,8 @@ namespace Arenda
             {
                 if (dateadddoc.Value < start)
                 {
-                    MessageBox.Show("Дата доп. документа \nне должна быть меньше даты договора");
+                    MessageBox.Show("Дата доп. документа \nне должна быть меньше даты договора",
+                        "Проверка перед сохранением",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                     return true;
                 }
 
@@ -363,7 +366,8 @@ namespace Arenda
                     {
                         if (dateren.Value < start)
                         {
-                            MessageBox.Show(mes + " не должна быть \nменьше даты договора");
+                            MessageBox.Show(mes + " не должна быть \nменьше даты договора",
+                                "Проверка перед сохранением", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return true;
                         }
                     }
@@ -371,7 +375,8 @@ namespace Arenda
                     {
                         if (dateren.Value < stop)
                         {
-                            MessageBox.Show(mes + " не должна быть \nменьше даты окончания договора +1 ");
+                            MessageBox.Show(mes + " не должна быть \nменьше даты окончания договора +1 ", 
+                                "Проверка перед сохранением", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return true;
                         }
                     }
@@ -379,19 +384,20 @@ namespace Arenda
 
                 if (dtpDeparture.Visible == true)
                 {
-                    DataTable dtAgreement = new DataTable();
-                    dtAgreement = _proc.GetLD(_id);
+                    DataTable dtAgreement = _proc.GetLD(_id);
 
                     if ((dtAgreement == null) || (dtAgreement.Rows.Count == 0))
                     {
-                        MessageBox.Show("Ошибка получения данных по договору!");
+                        MessageBox.Show("Ошибка получения данных по договору!", 
+                            "Проверка перед сохранением", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return true;
                     }
 
                     DateTime AgrDate = DateTime.Parse(dtAgreement.Rows[0]["Date_of_Conclusion"].ToString()).Date;
                     if (dtpDeparture.Value.Date < AgrDate)
                     {
-                        MessageBox.Show("Дата договора - " + AgrDate.ToShortDateString() + "\nДата выезда не может быть меньше!");
+                        MessageBox.Show("Дата договора - " + AgrDate.ToShortDateString() + "\nДата выезда не может быть меньше!", 
+                            "Проверка перед сохранением", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return true;
                     }
                 }
@@ -406,13 +412,14 @@ namespace Arenda
                 {
                     if (dtCheckSameDocTypeAndDateExists.Columns.Contains("msg"))
                     {
-                        MessageBox.Show(TempData.centralText(dtCheckSameDocTypeAndDateExists.Rows[0]["msg"].ToString().Replace(@"\n", "\n")), "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show(TempData.centralText(dtCheckSameDocTypeAndDateExists.Rows[0]["msg"].ToString().Replace(@"\n", "\n")), 
+                            "Проверка перед сохранением", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return true;
                     }
                     else
                     {
-                        MessageBox.Show("Для договора уже существует документ \n\"" + cbTypeDoc.Text
-                            + "\" от " + dateadddoc.Value.ToShortDateString() + "\nСохранение невозможно.");
+                        MessageBox.Show(TempData.centralText("Для договора уже существует документ \n\"" + cbTypeDoc.Text
+                            + "\" от " + dateadddoc.Value.ToShortDateString() + "\nСохранение невозможно.\n"), "Проверка перед сохранением", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return true;
                     }
                 }
@@ -449,7 +456,7 @@ namespace Arenda
             if (dt.Rows.Count > 0)
             {
                 MessageBox.Show("За месяц, выбранный в календаре \n\"" + CalendarName
-                    + "\", уже имеются оплаты по договору. \nСохранение дополнительного документа невозможно.");
+                    + "\", уже имеются оплаты по договору. \nСохранение дополнительного документа невозможно.", "Проверка перед сохранением", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return true;
             }
 

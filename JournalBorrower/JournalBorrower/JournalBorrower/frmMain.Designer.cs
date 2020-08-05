@@ -40,8 +40,8 @@
             this.btExit = new System.Windows.Forms.Button();
             this.dgvData = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbPayDoc = new System.Windows.Forms.RadioButton();
             this.rbPayDopDoc = new System.Windows.Forms.RadioButton();
+            this.rbPayDoc = new System.Windows.Forms.RadioButton();
             this.nameTenant = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cAgreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,7 +90,7 @@
             this.tbAgreements.Name = "tbAgreements";
             this.tbAgreements.Size = new System.Drawing.Size(100, 20);
             this.tbAgreements.TabIndex = 21;
-            this.tbAgreements.TextAlignChanged += new System.EventHandler(this.tbTenant_TextChanged);
+            this.tbAgreements.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
             // 
             // tbPlace
             // 
@@ -98,7 +98,7 @@
             this.tbPlace.Name = "tbPlace";
             this.tbPlace.Size = new System.Drawing.Size(100, 20);
             this.tbPlace.TabIndex = 21;
-            this.tbPlace.TextAlignChanged += new System.EventHandler(this.tbTenant_TextChanged);
+            this.tbPlace.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
             // 
             // btUpdate
             // 
@@ -184,12 +184,23 @@
             // 
             this.groupBox1.Controls.Add(this.rbPayDopDoc);
             this.groupBox1.Controls.Add(this.rbPayDoc);
-            this.groupBox1.Location = new System.Drawing.Point(681, 1);
+            this.groupBox1.Location = new System.Drawing.Point(336, 1);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(259, 58);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Тип долгов";
+            // 
+            // rbPayDopDoc
+            // 
+            this.rbPayDopDoc.AutoSize = true;
+            this.rbPayDopDoc.Location = new System.Drawing.Point(6, 37);
+            this.rbPayDopDoc.Name = "rbPayDopDoc";
+            this.rbPayDopDoc.Size = new System.Drawing.Size(211, 17);
+            this.rbPayDopDoc.TabIndex = 0;
+            this.rbPayDopDoc.Text = "оплата по дополнительным оплатам\r\n";
+            this.rbPayDopDoc.UseVisualStyleBackColor = true;
+            this.rbPayDopDoc.Click += new System.EventHandler(this.rbPayDoc_Click);
             // 
             // rbPayDoc
             // 
@@ -203,17 +214,6 @@
             this.rbPayDoc.Text = "оплата по договорам";
             this.rbPayDoc.UseVisualStyleBackColor = true;
             this.rbPayDoc.Click += new System.EventHandler(this.rbPayDoc_Click);
-            // 
-            // rbPayDopDoc
-            // 
-            this.rbPayDopDoc.AutoSize = true;
-            this.rbPayDopDoc.Location = new System.Drawing.Point(6, 37);
-            this.rbPayDopDoc.Name = "rbPayDopDoc";
-            this.rbPayDopDoc.Size = new System.Drawing.Size(211, 17);
-            this.rbPayDopDoc.TabIndex = 0;
-            this.rbPayDopDoc.Text = "оплата по дополнительным оплатам\r\n";
-            this.rbPayDopDoc.UseVisualStyleBackColor = true;
-            this.rbPayDopDoc.Click += new System.EventHandler(this.rbPayDoc_Click);
             // 
             // nameTenant
             // 
@@ -283,10 +283,13 @@
             // 
             // cDateCloseSection
             // 
+            this.cDateCloseSection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.cDateCloseSection.DataPropertyName = "DateSeal";
             this.cDateCloseSection.HeaderText = "Дата опечат. секции";
+            this.cDateCloseSection.MinimumWidth = 80;
             this.cDateCloseSection.Name = "cDateCloseSection";
             this.cDateCloseSection.ReadOnly = true;
+            this.cDateCloseSection.Width = 80;
             // 
             // frmMain
             // 
