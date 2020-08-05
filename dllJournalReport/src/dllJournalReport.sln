@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dllJournalReport", "dllJournalReport\dllJournalReport.csproj", "{1529797C-3140-44F5-BEC9-3E311316DACB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1529797C-3140-44F5-BEC9-3E311316DACB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1529797C-3140-44F5-BEC9-3E311316DACB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1529797C-3140-44F5-BEC9-3E311316DACB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1529797C-3140-44F5-BEC9-3E311316DACB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2EA6DB9F-BEE1-42FA-8C00-1C7D44F7A9EC}
+	EndGlobalSection
+EndGlobal
