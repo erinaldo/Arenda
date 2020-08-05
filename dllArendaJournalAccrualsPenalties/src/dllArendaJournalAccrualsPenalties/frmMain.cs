@@ -748,6 +748,13 @@ namespace dllArendaJournalAccrualsPenalties
 
         private void btPrint_Click(object sender, EventArgs e)
         {
+
+            Logging.StartFirstLevel(79);
+
+            Logging.Comment($"Фомирование отчёта из \"{this.Text}\"");
+
+            Logging.StopFirstLevel();
+
             Nwuram.Framework.ToExcelNew.ExcelUnLoad report = new Nwuram.Framework.ToExcelNew.ExcelUnLoad();
 
             int indexRow = 1;

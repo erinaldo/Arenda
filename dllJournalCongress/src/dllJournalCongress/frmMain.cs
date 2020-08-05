@@ -324,6 +324,12 @@ namespace dllJournalCongress
                 return;
             }
 
+            Logging.StartFirstLevel(79);
+
+            Logging.Comment($"Фомирование отчёта из \"{this.Text}\"");
+
+            Logging.StopFirstLevel();
+
             Nwuram.Framework.ToExcelNew.ExcelUnLoad report = new Nwuram.Framework.ToExcelNew.ExcelUnLoad();
             int indexRow = 1;
             int maxColumns = 0;
