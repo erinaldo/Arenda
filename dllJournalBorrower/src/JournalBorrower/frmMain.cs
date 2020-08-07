@@ -270,8 +270,16 @@ namespace JournalBorrower
             dtData.Columns.Add("SummaPenny_2", typeof(decimal));
             dtData.Columns.Add("PrcPenny_2", typeof(decimal));
 
-            //task = Config.hCntMain.GetListOweAdditionalData(1);
+            task = Config.hCntMain.GetListOweAdditionalData(1);
+            task.Wait();            
+
+            if (task.Result != null && task.Result.Rows.Count > 0)
+            {
+                initDateType1(task.Result);
+            }
+
             task = Config.hCntMain.GetListOweAdditionalData(2);
+            task.Wait();            
             if (task.Result != null && task.Result.Rows.Count > 0)
             {
                 foreach (DataRow row in task.Result.Rows)
@@ -289,6 +297,159 @@ namespace JournalBorrower
 
             setFilter();
             dgvData.DataSource = dtData;
+        }
+
+        private void initDateType1(DataTable dtTmpData)
+        {
+            DataTable dtResultPay = new DataTable();
+            dtResultPay.Columns.Add("id_Agreements", typeof(int));
+            dtResultPay.Columns.Add("date", typeof(DateTime));
+            dtResultPay.Columns.Add("sumOwe", typeof(decimal));
+            dtResultPay.Columns.Add("sumPay", typeof(decimal));
+            dtResultPay.Columns.Add("sumResult", typeof(decimal));
+            dtResultPay.AcceptChanges();
+
+            var groupIdAgreements = dtTmpData.AsEnumerable()
+                    .GroupBy(r => new { id_Agreements = r.Field<int>("id_Agreements") })
+                    .Select(s => new
+                    {
+                        s.Key.id_Agreements
+                    });
+
+            foreach (var gIdAgreements in groupIdAgreements)
+            {
+                //foreach()
+                EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable()
+                    .Where(r => r.Field<int>("id") == gIdAgreements.id_Agreements);
+
+                if (rowCollect.Count() > 0)
+                {
+                    DateTime dStart = (DateTime)rowCollect.First()["Start_Date"];
+                    DateTime dStop = (DateTime)rowCollect.First()["Stop_Date"];
+                    decimal Total_Sum = (decimal)rowCollect.First()["Total_Sum"];
+                    decimal Cost_of_Meter = (decimal)rowCollect.First()["Cost_of_Meter"];
+                    //decimal Total_Area = (decimal)rowCollect.First()["Total_Area"];
+
+                    DateTime _dateStop = DateTime.Now.Day < 25 ?
+                        new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1).AddDays(-1)
+                        : new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(2).AddDays(-1);
+
+                    //List<DateTime> listDate = new List<DateTime>();
+                    Dictionary<DateTime, decimal> dicDate = new Dictionary<DateTime, decimal>();
+
+                    //for (DateTime dI = dStart.Date; dI.Date <= dStop.Date; dI = dI.AddDays(1))
+                    for (DateTime dI = dStart.Date; dI.Date <= _dateStop.Date; dI = dI.AddDays(1))
+                    {
+                        if (dI.Date > dStop.Date)
+                            break;
+
+                        int days = DateTime.DaysInMonth(dI.Year, dI.Month);
+                        //Console.WriteLine(dI.Date.ToShortDateString());
+                        rowCollect = dtTmpData.AsEnumerable()
+                               .Where(r => r.Field<int>("id_Agreements") == gIdAgreements.id_Agreements &&
+                                ((r.Field<DateTime>("DateStart").Date <= dI.Date && r.Field<object>("DateEnd") == null)
+                                || (r.Field<DateTime>("DateStart").Date <= dI.Date && dI.Date <= r.Field<DateTime>("DateEnd").Date))
+                               );
+
+                        if (rowCollect.Count() > 0)
+                        {
+                            decimal _tmpDec = Total_Sum;
+
+                            EnumerableRowCollection<DataRow> rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 2);
+                            if (rows.Count() > 0)
+                            {
+                                _tmpDec = (decimal)rows.First()["Discount"];
+                                _tmpDec = _tmpDec * (decimal)rows.First()["Total_Area"];
+                            }
+                            else
+                            {
+                                rows = rowCollect.Where(r => r.Field<object>("DateEnd") == null && r.Field<int>("id_TypeDiscount") == 2);
+                                if (rows.Count() > 0)
+                                {
+                                    _tmpDec = (decimal)rows.First()["Discount"];
+                                    _tmpDec = _tmpDec * (decimal)rows.First()["Total_Area"];
+                                }
+                            }
+
+
+                            rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 1);
+                            if (rows.Count() > 0)
+                            {
+                                _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
+                            }
+                            else
+                            {
+                                rows = rowCollect.Where(r => r.Field<object>("DateEnd") == null && r.Field<int>("id_TypeDiscount") == 1);
+                                if (rows.Count() > 0)
+                                {
+                                    _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
+                                }
+                            }
+
+                            dicDate.Add(dI.Date, _tmpDec / days);
+                        }
+                        else
+                        {
+                            dicDate.Add(dI.Date, Total_Sum / days);
+                        }
+                    }
+                    
+                    Task<DataTable> task = Config.hCntMain.GetPaymentsForAgreemetns(gIdAgreements.id_Agreements);
+                    task.Wait();
+
+                    decimal pay = 0;
+
+                    if (task.Result != null && task.Result.Rows.Count > 0)
+                    {
+                        foreach (DataRow row in task.Result.Rows)
+                        {
+                            pay += (decimal)row["Summa"];
+                        }
+                    }
+
+
+                    for (DateTime dI = dStart.Date; dI.Date.Month <= _dateStop.Date.Month; dI = dI.AddMonths(1))
+                    {
+                        DateTime useDate = new DateTime(dI.Year, dI.Month, 1);
+                        
+                        IEnumerable<DateTime> rowDates = dicDate.Keys.AsEnumerable().Where(r => r.Month == dI.Month && r.Year == dI.Year);
+                        decimal sumMonth = 0;
+                        foreach (DateTime tt in rowDates)
+                        {
+                            sumMonth += dicDate[tt.Date];
+                            
+                        }
+
+                        sumMonth = Math.Round(sumMonth, 2);
+
+                        if (pay == 0)
+                        {
+                            dtResultPay.Rows.Add(gIdAgreements.id_Agreements, useDate, sumMonth, pay, sumMonth - pay);
+                        }
+                        else
+                        if (sumMonth > pay)
+                        {
+                            dtResultPay.Rows.Add(gIdAgreements.id_Agreements, useDate, sumMonth, pay, sumMonth - pay);
+                            pay = 0;
+                        }
+                        else
+                        {
+                            dtResultPay.Rows.Add(gIdAgreements.id_Agreements, useDate, sumMonth, sumMonth, sumMonth - pay);
+                            pay = pay - sumMonth;
+                        }
+
+                       
+                        Console.WriteLine($"{dI.Month}.{dI.Year}  :  {sumMonth}");
+                    }
+
+                    
+
+
+                    Console.WriteLine($"");
+
+
+                }
+            }
         }
 
         private void setFilter()

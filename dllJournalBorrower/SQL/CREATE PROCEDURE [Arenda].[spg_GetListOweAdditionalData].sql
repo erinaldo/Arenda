@@ -20,7 +20,25 @@ BEGIN
 
 	IF @typeData = 1
 		BEGIN
-			select 0 as id
+			select 
+				d.id_Agreements,
+				d.DateStart,
+				d.DateEnd,
+				d.id_TypeDiscount,
+				d.Discount,
+				a.Total_Sum,
+				a.Total_Area,
+				a.Start_Date,
+				a.Stop_Date
+			from 
+				Arenda.j_tDiscount d
+					inner join Arenda.j_Agreements a on a.id = d.id_Agreements
+			where 
+				a.isConfirmed = 1 
+				--and a.id = 1053 
+				and d.id_StatusDiscount = 2
+			order by 
+				d.DateStart asc
 		END
 	ELSE
 		BEGIN		

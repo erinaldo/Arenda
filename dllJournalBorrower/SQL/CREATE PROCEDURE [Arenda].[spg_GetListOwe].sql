@@ -39,7 +39,9 @@ select
 	a.Cost_of_Meter,
 	a.Total_Sum,
 	ds.DateSeal,
-	a.id_ObjectLease
+	a.id_ObjectLease,
+	a.Start_Date,
+	a.Stop_Date
 from
 	Arenda.j_Agreements a 
 		inner join Arenda.s_Landlord_Tenant lt on lt.id = a.id_Tenant
@@ -57,7 +59,7 @@ from
 
 		left join Arenda.s_LandPlot lp on lp.id = a.id_Section and a.id_TypeContract = 3
 where 
-	a.isConfirmed = 1 
+	a.isConfirmed = 1
 
 DROP TABLE #tableDateSeal
 
