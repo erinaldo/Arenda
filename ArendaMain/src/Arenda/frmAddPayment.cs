@@ -209,19 +209,19 @@ namespace Arenda
             //if (rbRek.Checked)
             //    curSign = 2;
 
-            DataTable dtAfterPayments = new DataTable();
-            dtAfterPayments = _proc.CheckAfterPayments(id, id_agreement, dtpDate.Value.Date);
+            //DataTable dtAfterPayments = new DataTable();
+            //dtAfterPayments = _proc.CheckAfterPayments(id, id_agreement, dtpDate.Value.Date);
 
-            if ((dtAfterPayments == null) || (dtAfterPayments.Rows.Count == 0))
-            {
-                return;                
-            }
+            //if ((dtAfterPayments == null) || (dtAfterPayments.Rows.Count == 0))
+            //{
+            //    return;                
+            //}
 
-            if (int.Parse(dtAfterPayments.Rows[0][0].ToString())>0)
-            {
-                MessageBox.Show("Для договора заведена оплата на более позднюю дату. \nСохранение невозможно. \nВыберите другую дату или удалите \nзапись с более поздней датой!", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }                             
+            //if (int.Parse(dtAfterPayments.Rows[0][0].ToString())>0)
+            //{
+            //    MessageBox.Show("Для договора заведена оплата на более позднюю дату. \nСохранение невозможно. \nВыберите другую дату или удалите \nзапись с более поздней датой!", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    return;
+            //}                             
 
 
             DataTable dt = new DataTable();
@@ -354,39 +354,39 @@ namespace Arenda
 
             decimal payed = sumPay - pen;
 
-            MessageBox.Show("Оплата "
-                +                 
-                numTextBox.CheckAndChange(
-                    sumPay.ToString(), 
-                    2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")
-                + " руб. просрочена на "
-                + Convert.ToInt32(dtY.Compute("Max(Pr)", "")).ToString()
-                + " дней. "
-                + "\nНачислено пени в размере "
-                + numTextBox.CheckAndChange(
-                    pen.ToString(), 
-                    2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")
-                + " руб. "
-                + "\nВ оплату принято " 
-                + numTextBox.CheckAndChange(
-                    payed.ToString(), 
-                    2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")                                
-                + " руб. "
-                + "\n\nИтого долг равен "
-                + numTextBox.CheckAndChange(
-                    TempData.SumDebtAfterCount.ToString(), 
-                    2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")                
-                + " руб. "
-                + ((TempData.SumDebtAfterCount == 0) ? "" : "\nОплатить до " + TempData.dateToPayAfterCount.Date.ToShortDateString())
-                + "\nИтого переплата "
-                + numTextBox.CheckAndChange(
-                    TempData.PereplataAfterCount.ToString(),
-                    2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")
-                + " руб. "
-                + ((TempData.isFullPayed) ? ("\n\nДоговор оплачен полностью.") : "")
-                );
+            //MessageBox.Show("Оплата "
+            //    +                 
+            //    numTextBox.CheckAndChange(
+            //        sumPay.ToString(), 
+            //        2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")
+            //    + " руб. просрочена на "
+            //    + Convert.ToInt32(dtY.Compute("Max(Pr)", "")).ToString()
+            //    + " дней. "
+            //    + "\nНачислено пени в размере "
+            //    + numTextBox.CheckAndChange(
+            //        pen.ToString(), 
+            //        2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")
+            //    + " руб. "
+            //    + "\nВ оплату принято " 
+            //    + numTextBox.CheckAndChange(
+            //        payed.ToString(), 
+            //        2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")                                
+            //    + " руб. "
+            //    + "\n\nИтого долг равен "
+            //    + numTextBox.CheckAndChange(
+            //        TempData.SumDebtAfterCount.ToString(), 
+            //        2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")                
+            //    + " руб. "
+            //    + ((TempData.SumDebtAfterCount == 0) ? "" : "\nОплатить до " + TempData.dateToPayAfterCount.Date.ToShortDateString())
+            //    + "\nИтого переплата "
+            //    + numTextBox.CheckAndChange(
+            //        TempData.PereplataAfterCount.ToString(),
+            //        2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")
+            //    + " руб. "
+            //    + ((TempData.isFullPayed) ? ("\n\nДоговор оплачен полностью.") : "")
+            //    );
 
-            PrintSavedResults("Результат сохранения оплаты", true);
+            //PrintSavedResults("Результат сохранения оплаты", true);
 
             if (TempData.isFullPayed)
             {
@@ -471,8 +471,14 @@ namespace Arenda
             }            
         }
 
+        DateTime _date;
+        string _summa;
+
         private void Algoritm()
         {
+            if (_date == dtpDate.Value.Date &&
+            _summa == txtSum.Text) return;
+
             if (!Running)
             {
                 Running = true;
@@ -489,7 +495,7 @@ namespace Arenda
         {
             if (!load)
             {
-                Algoritm();
+             //   Algoritm();
             }
         }
 
@@ -593,6 +599,22 @@ namespace Arenda
             //id_SavePayment
         }
 
+        private void dtpDate_CloseUp(object sender, EventArgs e)
+        {
+            if (!load)
+            {
+                   Algoritm();
+            }
+        }
+
+        private void dtpDate_Leave(object sender, EventArgs e)
+        {
+            if (!load)
+            {
+                   Algoritm();
+            }
+        }
+
         private void btSelectJFines_Click(object sender, EventArgs e)
         {
             //id_agreement
@@ -666,8 +688,8 @@ namespace Arenda
                 }
             }
 
-            
-
+            _date = dtpDate.Value.Date;
+            _summa = txtSum.Text;
         }
     }
 }

@@ -217,6 +217,13 @@ namespace Arenda
 
         private void grdPayments_SelectionChanged(object sender, EventArgs e)
         {
+            if(grdPayments.CurrentRow==null || grdPayments.CurrentRow.Index == -1)
+            {
+                txtEditor.Text = ""; txtDateEdit.Text = ""; txtComment.Text = "";
+                btnDel.Enabled = btnEdit.Enabled = false;
+                return;
+            }
+
             try
             {
                 txtEditor.Text = grdPayments.CurrentRow.Cells["Editor"].Value.ToString();

@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddeditDoc));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
             this.cmbTypeDog = new System.Windows.Forms.ComboBox();
@@ -115,6 +115,11 @@
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.btAddDiscount = new System.Windows.Forms.Button();
             this.dgvData = new System.Windows.Forms.DataGridView();
+            this.cStartDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cStopDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cTypeDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cSumDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cConfirmD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.lblDopS = new System.Windows.Forms.Label();
@@ -137,11 +142,6 @@
             this.Total_Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date_of_Departure = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bds = new System.Windows.Forms.BindingSource(this.components);
-            this.cStartDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cStopDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cTypeDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cSumDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cConfirmD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmsDiscount = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.подтвердитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отклонитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -523,8 +523,10 @@
             this.tbKadNum.Location = new System.Drawing.Point(139, 45);
             this.tbKadNum.Name = "tbKadNum";
             this.tbKadNum.ReadOnly = true;
+            this.tbKadNum.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.tbKadNum.Size = new System.Drawing.Size(142, 20);
             this.tbKadNum.TabIndex = 16;
+            this.tbKadNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // tbReklSize1
             // 
@@ -650,6 +652,7 @@
             this.tbReklNumber.Size = new System.Drawing.Size(100, 20);
             this.tbReklNumber.TabIndex = 20;
             this.tbReklNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbReklNumber.Visible = false;
             this.tbReklNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbReklNumber_KeyPress);
             this.tbReklNumber.Leave += new System.EventHandler(this.tbReklNumber_Leave);
             // 
@@ -661,6 +664,7 @@
             this.lblReklNumber.Size = new System.Drawing.Size(75, 13);
             this.lblReklNumber.TabIndex = 19;
             this.lblReklNumber.Text = "Номер места";
+            this.lblReklNumber.Visible = false;
             // 
             // lbPrice
             // 
@@ -836,13 +840,13 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.пиуToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(112, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(114, 26);
             this.contextMenuStrip1.Text = "Печать";
             // 
             // пиуToolStripMenuItem
             // 
             this.пиуToolStripMenuItem.Name = "пиуToolStripMenuItem";
-            this.пиуToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+            this.пиуToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.пиуToolStripMenuItem.Text = "Печать";
             this.пиуToolStripMenuItem.Click += new System.EventHandler(this.пиуToolStripMenuItem_Click);
             // 
@@ -1044,14 +1048,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cStartDiscount,
@@ -1072,6 +1076,41 @@
             this.dgvData.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
             this.dgvData.SelectionChanged += new System.EventHandler(this.dgvData_SelectionChanged);
             // 
+            // cStartDiscount
+            // 
+            this.cStartDiscount.DataPropertyName = "DateStart";
+            this.cStartDiscount.HeaderText = "Дата  начала";
+            this.cStartDiscount.Name = "cStartDiscount";
+            this.cStartDiscount.ReadOnly = true;
+            // 
+            // cStopDiscount
+            // 
+            this.cStopDiscount.DataPropertyName = "DateEnd";
+            this.cStopDiscount.HeaderText = "Дата окончания";
+            this.cStopDiscount.Name = "cStopDiscount";
+            this.cStopDiscount.ReadOnly = true;
+            // 
+            // cTypeDiscount
+            // 
+            this.cTypeDiscount.DataPropertyName = "nameTypeDiscount";
+            this.cTypeDiscount.HeaderText = "Тип";
+            this.cTypeDiscount.Name = "cTypeDiscount";
+            this.cTypeDiscount.ReadOnly = true;
+            // 
+            // cSumDiscount
+            // 
+            this.cSumDiscount.DataPropertyName = "Discount";
+            this.cSumDiscount.HeaderText = "Скидка";
+            this.cSumDiscount.Name = "cSumDiscount";
+            this.cSumDiscount.ReadOnly = true;
+            // 
+            // cConfirmD
+            // 
+            this.cConfirmD.DataPropertyName = "nameStatusDiscount";
+            this.cConfirmD.HeaderText = "D";
+            this.cConfirmD.Name = "cConfirmD";
+            this.cConfirmD.ReadOnly = true;
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.groupBox5);
@@ -1080,7 +1119,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(725, 588);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Доп. соглашения";
+            this.tabPage2.Text = "Доп. Документы";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox5
@@ -1151,14 +1190,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgAddDoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgAddDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgAddDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgAddDoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgAddDoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.number,
@@ -1300,61 +1339,26 @@
             this.Date_of_Departure.ReadOnly = true;
             this.Date_of_Departure.Visible = false;
             // 
-            // cStartDiscount
-            // 
-            this.cStartDiscount.DataPropertyName = "DateStart";
-            this.cStartDiscount.HeaderText = "Дата  начала";
-            this.cStartDiscount.Name = "cStartDiscount";
-            this.cStartDiscount.ReadOnly = true;
-            // 
-            // cStopDiscount
-            // 
-            this.cStopDiscount.DataPropertyName = "DateEnd";
-            this.cStopDiscount.HeaderText = "Дата окончания";
-            this.cStopDiscount.Name = "cStopDiscount";
-            this.cStopDiscount.ReadOnly = true;
-            // 
-            // cTypeDiscount
-            // 
-            this.cTypeDiscount.DataPropertyName = "nameTypeDiscount";
-            this.cTypeDiscount.HeaderText = "Тип";
-            this.cTypeDiscount.Name = "cTypeDiscount";
-            this.cTypeDiscount.ReadOnly = true;
-            // 
-            // cSumDiscount
-            // 
-            this.cSumDiscount.DataPropertyName = "Discount";
-            this.cSumDiscount.HeaderText = "Скидка";
-            this.cSumDiscount.Name = "cSumDiscount";
-            this.cSumDiscount.ReadOnly = true;
-            // 
-            // cConfirmD
-            // 
-            this.cConfirmD.DataPropertyName = "nameStatusDiscount";
-            this.cConfirmD.HeaderText = "D";
-            this.cConfirmD.Name = "cConfirmD";
-            this.cConfirmD.ReadOnly = true;
-            // 
             // cmsDiscount
             // 
             this.cmsDiscount.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.подтвердитьToolStripMenuItem,
             this.отклонитьToolStripMenuItem});
             this.cmsDiscount.Name = "cmsDiscount";
-            this.cmsDiscount.Size = new System.Drawing.Size(181, 70);
+            this.cmsDiscount.Size = new System.Drawing.Size(145, 48);
             this.cmsDiscount.Opening += new System.ComponentModel.CancelEventHandler(this.cmsDiscount_Opening);
             // 
             // подтвердитьToolStripMenuItem
             // 
             this.подтвердитьToolStripMenuItem.Name = "подтвердитьToolStripMenuItem";
-            this.подтвердитьToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.подтвердитьToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.подтвердитьToolStripMenuItem.Text = "Подтвердить";
             this.подтвердитьToolStripMenuItem.Click += new System.EventHandler(this.подтвердитьToolStripMenuItem_Click);
             // 
             // отклонитьToolStripMenuItem
             // 
             this.отклонитьToolStripMenuItem.Name = "отклонитьToolStripMenuItem";
-            this.отклонитьToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
+            this.отклонитьToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.отклонитьToolStripMenuItem.Text = "Отклонить";
             this.отклонитьToolStripMenuItem.Click += new System.EventHandler(this.отклонитьToolStripMenuItem_Click);
             // 

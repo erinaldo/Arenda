@@ -126,7 +126,9 @@
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(198, 20);
             this.dtpDate.TabIndex = 44;
+            this.dtpDate.CloseUp += new System.EventHandler(this.dtpDate_CloseUp);
             this.dtpDate.ValueChanged += new System.EventHandler(this.dtpDate_ValueChanged);
+            this.dtpDate.Leave += new System.EventHandler(this.dtpDate_Leave);
             // 
             // txtSum
             // 
@@ -245,22 +247,22 @@
             // rbPayArend
             // 
             this.rbPayArend.AutoSize = true;
+            this.rbPayArend.Checked = true;
             this.rbPayArend.Location = new System.Drawing.Point(120, 17);
             this.rbPayArend.Name = "rbPayArend";
             this.rbPayArend.Size = new System.Drawing.Size(124, 17);
             this.rbPayArend.TabIndex = 54;
+            this.rbPayArend.TabStop = true;
             this.rbPayArend.Text = "Оплата арендатора";
             this.rbPayArend.UseVisualStyleBackColor = true;
             // 
             // rbSendMoney
             // 
             this.rbSendMoney.AutoSize = true;
-            this.rbSendMoney.Checked = true;
             this.rbSendMoney.Location = new System.Drawing.Point(15, 17);
             this.rbSendMoney.Name = "rbSendMoney";
             this.rbSendMoney.Size = new System.Drawing.Size(99, 17);
             this.rbSendMoney.TabIndex = 54;
-            this.rbSendMoney.TabStop = true;
             this.rbSendMoney.Text = "Возврат денег";
             this.rbSendMoney.UseVisualStyleBackColor = true;
             // 
@@ -369,7 +371,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(336, 412);
+            this.ClientSize = new System.Drawing.Size(332, 408);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);

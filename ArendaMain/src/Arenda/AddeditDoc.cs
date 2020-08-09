@@ -124,8 +124,9 @@ namespace Arenda
 
         private void TypeToVisibleElement()
         {
-            lReclamaPlace.Visible = cmbReclamaPlace.Visible = lbReklPrice.Visible = txtReklamma.Visible = lblReklNumber.Visible
-                  = tbReklNumber.Visible = lblReklSize.Visible = tbReklSize1.Visible
+            lReclamaPlace.Visible = cmbReclamaPlace.Visible = lbReklPrice.Visible = txtReklamma.Visible =
+                // lblReklNumber.Visible= tbReklNumber.Visible =
+                   lblReklSize.Visible = tbReklSize1.Visible
                   = tbReklSize2.Visible = (int)cmbTypeDog.SelectedValue == 2;
 
             label5.Visible = cbZdan.Visible = (int)cmbTypeDog.SelectedValue != 3;
@@ -906,7 +907,7 @@ namespace Arenda
                             (int)cmbTypeDog.SelectedValue != 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbReklSize1.Text)),
                             (int)cmbTypeDog.SelectedValue != 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbReklSize2.Text)),
                             (int)cmbTypeDog.SelectedValue != 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbS.Text)),
-                            (int)cmbTypeDog.SelectedValue != 2 ? 0 : Convert.ToInt32(numTextBox.ConvertToCompPunctuation(tbReklNumber.Text)),
+                            0,//(int)cmbTypeDog.SelectedValue != 2 ? 0 : Convert.ToInt32(numTextBox.ConvertToCompPunctuation(tbReklNumber.Text)),
                             tbFailComment.Text,
                             (int)cmbTypeDog.SelectedValue,
                             tbKadNum.Text,
@@ -1408,12 +1409,12 @@ namespace Arenda
                     errmes += "\n- Стоимость рекламы";
                 }
 
-                if (int.Parse(numTextBox.ConvertToCompPunctuation(tbReklNumber.Text))
-                  == int.Parse(defaultValInt))
-                {
-                    err = true;
-                    errmes += "\n- Номер места";
-                }
+                //if (int.Parse(numTextBox.ConvertToCompPunctuation(tbReklNumber.Text))
+                //  == int.Parse(defaultValInt))
+                //{
+                //    err = true;
+                //    errmes += "\n- Номер места";
+                //}
             }
 
             if ((decimal.Parse(numTextBox.ConvertToCompPunctuation(tbcbm.Text)) == 0)

@@ -116,7 +116,7 @@ namespace Arenda
 
         private void справочникЗданийToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            var zdan = new Zdania() { ShowInTaskbar = false};
+            var zdan = new Zdania() { ShowInTaskbar = false };
             //zdan.ShowInTaskbar = false;
             zdan.ShowDialog();
         }
@@ -181,8 +181,8 @@ namespace Arenda
             btnReport.Visible = false;
 
             btJournalSealSections.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
-            btAcceptDoc.Visible = new List<string> { "СОА", "РКВ","КНТ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
-            btCopyDoc.Visible = new List<string> { "СОА", "РКВ"}.Contains(TempData.Rezhim) && pListDoc.Visible;
+            btAcceptDoc.Visible = new List<string> { "СОА", "РКВ", "КНТ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
+            btCopyDoc.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
             btKntListTaxes.Visible = new List<string> { "КНТ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
         }
 
@@ -264,7 +264,7 @@ namespace Arenda
             справочникДолжностейToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim);
             справочникДопОплатToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim);
             справочникПриборовToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim);
-            справочникОбъектовToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim);            
+            справочникОбъектовToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim);
             справочникРекламныхМестToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim);
             справочникЗемельныхУчастковToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim);
             справочникВидаДейтельностиToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim);
@@ -566,14 +566,14 @@ namespace Arenda
                     sb.Append(" (Начало <= '" + Fstring2 + "'");
                     sb.Append(" and Конец >= '" + Fstring2 + "'))");
 
-                    if(!chbCancelDoc.Checked)
+                    if (!chbCancelDoc.Checked)
                         sb.Append(" and isCancelDoc = 0");
 
                     if (int.Parse(cmbObj.SelectedValue.ToString()) != 0)
                         sb.Append(" and id_ObjectLease = " + cmbObj.SelectedValue.ToString());
                     if ((int)cmbType.SelectedValue != 0)
                         sb.Append(" and id_TypeContract = " + cmbType.SelectedValue.ToString());
-                    if (int.Parse(cbLordland.SelectedValue.ToString()) != 0)
+                    if (cbLordland.SelectedValue != null && int.Parse(cbLordland.SelectedValue.ToString()) != 0)
                         sb.Append(" and id_lord = " + cbLordland.SelectedValue.ToString());
                     sb.Append(" and Место like '%" + Fstring5 + "%'");
                     view.RowFilter = sb.ToString();
@@ -1169,7 +1169,7 @@ namespace Arenda
                     //{
                     //    rColor = picUnContract.BackColor;
                     //}
-                    if(!(bool)_Tenant.DefaultView[e.RowIndex]["isConfirmed"]) rColor = picUnContract.BackColor;
+                    if (!(bool)_Tenant.DefaultView[e.RowIndex]["isConfirmed"]) rColor = picUnContract.BackColor;
                 }
             }
 
@@ -1801,7 +1801,7 @@ namespace Arenda
                 }
                 else
                 {
-                    var editDoc = new AddeditDoc(Convert.ToInt32(dgListDoc.SelectedRows[0].Cells["id_agreements"].Value.ToString()), true,false);
+                    var editDoc = new AddeditDoc(Convert.ToInt32(dgListDoc.SelectedRows[0].Cells["id_agreements"].Value.ToString()), true, false);
                     editDoc.ShowDialog();
                 }
                 iniListDoc();
@@ -1884,7 +1884,7 @@ namespace Arenda
         private void btnListTaxes_Click(object sender, EventArgs e)
         {
             int id = int.Parse(dgListDoc.CurrentRow.Cells["id_agreements"].Value.ToString());
-            frmListTaxes frmListT = new frmListTaxes(id) { ShowInTaskbar = false};
+            frmListTaxes frmListT = new frmListTaxes(id) { ShowInTaskbar = false };
 
             frmListT.setData(
                         dgListDoc.CurrentRow.Cells["Date"].Value.ToString(),
@@ -1931,7 +1931,7 @@ namespace Arenda
                 }
                 else
                 {
-                    var editDoc = new AddeditDoc(Convert.ToInt32(dgListDoc.SelectedRows[0].Cells["id_agreements"].Value.ToString()), true,false);
+                    var editDoc = new AddeditDoc(Convert.ToInt32(dgListDoc.SelectedRows[0].Cells["id_agreements"].Value.ToString()), true, false);
                     editDoc.ShowDialog();
                 }
                 iniListDoc();
@@ -2347,6 +2347,8 @@ namespace Arenda
 
         private void dgListDoc_SelectionChanged(object sender, EventArgs e)
         {
+            if (dgListDoc.CurrentRow == null || dgListDoc.CurrentRow.Index == -1) { btAcceptDoc.Enabled = false; return; }
+
             try
             {
                 if ((bool)dgListDoc.Rows[dgListDoc.CurrentRow.Index].Cells["cisConfirmed"].Value && new List<string> { "КНТ" }.Contains(TempData.Rezhim))
