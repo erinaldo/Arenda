@@ -32,6 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\..\..\..\..\frameWork_mew\Framework\bin\Debug\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Framework">
+      <HintPath>..\..\..\..\..\frameWork_mew\Framework\bin\Debug\Framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,14 +51,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Config.cs" />
+    <Compile Include="frmAddReportMonth.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="frmAddReportMonth.Designer.cs">
+      <DependentUpon>frmAddReportMonth.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmReportMonth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmReportMonth.Designer.cs">
+      <DependentUpon>frmReportMonth.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Procedures.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmAddReportMonth.resx">
+      <DependentUpon>frmAddReportMonth.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmReportMonth.resx">
+      <DependentUpon>frmReportMonth.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -61,6 +81,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -74,6 +95,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exit_8633.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\klpq_2511.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\like.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\reload_8055.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

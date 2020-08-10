@@ -178,6 +178,8 @@
             this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvData.Size = new System.Drawing.Size(1041, 498);
             this.dgvData.TabIndex = 25;
+            this.dgvData.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvData_CellFormatting);
+            this.dgvData.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvData_CellPainting);
             this.dgvData.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvData_ColumnWidthChanged);
             // 
             // groupBox1
@@ -228,6 +230,7 @@
             this.cAgreements.HeaderText = "Номер договора";
             this.cAgreements.Name = "cAgreements";
             this.cAgreements.ReadOnly = true;
+            this.cAgreements.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // cObject
             // 
@@ -235,6 +238,7 @@
             this.cObject.HeaderText = "Объект аренды";
             this.cObject.Name = "cObject";
             this.cObject.ReadOnly = true;
+            this.cObject.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // cPlace
             // 
@@ -242,6 +246,7 @@
             this.cPlace.HeaderText = "Местоположение места аренды";
             this.cPlace.Name = "cPlace";
             this.cPlace.ReadOnly = true;
+            this.cPlace.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // cSumMeter
             // 
@@ -249,6 +254,7 @@
             this.cSumMeter.HeaderText = "Стоимость 1м2";
             this.cSumMeter.Name = "cSumMeter";
             this.cSumMeter.ReadOnly = true;
+            this.cSumMeter.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // cSumDoc
             // 
@@ -256,30 +262,35 @@
             this.cSumDoc.HeaderText = "Сумма по договору";
             this.cSumDoc.Name = "cSumDoc";
             this.cSumDoc.ReadOnly = true;
+            this.cSumDoc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // cSumPay
             // 
             this.cSumPay.HeaderText = "Сумма к оплате";
             this.cSumPay.Name = "cSumPay";
             this.cSumPay.ReadOnly = true;
+            this.cSumPay.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // cSumItogSum
             // 
             this.cSumItogSum.HeaderText = "Сумма оплаты";
             this.cSumItogSum.Name = "cSumItogSum";
             this.cSumItogSum.ReadOnly = true;
+            this.cSumItogSum.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // cSumOwe
             // 
             this.cSumOwe.HeaderText = "Сумма долга";
             this.cSumOwe.Name = "cSumOwe";
             this.cSumOwe.ReadOnly = true;
+            this.cSumOwe.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // cPrcOwe
             // 
             this.cPrcOwe.HeaderText = "% долга";
             this.cPrcOwe.Name = "cPrcOwe";
             this.cPrcOwe.ReadOnly = true;
+            this.cPrcOwe.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // cDateCloseSection
             // 
@@ -289,6 +300,7 @@
             this.cDateCloseSection.MinimumWidth = 80;
             this.cDateCloseSection.Name = "cDateCloseSection";
             this.cDateCloseSection.ReadOnly = true;
+            this.cDateCloseSection.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.cDateCloseSection.Width = 80;
             // 
             // frmMain

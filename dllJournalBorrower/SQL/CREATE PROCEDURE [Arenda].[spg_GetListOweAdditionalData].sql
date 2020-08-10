@@ -20,8 +20,28 @@ BEGIN
 
 	IF @typeData = 1
 		BEGIN
+			--select 
+			--	d.id_Agreements,
+			--	d.DateStart,
+			--	d.DateEnd,
+			--	d.id_TypeDiscount,
+			--	d.Discount,
+			--	a.Total_Sum,
+			--	a.Total_Area,
+			--	a.Start_Date,
+			--	a.Stop_Date
+			--from 
+			--	Arenda.j_tDiscount d
+			--		inner join Arenda.j_Agreements a on a.id = d.id_Agreements
+			--where 
+			--	a.isConfirmed = 1 
+			--	--and a.id = 1053 
+			--	and d.id_StatusDiscount = 2
+			--order by 
+			--	d.DateStart asc
+
 			select 
-				d.id_Agreements,
+				a.id as id_Agreements,
 				d.DateStart,
 				d.DateEnd,
 				d.id_TypeDiscount,
@@ -29,14 +49,15 @@ BEGIN
 				a.Total_Sum,
 				a.Total_Area,
 				a.Start_Date,
-				a.Stop_Date
+				a.Stop_Date,
+				d.id as id_discount
 			from 
-				Arenda.j_tDiscount d
-					inner join Arenda.j_Agreements a on a.id = d.id_Agreements
+				Arenda.j_Agreements a 
+					left join Arenda.j_tDiscount d on d.id_Agreements =  a.id and d.id_StatusDiscount = 2
 			where 
 				a.isConfirmed = 1 
 				--and a.id = 1053 
-				and d.id_StatusDiscount = 2
+				--and d.id_StatusDiscount = 2
 			order by 
 				d.DateStart asc
 		END

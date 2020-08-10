@@ -22,9 +22,9 @@ namespace JournalBorrower
                     Logging.Init(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
                     Config.hCntMain = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
 
-                    Logging.StartFirstLevel(1);
-                    Logging.Comment("Вход в программу");
-                    Logging.StopFirstLevel();
+                    //Logging.StartFirstLevel(1);
+                    //Logging.Comment("Вход в программу");
+                    //Logging.StopFirstLevel();
 
                     Application.Run(new frmMain());
                     //Application.Run(new ArchiveDocAddDoc.frmAddDoc(){Text = "Добавление документа"});
@@ -34,9 +34,9 @@ namespace JournalBorrower
 
                     //Application.Run(new Form1());
 
-                    Logging.StartFirstLevel(2);
-                    Logging.Comment("Выход из программы");
-                    Logging.StopFirstLevel();
+                    //Logging.StartFirstLevel(2);
+                    //Logging.Comment("Выход из программы");
+                    //Logging.StopFirstLevel();
 
                     Project.clearBufferFiles();
                 }

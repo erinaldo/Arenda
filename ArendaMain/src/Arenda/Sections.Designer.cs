@@ -378,7 +378,7 @@
             this.cbZdan.FormattingEnabled = true;
             this.cbZdan.Items.AddRange(new object[] {
             "Все здания"});
-            this.cbZdan.Location = new System.Drawing.Point(59, 12);
+            this.cbZdan.Location = new System.Drawing.Point(251, 5);
             this.cbZdan.Name = "cbZdan";
             this.cbZdan.Size = new System.Drawing.Size(190, 21);
             this.cbZdan.TabIndex = 30;
@@ -391,7 +391,7 @@
             this.cbZloor.FormattingEnabled = true;
             this.cbZloor.Items.AddRange(new object[] {
             "Все этажи"});
-            this.cbZloor.Location = new System.Drawing.Point(294, 12);
+            this.cbZloor.Location = new System.Drawing.Point(486, 5);
             this.cbZloor.Name = "cbZloor";
             this.cbZloor.Size = new System.Drawing.Size(151, 21);
             this.cbZloor.TabIndex = 31;
@@ -401,7 +401,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 15);
+            this.label4.Location = new System.Drawing.Point(201, 9);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(44, 13);
             this.label4.TabIndex = 32;
@@ -410,7 +410,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(255, 15);
+            this.label5.Location = new System.Drawing.Point(447, 9);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(33, 13);
             this.label5.TabIndex = 33;
@@ -751,7 +751,7 @@
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(451, 15);
+            this.label44.Location = new System.Drawing.Point(14, 9);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(48, 13);
             this.label44.TabIndex = 44;
@@ -763,7 +763,7 @@
             this.cmbObject.DisplayMember = "cName";
             this.cmbObject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbObject.FormattingEnabled = true;
-            this.cmbObject.Location = new System.Drawing.Point(505, 12);
+            this.cmbObject.Location = new System.Drawing.Point(68, 5);
             this.cmbObject.Name = "cmbObject";
             this.cmbObject.Size = new System.Drawing.Size(123, 21);
             this.cmbObject.TabIndex = 43;

@@ -5,7 +5,7 @@ GO
 -- =============================================
 -- Author:		Sporykhin G.Y.
 -- Create date: 2020-06-23
--- Description:	Получение списка секций
+-- Description:	Получение списка скидок по договору
 -- =============================================
 ALTER PROCEDURE [Arenda].[spg_getTDiscount]		 
 	@id_Agreements int

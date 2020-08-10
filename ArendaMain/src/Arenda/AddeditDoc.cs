@@ -46,7 +46,8 @@ namespace Arenda
 
         private bool isConfirmed;
 
-        public bool isCopyDoc { set; private get; }
+        //public bool isCopyDoc { set; private get; }
+        private bool isCopyDoc;
 
         public AddeditDoc()
         {
@@ -74,6 +75,7 @@ namespace Arenda
         {
             IsView = prosmotr;
             this.isConfirmed = isConfirmed;
+            this.isCopyDoc = isCopyDoc;
             InitializeComponent();
             dgAddDoc.AutoGenerateColumns = false;
             init_SavePayment();
@@ -398,7 +400,7 @@ namespace Arenda
                 MessageBox.Show(errorload, "Внимание!");
             }
 
-            if (rezhim == "view" || isConfirmed)
+            if (rezhim == "view" || (isConfirmed && !isCopyDoc))
             {
                 for (int i = 0; i < this.tabPage1.Controls.Count; i++)
                 {

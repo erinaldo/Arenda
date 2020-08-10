@@ -65,11 +65,11 @@ BEGIN TRY
 						END
 
 					
-					IF EXISTS(select TOP(1) id from [Arenda].[j_DiscountObject] where id_rentalObject = @id and typeRentalObject = 3)
-						BEGIN
-							select -2 as id
-							return;
-						END
+					--IF EXISTS(select TOP(1) id from [Arenda].[j_DiscountObject] where id_rentalObject = @id and typeRentalObject = 3)
+					--	BEGIN
+					--		select -2 as id
+					--		return;
+					--	END
 					
 					select 0 as id
 					return;

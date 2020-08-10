@@ -290,7 +290,7 @@ namespace JournalBorrower
                         rowCollect.First()["SummaPaymentFine_2"] = row["SummaPaymentFine"];
                         rowCollect.First()["SummaFine_2"] = row["SummaFine"];
                         rowCollect.First()["SummaPenny_2"] = row["SummaPenny"];
-                        rowCollect.First()["PrcPenny_2"] = row["PrcPenny"];
+                        rowCollect.First()["PrcPenny_2"] = Math.Round((decimal)row["PrcPenny"], 2);
                     }
                 }
             }
@@ -318,6 +318,7 @@ namespace JournalBorrower
 
             foreach (var gIdAgreements in groupIdAgreements)
             {
+                dtResultPay.Clear();
                 //foreach()
                 EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable()
                     .Where(r => r.Field<int>("id") == gIdAgreements.id_Agreements);
@@ -347,9 +348,10 @@ namespace JournalBorrower
                         //Console.WriteLine(dI.Date.ToShortDateString());
                         rowCollect = dtTmpData.AsEnumerable()
                                .Where(r => r.Field<int>("id_Agreements") == gIdAgreements.id_Agreements &&
+                                r.Field<object>("id_discount") != null &&
                                 ((r.Field<DateTime>("DateStart").Date <= dI.Date && r.Field<object>("DateEnd") == null)
                                 || (r.Field<DateTime>("DateStart").Date <= dI.Date && dI.Date <= r.Field<DateTime>("DateEnd").Date))
-                               );
+                               ).OrderByDescending(r => r.Field<DateTime>("DateStart"));
 
                         if (rowCollect.Count() > 0)
                         {
@@ -393,7 +395,7 @@ namespace JournalBorrower
                             dicDate.Add(dI.Date, Total_Sum / days);
                         }
                     }
-                    
+
                     Task<DataTable> task = Config.hCntMain.GetPaymentsForAgreemetns(gIdAgreements.id_Agreements);
                     task.Wait();
 
@@ -408,16 +410,16 @@ namespace JournalBorrower
                     }
 
 
-                    for (DateTime dI = dStart.Date; dI.Date.Month <= _dateStop.Date.Month; dI = dI.AddMonths(1))
+                    for (DateTime dI = dStart.Date; dI.Date <= _dateStop.Date; dI = dI.AddMonths(1))
                     {
                         DateTime useDate = new DateTime(dI.Year, dI.Month, 1);
-                        
+
                         IEnumerable<DateTime> rowDates = dicDate.Keys.AsEnumerable().Where(r => r.Month == dI.Month && r.Year == dI.Year);
                         decimal sumMonth = 0;
                         foreach (DateTime tt in rowDates)
                         {
                             sumMonth += dicDate[tt.Date];
-                            
+
                         }
 
                         sumMonth = Math.Round(sumMonth, 2);
@@ -438,16 +440,93 @@ namespace JournalBorrower
                             pay = pay - sumMonth;
                         }
 
-                       
-                        Console.WriteLine($"{dI.Month}.{dI.Year}  :  {sumMonth}");
+                        //Console.WriteLine($"{dI.Month}.{dI.Year}  :  {sumMonth}");
                     }
 
-                    
+                    var gSumItog = dtResultPay.AsEnumerable()
+                        .Where(r => r.Field<decimal>("sumResult") != 0)
+                        .GroupBy(r => new { id_Agreements = r.Field<int>("id_Agreements") })
+                        .Select(s => new
+                        {
+                            s.Key.id_Agreements,
+                            sumOwe = s.Sum(r => r.Field<decimal>("sumOwe")),
+                            sumPay = s.Sum(r => r.Field<decimal>("sumPay"))
+                        });
+
+                    if (gSumItog.Count() == 0)
+                    {
+                        EnumerableRowCollection<DataRow> rowMainCollect = dtData.AsEnumerable()
+                                    .Where(r => r.Field<int>("id") == gIdAgreements.id_Agreements);
+                        if (rowMainCollect.Count() > 0)
+                        {
+                            rowMainCollect.First()["SummaPaymentFine_1"] = ((decimal)0);
+                            rowMainCollect.First()["SummaFine_1"] = ((decimal)0);
+                            rowMainCollect.First()["SummaPenny_1"] = ((decimal)0);
+                            rowMainCollect.First()["PrcPenny_1"] = ((decimal)0);
+                        }
+                    }
+                    else
+                    {
+                        foreach (var gItog in gSumItog)
+                        {
+                            EnumerableRowCollection<DataRow> rowMainCollect = dtData.AsEnumerable()
+                                .Where(r => r.Field<int>("id") == gItog.id_Agreements);
+                            if (rowMainCollect.Count() > 0)
+                            {
+                                if (gItog.sumOwe == 0)
+                                {
+                                    rowMainCollect.First()["SummaPaymentFine_1"] = gItog.sumOwe;
+                                    rowMainCollect.First()["SummaFine_1"] = gItog.sumPay;
+                                    rowMainCollect.First()["SummaPenny_1"] = gItog.sumOwe;
+                                    rowMainCollect.First()["PrcPenny_1"] = gItog.sumOwe;
+                                }
+                                else
+                                {
+                                    rowMainCollect.First()["SummaPaymentFine_1"] = gItog.sumOwe;
+                                    rowMainCollect.First()["SummaFine_1"] = gItog.sumPay;
+                                    rowMainCollect.First()["SummaPenny_1"] = (gItog.sumOwe - gItog.sumPay);
+                                    rowMainCollect.First()["PrcPenny_1"] = Math.Round(((gItog.sumOwe - gItog.sumPay) / gItog.sumOwe) * 100, 2);
+                                }
+                            }
+                        }
+                    }
+                    //Console.WriteLine($"");
+                }
+            }
 
 
-                    Console.WriteLine($"");
+            var gSumData = dtData.AsEnumerable()
+                       //.Where(r => r.Field<decimal>("sumResult") != 0)
+                       .GroupBy(r => new { id_Tenant = r.Field<int>("id_Tenant") })
+                       .Select(s => new
+                       {
+                           s.Key.id_Tenant,
+                           SummaPaymentFine_1 = s.Sum(r => r.Field<decimal>("SummaPaymentFine_1")),
+                           SummaFine_1 = s.Sum(r => r.Field<decimal>("SummaFine_1")),
+                           SummaPenny_1 = s.Sum(r => r.Field<decimal>("SummaPenny_1"))
+                       });
 
+            if (gSumData.Count() > 0)
+            {
+                foreach (var gSD in gSumData)
+                {
+                    EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable()
+                        .Where(r => r.Field<int>("id_Tenant") == gSD.id_Tenant);
 
+                    if (rowCollect.Count() > 0)
+                    {
+                        foreach (DataRow row in rowCollect)
+                        {
+
+                            row["SummaPaymentFine_1"] = gSD.SummaPaymentFine_1;
+                            row["SummaFine_1"] = gSD.SummaFine_1;
+                            row["SummaPenny_1"] = gSD.SummaPenny_1;
+                            if (gSD.SummaPenny_1 == 0 || gSD.SummaPaymentFine_1 == 0)
+                                row["PrcPenny_1"] = 0;
+                            else
+                                row["PrcPenny_1"] = Math.Round(((gSD.SummaPenny_1) / gSD.SummaPaymentFine_1) * 100, 2);
+                        }
+                    }
                 }
             }
         }
@@ -479,7 +558,7 @@ namespace JournalBorrower
                 //if (!chbNotActive.Checked)
                 //    filter += (filter.Length == 0 ? "" : " and ") + $"isActive = 1";
 
-                dtData.DefaultView.RowFilter = filter;
+                dtData.DefaultView.RowFilter = filter;               
             }
             catch
             {
@@ -492,5 +571,67 @@ namespace JournalBorrower
             }
         }
 
+        private void dgvData_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            e.AdvancedBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.None;
+            if (e.RowIndex < 1 || e.ColumnIndex < 0)
+                return;
+
+            if (!new List<int>() { nameTenant.Index, cSumPay.Index, cSumItogSum.Index, cSumOwe.Index, cPrcOwe.Index }.Contains(e.ColumnIndex))
+            {
+                e.AdvancedBorderStyle.Top = dgvData.AdvancedCellBorderStyle.Top;
+                //e.AdvancedBorderStyle.Bottom = dgvData.AdvancedCellBorderStyle.Bottom;
+                if (e.RowIndex == dgvData.Rows.Count - 1)
+                {
+                    e.AdvancedBorderStyle.Bottom = dgvData.AdvancedCellBorderStyle.Bottom;
+                }
+                return;
+            }
+
+            if (IsTheSameCellValue(e.ColumnIndex, e.RowIndex))
+            {
+                e.AdvancedBorderStyle.Top = DataGridViewAdvancedCellBorderStyle.None;
+            }
+            else
+            {
+                e.AdvancedBorderStyle.Top = dgvData.AdvancedCellBorderStyle.Top;
+            }
+
+            if (e.RowIndex == dgvData.Rows.Count - 1)
+            {
+                e.AdvancedBorderStyle.Bottom = dgvData.AdvancedCellBorderStyle.Bottom;
+            }
+        }
+
+        bool IsTheSameCellValue(int column, int row)
+        {
+            DataGridViewCell cell1 = dgvData[column, row];
+            DataGridViewCell cell2 = dgvData[column, row - 1];
+            if (cell1.Value == null || cell2.Value == null)
+            {
+                return false;
+            }
+
+            int id = (int)dtData.DefaultView[row]["id_Tenant"];
+            int id_pre = (int)dtData.DefaultView[row - 1]["id_Tenant"];
+
+            return cell1.Value.ToString() == cell2.Value.ToString() && id == id_pre;
+        }
+
+        private void dgvData_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex == 0)
+                return;
+
+
+            if (!new List<int>() { nameTenant.Index, cSumPay.Index, cSumItogSum.Index, cSumOwe.Index, cPrcOwe.Index }.Contains(e.ColumnIndex))
+            { return; }
+
+            if (IsTheSameCellValue(e.ColumnIndex, e.RowIndex))
+            {
+                e.Value = "";
+                e.FormattingApplied = true;
+            }
+        }
     }
 }
