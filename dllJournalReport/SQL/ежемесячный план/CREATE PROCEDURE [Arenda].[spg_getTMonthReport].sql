@@ -7,9 +7,10 @@ GO
 -- Create date: 2020-07-17
 -- Description:	ѕолучение списка журнала ежемес€чных планов
 -- =============================================
-CREATE PROCEDURE [Arenda].[spg_getTMonthReport]		 	
+ALTER PROCEDURE [Arenda].[spg_getTMonthReport]		 	
 	@dateStart date,
-	@dateEnd date
+	@dateEnd date,
+	@id_objectLease int  = 0
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -30,6 +31,6 @@ from
 		left join dbo.ListUsers l on l.id = p.id_Editor
 		left join Arenda.s_ObjectLease o on o.id = p.id_ObjectLease
 where  
-	@dateStart<=p.PeriodMonthPlan and p.PeriodMonthPlan<=@dateEnd
+	@dateStart<=p.PeriodMonthPlan and p.PeriodMonthPlan<=@dateEnd and (@id_objectLease = 0 or p.id_ObjectLease = @id_objectLease)
 	
 END

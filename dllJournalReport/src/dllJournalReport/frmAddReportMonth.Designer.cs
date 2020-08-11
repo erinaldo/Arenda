@@ -28,21 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbObject = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.btPrint = new System.Windows.Forms.Button();
-            this.btExit = new System.Windows.Forms.Button();
-            this.btAcceptD = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
-            this.btUpdate = new System.Windows.Forms.Button();
             this.tbLandLord = new System.Windows.Forms.TextBox();
             this.tbAgreements = new System.Windows.Forms.TextBox();
             this.tbTenant = new System.Windows.Forms.TextBox();
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.chkHideDocColumnts = new System.Windows.Forms.CheckBox();
             this.nameLandLord = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameTenant = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypeContract = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -56,6 +51,15 @@
             this.cSumDog = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cPlane = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chkHideDocColumnts = new System.Windows.Forms.CheckBox();
+            this.cmbTypeContract = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btSave = new System.Windows.Forms.Button();
+            this.btCalcData = new System.Windows.Forms.Button();
+            this.btPrint = new System.Windows.Forms.Button();
+            this.btExit = new System.Windows.Forms.Button();
+            this.btAcceptD = new System.Windows.Forms.Button();
+            this.btClear = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,36 +81,6 @@
             this.label3.TabIndex = 10;
             this.label3.Text = "Объект аренды";
             // 
-            // btPrint
-            // 
-            this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btPrint.Image = global::dllJournalReport.Properties.Resources.klpq_2511;
-            this.btPrint.Location = new System.Drawing.Point(1169, 587);
-            this.btPrint.Name = "btPrint";
-            this.btPrint.Size = new System.Drawing.Size(32, 32);
-            this.btPrint.TabIndex = 21;
-            this.btPrint.UseVisualStyleBackColor = true;
-            // 
-            // btExit
-            // 
-            this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btExit.Image = global::dllJournalReport.Properties.Resources.exit_8633;
-            this.btExit.Location = new System.Drawing.Point(1207, 587);
-            this.btExit.Name = "btExit";
-            this.btExit.Size = new System.Drawing.Size(32, 32);
-            this.btExit.TabIndex = 22;
-            this.btExit.UseVisualStyleBackColor = true;
-            // 
-            // btAcceptD
-            // 
-            this.btAcceptD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btAcceptD.Image = global::dllJournalReport.Properties.Resources.like;
-            this.btAcceptD.Location = new System.Drawing.Point(1131, 587);
-            this.btAcceptD.Name = "btAcceptD";
-            this.btAcceptD.Size = new System.Drawing.Size(32, 32);
-            this.btAcceptD.TabIndex = 23;
-            this.btAcceptD.UseVisualStyleBackColor = true;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -124,17 +98,6 @@
             this.dtpStart.Name = "dtpStart";
             this.dtpStart.Size = new System.Drawing.Size(67, 20);
             this.dtpStart.TabIndex = 24;
-            // 
-            // btUpdate
-            // 
-            this.btUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btUpdate.Image = global::dllJournalReport.Properties.Resources.reload_8055;
-            this.btUpdate.Location = new System.Drawing.Point(1207, 16);
-            this.btUpdate.Name = "btUpdate";
-            this.btUpdate.Size = new System.Drawing.Size(32, 32);
-            this.btUpdate.TabIndex = 26;
-            this.btUpdate.UseVisualStyleBackColor = true;
-            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
             // 
             // tbLandLord
             // 
@@ -166,14 +129,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameLandLord,
@@ -189,14 +152,14 @@
             this.cSumDog,
             this.cDiscount,
             this.cPlane});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvData.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvData.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvData.Location = new System.Drawing.Point(12, 80);
             this.dgvData.MultiSelect = false;
             this.dgvData.Name = "dgvData";
@@ -205,17 +168,6 @@
             this.dgvData.Size = new System.Drawing.Size(1227, 498);
             this.dgvData.TabIndex = 30;
             this.dgvData.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvData_ColumnWidthChanged);
-            // 
-            // chkHideDocColumnts
-            // 
-            this.chkHideDocColumnts.AutoSize = true;
-            this.chkHideDocColumnts.Location = new System.Drawing.Point(12, 596);
-            this.chkHideDocColumnts.Name = "chkHideDocColumnts";
-            this.chkHideDocColumnts.Size = new System.Drawing.Size(174, 17);
-            this.chkHideDocColumnts.TabIndex = 31;
-            this.chkHideDocColumnts.Text = "- скрыть данные по договору";
-            this.chkHideDocColumnts.UseVisualStyleBackColor = true;
-            this.chkHideDocColumnts.Click += new System.EventHandler(this.chkHideDocColumnts_Click);
             // 
             // nameLandLord
             // 
@@ -308,17 +260,114 @@
             this.cPlane.Name = "cPlane";
             this.cPlane.ReadOnly = true;
             // 
+            // chkHideDocColumnts
+            // 
+            this.chkHideDocColumnts.AutoSize = true;
+            this.chkHideDocColumnts.Location = new System.Drawing.Point(12, 596);
+            this.chkHideDocColumnts.Name = "chkHideDocColumnts";
+            this.chkHideDocColumnts.Size = new System.Drawing.Size(174, 17);
+            this.chkHideDocColumnts.TabIndex = 31;
+            this.chkHideDocColumnts.Text = "- скрыть данные по договору";
+            this.chkHideDocColumnts.UseVisualStyleBackColor = true;
+            this.chkHideDocColumnts.Click += new System.EventHandler(this.chkHideDocColumnts_Click);
+            // 
+            // cmbTypeContract
+            // 
+            this.cmbTypeContract.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTypeContract.FormattingEnabled = true;
+            this.cmbTypeContract.Location = new System.Drawing.Point(599, 11);
+            this.cmbTypeContract.Name = "cmbTypeContract";
+            this.cmbTypeContract.Size = new System.Drawing.Size(230, 21);
+            this.cmbTypeContract.TabIndex = 33;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(517, 15);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(76, 13);
+            this.label2.TabIndex = 32;
+            this.label2.Text = "Тип договора";
+            // 
+            // btSave
+            // 
+            this.btSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btSave.Image = global::dllJournalReport.Properties.Resources.Save;
+            this.btSave.Location = new System.Drawing.Point(1169, 587);
+            this.btSave.Name = "btSave";
+            this.btSave.Size = new System.Drawing.Size(32, 32);
+            this.btSave.TabIndex = 34;
+            this.btSave.UseVisualStyleBackColor = true;
+            this.btSave.Click += new System.EventHandler(this.btSave_Click);
+            // 
+            // btCalcData
+            // 
+            this.btCalcData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btCalcData.Image = global::dllJournalReport.Properties.Resources.calculator;
+            this.btCalcData.Location = new System.Drawing.Point(1143, 11);
+            this.btCalcData.Name = "btCalcData";
+            this.btCalcData.Size = new System.Drawing.Size(45, 45);
+            this.btCalcData.TabIndex = 26;
+            this.btCalcData.UseVisualStyleBackColor = true;
+            this.btCalcData.Click += new System.EventHandler(this.btCalcData_Click);
+            // 
+            // btPrint
+            // 
+            this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btPrint.Image = global::dllJournalReport.Properties.Resources.klpq_2511;
+            this.btPrint.Location = new System.Drawing.Point(1061, 587);
+            this.btPrint.Name = "btPrint";
+            this.btPrint.Size = new System.Drawing.Size(32, 32);
+            this.btPrint.TabIndex = 21;
+            this.btPrint.UseVisualStyleBackColor = true;
+            // 
+            // btExit
+            // 
+            this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btExit.Image = global::dllJournalReport.Properties.Resources.exit_8633;
+            this.btExit.Location = new System.Drawing.Point(1207, 587);
+            this.btExit.Name = "btExit";
+            this.btExit.Size = new System.Drawing.Size(32, 32);
+            this.btExit.TabIndex = 22;
+            this.btExit.UseVisualStyleBackColor = true;
+            this.btExit.Click += new System.EventHandler(this.btExit_Click);
+            // 
+            // btAcceptD
+            // 
+            this.btAcceptD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btAcceptD.Image = global::dllJournalReport.Properties.Resources.like;
+            this.btAcceptD.Location = new System.Drawing.Point(966, 587);
+            this.btAcceptD.Name = "btAcceptD";
+            this.btAcceptD.Size = new System.Drawing.Size(32, 32);
+            this.btAcceptD.TabIndex = 23;
+            this.btAcceptD.UseVisualStyleBackColor = true;
+            // 
+            // btClear
+            // 
+            this.btClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btClear.Image = global::dllJournalReport.Properties.Resources.Trash;
+            this.btClear.Location = new System.Drawing.Point(1194, 11);
+            this.btClear.Name = "btClear";
+            this.btClear.Size = new System.Drawing.Size(45, 45);
+            this.btClear.TabIndex = 35;
+            this.btClear.UseVisualStyleBackColor = true;
+            this.btClear.Click += new System.EventHandler(this.btClear_Click);
+            // 
             // frmAddReportMonth
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1251, 640);
+            this.Controls.Add(this.btClear);
+            this.Controls.Add(this.btSave);
+            this.Controls.Add(this.cmbTypeContract);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.chkHideDocColumnts);
             this.Controls.Add(this.dgvData);
             this.Controls.Add(this.tbLandLord);
             this.Controls.Add(this.tbAgreements);
             this.Controls.Add(this.tbTenant);
-            this.Controls.Add(this.btUpdate);
+            this.Controls.Add(this.btCalcData);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dtpStart);
             this.Controls.Add(this.btPrint);
@@ -350,7 +399,7 @@
         private System.Windows.Forms.Button btAcceptD;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dtpStart;
-        private System.Windows.Forms.Button btUpdate;
+        private System.Windows.Forms.Button btCalcData;
         private System.Windows.Forms.TextBox tbLandLord;
         private System.Windows.Forms.TextBox tbAgreements;
         private System.Windows.Forms.TextBox tbTenant;
@@ -369,5 +418,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cSumDog;
         private System.Windows.Forms.DataGridViewTextBoxColumn cDiscount;
         private System.Windows.Forms.DataGridViewTextBoxColumn cPlane;
+        private System.Windows.Forms.ComboBox cmbTypeContract;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btSave;
+        private System.Windows.Forms.Button btClear;
     }
 }

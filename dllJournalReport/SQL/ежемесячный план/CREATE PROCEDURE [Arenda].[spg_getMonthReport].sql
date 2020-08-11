@@ -8,14 +8,16 @@ GO
 -- Description:	Получение тела журнала ежемесячных планов
 -- =============================================
 ALTER PROCEDURE [Arenda].[spg_getMonthReport]		 	
-	@dateStart date
+	@dateStart date,
+	@id_ObjectLease int,
+	@id_tMonthPlane int  = 0
 AS
 BEGIN
 	SET NOCOUNT ON;
 
 
 select 
-	ad.id,
+	a.id,
 	torg.Abbreviation+' ' + lt.cName as nameLandLord,
 	torgt.Abbreviation+' ' + ltt.cName as nameTenant,
 	ol.cName as nameObject,
@@ -58,7 +60,8 @@ from
 		left join Arenda.s_Building bp on bp.id = rp.id_Building
 
 		left join Arenda.s_LandPlot lp on lp.id = a.id_Section and a.id_TypeContract = 3
+		left join Arenda.j_MonthPlan mp on mp.id_Agreements = a.id and mp.id_tMonthPlan = @id_tMonthPlane
 where 
-	a.isConfirmed = 1 and a.Start_Date<= @dateStart and @dateStart<=a.Stop_Date and td.Rus_Name = 'Акт приёма-передачи'
+	a.isConfirmed = 1 and a.Start_Date<= @dateStart and @dateStart<=a.Stop_Date and td.Rus_Name = 'Акт приёма-передачи' and a.id_ObjectLease = @id_ObjectLease
 	
 END

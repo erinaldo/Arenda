@@ -112,7 +112,7 @@ namespace dllJournalReport
                 //filter += (filter.Length == 0 ? "" : " and ") + strFilter;
 
                 dtData.DefaultView.RowFilter = filter;
-                dtData.DefaultView.Sort = "nameLandLord asc, nameTenant asc, nameObject asc";
+                //dtData.DefaultView.Sort = "nameLandLord asc, nameTenant asc, nameObject asc";
             }
             catch
             {
@@ -137,12 +137,12 @@ namespace dllJournalReport
 
             btPrint.Enabled = true;
 
-            btAcceptD.Enabled = !(bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isConfirmed"]
-                || (!(bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isConfirmed_LinkPetitionLeave"] && (bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isLinkPetitionLeave"]);
+            //btAcceptD.Enabled = !(bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isConfirmed"]
+             //   || (!(bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isConfirmed_LinkPetitionLeave"] && (bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isLinkPetitionLeave"]);
 
-            new ToolTip().SetToolTip(btAcceptD, "Подтвердить съезд");
-            if ((!(bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isConfirmed_LinkPetitionLeave"] && (bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isLinkPetitionLeave"]))
-                new ToolTip().SetToolTip(btAcceptD, "Подтвердить аннуляцию съезда");
+            //new ToolTip().SetToolTip(btAcceptD, "Подтвердить съезд");
+            //if ((!(bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isConfirmed_LinkPetitionLeave"] && (bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isLinkPetitionLeave"]))
+            //    new ToolTip().SetToolTip(btAcceptD, "Подтвердить аннуляцию съезда");
 
 
         }
@@ -218,13 +218,24 @@ namespace dllJournalReport
             new frmAddReportMonth().ShowDialog();
         }
 
+        private void btEdit_Click(object sender, EventArgs e)
+        {
+            if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
+            {
+                int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+                if (DialogResult.OK == new frmAddReportMonth() { id = id }.ShowDialog())
+                    getData();
+                    //get_data();
+            }
+        }
+
         private void dgvData_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
             if (e.RowIndex != -1 && dtData != null && dtData.DefaultView.Count != 0)
             {
                 Color rColor = Color.White;
-                if ((!(bool)dtData.DefaultView[e.RowIndex]["isLinkPetitionLeave"] || !(bool)dtData.DefaultView[e.RowIndex]["isConfirmed_LinkPetitionLeave"]) && (bool)dtData.DefaultView[e.RowIndex]["isConfirmed"])
-                    rColor = panel2.BackColor;
+                //if ((!(bool)dtData.DefaultView[e.RowIndex]["isLinkPetitionLeave"] || !(bool)dtData.DefaultView[e.RowIndex]["isConfirmed_LinkPetitionLeave"]) && (bool)dtData.DefaultView[e.RowIndex]["isConfirmed"])
+                    //rColor = panel2.BackColor;
 
                 dgvData.Rows[e.RowIndex].DefaultCellStyle.BackColor = rColor;
                 dgvData.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = rColor;

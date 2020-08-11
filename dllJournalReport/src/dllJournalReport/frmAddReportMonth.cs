@@ -16,7 +16,7 @@ namespace dllJournalReport
         private DataTable dtData;
         private bool isChangeValue = false;
         private DateTime _dateStart;
-
+        public int id { set; private get; }
 
         public frmAddReportMonth()
         {
@@ -30,17 +30,29 @@ namespace dllJournalReport
 
         private void frmAddReportMonth_Load(object sender, EventArgs e)
         {
-            //dtpStart.Value = DateTime.Now.AddMonths(-1);            
+            //dtpStart.Value = DateTime.Now.AddMonths(-1); 
+            dtpStart.MinDate = DateTime.Now.AddMonths(-2);
+            dtpStart.MaxDate = DateTime.Now.AddMonths(2);
 
             btAcceptD.Visible = new List<string> { "Д" }.Contains(UserSettings.User.StatusCode);
 
-            Task<DataTable> task = Config.hCntMain.getObjectLease(true);
+            Task<DataTable> task = Config.hCntMain.getObjectLease(false);
             task.Wait();
             DataTable dtObjectLease = task.Result;
 
             cmbObject.DisplayMember = "cName";
             cmbObject.ValueMember = "id";
             cmbObject.DataSource = dtObjectLease;
+            cmbObject.SelectedIndex = -1;
+
+            task = Config.hCntMain.getTypeContract(true);
+            task.Wait();
+            DataTable dtTypeContract = task.Result;
+
+            cmbTypeContract.DisplayMember = "cName";
+            cmbTypeContract.ValueMember = "id";
+            cmbTypeContract.DataSource = dtTypeContract;
+
 
             _dateStart = dtpStart.Value.Date;            
 
@@ -50,8 +62,9 @@ namespace dllJournalReport
         private void initDateType1()
         {
             DateTime _startDate = new DateTime(dtpStart.Value.Year, dtpStart.Value.Month, 1);
+            int id_objectLeaser = (int)cmbObject.SelectedValue;
 
-            Task<DataTable> task = Config.hCntMain.getMonthReport(_startDate.Date);
+            Task<DataTable> task = Config.hCntMain.getMonthReport(_startDate.Date, id_objectLeaser);
             task.Wait();
 
             if (task.Result == null || task.Result.Rows.Count == 0)
@@ -172,7 +185,8 @@ namespace dllJournalReport
 
             }
             dgvData.DataSource = dtData;
-
+            statusElements(false);
+            
 
 
 
@@ -301,14 +315,148 @@ namespace dllJournalReport
             }
         }
 
-        private void btUpdate_Click(object sender, EventArgs e)
-        {
-            initDateType1();
-        }
-
         private void chkHideDocColumnts_Click(object sender, EventArgs e)
         {
             cBuild.Visible = cFloor.Visible = cSection.Visible = cSquart.Visible = Cost_of_Meter.Visible = !chkHideDocColumnts.Checked;
+        }
+
+        private void btExit_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+        }
+
+        private void btSave_Click(object sender, EventArgs e)
+        {
+            DataTable dtResult;
+            DateTime _startDate = new DateTime(dtpStart.Value.Year, dtpStart.Value.Month, 1);
+            int _id = id;
+
+
+            Task<DataTable> task = Config.hCntMain.getTMonthReport(_startDate.Date, _startDate.Date);
+            task.Wait();
+            if (task.Result != null && task.Result.Rows.Count > 0)
+            {
+                 _id = (int)task.Result.Rows[0]["id"];
+
+                MyMessageBox.MyMessageBox mmb = new MyMessageBox.MyMessageBox($"За выбранный период для объекта:\n\"{cmbObject.Text}\"\nуже создан ежемесячный план на {dtpStart.Text}.\nПерезапись существующий план?", "", MyMessageBox.MessageBoxButtons.YesNoCancel, new List<string> { "Да", "Нет", "Отмена" });
+                DialogResult dlgResult = mmb.ShowDialog();
+                if (dlgResult == DialogResult.Cancel) return;
+                if (dlgResult == DialogResult.No) { dgvData.DataSource = null; dtData.Clear(); return; }
+                if (dlgResult == DialogResult.Yes) {
+
+                    task = Config.hCntMain.setTMonthPlan(_id, _startDate.Date, (int)cmbObject.SelectedValue, false, true, 0);
+                    task.Wait();
+
+                    dtResult = task.Result;
+
+                    if (dtResult == null || dtResult.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if ((int)dtResult.Rows[0]["id"] == -2)
+                    {
+                        MessageBox.Show(Config.centralText("Данный план подтверждён.\nПерезапись невозможна!\n"), "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if ((int)dtResult.Rows[0]["id"] == -9999)
+                    {
+                        MessageBox.Show("Ошибка выполнения процедуры", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    task = Config.hCntMain.setTMonthPlan(_id, _startDate.Date, (int)cmbObject.SelectedValue, false, true, 1);
+                    task.Wait();
+                }
+            }
+            
+
+
+            task = Config.hCntMain.setTMonthPlan(id, _startDate.Date, (int)cmbObject.SelectedValue, false, false, 0);
+            task.Wait();
+
+            dtResult = task.Result;
+
+            if (dtResult == null || dtResult.Rows.Count == 0)
+            {
+                MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if ((int)dtResult.Rows[0]["id"] == -9999)
+            {
+                MessageBox.Show("Ошибка выполнения процедуры", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            id = (int)dtResult.Rows[0]["id"];
+
+            foreach (DataRow row in dtData.Rows)
+            {
+                task = Config.hCntMain.setMonthPlan(id
+                    , (int)row["id"]
+                    , (decimal)row["Total_Sum"]
+                    , (decimal)row["discount"]
+                    , (decimal)row["plane"]
+                    , false);
+
+
+                task.Wait();
+
+                dtResult = task.Result;
+
+                if (dtResult == null || dtResult.Rows.Count == 0)
+                {
+                    MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if ((int)dtResult.Rows[0]["id"] == -9999)
+                {
+                    MessageBox.Show("Ошибка выполнения процедуры", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            this.DialogResult = DialogResult.OK;
+        }
+
+        private void btCalcData_Click(object sender, EventArgs e)
+        {
+            if (cmbObject.SelectedValue == null)
+            {
+                MessageBox.Show($"Необходимо выбрать: \"{label3.Text}\"!", "Расчёт данных", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cmbObject.Focus();
+                return;
+            }
+            DateTime _startDate = new DateTime(dtpStart.Value.Year, dtpStart.Value.Month, 1);            
+
+            Task<DataTable> task = Config.hCntMain.getTMonthReport(_startDate.Date, _startDate.Date,(int)cmbObject.SelectedValue);
+            task.Wait();
+            if (task.Result != null && task.Result.Rows.Count > 0)
+            {
+                MessageBox.Show(Config.centralText($"За выбранный период для объекта:\n{cmbObject.Text}\nуже присутствует ежемесячный план.\n" +
+                    $"Расчёт не возможен!\n"), "Расчёт данных", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
+            initDateType1();
+        }
+
+        private void btClear_Click(object sender, EventArgs e)
+        {
+            dgvData.DataSource = null;
+            dtData.Clear();
+            statusElements(true);                
+        }
+
+        private void statusElements(bool isEnable)
+        {
+            cmbObject.Enabled = isEnable;
+            dtpStart.Enabled = isEnable;
         }
     }
 }

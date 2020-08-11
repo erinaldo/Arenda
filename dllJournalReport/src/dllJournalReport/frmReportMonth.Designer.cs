@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbObject = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,14 +45,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.chbCongressAccept = new System.Windows.Forms.CheckBox();
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
             this.cPeriod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cConfirmed = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cDateConfirm = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.btAdd = new System.Windows.Forms.Button();
             this.btEdit = new System.Windows.Forms.Button();
             this.btDel = new System.Windows.Forms.Button();
@@ -213,28 +213,28 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cPeriod,
             this.nameObject,
             this.cConfirmed,
             this.cDateConfirm});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvData.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvData.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvData.Location = new System.Drawing.Point(12, 50);
             this.dgvData.MultiSelect = false;
             this.dgvData.Name = "dgvData";
@@ -246,6 +246,34 @@
             this.dgvData.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvData_RowPostPaint);
             this.dgvData.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
             this.dgvData.SelectionChanged += new System.EventHandler(this.dgvData_SelectionChanged);
+            // 
+            // cPeriod
+            // 
+            this.cPeriod.DataPropertyName = "PeriodMonthPlan";
+            this.cPeriod.HeaderText = "Период плана";
+            this.cPeriod.Name = "cPeriod";
+            this.cPeriod.ReadOnly = true;
+            // 
+            // nameObject
+            // 
+            this.nameObject.DataPropertyName = "nameObject";
+            this.nameObject.HeaderText = "Объект аренды";
+            this.nameObject.Name = "nameObject";
+            this.nameObject.ReadOnly = true;
+            // 
+            // cConfirmed
+            // 
+            this.cConfirmed.DataPropertyName = "FIOConfirmed";
+            this.cConfirmed.HeaderText = "Подтвердил";
+            this.cConfirmed.Name = "cConfirmed";
+            this.cConfirmed.ReadOnly = true;
+            // 
+            // cDateConfirm
+            // 
+            this.cDateConfirm.DataPropertyName = "DateСonfirmed";
+            this.cDateConfirm.HeaderText = "Дата подтверждения";
+            this.cDateConfirm.Name = "cDateConfirm";
+            this.cDateConfirm.ReadOnly = true;
             // 
             // textBox1
             // 
@@ -286,34 +314,6 @@
             this.label6.TabIndex = 16;
             this.label6.Text = "Дата редактир.";
             // 
-            // cPeriod
-            // 
-            this.cPeriod.DataPropertyName = "PeriodMonthPlan";
-            this.cPeriod.HeaderText = "Период плана";
-            this.cPeriod.Name = "cPeriod";
-            this.cPeriod.ReadOnly = true;
-            // 
-            // nameObject
-            // 
-            this.nameObject.DataPropertyName = "nameObject";
-            this.nameObject.HeaderText = "Объект аренды";
-            this.nameObject.Name = "nameObject";
-            this.nameObject.ReadOnly = true;
-            // 
-            // cConfirmed
-            // 
-            this.cConfirmed.DataPropertyName = "FIOConfirmed";
-            this.cConfirmed.HeaderText = "Подтвердил";
-            this.cConfirmed.Name = "cConfirmed";
-            this.cConfirmed.ReadOnly = true;
-            // 
-            // cDateConfirm
-            // 
-            this.cDateConfirm.DataPropertyName = "DateСonfirmed";
-            this.cDateConfirm.HeaderText = "Дата подтверждения";
-            this.cDateConfirm.Name = "cDateConfirm";
-            this.cDateConfirm.ReadOnly = true;
-            // 
             // btAdd
             // 
             this.btAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -332,6 +332,7 @@
             this.btEdit.Size = new System.Drawing.Size(32, 32);
             this.btEdit.TabIndex = 21;
             this.btEdit.UseVisualStyleBackColor = true;
+            this.btEdit.Click += new System.EventHandler(this.btEdit_Click);
             // 
             // btDel
             // 
