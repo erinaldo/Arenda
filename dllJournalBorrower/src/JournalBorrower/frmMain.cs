@@ -318,7 +318,10 @@ namespace JournalBorrower
 
             foreach (var gIdAgreements in groupIdAgreements)
             {
-                dtResultPay.Clear();
+                if (gIdAgreements.id_Agreements == 3060) { 
+                
+                }
+                    dtResultPay.Clear();
                 //foreach()
                 EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable()
                     .Where(r => r.Field<int>("id") == gIdAgreements.id_Agreements);

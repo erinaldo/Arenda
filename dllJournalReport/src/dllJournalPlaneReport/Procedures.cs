@@ -8,7 +8,7 @@ using Nwuram.Framework.Settings.User;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace dllJournalReport
+namespace dllJournalPlaneReport
 {
     class Procedures : SqlProvider
     {
@@ -17,6 +17,28 @@ namespace dllJournalReport
         {
         }
         ArrayList ap = new ArrayList();
+
+        /// <summary>
+        /// Получение списка журнала ежемесячных планов
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns>Таблица с данными</returns>        
+        public async Task<DataTable> getPlaneReportDopInfoPay(int id, DateTime date)
+        {
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(date);
+
+
+            return executeProcedure("[Arenda].[spg_getPlaneReportDopInfoPay]",
+                 new string[2] { "@id", "@date" },
+                 new DbType[2] { DbType.Int32, DbType.Date }, ap);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////
+
+
+
 
         /// <summary>
         /// Получение списка объектов

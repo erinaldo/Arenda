@@ -48,12 +48,14 @@ BEGIN
 				d.Discount,
 				a.Total_Sum,
 				a.Total_Area,
-				a.Start_Date,
+				dateadd(day,isnull(aa.RentalVacation,0),isnull(ad.DateDocument,a.Start_Date)) as Start_Date,
 				a.Stop_Date,
 				d.id as id_discount
 			from 
 				Arenda.j_Agreements a 
 					left join Arenda.j_tDiscount d on d.id_Agreements =  a.id and d.id_StatusDiscount = 2
+					left join Arenda.j_AdditionalDocuments ad on ad.id_Agreements = a.id and ad.id_TypeDoc = (select top(1) id from Arenda.s_TypeDoc where Rus_Name = 'Акт приёма-передачи')
+					left join Arenda.j_AdditionalAgreements aa on aa.id_Agreements = a.id
 			where 
 				a.isConfirmed = 1 
 				--and a.id = 1053 

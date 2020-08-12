@@ -40,7 +40,8 @@ select
 	a.Total_Sum,
 	ds.DateSeal,
 	a.id_ObjectLease,
-	a.Start_Date,
+	--a.Start_Date,
+	dateadd(day,isnull(aa.RentalVacation,0),isnull(ad.DateDocument,a.Start_Date)) as Start_Date,
 	a.Stop_Date,
 	a.id_Tenant
 from
@@ -59,6 +60,9 @@ from
 		left join Arenda.s_Building b2 on b2.id = rp.id_Building
 
 		left join Arenda.s_LandPlot lp on lp.id = a.id_Section and a.id_TypeContract = 3
+
+		left join Arenda.j_AdditionalDocuments ad on ad.id_Agreements = a.id and ad.id_TypeDoc = (select top(1) id from Arenda.s_TypeDoc where Rus_Name = 'Акт приёма-передачи')
+		left join Arenda.j_AdditionalAgreements aa on aa.id_Agreements = a.id
 where 
 	a.isConfirmed = 1
 order by a.id_Tenant asc

@@ -4,28 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1529797C-3140-44F5-BEC9-3E311316DACB}</ProjectGuid>
+    <ProjectGuid>{D7A4E85D-AEFD-4D3E-B019-D652069F4E47}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>dllJournalReport</RootNamespace>
-    <AssemblyName>dllJournalReport</AssemblyName>
+    <RootNamespace>dllJournalPlaneReport</RootNamespace>
+    <AssemblyName>dllJournalPlaneReport</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -70,27 +55,23 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
-    <Compile Include="frmAddReportMonth.cs">
+    <Compile Include="frmReportPlane.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmAddReportMonth.Designer.cs">
-      <DependentUpon>frmAddReportMonth.cs</DependentUpon>
+    <Compile Include="frmReportPlane.Designer.cs">
+      <DependentUpon>frmReportPlane.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmReportMonth.cs">
+    <Compile Include="frmViewPayment.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmReportMonth.Designer.cs">
-      <DependentUpon>frmReportMonth.cs</DependentUpon>
+    <Compile Include="frmViewPayment.Designer.cs">
+      <DependentUpon>frmViewPayment.cs</DependentUpon>
     </Compile>
     <Compile Include="Procedures.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="reports.cs" />
-    <EmbeddedResource Include="frmAddReportMonth.resx">
-      <DependentUpon>frmAddReportMonth.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmReportMonth.resx">
-      <DependentUpon>frmReportMonth.cs</DependentUpon>
+    <EmbeddedResource Include="frmViewPayment.resx">
+      <DependentUpon>frmViewPayment.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -116,6 +97,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\calculator.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edit.png" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="Resources\exit_8633.png" />
   </ItemGroup>
   <ItemGroup>
@@ -128,26 +118,10 @@
     <None Include="Resources\reload_8055.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Add.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Edit.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Save.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Trash.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\calculator.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

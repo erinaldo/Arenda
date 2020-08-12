@@ -16,7 +16,11 @@ namespace dllJournalReport
         private DataTable dtData;
         private bool isChangeValue = false;
         private DateTime _dateStart;
+
         public int id { set; private get; }
+        public DataRowView row { set; private get; }
+        public bool isView { set; private get; }
+        public bool isAcceptData { private set; get; }
 
         public frmAddReportMonth()
         {
@@ -26,15 +30,18 @@ namespace dllJournalReport
             tp.SetToolTip(btExit, "Выход");
             tp.SetToolTip(btPrint, "Печать");            
             tp.SetToolTip(btAcceptD, "Подтвердить");
+
+            tp.SetToolTip(btCalcData, "Расчитать");
+            tp.SetToolTip(btClear, "Очистить данные расчёта");
+            tp.SetToolTip(btSave, "Сохранить");
         }
 
         private void frmAddReportMonth_Load(object sender, EventArgs e)
         {
-            //dtpStart.Value = DateTime.Now.AddMonths(-1); 
-            dtpStart.MinDate = DateTime.Now.AddMonths(-2);
-            dtpStart.MaxDate = DateTime.Now.AddMonths(2);
-
-            btAcceptD.Visible = new List<string> { "Д" }.Contains(UserSettings.User.StatusCode);
+            btAcceptD.Visible = new List<string> { "СБ6" }.Contains(UserSettings.User.StatusCode) && isView;
+            btCalcData.Visible = new List<string> { "РКВ" }.Contains(UserSettings.User.StatusCode) && !isView;
+            btClear.Visible = new List<string> { "РКВ" }.Contains(UserSettings.User.StatusCode) && !isView;
+            btSave.Visible = new List<string> { "РКВ" }.Contains(UserSettings.User.StatusCode) && !isView;
 
             Task<DataTable> task = Config.hCntMain.getObjectLease(false);
             task.Wait();
@@ -53,10 +60,17 @@ namespace dllJournalReport
             cmbTypeContract.ValueMember = "id";
             cmbTypeContract.DataSource = dtTypeContract;
 
+            if (id != 0)
+                getdata();
+            else
+            {             
+                dtpStart.MinDate = DateTime.Now.AddMonths(-2);
+                dtpStart.MaxDate = DateTime.Now.AddMonths(2);
+            }
 
-            _dateStart = dtpStart.Value.Date;            
-
-            isChangeValue = false;            
+            _dateStart = dtpStart.Value.Date;
+            isChangeValue = false;
+            isAcceptData = false;
         }
 
         private void initDateType1()
@@ -75,8 +89,11 @@ namespace dllJournalReport
 
             dtData = task.Result;
 
-            dtData.Columns.Add("discount", typeof(decimal));
-            dtData.Columns.Add("plane", typeof(decimal));
+            if (!dtData.Columns.Contains("discount"))
+                dtData.Columns.Add("discount", typeof(decimal));
+
+            if (!dtData.Columns.Contains("plane"))
+                dtData.Columns.Add("plane", typeof(decimal));
 
             DataTable dtResultPay = new DataTable();
             dtResultPay.Columns.Add("id_Agreements", typeof(int));
@@ -184,104 +201,90 @@ namespace dllJournalReport
                 row["discount"] = isDiscount ? Math.Round(Total_Sum - sumMonth, 2) : 0;
 
             }
+            setFilter();
             dgvData.DataSource = dtData;
+            isChangeValue = true;
             statusElements(false);
-            
+           
+        }
+
+        private void getdata()
+        {
+            btClear.Visible = false;
+            cmbObject.SelectedValue = row["id_ObjectLease"];
+            dtpStart.MinDate = (DateTime)row["PeriodMonthPlan"];
+            dtpStart.MaxDate = (DateTime)row["PeriodMonthPlan"];
+            dtpStart.Value = (DateTime)row["PeriodMonthPlan"];
+
+            btAcceptD.Visible = new List<string> { "СБ6" }.Contains(UserSettings.User.StatusCode) && isView && !(bool)row["isСonfirmed"];
 
 
+            DateTime _startDate = new DateTime(dtpStart.Value.Year, dtpStart.Value.Month, 1);
+            int id_objectLeaser = (int)cmbObject.SelectedValue;
 
+            Task<DataTable> task = Config.hCntMain.getMonthReport(_startDate.Date, id_objectLeaser,id);
+            task.Wait();
 
-            /*
-
-            var groupIdAgreements = dtTmpData.AsEnumerable()
-                    .GroupBy(r => new { id_Agreements = r.Field<int>("id_Agreements") })
-                    .Select(s => new
-                    {
-                        s.Key.id_Agreements
-                    });
-
-            foreach (var gIdAgreements in groupIdAgreements)
+            if (task.Result == null || task.Result.Rows.Count == 0)
             {
-                dtResultPay.Clear();
-
-                EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable()
-                    .Where(r => r.Field<int>("id") == gIdAgreements.id_Agreements);
-
-                if (rowCollect.Count() > 0)
-                {
-                    DateTime dStart = (DateTime)rowCollect.First()["Start_Date"];
-                    DateTime dStop = (DateTime)rowCollect.First()["Stop_Date"];
-                    decimal Total_Sum = (decimal)rowCollect.First()["Total_Sum"];
-                    decimal Cost_of_Meter = (decimal)rowCollect.First()["Cost_of_Meter"];
-
-                    DateTime _dateStop = DateTime.Now.Day < 25 ?
-                        new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1).AddDays(-1)
-                        : new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(2).AddDays(-1);
-
-
-                    Dictionary<DateTime, decimal> dicDate = new Dictionary<DateTime, decimal>();
-
-                    for (DateTime dI = dStart.Date; dI.Date <= _dateStop.Date; dI = dI.AddDays(1))
-                    {
-                        if (dI.Date > dStop.Date)
-                            break;
-
-                        int days = DateTime.DaysInMonth(dI.Year, dI.Month);
-
-                        rowCollect = dtTmpData.AsEnumerable()
-                               .Where(r => r.Field<int>("id_Agreements") == gIdAgreements.id_Agreements &&
-                                r.Field<object>("id_discount") != null &&
-                                ((r.Field<DateTime>("DateStart").Date <= dI.Date && r.Field<object>("DateEnd") == null)
-                                || (r.Field<DateTime>("DateStart").Date <= dI.Date && dI.Date <= r.Field<DateTime>("DateEnd").Date))
-                               ).OrderByDescending(r => r.Field<DateTime>("DateStart"));
-
-                        if (rowCollect.Count() > 0)
-                        {
-                            decimal _tmpDec = Total_Sum;
-
-                            EnumerableRowCollection<DataRow> rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 2);
-                            if (rows.Count() > 0)
-                            {
-                                _tmpDec = (decimal)rows.First()["Discount"];
-                                _tmpDec = _tmpDec * (decimal)rows.First()["Total_Area"];
-                            }
-                            else
-                            {
-                                rows = rowCollect.Where(r => r.Field<object>("DateEnd") == null && r.Field<int>("id_TypeDiscount") == 2);
-                                if (rows.Count() > 0)
-                                {
-                                    _tmpDec = (decimal)rows.First()["Discount"];
-                                    _tmpDec = _tmpDec * (decimal)rows.First()["Total_Area"];
-                                }
-                            }
-
-
-                            rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 1);
-                            if (rows.Count() > 0)
-                            {
-                                _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
-                            }
-                            else
-                            {
-                                rows = rowCollect.Where(r => r.Field<object>("DateEnd") == null && r.Field<int>("id_TypeDiscount") == 1);
-                                if (rows.Count() > 0)
-                                {
-                                    _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
-                                }
-                            }
-
-                            dicDate.Add(dI.Date, _tmpDec / days);
-                        }
-                        else
-                        {
-                            dicDate.Add(dI.Date, Total_Sum / days);
-                        }
-                    }
-
-                }
+                dgvData.DataSource = null;
+                return;
             }
 
-    */
+            dtData = task.Result;
+            setFilter();
+            dgvData.DataSource = dtData;
+            statusElements(false);
+        }
+
+        private void setFilter()
+        {
+            if (dtData == null || dtData.Rows.Count == 0)
+            {                
+                btPrint.Enabled = false;
+                return;
+            }
+
+            try
+            {
+                string filter = "";
+
+                if (tbLandLord.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"nameLandLord like '%{tbLandLord.Text.Trim()}%'";
+
+                if (tbTenant.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"nameTenant like '%{tbTenant.Text.Trim()}%'";
+
+                if (tbAgreements.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"Agreement like '%{tbAgreements.Text.Trim()}%'";
+
+                if ((int)cmbTypeContract.SelectedValue != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_TypeContract  = {cmbTypeContract.SelectedValue}";
+
+                dtData.DefaultView.RowFilter = filter;
+            }
+            catch
+            {
+                dtData.DefaultView.RowFilter = "id = -1";
+            }
+            finally
+            {
+                calcSumPlane();
+                btPrint.Enabled = dtData.DefaultView.Count != 0;
+            }
+        }
+
+        private void calcSumPlane()
+        {
+            if (dtData == null || dtData.Rows.Count == 0 || dtData.DefaultView.Count==0)
+            {
+                tbSumPlane.Text = "0,00";
+                return;
+            }
+
+            object objSum = dtData.DefaultView.ToTable().Compute("SUM(plane)", "");
+            tbSumPlane.Text = ((decimal)objSum).ToString("0.00");
+
         }
 
         private void dgvData_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
@@ -309,6 +312,12 @@ namespace dllJournalReport
                     tbAgreements.Size = new Size(cAgreements.Width, tbTenant.Height);
                 }
 
+                if (col.Index == cPlane.Index)
+                {
+                    tbSumPlane.Location = new Point(dgvData.Location.X + width , tbSumPlane.Location.Y);
+                    tbSumPlane.Size = new Size(cPlane.Width, tbSumPlane.Height);
+                    lSumPlane.Location = new Point(tbSumPlane.Location.X - 40, lSumPlane.Location.Y);
+                }
                 
 
                 width += col.Width;
@@ -332,7 +341,7 @@ namespace dllJournalReport
             int _id = id;
 
 
-            Task<DataTable> task = Config.hCntMain.getTMonthReport(_startDate.Date, _startDate.Date);
+            Task<DataTable> task = Config.hCntMain.getTMonthReport(_startDate.Date, _startDate.Date, (int)cmbObject.SelectedValue);
             task.Wait();
             if (task.Result != null && task.Result.Rows.Count > 0)
             {
@@ -341,7 +350,7 @@ namespace dllJournalReport
                 MyMessageBox.MyMessageBox mmb = new MyMessageBox.MyMessageBox($"За выбранный период для объекта:\n\"{cmbObject.Text}\"\nуже создан ежемесячный план на {dtpStart.Text}.\nПерезапись существующий план?", "", MyMessageBox.MessageBoxButtons.YesNoCancel, new List<string> { "Да", "Нет", "Отмена" });
                 DialogResult dlgResult = mmb.ShowDialog();
                 if (dlgResult == DialogResult.Cancel) return;
-                if (dlgResult == DialogResult.No) { dgvData.DataSource = null; dtData.Clear(); return; }
+                if (dlgResult == DialogResult.No) { dgvData.DataSource = null; dtData.Clear();setFilter(); return; }
                 if (dlgResult == DialogResult.Yes) {
 
                     task = Config.hCntMain.setTMonthPlan(_id, _startDate.Date, (int)cmbObject.SelectedValue, false, true, 0);
@@ -420,6 +429,8 @@ namespace dllJournalReport
                 }
             }
 
+            MessageBox.Show("Данные сохранены.", "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            isChangeValue = false;
             this.DialogResult = DialogResult.OK;
         }
 
@@ -431,17 +442,20 @@ namespace dllJournalReport
                 cmbObject.Focus();
                 return;
             }
-            DateTime _startDate = new DateTime(dtpStart.Value.Year, dtpStart.Value.Month, 1);            
 
-            Task<DataTable> task = Config.hCntMain.getTMonthReport(_startDate.Date, _startDate.Date,(int)cmbObject.SelectedValue);
-            task.Wait();
-            if (task.Result != null && task.Result.Rows.Count > 0)
+
+            if (id == 0)
             {
-                MessageBox.Show(Config.centralText($"За выбранный период для объекта:\n{cmbObject.Text}\nуже присутствует ежемесячный план.\n" +
-                    $"Расчёт не возможен!\n"), "Расчёт данных", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                DateTime _startDate = new DateTime(dtpStart.Value.Year, dtpStart.Value.Month, 1);
+                Task<DataTable> task = Config.hCntMain.getTMonthReport(_startDate.Date, _startDate.Date, (int)cmbObject.SelectedValue);
+                task.Wait();
+                if (task.Result != null && task.Result.Rows.Count > 0)
+                {
+                    MessageBox.Show(Config.centralText($"За выбранный период для объекта:\n{cmbObject.Text}\nуже присутствует ежемесячный план.\n" +
+                        $"Расчёт не возможен!\n"), "Расчёт данных", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
-
 
             initDateType1();
         }
@@ -450,6 +464,7 @@ namespace dllJournalReport
         {
             dgvData.DataSource = null;
             dtData.Clear();
+            isChangeValue = false;
             statusElements(true);                
         }
 
@@ -457,6 +472,58 @@ namespace dllJournalReport
         {
             cmbObject.Enabled = isEnable;
             dtpStart.Enabled = isEnable;
+            btSave.Enabled = isChangeValue;
+        }
+
+        private void cmbTypeContract_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            setFilter();
+        }
+
+        private void tbTenant_TextChanged(object sender, EventArgs e)
+        {
+            setFilter();
+        }
+
+        private void btPrint_Click(object sender, EventArgs e)
+        {
+            string status = "Не подтверждена";
+
+            if (row != null)
+                status = (bool)row["isСonfirmed"] ? "Подтверждена" : "Не подтверждена";
+
+            reports.createReport(dtData, cmbObject.Text, status, dtpStart.Value.Date);
+        }
+
+        private void btAcceptD_Click(object sender, EventArgs e)
+        {
+            if (DialogResult.No == MessageBox.Show(Config.centralText("Вы хотите подтвердить\nежемесячный план?\n"), "Подтверждение плана", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) return;
+
+            Task<DataTable> task = Config.hCntMain.setTMonthPlan(id, dtpStart.Value.Date, (int)cmbObject.SelectedValue, true, false, 0);
+            task.Wait();
+
+            DataTable dtResult = task.Result;
+
+            if (dtResult == null || dtResult.Rows.Count == 0)
+            {
+                MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if ((int)dtResult.Rows[0]["id"] == -9999)
+            {
+                MessageBox.Show("Ошибка выполнения процедуры", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            MessageBox.Show("План подтвержден!", "Подтверждение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            btAcceptD.Visible = false;
+            isAcceptData = true;
+        }
+
+        private void frmAddReportMonth_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = isChangeValue && DialogResult.No == MessageBox.Show("На форме есть не сохранённые данные.\nЗакрыть форму без сохранения данных?\n", "Закрытие формы", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
         }
     }
 }

@@ -26,6 +26,10 @@ namespace dllJournalReport
             tp.SetToolTip(btPrint, "Печать");
             tp.SetToolTip(btUpdate, "Обновить");
             tp.SetToolTip(btAcceptD, "Подтвердить");
+
+            tp.SetToolTip(btAdd, "Добавить");
+            tp.SetToolTip(btEdit, "Редактировать");
+            tp.SetToolTip(btDel, "Удалить");
         }
 
         private void frmReportMonth_Load(object sender, EventArgs e)
@@ -33,7 +37,8 @@ namespace dllJournalReport
             dtpStart.Value = DateTime.Now.AddMonths(-1);
             dtpEnd.Value = DateTime.Now.AddMonths(2);
 
-            btAcceptD.Visible = new List<string> { "Д" }.Contains(UserSettings.User.StatusCode);
+            btAcceptD.Visible = new List<string> { "СБ6" }.Contains(UserSettings.User.StatusCode);
+            btAdd.Visible = btDel.Visible = btEdit.Visible = new List<string> { "РКВ" }.Contains(UserSettings.User.StatusCode);
 
             Task<DataTable> task = Config.hCntMain.getObjectLease(true);
             task.Wait();
@@ -76,43 +81,14 @@ namespace dllJournalReport
             try
             {
                 string filter = "";
-
-                //if (tbLandLord.Text.Trim().Length != 0)
-                //    filter += (filter.Length == 0 ? "" : " and ") + $"nameLandLord like '%{tbLandLord.Text.Trim()}%'";
-
-                //if (tbTenant.Text.Trim().Length != 0)
-                //    filter += (filter.Length == 0 ? "" : " and ") + $"nameTenant like '%{tbTenant.Text.Trim()}%'";
-
-                //if (tbAgreement.Text.Trim().Length != 0)
-                //    filter += (filter.Length == 0 ? "" : " and ") + $"Agreement like '%{tbAgreement.Text.Trim()}%'";
-
-                //if (tbNamePlace.Text.Trim().Length != 0)
-                //    filter += (filter.Length == 0 ? "" : " and ") + $"namePlace like '%{tbNamePlace.Text.Trim()}%'";
-
+              
                 if ((int)cmbObject.SelectedValue != 0)
                     filter += (filter.Length == 0 ? "" : " and ") + $"id_ObjectLease  = {cmbObject.SelectedValue}";
 
+                if (!chbCongressAccept.Checked)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"isСonfirmed = 0";
 
-                ////string strFilter = "("
-                ////    + "((isLinkPetitionLeave = 0 AND isConfirmed = 0) " +
-                ////    "OR (isLinkPetitionLeave = 1 AND isConfirmed_LinkPetitionLeave = 0) " +
-                ////    "OR (isCancelAgreements is null AND isConfirmed = 1 AND isConfirmed_LinkPetitionLeave = 0))";
-                //string strFilter = "(" + "((isConfirmed = 0) OR (isConfirmed = 1 and isLinkPetitionLeave = 1 and isConfirmed_LinkPetitionLeave = 0))";
-
-                //if (chbCongressAccept.Checked)
-                //{
-                //    strFilter += $" OR (isLinkPetitionLeave = 0 AND isConfirmed = 1 AND isCancelAgreements is null)";
-                //}
-                //if (chbDropAgreements.Checked)
-                //{
-                //    strFilter += $" OR ((isLinkPetitionLeave = 1 AND isConfirmed_LinkPetitionLeave = 1) OR (isCancelAgreements is not null AND isConfirmed = 1 ))";
-                //}
-                //strFilter += ")";
-
-                //filter += (filter.Length == 0 ? "" : " and ") + strFilter;
-
-                dtData.DefaultView.RowFilter = filter;
-                //dtData.DefaultView.Sort = "nameLandLord asc, nameTenant asc, nameObject asc";
+                dtData.DefaultView.RowFilter = filter;             
             }
             catch
             {
@@ -120,8 +96,6 @@ namespace dllJournalReport
             }
             finally
             {
-                //btEdit.Enabled = btDelete.Enabled =
-                //dtData.DefaultView.Count != 0;
                 dgvData_SelectionChanged(null, null);
             }
         }
@@ -132,19 +106,18 @@ namespace dllJournalReport
             {
                 btPrint.Enabled = false;
                 btAcceptD.Enabled = false;
+                btEdit.Enabled = btDel.Enabled = false;
+                tbDateEdit.Clear();
+                tbFioEdit.Clear();
                 return;
             }
 
             btPrint.Enabled = true;
 
-            //btAcceptD.Enabled = !(bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isConfirmed"]
-             //   || (!(bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isConfirmed_LinkPetitionLeave"] && (bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isLinkPetitionLeave"]);
-
-            //new ToolTip().SetToolTip(btAcceptD, "Подтвердить съезд");
-            //if ((!(bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isConfirmed_LinkPetitionLeave"] && (bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isLinkPetitionLeave"]))
-            //    new ToolTip().SetToolTip(btAcceptD, "Подтвердить аннуляцию съезда");
-
-
+            btAcceptD.Enabled = !(bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isСonfirmed"];
+            btEdit.Enabled = btDel.Enabled = !(bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isСonfirmed"];
+            tbFioEdit.Text = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["FIO"];
+            tbDateEdit.Text = ((DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateEdit"]).ToString();
         }
 
         private void dgvData_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -215,7 +188,7 @@ namespace dllJournalReport
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            new frmAddReportMonth().ShowDialog();
+            if (DialogResult.OK == new frmAddReportMonth().ShowDialog()) getData();
         }
 
         private void btEdit_Click(object sender, EventArgs e)
@@ -223,9 +196,132 @@ namespace dllJournalReport
             if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
             {
                 int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
-                if (DialogResult.OK == new frmAddReportMonth() { id = id }.ShowDialog())
+                DataRowView row = dtData.DefaultView[dgvData.CurrentRow.Index];
+
+                if (DialogResult.OK == new frmAddReportMonth() { id = id, row = row }.ShowDialog())
+                    getData();             
+            }
+        }
+
+        private void dgvData_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left && e.Clicks > 1)
+            {
+                if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
+                {
+                    int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+                    DataRowView row = dtData.DefaultView[dgvData.CurrentRow.Index];
+
+                    frmAddReportMonth fARM = new frmAddReportMonth() { id = id, row = row, isView = true };
+                    fARM.ShowDialog();
+                    if (fARM.isAcceptData) getData();
+                }
+            }
+        }
+
+        private void btAcceptD_Click(object sender, EventArgs e)
+        {
+            if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
+            {
+                if (DialogResult.No == MessageBox.Show(Config.centralText("Вы хотите подтвердить\nежемесячный план?\n"), "Подтверждение плана", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) return;
+
+                int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+                DateTime _tmpDate = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["PeriodMonthPlan"];
+                int _tmpObjectLease = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_ObjectLease"];
+
+                Task<DataTable> task = Config.hCntMain.setTMonthPlan(id, _tmpDate, _tmpObjectLease, true, false, 0);
+                task.Wait();
+
+                DataTable dtResult = task.Result;
+
+                if (dtResult == null || dtResult.Rows.Count == 0)
+                {
+                    MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if ((int)dtResult.Rows[0]["id"] == -9999)
+                {
+                    MessageBox.Show("Ошибка выполнения процедуры", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                MessageBox.Show("План подтвержден!", "Подтверждение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                getData();
+            }
+        }
+
+        private void btPrint_Click(object sender, EventArgs e)
+        {
+            if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
+            {
+                int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+                DateTime _tmpDate = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["PeriodMonthPlan"];
+                int _tmpObjectLease = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_ObjectLease"];
+                string _nameObject  = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["nameObject"];
+                string status = (bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isСonfirmed"] ? "Подтверждена" : "Не подтверждена";
+                reports.createReport(id, _tmpDate, _tmpObjectLease, _nameObject, status);
+            }
+        }
+
+        private void btDel_Click(object sender, EventArgs e)
+        {
+            if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
+            {
+                int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+                DateTime _tmpDate = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["PeriodMonthPlan"];
+                int _tmpObjectLease = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_ObjectLease"];
+
+                Task<DataTable> task = Config.hCntMain.setTMonthPlan(id, _tmpDate, _tmpObjectLease, true, true, 0);
+                task.Wait();
+
+                DataTable dtResult = task.Result;
+                int result = (int)task.Result.Rows[0]["id"];
+
+
+                if (dtResult == null || dtResult.Rows.Count == 0)
+                {
+                    MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (result == -9999)
+                {
+                    MessageBox.Show("Ошибка выполнения процедуры", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (result == -1)
+                {
+                    MessageBox.Show(Config.centralText("План удалён другим пользователем\n"), "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     getData();
-                    //get_data();
+                    return;
+                }
+
+                if (result == -2)
+                {
+                    MessageBox.Show(Config.centralText("План подтверждён!\nУдаление невозможно\n"), "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    getData();
+                    return;
+                }
+
+                if (result == 0 )
+                {
+                    if (DialogResult.Yes == MessageBox.Show("Удалить выбранную запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                    {
+                        //setLog(id, 2);
+                        task = Config.hCntMain.setTMonthPlan(id, _tmpDate, _tmpObjectLease, true, true, 1);
+                        task.Wait();
+                        if (task.Result == null)
+                        {
+                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        getData();
+                        return;
+                    }
+                }
+               
             }
         }
 
@@ -234,8 +330,8 @@ namespace dllJournalReport
             if (e.RowIndex != -1 && dtData != null && dtData.DefaultView.Count != 0)
             {
                 Color rColor = Color.White;
-                //if ((!(bool)dtData.DefaultView[e.RowIndex]["isLinkPetitionLeave"] || !(bool)dtData.DefaultView[e.RowIndex]["isConfirmed_LinkPetitionLeave"]) && (bool)dtData.DefaultView[e.RowIndex]["isConfirmed"])
-                    //rColor = panel2.BackColor;
+                if ((bool)dtData.DefaultView[e.RowIndex]["isСonfirmed"])
+                    rColor = panel2.BackColor;
 
                 dgvData.Rows[e.RowIndex].DefaultCellStyle.BackColor = rColor;
                 dgvData.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = rColor;

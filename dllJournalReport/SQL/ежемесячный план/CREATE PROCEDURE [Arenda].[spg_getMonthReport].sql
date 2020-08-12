@@ -21,9 +21,10 @@ select
 	torg.Abbreviation+' ' + lt.cName as nameLandLord,
 	torgt.Abbreviation+' ' + ltt.cName as nameTenant,
 	ol.cName as nameObject,
+	'' as timeLimit,
 	tc.TypeContract,
 	a.Agreement,	
-
+	a.id_TypeContract,
 	b.Abbreviation as Build,
 	bp.Abbreviation as [Floor],
 	case 
@@ -33,10 +34,13 @@ select
 	end as namePlace,
 	a.Total_Area,
 	a.Cost_of_Meter,
-	a.Total_Sum,
+	isnull(mp.SummaContract,a.Total_Sum) as Total_Sum,
 	ad.DateDocument as Start_Date,
-	isnull(ad.Date_of_Departure,a.Stop_Date) as Stop_Date
-
+	isnull(ad.Date_of_Departure,a.Stop_Date) as Stop_Date,
+	mp.Discount as discount,
+	mp.[Plan] as plane,
+	a.id_Landlord
+	
 from 
 	Arenda.j_Agreements a
 		inner join Arenda.s_TypeContract tc on tc.id = a.id_TypeContract
@@ -60,6 +64,7 @@ from
 		left join Arenda.s_Building bp on bp.id = rp.id_Building
 
 		left join Arenda.s_LandPlot lp on lp.id = a.id_Section and a.id_TypeContract = 3
+
 		left join Arenda.j_MonthPlan mp on mp.id_Agreements = a.id and mp.id_tMonthPlan = @id_tMonthPlane
 where 
 	a.isConfirmed = 1 and a.Start_Date<= @dateStart and @dateStart<=a.Stop_Date and td.Rus_Name = 'Акт приёма-передачи' and a.id_ObjectLease = @id_ObjectLease

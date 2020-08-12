@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbObject = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -49,8 +49,8 @@
             this.nameObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cConfirmed = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cDateConfirm = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.tbFioEdit = new System.Windows.Forms.TextBox();
+            this.tbDateEdit = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.btAdd = new System.Windows.Forms.Button();
@@ -140,6 +140,7 @@
             this.btPrint.Size = new System.Drawing.Size(32, 32);
             this.btPrint.TabIndex = 12;
             this.btPrint.UseVisualStyleBackColor = true;
+            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
             // 
             // btExit
             // 
@@ -161,6 +162,7 @@
             this.btAcceptD.Size = new System.Drawing.Size(32, 32);
             this.btAcceptD.TabIndex = 14;
             this.btAcceptD.UseVisualStyleBackColor = true;
+            this.btAcceptD.Click += new System.EventHandler(this.btAcceptD_Click);
             // 
             // panel2
             // 
@@ -181,6 +183,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(19, 19);
             this.panel1.TabIndex = 18;
+            this.panel1.Visible = false;
             // 
             // label4
             // 
@@ -188,9 +191,10 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(39, 586);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(161, 13);
+            this.label4.Size = new System.Drawing.Size(100, 13);
             this.label4.TabIndex = 16;
-            this.label4.Text = "- имеется аннуляция на съезд";
+            this.label4.Text = "- подтверждённые";
+            this.label4.Visible = false;
             // 
             // chbCongressAccept
             // 
@@ -198,9 +202,9 @@
             this.chbCongressAccept.AutoSize = true;
             this.chbCongressAccept.Location = new System.Drawing.Point(42, 609);
             this.chbCongressAccept.Name = "chbCongressAccept";
-            this.chbCongressAccept.Size = new System.Drawing.Size(133, 17);
+            this.chbCongressAccept.Size = new System.Drawing.Size(159, 17);
             this.chbCongressAccept.TabIndex = 15;
-            this.chbCongressAccept.Text = "- съезд подтвержден";
+            this.chbCongressAccept.Text = "- скрыть подтверждённые";
             this.chbCongressAccept.UseVisualStyleBackColor = true;
             this.chbCongressAccept.Click += new System.EventHandler(this.chbCongressAccept_Click);
             // 
@@ -213,28 +217,28 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cPeriod,
             this.nameObject,
             this.cConfirmed,
             this.cDateConfirm});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvData.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvData.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvData.Location = new System.Drawing.Point(12, 50);
             this.dgvData.MultiSelect = false;
             this.dgvData.Name = "dgvData";
@@ -243,6 +247,7 @@
             this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvData.Size = new System.Drawing.Size(1261, 527);
             this.dgvData.TabIndex = 19;
+            this.dgvData.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvData_CellMouseDoubleClick);
             this.dgvData.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvData_RowPostPaint);
             this.dgvData.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
             this.dgvData.SelectionChanged += new System.EventHandler(this.dgvData_SelectionChanged);
@@ -275,23 +280,23 @@
             this.cDateConfirm.Name = "cDateConfirm";
             this.cDateConfirm.ReadOnly = true;
             // 
-            // textBox1
+            // tbFioEdit
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox1.Location = new System.Drawing.Point(454, 586);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(354, 20);
-            this.textBox1.TabIndex = 20;
+            this.tbFioEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbFioEdit.Location = new System.Drawing.Point(454, 586);
+            this.tbFioEdit.Name = "tbFioEdit";
+            this.tbFioEdit.ReadOnly = true;
+            this.tbFioEdit.Size = new System.Drawing.Size(354, 20);
+            this.tbFioEdit.TabIndex = 20;
             // 
-            // textBox2
+            // tbDateEdit
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBox2.Location = new System.Drawing.Point(454, 612);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(354, 20);
-            this.textBox2.TabIndex = 20;
+            this.tbDateEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbDateEdit.Location = new System.Drawing.Point(454, 612);
+            this.tbDateEdit.Name = "tbDateEdit";
+            this.tbDateEdit.ReadOnly = true;
+            this.tbDateEdit.Size = new System.Drawing.Size(354, 20);
+            this.tbDateEdit.TabIndex = 20;
             // 
             // label5
             // 
@@ -317,7 +322,8 @@
             // btAdd
             // 
             this.btAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btAdd.Location = new System.Drawing.Point(899, 600);
+            this.btAdd.Image = global::dllJournalReport.Properties.Resources.Add;
+            this.btAdd.Location = new System.Drawing.Point(998, 600);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(32, 32);
             this.btAdd.TabIndex = 21;
@@ -327,7 +333,8 @@
             // btEdit
             // 
             this.btEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btEdit.Location = new System.Drawing.Point(937, 600);
+            this.btEdit.Image = global::dllJournalReport.Properties.Resources.Edit;
+            this.btEdit.Location = new System.Drawing.Point(1036, 600);
             this.btEdit.Name = "btEdit";
             this.btEdit.Size = new System.Drawing.Size(32, 32);
             this.btEdit.TabIndex = 21;
@@ -337,11 +344,13 @@
             // btDel
             // 
             this.btDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btDel.Location = new System.Drawing.Point(975, 600);
+            this.btDel.Image = global::dllJournalReport.Properties.Resources.Trash;
+            this.btDel.Location = new System.Drawing.Point(1074, 600);
             this.btDel.Name = "btDel";
             this.btDel.Size = new System.Drawing.Size(32, 32);
             this.btDel.TabIndex = 21;
             this.btDel.UseVisualStyleBackColor = true;
+            this.btDel.Click += new System.EventHandler(this.btDel_Click);
             // 
             // frmReportMonth
             // 
@@ -351,8 +360,8 @@
             this.Controls.Add(this.btDel);
             this.Controls.Add(this.btEdit);
             this.Controls.Add(this.btAdd);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.tbDateEdit);
+            this.Controls.Add(this.tbFioEdit);
             this.Controls.Add(this.dgvData);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -400,8 +409,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox chbCongressAccept;
         private System.Windows.Forms.DataGridView dgvData;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox tbFioEdit;
+        private System.Windows.Forms.TextBox tbDateEdit;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.DataGridViewTextBoxColumn cPeriod;
