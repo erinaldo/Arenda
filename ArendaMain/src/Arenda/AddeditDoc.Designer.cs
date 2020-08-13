@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddeditDoc));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
             this.cmbTypeDog = new System.Windows.Forms.ComboBox();
@@ -93,6 +93,8 @@
             this.btAddDoc = new System.Windows.Forms.Button();
             this.btExit = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
+            this.btAccept = new System.Windows.Forms.Button();
+            this.btunAccept = new System.Windows.Forms.Button();
             this.did = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numberDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -145,6 +147,8 @@
             this.cmsDiscount = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.подтвердитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отклонитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmbTypeActivities = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -820,6 +824,30 @@
             this.btAdd.UseVisualStyleBackColor = true;
             this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
+            // btAccept
+            // 
+            this.btAccept.Image = global::Arenda.Properties.Resources.pict_ok;
+            this.btAccept.Location = new System.Drawing.Point(64, 127);
+            this.btAccept.Name = "btAccept";
+            this.btAccept.Size = new System.Drawing.Size(32, 32);
+            this.btAccept.TabIndex = 46;
+            this.toolTip1.SetToolTip(this.btAccept, "Подтвердить");
+            this.btAccept.UseVisualStyleBackColor = true;
+            this.btAccept.Visible = false;
+            this.btAccept.Click += new System.EventHandler(this.btAccept_Click);
+            // 
+            // btunAccept
+            // 
+            this.btunAccept.Image = global::Arenda.Properties.Resources.DeleteHS;
+            this.btunAccept.Location = new System.Drawing.Point(102, 127);
+            this.btunAccept.Name = "btunAccept";
+            this.btunAccept.Size = new System.Drawing.Size(32, 32);
+            this.btunAccept.TabIndex = 46;
+            this.toolTip1.SetToolTip(this.btunAccept, "Отклонить");
+            this.btunAccept.UseVisualStyleBackColor = true;
+            this.btunAccept.Visible = false;
+            this.btunAccept.Click += new System.EventHandler(this.btunAccept_Click);
+            // 
             // did
             // 
             this.did.DataPropertyName = "id";
@@ -840,13 +868,13 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.пиуToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(114, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(112, 26);
             this.contextMenuStrip1.Text = "Печать";
             // 
             // пиуToolStripMenuItem
             // 
             this.пиуToolStripMenuItem.Name = "пиуToolStripMenuItem";
-            this.пиуToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.пиуToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.пиуToolStripMenuItem.Text = "Печать";
             this.пиуToolStripMenuItem.Click += new System.EventHandler(this.пиуToolStripMenuItem_Click);
             // 
@@ -941,7 +969,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(316, 444);
+            this.label13.Location = new System.Drawing.Point(347, 446);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(113, 13);
             this.label13.TabIndex = 4;
@@ -949,21 +977,22 @@
             // 
             // tbRentalVacation
             // 
-            this.tbRentalVacation.Location = new System.Drawing.Point(435, 441);
+            this.tbRentalVacation.Location = new System.Drawing.Point(464, 443);
             this.tbRentalVacation.MaxLength = 12;
             this.tbRentalVacation.Name = "tbRentalVacation";
-            this.tbRentalVacation.Size = new System.Drawing.Size(144, 20);
+            this.tbRentalVacation.Size = new System.Drawing.Size(235, 20);
             this.tbRentalVacation.TabIndex = 23;
             this.tbRentalVacation.TabStop = false;
             this.tbRentalVacation.Text = "0";
             this.tbRentalVacation.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbRentalVacation.TextChanged += new System.EventHandler(this.tbRentalVacation_TextChanged);
             this.tbRentalVacation.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbRentalVacation_KeyPress);
             this.tbRentalVacation.Validating += new System.ComponentModel.CancelEventHandler(this.tbRentalVacation_Validating);
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(316, 472);
+            this.label17.Location = new System.Drawing.Point(318, 472);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(142, 13);
             this.label17.TabIndex = 4;
@@ -973,10 +1002,11 @@
             // 
             this.cmbSavePayment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSavePayment.FormattingEnabled = true;
-            this.cmbSavePayment.Location = new System.Drawing.Point(316, 488);
+            this.cmbSavePayment.Location = new System.Drawing.Point(464, 469);
             this.cmbSavePayment.Name = "cmbSavePayment";
-            this.cmbSavePayment.Size = new System.Drawing.Size(383, 21);
+            this.cmbSavePayment.Size = new System.Drawing.Size(235, 21);
             this.cmbSavePayment.TabIndex = 43;
+            this.cmbSavePayment.DropDown += new System.EventHandler(this.cmbSavePayment_DropDown);
             // 
             // tabControl1
             // 
@@ -991,6 +1021,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.cmbTypeActivities);
+            this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.groupBox7);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Controls.Add(this.groupBox2);
@@ -1018,6 +1050,8 @@
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.btunAccept);
+            this.groupBox7.Controls.Add(this.btAccept);
             this.groupBox7.Controls.Add(this.btAddDiscount);
             this.groupBox7.Controls.Add(this.btDelDiscount);
             this.groupBox7.Controls.Add(this.dgvData);
@@ -1048,14 +1082,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cStartDiscount,
@@ -1190,14 +1224,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgAddDoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgAddDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgAddDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dgAddDoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgAddDoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.number,
@@ -1345,22 +1379,40 @@
             this.подтвердитьToolStripMenuItem,
             this.отклонитьToolStripMenuItem});
             this.cmsDiscount.Name = "cmsDiscount";
-            this.cmsDiscount.Size = new System.Drawing.Size(145, 48);
+            this.cmsDiscount.Size = new System.Drawing.Size(144, 48);
             this.cmsDiscount.Opening += new System.ComponentModel.CancelEventHandler(this.cmsDiscount_Opening);
             // 
             // подтвердитьToolStripMenuItem
             // 
             this.подтвердитьToolStripMenuItem.Name = "подтвердитьToolStripMenuItem";
-            this.подтвердитьToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.подтвердитьToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.подтвердитьToolStripMenuItem.Text = "Подтвердить";
             this.подтвердитьToolStripMenuItem.Click += new System.EventHandler(this.подтвердитьToolStripMenuItem_Click);
             // 
             // отклонитьToolStripMenuItem
             // 
             this.отклонитьToolStripMenuItem.Name = "отклонитьToolStripMenuItem";
-            this.отклонитьToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.отклонитьToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.отклонитьToolStripMenuItem.Text = "Отклонить";
             this.отклонитьToolStripMenuItem.Click += new System.EventHandler(this.отклонитьToolStripMenuItem_Click);
+            // 
+            // cmbTypeActivities
+            // 
+            this.cmbTypeActivities.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTypeActivities.FormattingEnabled = true;
+            this.cmbTypeActivities.Location = new System.Drawing.Point(464, 498);
+            this.cmbTypeActivities.Name = "cmbTypeActivities";
+            this.cmbTypeActivities.Size = new System.Drawing.Size(235, 21);
+            this.cmbTypeActivities.TabIndex = 46;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(358, 501);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(102, 13);
+            this.label6.TabIndex = 45;
+            this.label6.Text = "Вид деятельности:";
             // 
             // AddeditDoc
             // 
@@ -1516,5 +1568,9 @@
         private System.Windows.Forms.ContextMenuStrip cmsDiscount;
         private System.Windows.Forms.ToolStripMenuItem подтвердитьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem отклонитьToolStripMenuItem;
+        private System.Windows.Forms.Button btunAccept;
+        private System.Windows.Forms.Button btAccept;
+        private System.Windows.Forms.ComboBox cmbTypeActivities;
+        private System.Windows.Forms.Label label6;
     }
 }

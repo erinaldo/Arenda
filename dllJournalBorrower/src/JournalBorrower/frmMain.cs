@@ -429,7 +429,7 @@ namespace JournalBorrower
 
                         if (pay == 0)
                         {
-                            dtResultPay.Rows.Add(gIdAgreements.id_Agreements, useDate, sumMonth, pay, sumMonth - pay);
+                            dtResultPay.Rows.Add(gIdAgreements.id_Agreements, useDate, sumMonth, pay, sumMonth);
                         }
                         else
                         if (sumMonth > pay)
@@ -439,7 +439,7 @@ namespace JournalBorrower
                         }
                         else
                         {
-                            dtResultPay.Rows.Add(gIdAgreements.id_Agreements, useDate, sumMonth, sumMonth, sumMonth - pay);
+                            dtResultPay.Rows.Add(gIdAgreements.id_Agreements, useDate, sumMonth, sumMonth, 0);
                             pay = pay - sumMonth;
                         }
 

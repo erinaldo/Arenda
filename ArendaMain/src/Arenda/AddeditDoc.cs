@@ -54,6 +54,7 @@ namespace Arenda
             InitializeComponent();
             dgAddDoc.AutoGenerateColumns = false;
             init_SavePayment();
+            init_TypeActivitis();
             AddLoad();
         }
 
@@ -62,6 +63,7 @@ namespace Arenda
             InitializeComponent();
             dgAddDoc.AutoGenerateColumns = false;
             init_SavePayment();
+            init_TypeActivitis();
             AddLoad();
 
             id_ten = id;
@@ -79,6 +81,7 @@ namespace Arenda
             InitializeComponent();
             dgAddDoc.AutoGenerateColumns = false;
             init_SavePayment();
+            init_TypeActivitis();
             if (!prosmotr)
             {
                 rezhim = "edit";
@@ -110,7 +113,7 @@ namespace Arenda
                         row["id"] = 0;
             }
 
-            btAddDiscount.Visible = btDelDiscount.Visible = rezhim.Equals("edit");
+            
         }
 
 
@@ -121,6 +124,16 @@ namespace Arenda
             cmbSavePayment.DisplayMember = "cName";
             cmbSavePayment.ValueMember = "id";
             cmbSavePayment.SelectedIndex = -1;
+        }
+
+
+        private void init_TypeActivitis()
+        {
+            DataTable dtSavePayment = _proc.getTypeActivities(false);
+            cmbTypeActivities.DataSource = dtSavePayment;
+            cmbTypeActivities.DisplayMember = "cName";
+            cmbTypeActivities.ValueMember = "id";
+            cmbTypeActivities.SelectedIndex = -1;
         }
 
 
@@ -243,6 +256,10 @@ namespace Arenda
 
             if (Rec.Rows[0]["RentalVacation"] != DBNull.Value)
                 tbRentalVacation.Text = Rec.Rows[0]["RentalVacation"].ToString();
+            
+            if(Rec.Rows[0]["id_TypeActivities"]!=DBNull.Value)
+                cmbTypeActivities.SelectedValue = Rec.Rows[0]["id_TypeActivities"];
+
             //
 
             DataTable Land_Tenant = new DataTable();
@@ -352,7 +369,8 @@ namespace Arenda
             else if ((int)Rec.Rows[0]["id_TypeContract"] == 3)
             {
                 GetLandPlot();
-                cbLandPlot.SelectedValue = (int)Rec.Rows[0]["id_Section"];
+                if (Rec.Rows[0]["id_Section"] != DBNull.Value)
+                    cbLandPlot.SelectedValue = (int)Rec.Rows[0]["id_Section"];
                 cbLandPlot_SelectionChangeCommitted(null, null);
             }
             #endregion
@@ -421,8 +439,7 @@ namespace Arenda
                 btAdd.Visible = false;
                 btExit.Enabled = true;
                 btAddDoc.Enabled = true;
-                groupBox5.Enabled = true;
-
+                groupBox5.Enabled = true;                
                 button3.Visible = button4.Visible = isConfirmed;
             }
 
@@ -537,11 +554,11 @@ namespace Arenda
 
         private void FillCbTP(bool onClick)
         {
-            if (Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 1) return;
+            //if (Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 1) return;
 
             //Rec = _proc.GetLD(_id);
-            tp = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? Rec.Rows[0]["tofp"].ToString() : "";
-            id_type = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? int.Parse(Rec.Rows[0]["id_Type_of_Premises"].ToString()) : -1;
+            tp = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] ==1 ? Rec.Rows[0]["tofp"].ToString() : "";
+            id_type = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] == 1 ? int.Parse(Rec.Rows[0]["id_Type_of_Premises"].ToString()) : -1;
 
             dtTP = new DataTable();
             dtTP = _proc.FillCbSecTp(0);
@@ -568,7 +585,7 @@ namespace Arenda
             {
                 if (dtTP.Select("id = " + id_type).Count() == 0)
                 {
-                    if (!onClick && Rec != null && Rec.Rows.Count > 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3)
+                    if (!onClick && Rec != null && Rec.Rows.Count > 0 && (int)Rec.Rows[0]["id_TypeContract"] == 1)
                     {
                         ErrorMessageLoad("\n - неактивный тип помещений");
                     }
@@ -815,6 +832,14 @@ namespace Arenda
                 return;
             }
 
+            if (cmbTypeActivities.SelectedValue == null)
+            {
+                MessageBox.Show(TempData.centralText($"Не выбран:\n{label6.Text.Replace(":","")}.\nСохранение невозможно.\n"),
+                  "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cmbTypeActivities.Focus();
+                return;
+            }
+
             /*if ((int)cmbTypeDog.SelectedValue == 3 && tbKadNum.Text.Length == 0)
             {
               MessageBox.Show("Не введен кадастровый номер.\nСохранение невозможно.",
@@ -901,7 +926,7 @@ namespace Arenda
                             (int)cmbTypeDog.SelectedValue == 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbSt.Text)),
                             (int)cmbTypeDog.SelectedValue == 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbcbm.Text)),
                             (int)cmbTypeDog.SelectedValue == 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbphone.Text)),
-                            (int)cmbTypeDog.SelectedValue == 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbAr.Text)),
+                            (int)cmbTypeDog.SelectedValue == 2 ? Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(txtReklamma.Text)) : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbAr.Text)),
                             pay,
                             tbremark.Text,
                             //если не реклама, передаем 0
@@ -915,7 +940,8 @@ namespace Arenda
                             tbKadNum.Text,
                             _idObj,
                             RentalVacation,
-                            id_SavePayment
+                            id_SavePayment,
+                            (int)cmbTypeActivities.SelectedValue
                             );
 
                     if ((SaveResult != null) && (SaveResult.Rows.Count > 0))
@@ -1144,7 +1170,7 @@ namespace Arenda
                         button4.Enabled = true;
                         this.Text = "Редактирование документа";
                         btAddDoc.Visible = true;
-                        btAddDiscount.Visible = btDelDiscount.Visible = rezhim.Equals("edit");
+                        btAddDiscount.Visible = btDelDiscount.Visible = rezhim.Equals("edit") &&  new List<string> { "СОА", "РКВ", "МНД"}.Contains(TempData.Rezhim); ;
                     }
                 }
                 catch (Exception ex)
@@ -1812,7 +1838,7 @@ namespace Arenda
                 return;
             }
 
-            btDelDiscount.Enabled = (int)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["id_StatusDiscount"]==1;
+            btAccept.Enabled = btunAccept.Enabled = btDelDiscount.Enabled = (int)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["id_StatusDiscount"] == 1;
         }
 
         private void dgvData_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -1907,6 +1933,60 @@ namespace Arenda
                 e.Cancel = true;
         }
 
+        private void btAccept_Click(object sender, EventArgs e)
+        {
+            подтвердитьToolStripMenuItem_Click(null, null);
+        }
+
+        private void btunAccept_Click(object sender, EventArgs e)
+        {
+            отклонитьToolStripMenuItem_Click(null, null);
+        }
+
+        private void tbRentalVacation_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbSavePayment_DropDown(object sender, EventArgs e)
+        {
+            var senderComboBox = (ComboBox)sender;
+            int width = senderComboBox.DropDownWidth;
+            Graphics g = senderComboBox.CreateGraphics();
+            Font font = senderComboBox.Font;
+
+            int vertScrollBarWidth = (senderComboBox.Items.Count > senderComboBox.MaxDropDownItems)
+                    ? SystemInformation.VerticalScrollBarWidth : 0;
+
+            //var itemsList = senderComboBox.Items.Cast<object>().Select(item => item.ToString());
+            //foreach (string s in itemsList)
+            //{
+            //    int newWidth = (int)g.MeasureString(s, font).Width + vertScrollBarWidth;
+
+            //    if (width < newWidth)
+            //    {
+            //        width = newWidth;
+            //    }
+            //}
+
+            DataTable dtList = (DataTable)senderComboBox.DataSource;
+
+
+            foreach (DataRow r in dtList.Rows)
+            {
+                string s = (string)r["cName"];
+
+                int newWidth = (int)g.MeasureString(s, font).Width + vertScrollBarWidth;
+
+                if (width < newWidth)
+                {
+                    width = newWidth;
+                }
+            }
+
+            senderComboBox.DropDownWidth = width;
+        }
+
         private void tbS_KeyPress(object sender, KeyPressEventArgs e)
         {
             numTextBox.KeyPress(tbS, e, false, false);
@@ -1949,7 +2029,11 @@ namespace Arenda
 
         private void AddeditDoc_Load(object sender, EventArgs e)
         {
+            btAddDiscount.Visible = btDelDiscount.Visible = rezhim.Equals("edit") && new List<string> { "СОА", "РКВ", "МНД" }.Contains(TempData.Rezhim);
+            btAccept.Visible = btunAccept.Visible = rezhim.Equals("view") && new List<string> { "Д" }.Contains(TempData.Rezhim);
 
+            groupBox7.Enabled = true;
+            dgvData.Enabled = true;
         }
 
         private void cbZdan_SelectedIndexChanged(object sender, EventArgs e)
@@ -2049,7 +2133,7 @@ namespace Arenda
 
         private void cbTp_SelectedIndexChanged(object sender, EventArgs e)
         {
-            id_type = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? int.Parse(Rec.Rows[0]["id_Type_of_Premises"].ToString()) : -1;
+            id_type = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] == 1 ? int.Parse(Rec.Rows[0]["id_Type_of_Premises"].ToString()) : -1;
         }
 
         private void tbnumd_KeyPress(object sender, KeyPressEventArgs e)
@@ -2150,7 +2234,7 @@ namespace Arenda
 
         private void FillCbZdan(bool onClick)
         {
-            if (Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] == 3) return;
+            //if (Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] == 3) return;
             //Rec = _proc.GetLD(_id);
             zdan = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? Rec.Rows[0]["build"].ToString() : "";
             id_build = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? int.Parse(Rec.Rows[0]["id_Buildings"].ToString()) : -1;
@@ -2215,10 +2299,10 @@ namespace Arenda
 
         private void FillCbFloor(bool onClick)
         {
-            if (Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 1) return;
+            //if (Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 1) return;
             //Rec = _proc.GetLD(_id);
-            floo = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? Rec.Rows[0]["floo"].ToString() : "";
-            id_floor = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? int.Parse(Rec.Rows[0]["id_Floor"].ToString()) : -1;
+            floo = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] ==1 ? Rec.Rows[0]["floo"].ToString() : "";
+            id_floor = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] == 1 ? int.Parse(Rec.Rows[0]["id_Floor"].ToString()) : -1;
 
             dtFloor = new DataTable();
             dtFloor = _proc.FillCbZdFl(1);
@@ -2232,7 +2316,7 @@ namespace Arenda
             {
                 if (dtFloor.Select("isActive = 1 and id = " + id_floor).Count() == 0)
                 {
-                    if (!onClick && Rec != null && Rec.Rows.Count > 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3)
+                    if (!onClick && Rec != null && Rec.Rows.Count > 0 && (int)Rec.Rows[0]["id_TypeContract"] ==1)
                     {
                         ErrorMessageLoad("\n - неактивный этаж");
                     }
@@ -2272,11 +2356,11 @@ namespace Arenda
 
         private void FillCbSec(bool onClick)
         {
-            if (Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 1) return;
+            //if (Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 1) return;
 
             //Rec = _proc.GetLD(_id);
-            sec = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? Rec.Rows[0]["sec"].ToString() : "";
-            id_sec = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3 ? int.Parse(Rec.Rows[0]["id_Section"].ToString()) : -1;
+            sec = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] ==1 ? Rec.Rows[0]["sec"].ToString() : "";
+            id_sec = Rec.Rows.Count != 0 && (int)Rec.Rows[0]["id_TypeContract"] ==1 ? int.Parse(Rec.Rows[0]["id_Section"].ToString()) : -1;
 
             dtSections = new DataTable();
             dtSections = _proc.FillCbSecTp(
@@ -2294,7 +2378,7 @@ namespace Arenda
             {
                 if (dtSections.Select("id = " + id_sec).Count() == 0)
                 {
-                    if (!onClick && Rec != null && Rec.Rows.Count > 0 && (int)Rec.Rows[0]["id_TypeContract"] != 3)
+                    if (!onClick && Rec != null && Rec.Rows.Count > 0 && (int)Rec.Rows[0]["id_TypeContract"] == 1)
                     {
                         if (!floorFill)
                             ErrorMessageLoad("\n - неактивная секция");

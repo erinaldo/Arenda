@@ -628,7 +628,8 @@ namespace Arenda
             string KadNum,
             int idObj,
             int RentalVacation,
-            int? id_SavePayment)
+            int? id_SavePayment,
+            int id_TypeActivities)
         {
             ap.Clear();
             ap.Add(id);
@@ -660,6 +661,7 @@ namespace Arenda
             ap.Add(idObj);
             ap.Add(RentalVacation);
             ap.Add(id_SavePayment);
+            ap.Add(id_TypeActivities);
             ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
 
 
@@ -694,6 +696,7 @@ namespace Arenda
                     "@id_obg",
                     "@RentalVacation",
                     "@id_SavePayment",
+                    "@id_TypeActivities",
                     "@id_user"},
                 new DbType[] { 
                     DbType.Int32,
@@ -724,7 +727,8 @@ namespace Arenda
                     DbType.String, 
                     DbType.Int32,
                     DbType.Int32, 
-                    DbType.Int32, 
+                    DbType.Int32,
+                    DbType.Int32,
                     DbType.Int32
                 }, ap);
         }
@@ -2453,6 +2457,47 @@ namespace Arenda
             return executeProcedure("Arenda.spg_getDataNullRequestOut",
               new string[1] { "@id_Agreements" },
               new DbType[1] { DbType.Int32 }, ap);
+        }
+
+        public DataTable getTypeActivities(bool withAllDeps = false)
+        {
+            ap.Clear();
+
+            DataTable dtResult = executeProcedure("[Arenda].[spg_getTypeActivities]",
+                 new string[0] { },
+                 new DbType[0] { }, ap);
+
+            if (withAllDeps)
+            {
+                if (dtResult != null)
+                {
+                    if (!dtResult.Columns.Contains("isMain"))
+                    {
+                        DataColumn col = new DataColumn("isMain", typeof(int));
+                        col.DefaultValue = 1;
+                        dtResult.Columns.Add(col);
+                        dtResult.AcceptChanges();
+                    }
+
+                    DataRow row = dtResult.NewRow();
+
+                    row["cName"] = "Все Типы скидки";
+                    row["id"] = 0;
+                    row["isMain"] = 0;
+                    dtResult.Rows.Add(row);
+                    dtResult.AcceptChanges();                    
+                    dtResult.DefaultView.Sort = "isMain asc, cName asc";
+                    dtResult = dtResult.DefaultView.ToTable().Copy();
+                }
+            }
+            else
+            {
+                dtResult.DefaultView.Sort = "isActive";
+                dtResult.DefaultView.Sort = "cName asc";
+                dtResult = dtResult.DefaultView.ToTable().Copy();
+            }
+
+            return dtResult;
         }
     }    
 }

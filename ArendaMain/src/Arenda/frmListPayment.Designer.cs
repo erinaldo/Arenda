@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmListPayment));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmListPayment));
             this.lblNum = new System.Windows.Forms.Label();
             this.lblDate = new System.Windows.Forms.Label();
             this.lblTenant = new System.Windows.Forms.Label();
@@ -43,15 +43,6 @@
             this.txtSum = new System.Windows.Forms.TextBox();
             this.lblRub = new System.Windows.Forms.Label();
             this.grdPayments = new System.Windows.Forms.DataGridView();
-            this.PaymentDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PaymentSum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sign = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_payment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_Agreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_Editor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Editor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblItog = new System.Windows.Forms.Label();
             this.txtItog = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -64,6 +55,18 @@
             this.lblDateEdit = new System.Windows.Forms.Label();
             this.txtEditor = new System.Windows.Forms.TextBox();
             this.txtDateEdit = new System.Windows.Forms.TextBox();
+            this.PaymentDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PaymentSum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sign = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cTypePay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cIsTypeCash = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cTypeOperation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_payment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_Agreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_Editor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Editor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdPayments)).BeginInit();
             this.SuspendLayout();
             // 
@@ -157,6 +160,9 @@
             this.grdPayments.AllowUserToDeleteRows = false;
             this.grdPayments.AllowUserToResizeColumns = false;
             this.grdPayments.AllowUserToResizeRows = false;
+            this.grdPayments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grdPayments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.grdPayments.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -172,6 +178,9 @@
             this.PaymentDate,
             this.PaymentSum,
             this.sign,
+            this.cTypePay,
+            this.cIsTypeCash,
+            this.cTypeOperation,
             this.id_payment,
             this.id_Agreements,
             this.isPayment,
@@ -184,9 +193,131 @@
             this.grdPayments.ReadOnly = true;
             this.grdPayments.RowHeadersVisible = false;
             this.grdPayments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdPayments.Size = new System.Drawing.Size(363, 258);
+            this.grdPayments.Size = new System.Drawing.Size(661, 258);
             this.grdPayments.TabIndex = 1;
             this.grdPayments.SelectionChanged += new System.EventHandler(this.grdPayments_SelectionChanged);
+            // 
+            // lblItog
+            // 
+            this.lblItog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblItog.AutoSize = true;
+            this.lblItog.Location = new System.Drawing.Point(498, 351);
+            this.lblItog.Name = "lblItog";
+            this.lblItog.Size = new System.Drawing.Size(40, 13);
+            this.lblItog.TabIndex = 33;
+            this.lblItog.Text = "Итого:";
+            // 
+            // txtItog
+            // 
+            this.txtItog.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtItog.Location = new System.Drawing.Point(544, 348);
+            this.txtItog.Name = "txtItog";
+            this.txtItog.ReadOnly = true;
+            this.txtItog.Size = new System.Drawing.Size(132, 20);
+            this.txtItog.TabIndex = 34;
+            this.txtItog.TabStop = false;
+            this.txtItog.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
+            this.btnAdd.Location = new System.Drawing.Point(538, 428);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(30, 30);
+            this.btnAdd.TabIndex = 2;
+            this.toolTip1.SetToolTip(this.btnAdd, "Добавить");
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
+            this.btnEdit.Location = new System.Drawing.Point(487, 428);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(30, 30);
+            this.btnEdit.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.btnEdit, "Редактировать");
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Visible = false;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnDel
+            // 
+            this.btnDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDel.Image = ((System.Drawing.Image)(resources.GetObject("btnDel.Image")));
+            this.btnDel.Location = new System.Drawing.Point(610, 428);
+            this.btnDel.Name = "btnDel";
+            this.btnDel.Size = new System.Drawing.Size(30, 30);
+            this.btnDel.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.btnDel, "Удалить");
+            this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
+            // 
+            // btnQuit
+            // 
+            this.btnQuit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnQuit.Image = ((System.Drawing.Image)(resources.GetObject("btnQuit.Image")));
+            this.btnQuit.Location = new System.Drawing.Point(646, 428);
+            this.btnQuit.Name = "btnQuit";
+            this.btnQuit.Size = new System.Drawing.Size(30, 30);
+            this.btnQuit.TabIndex = 5;
+            this.toolTip1.SetToolTip(this.btnQuit, "Выход");
+            this.btnQuit.UseVisualStyleBackColor = true;
+            this.btnQuit.Click += new System.EventHandler(this.btnQuit_Click);
+            // 
+            // btnExcel
+            // 
+            this.btnExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExcel.Image = global::Arenda.Properties.Resources.pict_excel;
+            this.btnExcel.Location = new System.Drawing.Point(574, 428);
+            this.btnExcel.Name = "btnExcel";
+            this.btnExcel.Size = new System.Drawing.Size(30, 30);
+            this.btnExcel.TabIndex = 39;
+            this.toolTip1.SetToolTip(this.btnExcel, "Список оплат по договору");
+            this.btnExcel.UseVisualStyleBackColor = true;
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
+            // 
+            // lblEditor
+            // 
+            this.lblEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblEditor.AutoSize = true;
+            this.lblEditor.Location = new System.Drawing.Point(418, 380);
+            this.lblEditor.Name = "lblEditor";
+            this.lblEditor.Size = new System.Drawing.Size(49, 13);
+            this.lblEditor.TabIndex = 35;
+            this.lblEditor.Text = "Редакт.:";
+            // 
+            // lblDateEdit
+            // 
+            this.lblDateEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblDateEdit.AutoSize = true;
+            this.lblDateEdit.Location = new System.Drawing.Point(407, 406);
+            this.lblDateEdit.Name = "lblDateEdit";
+            this.lblDateEdit.Size = new System.Drawing.Size(60, 13);
+            this.lblDateEdit.TabIndex = 36;
+            this.lblDateEdit.Text = "Дата ред.:";
+            // 
+            // txtEditor
+            // 
+            this.txtEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtEditor.Location = new System.Drawing.Point(473, 376);
+            this.txtEditor.Name = "txtEditor";
+            this.txtEditor.ReadOnly = true;
+            this.txtEditor.Size = new System.Drawing.Size(203, 20);
+            this.txtEditor.TabIndex = 37;
+            this.txtEditor.TabStop = false;
+            // 
+            // txtDateEdit
+            // 
+            this.txtDateEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDateEdit.Location = new System.Drawing.Point(473, 402);
+            this.txtDateEdit.Name = "txtDateEdit";
+            this.txtDateEdit.ReadOnly = true;
+            this.txtDateEdit.Size = new System.Drawing.Size(203, 20);
+            this.txtDateEdit.TabIndex = 38;
+            this.txtDateEdit.TabStop = false;
             // 
             // PaymentDate
             // 
@@ -215,6 +346,27 @@
             this.sign.Name = "sign";
             this.sign.ReadOnly = true;
             this.sign.Visible = false;
+            // 
+            // cTypePay
+            // 
+            this.cTypePay.DataPropertyName = "namePaymentType";
+            this.cTypePay.HeaderText = "Тип платежа";
+            this.cTypePay.Name = "cTypePay";
+            this.cTypePay.ReadOnly = true;
+            // 
+            // cIsTypeCash
+            // 
+            this.cIsTypeCash.DataPropertyName = "typeCash";
+            this.cIsTypeCash.HeaderText = "Нал./Безнал.";
+            this.cIsTypeCash.Name = "cIsTypeCash";
+            this.cIsTypeCash.ReadOnly = true;
+            // 
+            // cTypeOperation
+            // 
+            this.cTypeOperation.DataPropertyName = "typeTenant";
+            this.cTypeOperation.HeaderText = "Тип операции";
+            this.cTypeOperation.Name = "cTypeOperation";
+            this.cTypeOperation.ReadOnly = true;
             // 
             // id_payment
             // 
@@ -264,127 +416,11 @@
             this.Editor.ReadOnly = true;
             this.Editor.Visible = false;
             // 
-            // lblItog
-            // 
-            this.lblItog.AutoSize = true;
-            this.lblItog.Location = new System.Drawing.Point(80, 351);
-            this.lblItog.Name = "lblItog";
-            this.lblItog.Size = new System.Drawing.Size(40, 13);
-            this.lblItog.TabIndex = 33;
-            this.lblItog.Text = "Итого:";
-            // 
-            // txtItog
-            // 
-            this.txtItog.Location = new System.Drawing.Point(133, 348);
-            this.txtItog.Name = "txtItog";
-            this.txtItog.ReadOnly = true;
-            this.txtItog.Size = new System.Drawing.Size(131, 20);
-            this.txtItog.TabIndex = 34;
-            this.txtItog.TabStop = false;
-            this.txtItog.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
-            this.btnAdd.Location = new System.Drawing.Point(240, 428);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(30, 30);
-            this.btnAdd.TabIndex = 2;
-            this.toolTip1.SetToolTip(this.btnAdd, "Добавить");
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
-            this.btnEdit.Location = new System.Drawing.Point(46, 396);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(30, 30);
-            this.btnEdit.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.btnEdit, "Редактировать");
-            this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Visible = false;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // btnDel
-            // 
-            this.btnDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDel.Image = ((System.Drawing.Image)(resources.GetObject("btnDel.Image")));
-            this.btnDel.Location = new System.Drawing.Point(312, 428);
-            this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(30, 30);
-            this.btnDel.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.btnDel, "Удалить");
-            this.btnDel.UseVisualStyleBackColor = true;
-            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
-            // 
-            // btnQuit
-            // 
-            this.btnQuit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnQuit.Image = ((System.Drawing.Image)(resources.GetObject("btnQuit.Image")));
-            this.btnQuit.Location = new System.Drawing.Point(348, 428);
-            this.btnQuit.Name = "btnQuit";
-            this.btnQuit.Size = new System.Drawing.Size(30, 30);
-            this.btnQuit.TabIndex = 5;
-            this.toolTip1.SetToolTip(this.btnQuit, "Выход");
-            this.btnQuit.UseVisualStyleBackColor = true;
-            this.btnQuit.Click += new System.EventHandler(this.btnQuit_Click);
-            // 
-            // btnExcel
-            // 
-            this.btnExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExcel.Image = global::Arenda.Properties.Resources.pict_excel;
-            this.btnExcel.Location = new System.Drawing.Point(276, 428);
-            this.btnExcel.Name = "btnExcel";
-            this.btnExcel.Size = new System.Drawing.Size(30, 30);
-            this.btnExcel.TabIndex = 39;
-            this.toolTip1.SetToolTip(this.btnExcel, "Список оплат по договору");
-            this.btnExcel.UseVisualStyleBackColor = true;
-            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
-            // 
-            // lblEditor
-            // 
-            this.lblEditor.AutoSize = true;
-            this.lblEditor.Location = new System.Drawing.Point(186, 379);
-            this.lblEditor.Name = "lblEditor";
-            this.lblEditor.Size = new System.Drawing.Size(49, 13);
-            this.lblEditor.TabIndex = 35;
-            this.lblEditor.Text = "Редакт.:";
-            // 
-            // lblDateEdit
-            // 
-            this.lblDateEdit.AutoSize = true;
-            this.lblDateEdit.Location = new System.Drawing.Point(175, 405);
-            this.lblDateEdit.Name = "lblDateEdit";
-            this.lblDateEdit.Size = new System.Drawing.Size(60, 13);
-            this.lblDateEdit.TabIndex = 36;
-            this.lblDateEdit.Text = "Дата ред.:";
-            // 
-            // txtEditor
-            // 
-            this.txtEditor.Location = new System.Drawing.Point(241, 376);
-            this.txtEditor.Name = "txtEditor";
-            this.txtEditor.ReadOnly = true;
-            this.txtEditor.Size = new System.Drawing.Size(137, 20);
-            this.txtEditor.TabIndex = 37;
-            this.txtEditor.TabStop = false;
-            // 
-            // txtDateEdit
-            // 
-            this.txtDateEdit.Location = new System.Drawing.Point(241, 402);
-            this.txtDateEdit.Name = "txtDateEdit";
-            this.txtDateEdit.ReadOnly = true;
-            this.txtDateEdit.Size = new System.Drawing.Size(137, 20);
-            this.txtDateEdit.TabIndex = 38;
-            this.txtDateEdit.TabStop = false;
-            // 
             // frmListPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(390, 470);
+            this.ClientSize = new System.Drawing.Size(688, 470);
             this.Controls.Add(this.btnExcel);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnEdit);
@@ -449,6 +485,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn PaymentDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn PaymentSum;
         private System.Windows.Forms.DataGridViewTextBoxColumn sign;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cTypePay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cIsTypeCash;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cTypeOperation;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_payment;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_Agreements;
         private System.Windows.Forms.DataGridViewTextBoxColumn isPayment;

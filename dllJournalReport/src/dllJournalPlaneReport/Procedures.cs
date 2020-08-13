@@ -35,11 +35,6 @@ namespace dllJournalPlaneReport
                  new DbType[2] { DbType.Int32, DbType.Date }, ap);
         }
 
-        ////////////////////////////////////////////////////////////////////////////////
-
-
-
-
         /// <summary>
         /// Получение списка объектов
         /// </summary>
@@ -87,6 +82,69 @@ namespace dllJournalPlaneReport
 
             return dtResult;
         }
+
+        /// <summary>
+        /// Получение списка журнала ежемесячных планов
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns>Таблица с данными</returns>        
+        public async Task<DataTable> getTPlanReport(DateTime dateStart, DateTime dateEnd)
+        {
+            ap.Clear();
+            ap.Add(dateStart);
+            ap.Add(dateEnd);
+
+
+            return executeProcedure("[Arenda].[spg_getTPlanReport]",
+                 new string[2] { "@dateStart", "@dateEnd" },
+                 new DbType[2] { DbType.Date, DbType.Date }, ap);
+        }
+
+        /// <summary>
+        /// Получение списка журнала ежемесячных планов
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns>Таблица с данными</returns>        
+        public async Task<DataTable> getTPlanReport(DateTime dateStart, DateTime dateEnd, int id_objectLease)
+        {
+            ap.Clear();
+            ap.Add(dateStart);
+            ap.Add(dateEnd);
+            ap.Add(id_objectLease);
+
+            return executeProcedure("[Arenda].[spg_getTPlanReport]",
+                 new string[3] { "@dateStart", "@dateEnd", "@id_objectLease" },
+                 new DbType[3] { DbType.Date, DbType.Date, DbType.Int32 }, ap);
+        }
+
+        /// <summary>
+        /// Создание или удаления заголовка ежемесячного плана
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns>Таблица с данными</returns>        
+        public async Task<DataTable> setTPlanReport(int id, DateTime PeriodMonthPlan, int id_ObjectLease, bool? isСonfirmed, bool isDel, int result)
+        {
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(PeriodMonthPlan);
+            ap.Add(id_ObjectLease);
+            ap.Add(isСonfirmed);
+            ap.Add(isDel);
+            ap.Add(result);
+            ap.Add(UserSettings.User.Id);
+
+
+            return executeProcedure("[Arenda].[spg_setTPlanReport]",
+                 new string[7] { "@id", "@PeriodMonthPlan", "@id_ObjectLease", "@isСonfirmed", "@isDel", "@result", "@id_user" },
+                 new DbType[7] { DbType.Int32, DbType.Date, DbType.Int32, DbType.Boolean, DbType.Int32, DbType.Int32, DbType.Int32 }, ap);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 
 
         /// <summary>
@@ -137,39 +195,7 @@ namespace dllJournalPlaneReport
             return dtResult;
         }
 
-        /// <summary>
-        /// Получение списка журнала ежемесячных планов
-        /// </summary>
-        /// <param name=""></param>
-        /// <returns>Таблица с данными</returns>        
-        public async Task<DataTable> getTMonthReport(DateTime dateStart, DateTime dateEnd)
-        {
-            ap.Clear();
-            ap.Add(dateStart);
-            ap.Add(dateEnd);
-            
-
-            return executeProcedure("[Arenda].[spg_getTMonthReport]",
-                 new string[2] { "@dateStart", "@dateEnd"},
-                 new DbType[2] { DbType.Date, DbType.Date}, ap);
-        }
-
-        /// <summary>
-        /// Получение списка журнала ежемесячных планов
-        /// </summary>
-        /// <param name=""></param>
-        /// <returns>Таблица с данными</returns>        
-        public async Task<DataTable> getTMonthReport(DateTime dateStart, DateTime dateEnd,int id_objectLease)
-        {
-            ap.Clear();
-            ap.Add(dateStart);
-            ap.Add(dateEnd);
-            ap.Add(id_objectLease);
-
-            return executeProcedure("[Arenda].[spg_getTMonthReport]",
-                 new string[3] { "@dateStart", "@dateEnd", "@id_objectLease" },
-                 new DbType[3] { DbType.Date, DbType.Date, DbType.Int32 }, ap);
-        }
+      
 
 
         /// <summary>
@@ -220,27 +246,7 @@ namespace dllJournalPlaneReport
                  new DbType[3] { DbType.Date, DbType.Int32, DbType.Int32 }, ap);
         }
 
-        /// <summary>
-        /// Создание или удаления заголовка ежемесячного плана
-        /// </summary>
-        /// <param name=""></param>
-        /// <returns>Таблица с данными</returns>        
-        public async Task<DataTable> setTMonthPlan(int id,DateTime PeriodMonthPlan,int id_ObjectLease,bool? isСonfirmed,bool isDel, int result)
-        {
-            ap.Clear();
-            ap.Add(id);
-            ap.Add(PeriodMonthPlan);
-            ap.Add(id_ObjectLease);
-            ap.Add(isСonfirmed);
-            ap.Add(isDel);
-            ap.Add(result);
-            ap.Add(UserSettings.User.Id);
-
-
-            return executeProcedure("[Arenda].[spg_setTMonthPlan]",
-                 new string[7] { "@id", "@PeriodMonthPlan", "@id_ObjectLease", "@isСonfirmed", "@isDel", "@result", "@id_user" },
-                 new DbType[7] { DbType.Int32, DbType.Date, DbType.Int32, DbType.Boolean, DbType.Int32, DbType.Int32, DbType.Int32 }, ap);
-        }
+      
 
         /// <summary>
         /// Создание или удаления тела ежемесячного плана

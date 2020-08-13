@@ -181,7 +181,7 @@ namespace dllJournalPlaneReport
 
         private void btExit_Click(object sender, EventArgs e)
         {
-            Close();
+            Close(); 
         }
     }
 }

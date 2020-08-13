@@ -26,7 +26,7 @@ namespace dllJournalPlaneReport
                     Logging.Comment("Вход в программу");
                     Logging.StopFirstLevel();
 
-                    Application.Run(new frmViewPayment());
+                    Application.Run(new frmReportPlane());
                     //Application.Run(new ArchiveDocAddDoc.frmAddDoc(){Text = "Добавление документа"});
                     //Application.Run(new FeedBack.frmList());
                     //Application.Run(new WebSites.frmList());

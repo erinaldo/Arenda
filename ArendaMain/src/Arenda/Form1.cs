@@ -193,6 +193,7 @@ namespace Arenda
             label5.Text = "Арендаторы";
             btAdd.Enabled = true;
             btExel.Enabled = true;
+            iniTenant();
             pTenant.Show();
             pLordland.Hide();
             pListDoc.Hide();
@@ -371,6 +372,7 @@ namespace Arenda
             //this.Text = "Аренда " + " Список договоров " + username;
             this.Text = progname + " Список договоров " /*+ codeuser*/ + " " + username;
             label5.Text = "Список договоров";
+            iniListDoc();
             pTenant.Hide();
             pListDoc.Show();
             pLordland.Hide();
@@ -594,6 +596,7 @@ namespace Arenda
             //this.Text = "Аренда " + " Арендодатели " + username;
             this.Text = progname + " Арендодатели " /*+ codeuser*/ + " " + username;
             label5.Text = "Арендодатели";
+            iniLandLord();
             pTenant.Hide();
             pLordland.Show();
             pListDoc.Hide();
@@ -800,6 +803,13 @@ namespace Arenda
             if (pListDoc.Visible == true)
             {
                 int _id = Convert.ToInt32(dgListDoc.SelectedRows[0].Cells[0].Value);
+                bool _IsConfirmed = (bool)dgListDoc.SelectedRows[0].Cells["cIsConfirmed"].Value;
+                if (_IsConfirmed)
+                {
+                    MessageBox.Show(TempData.centralText("По договору подтверждён.\nУдаление документа невозможно.\n"), "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
 
                 DataTable dtPayments = new DataTable();
                 dtPayments = _proc.GetPayments(_id);

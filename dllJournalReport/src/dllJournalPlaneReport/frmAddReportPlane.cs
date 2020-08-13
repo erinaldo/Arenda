@@ -9,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace dllJournalReport
+namespace dllJournalPlaneReport
 {
-    public partial class frmAddReportMonth : Form
+    public partial class frmAddReportPlane : Form
     {
         private DataTable dtData;
         private bool isChangeValue = false;
@@ -22,7 +22,7 @@ namespace dllJournalReport
         public bool isView { set; private get; }
         public bool isAcceptData { private set; get; }
 
-        public frmAddReportMonth()
+        public frmAddReportPlane()
         {
             InitializeComponent();
             dgvData.AutoGenerateColumns = false;
@@ -341,7 +341,7 @@ namespace dllJournalReport
             int _id = id;
 
 
-            Task<DataTable> task = Config.hCntMain.getTMonthReport(_startDate.Date, _startDate.Date, (int)cmbObject.SelectedValue);
+            Task<DataTable> task = Config.hCntMain.getTPlanReport(_startDate.Date, _startDate.Date, (int)cmbObject.SelectedValue);
             task.Wait();
             if (task.Result != null && task.Result.Rows.Count > 0)
             {
@@ -353,7 +353,7 @@ namespace dllJournalReport
                 if (dlgResult == DialogResult.No) { dgvData.DataSource = null; dtData.Clear();setFilter(); return; }
                 if (dlgResult == DialogResult.Yes) {
 
-                    task = Config.hCntMain.setTMonthPlan(_id, _startDate.Date, (int)cmbObject.SelectedValue, false, true, 0);
+                    task = Config.hCntMain.setTPlanReport(_id, _startDate.Date, (int)cmbObject.SelectedValue, false, true, 0);
                     task.Wait();
 
                     dtResult = task.Result;
@@ -376,14 +376,14 @@ namespace dllJournalReport
                         return;
                     }
 
-                    task = Config.hCntMain.setTMonthPlan(_id, _startDate.Date, (int)cmbObject.SelectedValue, false, true, 1);
+                    task = Config.hCntMain.setTPlanReport(_id, _startDate.Date, (int)cmbObject.SelectedValue, false, true, 1);
                     task.Wait();
                 }
             }
             
 
 
-            task = Config.hCntMain.setTMonthPlan(id, _startDate.Date, (int)cmbObject.SelectedValue, false, false, 0);
+            task = Config.hCntMain.setTPlanReport(id, _startDate.Date, (int)cmbObject.SelectedValue, false, false, 0);
             task.Wait();
 
             dtResult = task.Result;
@@ -447,7 +447,7 @@ namespace dllJournalReport
             if (id == 0)
             {
                 DateTime _startDate = new DateTime(dtpStart.Value.Year, dtpStart.Value.Month, 1);
-                Task<DataTable> task = Config.hCntMain.getTMonthReport(_startDate.Date, _startDate.Date, (int)cmbObject.SelectedValue);
+                Task<DataTable> task = Config.hCntMain.getTPlanReport(_startDate.Date, _startDate.Date, (int)cmbObject.SelectedValue);
                 task.Wait();
                 if (task.Result != null && task.Result.Rows.Count > 0)
                 {
@@ -465,6 +465,7 @@ namespace dllJournalReport
             dgvData.DataSource = null;
             if (dtData != null)
                 dtData.Clear();
+
             isChangeValue = false;
             statusElements(true);                
         }
@@ -493,14 +494,14 @@ namespace dllJournalReport
             if (row != null)
                 status = (bool)row["isСonfirmed"] ? "Подтверждена" : "Не подтверждена";
 
-            reports.createReport(dtData, cmbObject.Text, status, dtpStart.Value.Date);
+            //reports.createReport(dtData, cmbObject.Text, status, dtpStart.Value.Date);
         }
 
         private void btAcceptD_Click(object sender, EventArgs e)
         {
             if (DialogResult.No == MessageBox.Show(Config.centralText("Вы хотите подтвердить\nежемесячный план?\n"), "Подтверждение плана", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) return;
 
-            Task<DataTable> task = Config.hCntMain.setTMonthPlan(id, dtpStart.Value.Date, (int)cmbObject.SelectedValue, true, false, 0);
+            Task<DataTable> task = Config.hCntMain.setTPlanReport(id, dtpStart.Value.Date, (int)cmbObject.SelectedValue, true, false, 0);
             task.Wait();
 
             DataTable dtResult = task.Result;

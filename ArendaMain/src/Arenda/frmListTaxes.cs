@@ -29,7 +29,7 @@ namespace Arenda
         private void frmListTaxes_Load(object sender, EventArgs e)
         {
             //if (TempData.Rezhim == "ПР")
-            if(new List<string> { "СБ6", "Д", "ПР"}.Contains(TempData.Rezhim))
+            if(new List<string> { "СБ6", "Д", "ПР", "КНТ" }.Contains(TempData.Rezhim))
             {
                 toolTip1.SetToolTip(btnScan, "Просмотр изображения");
                 toolTip1.SetToolTip(btnPay, "Просмотр дополнительной оплаты к договору");
