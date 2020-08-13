@@ -10,7 +10,7 @@ GO
 -- Create date: 2020-07-27
 -- Description:	Получение списка оплат по договору
 -- =============================================
-CREATE PROCEDURE [Arenda].[spg_GetPaymentsForAgreemetns]
+ALTER PROCEDURE [Arenda].[spg_GetPaymentsForAgreemetns]
 	@id_Agreements int
 	
 AS
@@ -24,7 +24,7 @@ BEGIN
 	from 
 		Arenda.j_PaymentContract p
 	where 
-		id_Agreements = @id_Agreements
+		id_Agreements = @id_Agreements and p.id_PayType = 2
 
 END
 

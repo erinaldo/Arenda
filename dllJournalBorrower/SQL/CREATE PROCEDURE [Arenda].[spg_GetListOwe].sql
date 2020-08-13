@@ -42,7 +42,7 @@ select
 	a.id_ObjectLease,
 	--a.Start_Date,
 	dateadd(day,isnull(aa.RentalVacation,0),isnull(ad.DateDocument,a.Start_Date)) as Start_Date,
-	a.Stop_Date,
+	[Arenda].[fGetDateEndAgreements](a.id) as Stop_Date,-- a.Stop_Date,
 	a.id_Tenant
 from
 	Arenda.j_Agreements a 

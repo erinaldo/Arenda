@@ -299,8 +299,11 @@ namespace JournalBorrower
             dgvData.DataSource = dtData;
         }
 
+        Dictionary<int, DataTable> dicPayMonth = new Dictionary<int, DataTable>();
+
         private void initDateType1(DataTable dtTmpData)
         {
+            dicPayMonth = new Dictionary<int, DataTable>();
             DataTable dtResultPay = new DataTable();
             dtResultPay.Columns.Add("id_Agreements", typeof(int));
             dtResultPay.Columns.Add("date", typeof(DateTime));
@@ -318,10 +321,8 @@ namespace JournalBorrower
 
             foreach (var gIdAgreements in groupIdAgreements)
             {
-                if (gIdAgreements.id_Agreements == 3060) { 
-                
-                }
-                    dtResultPay.Clear();
+
+                dtResultPay.Clear();
                 //foreach()
                 EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable()
                     .Where(r => r.Field<int>("id") == gIdAgreements.id_Agreements);
@@ -341,12 +342,16 @@ namespace JournalBorrower
                     //List<DateTime> listDate = new List<DateTime>();
                     Dictionary<DateTime, decimal> dicDate = new Dictionary<DateTime, decimal>();
 
+                    if (gIdAgreements.id_Agreements == 3059)
+                    {
+                    }
+
                     //for (DateTime dI = dStart.Date; dI.Date <= dStop.Date; dI = dI.AddDays(1))
                     for (DateTime dI = dStart.Date; dI.Date <= _dateStop.Date; dI = dI.AddDays(1))
                     {
                         if (dI.Date > dStop.Date)
                             break;
-
+                        
                         int days = DateTime.DaysInMonth(dI.Year, dI.Month);
                         //Console.WriteLine(dI.Date.ToShortDateString());
                         rowCollect = dtTmpData.AsEnumerable()
@@ -358,13 +363,16 @@ namespace JournalBorrower
 
                         if (rowCollect.Count() > 0)
                         {
+                            int _id_TypeDiscount = (int)rowCollect.First()["id_TypeDiscount"];
                             decimal _tmpDec = Total_Sum;
+                            //DateTime? dateMetr = null;
 
                             EnumerableRowCollection<DataRow> rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 2);
                             if (rows.Count() > 0)
                             {
                                 _tmpDec = (decimal)rows.First()["Discount"];
                                 _tmpDec = _tmpDec * (decimal)rows.First()["Total_Area"];
+                                //dateMetr = (DateTime)rowCollect.First()["DateStart"];
                             }
                             else
                             {
@@ -373,21 +381,25 @@ namespace JournalBorrower
                                 {
                                     _tmpDec = (decimal)rows.First()["Discount"];
                                     _tmpDec = _tmpDec * (decimal)rows.First()["Total_Area"];
+                                   // dateMetr = (DateTime)rowCollect.First()["DateStart"];
                                 }
                             }
 
-
-                            rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 1);
-                            if (rows.Count() > 0)
+                            if (_id_TypeDiscount != 2)
                             {
-                                _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
-                            }
-                            else
-                            {
-                                rows = rowCollect.Where(r => r.Field<object>("DateEnd") == null && r.Field<int>("id_TypeDiscount") == 1);
+                                rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 1);
                                 if (rows.Count() > 0)
                                 {
                                     _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
+                                }
+                                else
+                                {
+                                    rows = rowCollect.Where(r => r.Field<object>("DateEnd") == null && r.Field<int>("id_TypeDiscount") == 1);
+                                    if (rows.Count() > 0)
+                                    {
+                                        //if (dateMetr is null || dateMetr.Value.Date < ((DateTime)rows.First()["DateStart"]).Date)
+                                            _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
+                                    }
                                 }
                             }
 
@@ -398,6 +410,8 @@ namespace JournalBorrower
                             dicDate.Add(dI.Date, Total_Sum / days);
                         }
                     }
+
+                  
 
                     Task<DataTable> task = Config.hCntMain.GetPaymentsForAgreemetns(gIdAgreements.id_Agreements);
                     task.Wait();
@@ -495,6 +509,7 @@ namespace JournalBorrower
                     }
                     //Console.WriteLine($"");
                 }
+                dicPayMonth.Add(gIdAgreements.id_Agreements, dtResultPay.Copy());
             }
 
 
@@ -634,6 +649,15 @@ namespace JournalBorrower
             {
                 e.Value = "";
                 e.FormattingApplied = true;
+            }
+        }
+
+        private void dgvData_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (rbPayDoc.Checked && e.RowIndex != -1)
+            {
+                int id = (int)dtData.DefaultView[e.RowIndex]["id"];
+                new frmView() { dt = dicPayMonth[id] }.ShowDialog();
             }
         }
     }

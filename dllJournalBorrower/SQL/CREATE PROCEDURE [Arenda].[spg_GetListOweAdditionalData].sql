@@ -49,7 +49,7 @@ BEGIN
 				a.Total_Sum,
 				a.Total_Area,
 				dateadd(day,isnull(aa.RentalVacation,0),isnull(ad.DateDocument,a.Start_Date)) as Start_Date,
-				a.Stop_Date,
+				[Arenda].[fGetDateEndAgreements](a.id) as Stop_Date,-- a.Stop_Date,
 				d.id as id_discount
 			from 
 				Arenda.j_Agreements a 
@@ -77,7 +77,7 @@ BEGIN
 
 			UNION ALL
 
-			select a.id,cast(0 as numeric (16,2)) as Summa,f.Summa  as sumPay
+			select a.id,cast(0 as numeric (16,2)) as Summa,pc.Summa  as sumPay
 			from Arenda.j_Agreements a 
 					inner join Arenda.j_Fines f on f.id_Agreements = a.id
 					inner join Arenda.j_PaymentContract pc on pc.id_Fines = f.id

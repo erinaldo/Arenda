@@ -52,14 +52,6 @@ namespace dllJournalPlaneReport
             cmbObject.DataSource = dtObjectLease;
             cmbObject.SelectedIndex = -1;
 
-            task = Config.hCntMain.getTypeContract(true);
-            task.Wait();
-            DataTable dtTypeContract = task.Result;
-
-            cmbTypeContract.DisplayMember = "cName";
-            cmbTypeContract.ValueMember = "id";
-            cmbTypeContract.DataSource = dtTypeContract;
-
             if (id != 0)
                 getdata();
             else
@@ -258,8 +250,8 @@ namespace dllJournalPlaneReport
                 if (tbAgreements.Text.Trim().Length != 0)
                     filter += (filter.Length == 0 ? "" : " and ") + $"Agreement like '%{tbAgreements.Text.Trim()}%'";
 
-                if ((int)cmbTypeContract.SelectedValue != 0)
-                    filter += (filter.Length == 0 ? "" : " and ") + $"id_TypeContract  = {cmbTypeContract.SelectedValue}";
+                //if ((int)cmbTypeContract.SelectedValue != 0)
+                //    filter += (filter.Length == 0 ? "" : " and ") + $"id_TypeContract  = {cmbTypeContract.SelectedValue}";
 
                 dtData.DefaultView.RowFilter = filter;
             }
