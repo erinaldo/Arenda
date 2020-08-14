@@ -79,6 +79,8 @@ namespace JournalBorrower
                 cSumOwe.DataPropertyName = "SummaPenny_2";
                 cPrcOwe.DataPropertyName = "PrcPenny_2";
             }
+
+            setFilter();
         }
 
         private void btExit_Click(object sender, EventArgs e)
@@ -264,6 +266,7 @@ namespace JournalBorrower
             dtData.Columns.Add("SummaFine_1", typeof(decimal));
             dtData.Columns.Add("SummaPenny_1", typeof(decimal));
             dtData.Columns.Add("PrcPenny_1", typeof(decimal));
+            dtData.Columns.Add("SummaPaymentFine_1_filter", typeof(decimal));
 
             dtData.Columns.Add("SummaPaymentFine_2", typeof(decimal));
             dtData.Columns.Add("SummaFine_2", typeof(decimal));
@@ -340,11 +343,7 @@ namespace JournalBorrower
                         : new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(2).AddDays(-1);
 
                     //List<DateTime> listDate = new List<DateTime>();
-                    Dictionary<DateTime, decimal> dicDate = new Dictionary<DateTime, decimal>();
-
-                    if (gIdAgreements.id_Agreements == 3059)
-                    {
-                    }
+                    Dictionary<DateTime, decimal> dicDate = new Dictionary<DateTime, decimal>();                 
 
                     //for (DateTime dI = dStart.Date; dI.Date <= dStop.Date; dI = dI.AddDays(1))
                     for (DateTime dI = dStart.Date; dI.Date <= _dateStop.Date; dI = dI.AddDays(1))
@@ -480,6 +479,8 @@ namespace JournalBorrower
                             rowMainCollect.First()["SummaFine_1"] = ((decimal)0);
                             rowMainCollect.First()["SummaPenny_1"] = ((decimal)0);
                             rowMainCollect.First()["PrcPenny_1"] = ((decimal)0);
+                            rowMainCollect.First()["SummaPaymentFine_1_filter"] = ((decimal)0);
+                            
                         }
                     }
                     else
@@ -496,6 +497,7 @@ namespace JournalBorrower
                                     rowMainCollect.First()["SummaFine_1"] = gItog.sumPay;
                                     rowMainCollect.First()["SummaPenny_1"] = gItog.sumOwe;
                                     rowMainCollect.First()["PrcPenny_1"] = gItog.sumOwe;
+                                    rowMainCollect.First()["SummaPaymentFine_1_filter"] = gItog.sumOwe;
                                 }
                                 else
                                 {
@@ -503,6 +505,7 @@ namespace JournalBorrower
                                     rowMainCollect.First()["SummaFine_1"] = gItog.sumPay;
                                     rowMainCollect.First()["SummaPenny_1"] = (gItog.sumOwe - gItog.sumPay);
                                     rowMainCollect.First()["PrcPenny_1"] = Math.Round(((gItog.sumOwe - gItog.sumPay) / gItog.sumOwe) * 100, 2);
+                                    rowMainCollect.First()["SummaPaymentFine_1_filter"] = gItog.sumOwe;
                                 }
                             }
                         }
@@ -575,6 +578,9 @@ namespace JournalBorrower
 
                 //if (!chbNotActive.Checked)
                 //    filter += (filter.Length == 0 ? "" : " and ") + $"isActive = 1";
+
+                if(rbPayDoc.Checked)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"SummaPaymentFine_1_filter <> 0"; 
 
                 dtData.DefaultView.RowFilter = filter;               
             }

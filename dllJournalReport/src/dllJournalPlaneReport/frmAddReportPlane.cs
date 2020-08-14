@@ -70,7 +70,7 @@ namespace dllJournalPlaneReport
             DateTime _startDate = new DateTime(dtpStart.Value.Year, dtpStart.Value.Month, 1);
             int id_objectLeaser = (int)cmbObject.SelectedValue;
 
-            Task<DataTable> task = Config.hCntMain.getMonthReport(_startDate.Date, id_objectLeaser);
+            Task<DataTable> task = Config.hCntMain.getPlanReport(_startDate.Date, id_objectLeaser);
             task.Wait();
 
             if (task.Result == null || task.Result.Rows.Count == 0)
@@ -81,40 +81,19 @@ namespace dllJournalPlaneReport
 
             dtData = task.Result;
 
-            if (!dtData.Columns.Contains("discount"))
-                dtData.Columns.Add("discount", typeof(decimal));
-
-            if (!dtData.Columns.Contains("plane"))
-                dtData.Columns.Add("plane", typeof(decimal));
-
-            DataTable dtResultPay = new DataTable();
-            dtResultPay.Columns.Add("id_Agreements", typeof(int));
-            dtResultPay.Columns.Add("date", typeof(DateTime));
-            dtResultPay.Columns.Add("sumOwe", typeof(decimal));
-            dtResultPay.Columns.Add("sumPay", typeof(decimal));
-            dtResultPay.Columns.Add("sumResult", typeof(decimal));
-            dtResultPay.AcceptChanges();
-
             foreach (DataRow row in dtData.Rows)
             {
                 int id_Agreements = (int)row["id"];
-                bool isDiscount = false;
        
                 task = Config.hCntMain.getTDiscount(id_Agreements);
                 task.Wait();
-                //if (task.Result == null || task.Result.Rows.Count == 0)
-                //{ continue; }
 
                 DataTable dtTmp = task.Result;
 
                 DateTime dStart = (DateTime)row["Start_Date"];
                 DateTime dStop = (DateTime)row["Stop_Date"];
                 decimal Total_Sum = (decimal)row["Total_Sum"];
-                decimal Cost_of_Meter = (decimal)row["Cost_of_Meter"];
 
-                //DateTime _dateStop = DateTime.Now.Day < 25 ?
-                //    new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1).AddDays(-1)
-                //    : new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(2).AddDays(-1);
                 DateTime _dateStop = _startDate.AddMonths(1).AddDays(-1);
 
                 if (dStart.Date < _startDate.Date) dStart = _startDate.Date;
@@ -138,7 +117,7 @@ namespace dllJournalPlaneReport
                     if (rowCollect.Count() > 0)
                     {
                         decimal _tmpDec = Total_Sum;
-                        isDiscount = true;
+                        int _id_TypeDiscount = (int)rowCollect.First()["id_TypeDiscount"];                        
 
                         EnumerableRowCollection<DataRow> rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 2);
                         if (rows.Count() > 0)
@@ -156,18 +135,20 @@ namespace dllJournalPlaneReport
                             }
                         }
 
-
-                        rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 1);
-                        if (rows.Count() > 0)
+                        if (_id_TypeDiscount != 2)
                         {
-                            _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
-                        }
-                        else
-                        {
-                            rows = rowCollect.Where(r => r.Field<object>("DateEnd") == null && r.Field<int>("id_TypeDiscount") == 1);
+                            rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 1);
                             if (rows.Count() > 0)
                             {
                                 _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
+                            }
+                            else
+                            {
+                                rows = rowCollect.Where(r => r.Field<object>("DateEnd") == null && r.Field<int>("id_TypeDiscount") == 1);
+                                if (rows.Count() > 0)
+                                {
+                                    _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
+                                }
                             }
                         }
 
@@ -181,17 +162,11 @@ namespace dllJournalPlaneReport
 
                 IEnumerable<DateTime> rowDates = dicDate.Keys.AsEnumerable().Where(r => r.Month == _startDate.Month && r.Year == _startDate.Year);
                 decimal sumMonth = 0;
-                foreach (DateTime tt in rowDates)
-                {
-                    sumMonth += dicDate[tt.Date];
-
-                }
+                foreach (DateTime tt in rowDates) sumMonth += dicDate[tt.Date];
 
                 sumMonth = Math.Round(sumMonth, 2);
 
-                row["plane"] = sumMonth;
-                row["discount"] = isDiscount ? Math.Round(Total_Sum - sumMonth, 2) : 0;
-
+                row["EndPlan"] = sumMonth;               
             }
             setFilter();
             dgvData.DataSource = dtData;
@@ -214,7 +189,7 @@ namespace dllJournalPlaneReport
             DateTime _startDate = new DateTime(dtpStart.Value.Year, dtpStart.Value.Month, 1);
             int id_objectLeaser = (int)cmbObject.SelectedValue;
 
-            Task<DataTable> task = Config.hCntMain.getMonthReport(_startDate.Date, id_objectLeaser,id);
+            Task<DataTable> task = Config.hCntMain.getPlanReport(_startDate.Date, id_objectLeaser,id);
             task.Wait();
 
             if (task.Result == null || task.Result.Rows.Count == 0)
@@ -274,8 +249,8 @@ namespace dllJournalPlaneReport
                 return;
             }
 
-            object objSum = dtData.DefaultView.ToTable().Compute("SUM(plane)", "");
-            tbSumPlane.Text = ((decimal)objSum).ToString("0.00");
+            //object objSum = dtData.DefaultView.ToTable().Compute("SUM(plane)", "");
+            //tbSumPlane.Text = ((decimal)objSum).ToString("0.00");
 
         }
 
@@ -304,12 +279,12 @@ namespace dllJournalPlaneReport
                     tbAgreements.Size = new Size(cAgreements.Width, tbTenant.Height);
                 }
 
-                if (col.Index == cPlane.Index)
-                {
-                    tbSumPlane.Location = new Point(dgvData.Location.X + width , tbSumPlane.Location.Y);
-                    tbSumPlane.Size = new Size(cPlane.Width, tbSumPlane.Height);
-                    lSumPlane.Location = new Point(tbSumPlane.Location.X - 40, lSumPlane.Location.Y);
-                }
+                //if (col.Index == cPlane.Index)
+                //{
+                //    tbSumPlane.Location = new Point(dgvData.Location.X + width , tbSumPlane.Location.Y);
+                //    tbSumPlane.Size = new Size(cPlane.Width, tbSumPlane.Height);
+                //    lSumPlane.Location = new Point(tbSumPlane.Location.X - 40, lSumPlane.Location.Y);
+                //}
                 
 
                 width += col.Width;

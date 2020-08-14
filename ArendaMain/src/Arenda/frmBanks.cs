@@ -48,6 +48,8 @@ namespace Arenda
                     btChoose.Visible =
                     false;
 
+                btChoose.Visible = new List<string> { "МНД" }.Contains(TempData.Rezhim);
+
                 dgBanks.ReadOnly = true;
             }
 
@@ -58,7 +60,7 @@ namespace Arenda
 
             if (_choose == 1)
             {
-                btChoose.Enabled = true;
+                btChoose.Enabled = true;                
             }
             else
                 btChoose.Enabled = false;

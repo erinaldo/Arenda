@@ -17,6 +17,7 @@ namespace Arenda.Payments
         private bool isEditData = false;
 
         public int id_Agreements { set; private get; }
+        public int id_TypeDog { set; private get; }
         public frmAddDiscount()
         {
             InitializeComponent();
@@ -32,6 +33,10 @@ namespace Arenda.Payments
             cmbTypeDicount.DisplayMember = "cName";
             cmbTypeDicount.ValueMember = "id";
             cmbTypeDicount.DataSource = dtTypeDiscount;
+            if (id_TypeDog == 2) {
+                cmbTypeDicount.SelectedValue = 1;
+                cmbTypeDicount.Enabled = false;
+            }
             //cmbTypeDicount.SelectedIndex = -1;
             cmbTypeDicount_SelectionChangeCommitted(null, null);
             isEditData = false;
@@ -147,9 +152,9 @@ namespace Arenda.Payments
             }
 
 
-            if ((int)dtResult.Rows[0]["id"] == -1)
+            if ((int)dtResult.Rows[0]["id"] == -2)
             {
-                MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("В списке скидок есть пересечение дат по скидке!", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

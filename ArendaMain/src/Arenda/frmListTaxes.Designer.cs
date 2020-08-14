@@ -30,18 +30,32 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmListTaxes));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmListTaxes));
             this.txtTenant = new System.Windows.Forms.TextBox();
             this.txtNum = new System.Windows.Forms.TextBox();
             this.lblTenant = new System.Windows.Forms.Label();
             this.lblNum = new System.Windows.Forms.Label();
             this.grdPayments = new System.Windows.Forms.DataGridView();
+            this.TaxDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PaymentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.penalty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PaymentSum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Debt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.scan = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_tax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_Agreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_Editor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Editor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PaymentId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isConfirmed = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblItog = new System.Windows.Forms.Label();
             this.txtPenalty = new System.Windows.Forms.TextBox();
             this.txtPayment = new System.Windows.Forms.TextBox();
@@ -61,20 +75,6 @@
             this.lblComment = new System.Windows.Forms.Label();
             this.cboAnotherPay = new System.Windows.Forms.ComboBox();
             this.lblAnotherPay = new System.Windows.Forms.Label();
-            this.TaxDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PaymentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.penalty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PaymentSum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Debt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.scan = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_tax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_Agreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_Editor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Editor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PaymentId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isConfirmed = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.grdPayments)).BeginInit();
             this.SuspendLayout();
             // 
@@ -156,191 +156,6 @@
             this.grdPayments.Size = new System.Drawing.Size(470, 258);
             this.grdPayments.TabIndex = 11;
             this.grdPayments.SelectionChanged += new System.EventHandler(this.grdPayments_SelectionChanged);
-            // 
-            // lblItog
-            // 
-            this.lblItog.AutoSize = true;
-            this.lblItog.Location = new System.Drawing.Point(12, 328);
-            this.lblItog.Name = "lblItog";
-            this.lblItog.Size = new System.Drawing.Size(40, 13);
-            this.lblItog.TabIndex = 34;
-            this.lblItog.Text = "Итого:";
-            // 
-            // txtPenalty
-            // 
-            this.txtPenalty.Location = new System.Drawing.Point(91, 325);
-            this.txtPenalty.Name = "txtPenalty";
-            this.txtPenalty.ReadOnly = true;
-            this.txtPenalty.Size = new System.Drawing.Size(114, 20);
-            this.txtPenalty.TabIndex = 35;
-            this.txtPenalty.TabStop = false;
-            this.txtPenalty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtPayment
-            // 
-            this.txtPayment.Location = new System.Drawing.Point(211, 325);
-            this.txtPayment.Name = "txtPayment";
-            this.txtPayment.ReadOnly = true;
-            this.txtPayment.Size = new System.Drawing.Size(114, 20);
-            this.txtPayment.TabIndex = 36;
-            this.txtPayment.TabStop = false;
-            this.txtPayment.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtDebt
-            // 
-            this.txtDebt.Location = new System.Drawing.Point(328, 325);
-            this.txtDebt.Name = "txtDebt";
-            this.txtDebt.ReadOnly = true;
-            this.txtDebt.Size = new System.Drawing.Size(114, 20);
-            this.txtDebt.TabIndex = 37;
-            this.txtDebt.TabStop = false;
-            this.txtDebt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // txtComment
-            // 
-            this.txtComment.AllowDrop = true;
-            this.txtComment.Location = new System.Drawing.Point(91, 351);
-            this.txtComment.Multiline = true;
-            this.txtComment.Name = "txtComment";
-            this.txtComment.ReadOnly = true;
-            this.txtComment.Size = new System.Drawing.Size(351, 66);
-            this.txtComment.TabIndex = 62;
-            // 
-            // txtDateEdit
-            // 
-            this.txtDateEdit.Location = new System.Drawing.Point(91, 449);
-            this.txtDateEdit.Name = "txtDateEdit";
-            this.txtDateEdit.ReadOnly = true;
-            this.txtDateEdit.Size = new System.Drawing.Size(137, 20);
-            this.txtDateEdit.TabIndex = 66;
-            this.txtDateEdit.TabStop = false;
-            // 
-            // txtEditor
-            // 
-            this.txtEditor.Location = new System.Drawing.Point(91, 423);
-            this.txtEditor.Name = "txtEditor";
-            this.txtEditor.ReadOnly = true;
-            this.txtEditor.Size = new System.Drawing.Size(137, 20);
-            this.txtEditor.TabIndex = 65;
-            this.txtEditor.TabStop = false;
-            // 
-            // lblDateEdit
-            // 
-            this.lblDateEdit.AutoSize = true;
-            this.lblDateEdit.Location = new System.Drawing.Point(12, 452);
-            this.lblDateEdit.Name = "lblDateEdit";
-            this.lblDateEdit.Size = new System.Drawing.Size(60, 13);
-            this.lblDateEdit.TabIndex = 64;
-            this.lblDateEdit.Text = "Дата ред.:";
-            // 
-            // lblEditor
-            // 
-            this.lblEditor.AutoSize = true;
-            this.lblEditor.Location = new System.Drawing.Point(12, 426);
-            this.lblEditor.Name = "lblEditor";
-            this.lblEditor.Size = new System.Drawing.Size(49, 13);
-            this.lblEditor.TabIndex = 63;
-            this.lblEditor.Text = "Редакт.:";
-            // 
-            // btnScan
-            // 
-            this.btnScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnScan.Image = global::Arenda.Properties.Resources.scanner;
-            this.btnScan.Location = new System.Drawing.Point(269, 438);
-            this.btnScan.Name = "btnScan";
-            this.btnScan.Size = new System.Drawing.Size(30, 30);
-            this.btnScan.TabIndex = 73;
-            this.toolTip1.SetToolTip(this.btnScan, "Сканирование изображения");
-            this.btnScan.UseVisualStyleBackColor = true;
-            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
-            // 
-            // btnPay
-            // 
-            this.btnPay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnPay.Image = ((System.Drawing.Image)(resources.GetObject("btnPay.Image")));
-            this.btnPay.Location = new System.Drawing.Point(305, 438);
-            this.btnPay.Name = "btnPay";
-            this.btnPay.Size = new System.Drawing.Size(30, 30);
-            this.btnPay.TabIndex = 71;
-            this.toolTip1.SetToolTip(this.btnPay, "Ввод дополнительной оплаты");
-            this.btnPay.UseVisualStyleBackColor = true;
-            this.btnPay.Click += new System.EventHandler(this.btnPay_Click);
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
-            this.btnAdd.Location = new System.Drawing.Point(341, 438);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(30, 30);
-            this.btnAdd.TabIndex = 67;
-            this.toolTip1.SetToolTip(this.btnAdd, "Добавить");
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
-            this.btnEdit.Location = new System.Drawing.Point(376, 438);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(30, 30);
-            this.btnEdit.TabIndex = 68;
-            this.toolTip1.SetToolTip(this.btnEdit, "Редактировать");
-            this.btnEdit.UseVisualStyleBackColor = true;
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // btnDel
-            // 
-            this.btnDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDel.Image = ((System.Drawing.Image)(resources.GetObject("btnDel.Image")));
-            this.btnDel.Location = new System.Drawing.Point(412, 438);
-            this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(30, 30);
-            this.btnDel.TabIndex = 69;
-            this.toolTip1.SetToolTip(this.btnDel, "Удалить");
-            this.btnDel.UseVisualStyleBackColor = true;
-            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
-            // 
-            // btnQuit
-            // 
-            this.btnQuit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnQuit.Image = ((System.Drawing.Image)(resources.GetObject("btnQuit.Image")));
-            this.btnQuit.Location = new System.Drawing.Point(448, 438);
-            this.btnQuit.Name = "btnQuit";
-            this.btnQuit.Size = new System.Drawing.Size(30, 30);
-            this.btnQuit.TabIndex = 70;
-            this.toolTip1.SetToolTip(this.btnQuit, "Выход");
-            this.btnQuit.UseVisualStyleBackColor = true;
-            this.btnQuit.Click += new System.EventHandler(this.btnQuit_Click);
-            // 
-            // lblComment
-            // 
-            this.lblComment.AutoSize = true;
-            this.lblComment.Location = new System.Drawing.Point(12, 354);
-            this.lblComment.Name = "lblComment";
-            this.lblComment.Size = new System.Drawing.Size(73, 13);
-            this.lblComment.TabIndex = 72;
-            this.lblComment.Text = "Примечание:";
-            // 
-            // cboAnotherPay
-            // 
-            this.cboAnotherPay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboAnotherPay.FormattingEnabled = true;
-            this.cboAnotherPay.Location = new System.Drawing.Point(331, 5);
-            this.cboAnotherPay.Name = "cboAnotherPay";
-            this.cboAnotherPay.Size = new System.Drawing.Size(151, 21);
-            this.cboAnotherPay.TabIndex = 74;
-            this.cboAnotherPay.SelectedIndexChanged += new System.EventHandler(this.cboAnotherPay_SelectedIndexChanged);
-            // 
-            // lblAnotherPay
-            // 
-            this.lblAnotherPay.AutoSize = true;
-            this.lblAnotherPay.Location = new System.Drawing.Point(251, 9);
-            this.lblAnotherPay.Name = "lblAnotherPay";
-            this.lblAnotherPay.Size = new System.Drawing.Size(74, 13);
-            this.lblAnotherPay.TabIndex = 75;
-            this.lblAnotherPay.Text = "Доп. оплаты:";
             // 
             // TaxDate
             // 
@@ -462,6 +277,193 @@
             this.isConfirmed.Name = "isConfirmed";
             this.isConfirmed.ReadOnly = true;
             this.isConfirmed.Visible = false;
+            // 
+            // lblItog
+            // 
+            this.lblItog.AutoSize = true;
+            this.lblItog.Location = new System.Drawing.Point(12, 328);
+            this.lblItog.Name = "lblItog";
+            this.lblItog.Size = new System.Drawing.Size(40, 13);
+            this.lblItog.TabIndex = 34;
+            this.lblItog.Text = "Итого:";
+            // 
+            // txtPenalty
+            // 
+            this.txtPenalty.Location = new System.Drawing.Point(91, 325);
+            this.txtPenalty.Name = "txtPenalty";
+            this.txtPenalty.ReadOnly = true;
+            this.txtPenalty.Size = new System.Drawing.Size(114, 20);
+            this.txtPenalty.TabIndex = 35;
+            this.txtPenalty.TabStop = false;
+            this.txtPenalty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtPayment
+            // 
+            this.txtPayment.Location = new System.Drawing.Point(211, 325);
+            this.txtPayment.Name = "txtPayment";
+            this.txtPayment.ReadOnly = true;
+            this.txtPayment.Size = new System.Drawing.Size(114, 20);
+            this.txtPayment.TabIndex = 36;
+            this.txtPayment.TabStop = false;
+            this.txtPayment.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtDebt
+            // 
+            this.txtDebt.Location = new System.Drawing.Point(328, 325);
+            this.txtDebt.Name = "txtDebt";
+            this.txtDebt.ReadOnly = true;
+            this.txtDebt.Size = new System.Drawing.Size(114, 20);
+            this.txtDebt.TabIndex = 37;
+            this.txtDebt.TabStop = false;
+            this.txtDebt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // txtComment
+            // 
+            this.txtComment.AllowDrop = true;
+            this.txtComment.Location = new System.Drawing.Point(91, 351);
+            this.txtComment.Multiline = true;
+            this.txtComment.Name = "txtComment";
+            this.txtComment.ReadOnly = true;
+            this.txtComment.Size = new System.Drawing.Size(351, 66);
+            this.txtComment.TabIndex = 62;
+            // 
+            // txtDateEdit
+            // 
+            this.txtDateEdit.Location = new System.Drawing.Point(91, 449);
+            this.txtDateEdit.Name = "txtDateEdit";
+            this.txtDateEdit.ReadOnly = true;
+            this.txtDateEdit.Size = new System.Drawing.Size(137, 20);
+            this.txtDateEdit.TabIndex = 66;
+            this.txtDateEdit.TabStop = false;
+            // 
+            // txtEditor
+            // 
+            this.txtEditor.Location = new System.Drawing.Point(91, 423);
+            this.txtEditor.Name = "txtEditor";
+            this.txtEditor.ReadOnly = true;
+            this.txtEditor.Size = new System.Drawing.Size(137, 20);
+            this.txtEditor.TabIndex = 65;
+            this.txtEditor.TabStop = false;
+            // 
+            // lblDateEdit
+            // 
+            this.lblDateEdit.AutoSize = true;
+            this.lblDateEdit.Location = new System.Drawing.Point(12, 452);
+            this.lblDateEdit.Name = "lblDateEdit";
+            this.lblDateEdit.Size = new System.Drawing.Size(60, 13);
+            this.lblDateEdit.TabIndex = 64;
+            this.lblDateEdit.Text = "Дата ред.:";
+            // 
+            // lblEditor
+            // 
+            this.lblEditor.AutoSize = true;
+            this.lblEditor.Location = new System.Drawing.Point(12, 426);
+            this.lblEditor.Name = "lblEditor";
+            this.lblEditor.Size = new System.Drawing.Size(49, 13);
+            this.lblEditor.TabIndex = 63;
+            this.lblEditor.Text = "Редакт.:";
+            // 
+            // btnScan
+            // 
+            this.btnScan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnScan.Image = global::Arenda.Properties.Resources.scanner;
+            this.btnScan.Location = new System.Drawing.Point(269, 438);
+            this.btnScan.Name = "btnScan";
+            this.btnScan.Size = new System.Drawing.Size(30, 30);
+            this.btnScan.TabIndex = 73;
+            this.toolTip1.SetToolTip(this.btnScan, "Сканирование изображения");
+            this.btnScan.UseVisualStyleBackColor = true;
+            this.btnScan.Visible = false;
+            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
+            // 
+            // btnPay
+            // 
+            this.btnPay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPay.Image = ((System.Drawing.Image)(resources.GetObject("btnPay.Image")));
+            this.btnPay.Location = new System.Drawing.Point(305, 438);
+            this.btnPay.Name = "btnPay";
+            this.btnPay.Size = new System.Drawing.Size(30, 30);
+            this.btnPay.TabIndex = 71;
+            this.toolTip1.SetToolTip(this.btnPay, "Ввод дополнительной оплаты");
+            this.btnPay.UseVisualStyleBackColor = true;
+            this.btnPay.Visible = false;
+            this.btnPay.Click += new System.EventHandler(this.btnPay_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
+            this.btnAdd.Location = new System.Drawing.Point(341, 438);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(30, 30);
+            this.btnAdd.TabIndex = 67;
+            this.toolTip1.SetToolTip(this.btnAdd, "Добавить");
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnEdit
+            // 
+            this.btnEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
+            this.btnEdit.Location = new System.Drawing.Point(376, 438);
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(30, 30);
+            this.btnEdit.TabIndex = 68;
+            this.toolTip1.SetToolTip(this.btnEdit, "Редактировать");
+            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnDel
+            // 
+            this.btnDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDel.Image = ((System.Drawing.Image)(resources.GetObject("btnDel.Image")));
+            this.btnDel.Location = new System.Drawing.Point(412, 438);
+            this.btnDel.Name = "btnDel";
+            this.btnDel.Size = new System.Drawing.Size(30, 30);
+            this.btnDel.TabIndex = 69;
+            this.toolTip1.SetToolTip(this.btnDel, "Удалить");
+            this.btnDel.UseVisualStyleBackColor = true;
+            this.btnDel.Click += new System.EventHandler(this.btnDel_Click);
+            // 
+            // btnQuit
+            // 
+            this.btnQuit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnQuit.Image = ((System.Drawing.Image)(resources.GetObject("btnQuit.Image")));
+            this.btnQuit.Location = new System.Drawing.Point(448, 438);
+            this.btnQuit.Name = "btnQuit";
+            this.btnQuit.Size = new System.Drawing.Size(30, 30);
+            this.btnQuit.TabIndex = 70;
+            this.toolTip1.SetToolTip(this.btnQuit, "Выход");
+            this.btnQuit.UseVisualStyleBackColor = true;
+            this.btnQuit.Click += new System.EventHandler(this.btnQuit_Click);
+            // 
+            // lblComment
+            // 
+            this.lblComment.AutoSize = true;
+            this.lblComment.Location = new System.Drawing.Point(12, 354);
+            this.lblComment.Name = "lblComment";
+            this.lblComment.Size = new System.Drawing.Size(73, 13);
+            this.lblComment.TabIndex = 72;
+            this.lblComment.Text = "Примечание:";
+            // 
+            // cboAnotherPay
+            // 
+            this.cboAnotherPay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboAnotherPay.FormattingEnabled = true;
+            this.cboAnotherPay.Location = new System.Drawing.Point(331, 5);
+            this.cboAnotherPay.Name = "cboAnotherPay";
+            this.cboAnotherPay.Size = new System.Drawing.Size(151, 21);
+            this.cboAnotherPay.TabIndex = 74;
+            this.cboAnotherPay.SelectedIndexChanged += new System.EventHandler(this.cboAnotherPay_SelectedIndexChanged);
+            // 
+            // lblAnotherPay
+            // 
+            this.lblAnotherPay.AutoSize = true;
+            this.lblAnotherPay.Location = new System.Drawing.Point(251, 9);
+            this.lblAnotherPay.Name = "lblAnotherPay";
+            this.lblAnotherPay.Size = new System.Drawing.Size(74, 13);
+            this.lblAnotherPay.TabIndex = 75;
+            this.lblAnotherPay.Text = "Доп. оплаты:";
             // 
             // frmListTaxes
             // 

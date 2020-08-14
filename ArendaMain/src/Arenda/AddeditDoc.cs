@@ -86,6 +86,7 @@ namespace Arenda
             {
                 rezhim = "edit";
                 this.Text = "Редактирование документа";
+                cmbTypeDog.Enabled = false;
                 //if (isConfirmed) rezhim = "view";
             }
             else
@@ -1170,7 +1171,8 @@ namespace Arenda
                         button4.Enabled = true;
                         this.Text = "Редактирование документа";
                         btAddDoc.Visible = true;
-                        btAddDiscount.Visible = btDelDiscount.Visible = rezhim.Equals("edit") &&  new List<string> { "СОА", "РКВ", "МНД"}.Contains(TempData.Rezhim); ;
+                        btAddDiscount.Visible = btDelDiscount.Visible = rezhim.Equals("edit") &&  new List<string> { "СОА", "РКВ", "МНД"}.Contains(TempData.Rezhim);
+                        cmbTypeDog.Enabled = false;
                     }
                 }
                 catch (Exception ex)
@@ -1761,7 +1763,7 @@ namespace Arenda
 
         private void btAddDiscount_Click(object sender, EventArgs e)
         {
-            if (DialogResult.OK == new Payments.frmAddDiscount() { id_Agreements = _id }.ShowDialog())
+            if (DialogResult.OK == new Payments.frmAddDiscount() { id_Agreements = _id, id_TypeDog =  (int)cmbTypeDog.SelectedValue}.ShowDialog())
             {
                 getDiscount();
             }

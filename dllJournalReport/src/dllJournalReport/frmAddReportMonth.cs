@@ -147,6 +147,8 @@ namespace dllJournalReport
                     {
                         decimal _tmpDec = Total_Sum;
                         isDiscount = true;
+                        int _id_TypeDiscount = (int)rowCollect.First()["id_TypeDiscount"];
+
 
                         EnumerableRowCollection<DataRow> rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 2);
                         if (rows.Count() > 0)
@@ -164,21 +166,22 @@ namespace dllJournalReport
                             }
                         }
 
-
-                        rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 1);
-                        if (rows.Count() > 0)
+                        if (_id_TypeDiscount != 2)
                         {
-                            _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
-                        }
-                        else
-                        {
-                            rows = rowCollect.Where(r => r.Field<object>("DateEnd") == null && r.Field<int>("id_TypeDiscount") == 1);
+                            rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 1);
                             if (rows.Count() > 0)
                             {
                                 _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
                             }
+                            else
+                            {
+                                rows = rowCollect.Where(r => r.Field<object>("DateEnd") == null && r.Field<int>("id_TypeDiscount") == 1);
+                                if (rows.Count() > 0)
+                                {
+                                    _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
+                                }
+                            }
                         }
-
                         dicDate.Add(dI.Date, _tmpDec / days);
                     }
                     else

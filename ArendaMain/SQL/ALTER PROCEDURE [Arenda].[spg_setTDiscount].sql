@@ -26,11 +26,25 @@ BEGIN TRY
 	IF @isDel = 0
 		BEGIN
 
-			--IF EXISTS (select TOP(1) id from [Arenda].[j_tDiscount] where id <>@id and id_TypeDiscount = @id_typeDiscount AND id_TypeTenant = @id_TypeTenant AND id_TypeAgreements = @id_TypeAgreements)
-			--	BEGIN
-			--		SELECT -1 as id;
-			--		return;
-			--	END
+			if( @dateStart is not null and @dateEnd is not null)
+				BEGIN
+					if exists(select top(1) id from Arenda.j_tDiscount where id_Agreements = @id_Agreements and id_StatusDiscount in (1,2) and DateStart<=@dateStart and @dateStart<=DateEnd and DateEnd is not null)
+						begin select -2 as id;return; end
+
+					if exists(select top(1) id from Arenda.j_tDiscount where id_Agreements = @id_Agreements and id_StatusDiscount in (1,2) and DateStart<=@dateEnd and @dateEnd<=DateEnd and DateEnd is not null)
+						begin select -2 as id;return; end
+
+					if exists(select top(1) id from Arenda.j_tDiscount where id_Agreements = @id_Agreements and id_StatusDiscount in (1,2) and @dateStart<= DateStart and DateStart<=@dateEnd and DateEnd is not null)
+						begin select -2 as id;return; end
+
+					if exists(select top(1) id from Arenda.j_tDiscount where id_Agreements = @id_Agreements and id_StatusDiscount in (1,2) and @dateStart<= DateEnd and DateEnd<=@dateEnd and DateEnd is not null)
+						begin select -2 as id;return; end
+				END
+			ELSE IF @dateStart is not null and @dateEnd is null
+				BEGIN
+					if exists(select top(1) id from Arenda.j_tDiscount where id_Agreements = @id_Agreements and id_StatusDiscount in (1,2) and DateStart = @dateStart  and DateEnd is null)
+						begin select -2 as id;return; end
+				END
 
 			IF @id = 0
 				BEGIN

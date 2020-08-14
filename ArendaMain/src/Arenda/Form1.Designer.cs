@@ -1461,7 +1461,7 @@
             this.btJournalSealSections.Name = "btJournalSealSections";
             this.btJournalSealSections.Size = new System.Drawing.Size(32, 32);
             this.btJournalSealSections.TabIndex = 52;
-            this.toolTip1.SetToolTip(this.btJournalSealSections, "Просмотр");
+            this.toolTip1.SetToolTip(this.btJournalSealSections, "Журнал опечатывания секций");
             this.btJournalSealSections.UseVisualStyleBackColor = true;
             this.btJournalSealSections.Visible = false;
             this.btJournalSealSections.Click += new System.EventHandler(this.btJournalSealSections_Click);

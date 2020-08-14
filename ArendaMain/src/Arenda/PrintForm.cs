@@ -2746,7 +2746,7 @@ namespace Arenda
 
             if (!File.Exists(fileName))
               fileName = Application.StartupPath + "\\Templates\\doc\\dogovor.doc";
-
+            
               Nwuram.Framework.ToWord.HandmadeReport report = new Nwuram.Framework.ToWord.HandmadeReport(fileName);
 
               DataRow row = dtPrintResult.Rows[0];

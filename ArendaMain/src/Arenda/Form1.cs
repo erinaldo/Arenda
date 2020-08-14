@@ -271,7 +271,7 @@ namespace Arenda
             справочникВидаДейтельностиToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim);
             справочникСкидокToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ", "Д" }.Contains(TempData.Rezhim);
             //справочникиToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim);
-
+            выгрузкаДокументовToolStripMenuItem.Visible = new List<string> { "РКВ" }.Contains(TempData.Rezhim);
 
             //if (TempData.Rezhim == "РКВ") { }
             //if (TempData.Rezhim == "СОА") { }
@@ -388,6 +388,11 @@ namespace Arenda
             }
             //показываем ВСЕ кнопки и прячем кнопку просмотра
             ShowAllButtons();
+
+            //скрываем ненужные            
+            btnListPayment.Visible = 
+            btnListTaxes.Visible = !new List<string> { "МНД" }.Contains(TempData.Rezhim);
+
 
             //скрываем ненужные
             // ---на этой вкладке все нужны
@@ -607,7 +612,8 @@ namespace Arenda
             //скрываем ненужные
             btnListPayment.Visible = false;
             btnListTaxes.Visible = false;
-            btPrint.Visible = true;
+            btPrint.Visible = false;
+            
 
             //if (TempData.Rezhim == "ПР")
             if (new List<string> { "СБ6", "Д", "ПР", "КНТ", "МНД" }.Contains(TempData.Rezhim))
@@ -806,7 +812,7 @@ namespace Arenda
                 bool _IsConfirmed = (bool)dgListDoc.SelectedRows[0].Cells["cIsConfirmed"].Value;
                 if (_IsConfirmed)
                 {
-                    MessageBox.Show(TempData.centralText("По договору подтверждён.\nУдаление документа невозможно.\n"), "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(TempData.centralText("Договор подтверждён.\nУдаление договора невозможно.\n"), "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -2371,7 +2377,10 @@ namespace Arenda
                 }
                 else
                     btAcceptDoc.Enabled = false;
-            }
+
+                btEdit.Enabled = btDel.Enabled = !(((bool)dgListDoc.Rows[dgListDoc.CurrentRow.Index].Cells["cisConfirmed"].Value && new List<string> { "МНД" }.Contains(TempData.Rezhim)));
+                
+                }
             catch
             {
                 btAcceptDoc.Enabled = false;

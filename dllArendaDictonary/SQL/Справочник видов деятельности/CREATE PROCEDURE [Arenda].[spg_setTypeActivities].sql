@@ -61,7 +61,7 @@ BEGIN TRY
 						END
 
 					
-					--IF EXISTS(select TOP(1) id from [Arenda].[j_DiscountObject] where id = @id)
+					--IF EXISTS(select TOP(1) id from [Arenda].[j_Agreements] where id = @id)
 					--	BEGIN
 					--		select -2 as id
 					--		return;
