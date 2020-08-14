@@ -524,7 +524,8 @@ namespace JournalBorrower
                            s.Key.id_Tenant,
                            SummaPaymentFine_1 = s.Sum(r => r.Field<decimal>("SummaPaymentFine_1")),
                            SummaFine_1 = s.Sum(r => r.Field<decimal>("SummaFine_1")),
-                           SummaPenny_1 = s.Sum(r => r.Field<decimal>("SummaPenny_1"))
+                           SummaPenny_1 = s.Sum(r => r.Field<decimal>("SummaPenny_1")),
+                           Total_Sum = s.Sum(r => r.Field<decimal>("Total_Sum"))
                        });
 
             if (gSumData.Count() > 0)
@@ -546,6 +547,9 @@ namespace JournalBorrower
                                 row["PrcPenny_1"] = 0;
                             else
                                 row["PrcPenny_1"] = Math.Round(((gSD.SummaPenny_1) / gSD.SummaPaymentFine_1) * 100, 2);
+
+                            if (gSD.SummaPenny_1 > gSD.Total_Sum) row["PrcPenny_1"] = 100;
+
                         }
                     }
                 }
