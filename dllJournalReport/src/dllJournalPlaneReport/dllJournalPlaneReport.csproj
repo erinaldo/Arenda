@@ -76,6 +76,7 @@
     <Compile Include="Procedures.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="reports.cs" />
     <EmbeddedResource Include="frmAddReportPlane.resx">
       <DependentUpon>frmAddReportPlane.cs</DependentUpon>
     </EmbeddedResource>

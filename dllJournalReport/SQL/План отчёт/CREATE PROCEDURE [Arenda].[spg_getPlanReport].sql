@@ -36,6 +36,7 @@ select  @idPreMonthPlane  = id from Arenda.j_tMonthPlan where PeriodMonthPlan = 
 
 select 
 	a.id,
+	a.id_Landlord,
 	torg.Abbreviation+' ' + lt.cName as nameLandLord,
 	torgt.Abbreviation+' ' + ltt.cName as nameTenant,
 	a.Agreement,
@@ -74,8 +75,9 @@ from
 	Arenda.j_Agreements a
 		inner join Arenda.s_TypeContract tc on tc.id = a.id_TypeContract
 
-		inner join Arenda.j_AdditionalDocuments ad on ad.id_Agreements = a.id
-		inner join Arenda.s_TypeDoc td on td.id = ad.id_TypeDoc and td.Rus_Name = 'Акт приёма-передачи' 
+		left join Arenda.j_AdditionalDocuments ad on ad.id_Agreements = a.id and ad.id_TypeDoc = (select top(1) td.id from Arenda.s_TypeDoc td  where td.Rus_Name = 'Акт приёма-передачи')
+		--left join Arenda.j_AdditionalDocuments ad on ad.id_Agreements = a.id
+		--left join Arenda.s_TypeDoc td on td.id = ad.id_TypeDoc and td.Rus_Name = 'Акт приёма-передачи' 
 		 
 		left join Arenda.s_Landlord_Tenant lt on lt.id = a.id_Landlord
 		left join Arenda.s_Type_of_Organization torg on torg.id = lt.id_Type_Of_Organization
@@ -110,6 +112,7 @@ where
 
 SELECT 
 	t.id,
+	t.id_Landlord,
 	t.nameLandLord,
 	t.nameTenant,
 	t.Agreement,
@@ -129,13 +132,13 @@ SELECT
 	t.EndPlan,
 	t.Penalty,
 	t.OtherPayments,
-	isnull(t.prePlan,0) + isnull(t.preCredit,0) - isnull(t.preOverPayment,0) + t.Penalty - t.OtherPayments as ultraResult,
+	isnull(t.EndPlan,0) + isnull(t.preCredit,0) - isnull(t.preOverPayment,0) + t.Penalty - t.OtherPayments as ultraResult,
 	t.Included,
 	case 
-	when @id_tPlanReport = 0 then (isnull(t.prePlan,0) + isnull(t.preCredit,0) - isnull(t.preOverPayment,0) + t.Penalty - t.OtherPayments) - isnull(t.Included,0)
+	when @id_tPlanReport = 0 then (isnull(t.EndPlan,0) + isnull(t.preCredit,0) - isnull(t.preOverPayment,0) + t.Penalty - t.OtherPayments) - isnull(t.Included,0)
 	else t.Credit end as Credit,
 	case 
-	when @id_tPlanReport = 0 then (isnull(t.prePlan,0) + isnull(t.preCredit,0) - isnull(t.preOverPayment,0) + t.Penalty - t.OtherPayments) - isnull(t.Included, 0)
+	when @id_tPlanReport = 0 then (isnull(t.EndPlan,0) + isnull(t.preCredit,0) - isnull(t.preOverPayment,0) + t.Penalty - t.OtherPayments) - isnull(t.Included, 0)
 	else t.OverPayment end as OverPayment,
 	t.Start_Date,
 	t.Stop_Date

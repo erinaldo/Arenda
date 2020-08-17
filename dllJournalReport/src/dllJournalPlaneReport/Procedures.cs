@@ -189,28 +189,39 @@ namespace dllJournalPlaneReport
                  new DbType[3] { DbType.Date, DbType.Int32, DbType.Int32 }, ap);
         }
 
-      
+
 
         /// <summary>
         /// Создание или удаления тела ежемесячного плана
         /// </summary>
         /// <param name=""></param>
         /// <returns>Таблица с данными</returns>        
-        public async Task<DataTable> setMonthPlan(int id_tMonthPlan, int id_Agreements, decimal SummaContract, decimal Discount,decimal Plan, bool isDel)
+        public async Task<DataTable> spg_setPlanReport(int id_tPlanReport, int id_Agreements, decimal SummaContract, decimal Discount, decimal SecurityPayment, decimal EndPlan,
+            decimal Penalty, decimal OtherPayments, decimal TotalPaid, decimal Included, decimal Credit, decimal OverPayment, bool isDel)
         {
             ap.Clear();
-            ap.Add(id_tMonthPlan);
+            ap.Add(id_tPlanReport);
             ap.Add(id_Agreements);
             ap.Add(SummaContract);
             ap.Add(Discount);
-            ap.Add(Plan);
+            ap.Add(SecurityPayment);
+
+            ap.Add(EndPlan);
+            ap.Add(Penalty);
+            ap.Add(OtherPayments);
+            ap.Add(TotalPaid);
+            ap.Add(Included);
+            ap.Add(Credit);
+            ap.Add(OverPayment);
+
             ap.Add(isDel);
 
-            return executeProcedure("[Arenda].[spg_setMonthPlan]",
-                 new string[6] { "@id_tMonthPlan", "@id_Agreements", "@SummaContract", "@Discount","@Plan", "@isDel"},
-                 new DbType[6] { DbType.Int32, DbType.Int32, DbType.Decimal, DbType.Decimal, DbType.Decimal, DbType.Boolean }, ap);
+            return executeProcedure("[Arenda].[spg_setPlanReport]",
+                 new string[13] { "@id_tPlanReport", "@id_Agreements", "@SummaContract", "@Discount", "@SecurityPayment","@EndPlan","@Penalty", "@OtherPayments", "@TotalPaid", "@Included",
+                     "@Credit","@OverPayment","@isDel" },
+                 new DbType[13] { DbType.Int32, DbType.Int32, DbType.Decimal, DbType.Decimal, DbType.Decimal, DbType.Decimal, DbType.Decimal, DbType.Decimal, DbType.Decimal,
+                     DbType.Decimal, DbType.Decimal, DbType.Decimal, DbType.Boolean }, ap);
         }
-
 
     }
 }

@@ -12,27 +12,49 @@ namespace dllJournalPlaneReport
 {
     public partial class frmViewPayment : Form
     {
+        public int id_Agreements { set; private get; }
+        public DateTime datePlane { set; private get; }
+        public bool isData { private set; get; }
         private DataTable dtData;
         public frmViewPayment()
         {
+            InitializeComponent();
+            dgvData.AutoGenerateColumns = false;            
+        }
+
+        public frmViewPayment(int id_Agreements, DateTime datePlane)
+        {
+            this.id_Agreements = id_Agreements;
+            this.datePlane = datePlane;
+            if (!getData()) return;
             InitializeComponent();
             dgvData.AutoGenerateColumns = false;
         }
 
         private void frmViewPayment_Load(object sender, EventArgs e)
         {
-            Task<DataTable> task = Config.hCntMain.getPlaneReportDopInfoPay(1050, new DateTime(2020, 06, 01));
-            task.Wait();
-            if (task.Result == null || task.Result.Rows.Count == 0) { btPrint.Enabled = false; return; }
+            getData();
 
-            tbAgreements.Text = task.Result.Rows[0]["nameTenant"].ToString();
-            tbDate.Text = ((DateTime)task.Result.Rows[0]["PeriodMonthPlan"]).ToShortDateString();
-            tbObject.Text = task.Result.Rows[0]["nameObject"].ToString();
-            
-            dtData = task.Result.Copy();
-
+            tbAgreements.Text = dtData.Rows[0]["nameTenant"].ToString();
+            tbDate.Text = ((DateTime)dtData.Rows[0]["PeriodMonthPlan"]).ToShortDateString();
+            tbObject.Text = dtData.Rows[0]["nameObject"].ToString();
             dgvData.DataSource = dtData;
+        }
 
+        private bool getData()
+        {
+            Task<DataTable> task = Config.hCntMain.getPlaneReportDopInfoPay(id_Agreements, datePlane);
+            task.Wait();
+            if (task.Result == null || task.Result.Rows.Count == 0)
+            {
+                MessageBox.Show("Не было оплат за текущий период!", "Информирование", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                isData = false;
+                Close();
+                return false;
+            }
+            isData = true;
+            dtData = task.Result.Copy();
+            return true;
         }
 
         private void setWidthColumn(int indexRow, int indexCol, int width, Nwuram.Framework.ToExcelNew.ExcelUnLoad report)
@@ -58,8 +80,7 @@ namespace dllJournalPlaneReport
                     if (col.Name.Equals("cSumma")) setWidthColumn(indexRow, maxColumns, 22, report);
                     if (col.Name.Equals("cDatePay")) setWidthColumn(indexRow, maxColumns, 35, report);
                     if (col.Name.Equals("cSummPay")) setWidthColumn(indexRow, maxColumns, 15, report);
-                    if (col.Name.Equals("cTypePay")) setWidthColumn(indexRow, maxColumns, 20, report);
-                    Console.WriteLine(col.Name);
+                    if (col.Name.Equals("cTypePay")) setWidthColumn(indexRow, maxColumns, 20, report);                    
                 }
 
             #region "Head"

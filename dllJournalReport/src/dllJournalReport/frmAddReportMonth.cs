@@ -353,7 +353,8 @@ namespace dllJournalReport
                 MyMessageBox.MyMessageBox mmb = new MyMessageBox.MyMessageBox($"За выбранный период для объекта:\n\"{cmbObject.Text}\"\nуже создан ежемесячный план на {dtpStart.Text}.\nПерезапись существующий план?", "", MyMessageBox.MessageBoxButtons.YesNoCancel, new List<string> { "Да", "Нет", "Отмена" });
                 DialogResult dlgResult = mmb.ShowDialog();
                 if (dlgResult == DialogResult.Cancel) return;
-                if (dlgResult == DialogResult.No) { dgvData.DataSource = null; dtData.Clear();setFilter(); return; }
+                //if (dlgResult == DialogResult.No) { dgvData.DataSource = null; dtData.Clear();setFilter(); return; }
+                if (dlgResult == DialogResult.No) { dgvData.DataSource = null; dtData.Clear(); setFilter(); statusElements(true); isChangeValue = false; return; }
                 if (dlgResult == DialogResult.Yes) {
 
                     task = Config.hCntMain.setTMonthPlan(_id, _startDate.Date, (int)cmbObject.SelectedValue, false, true, 0);

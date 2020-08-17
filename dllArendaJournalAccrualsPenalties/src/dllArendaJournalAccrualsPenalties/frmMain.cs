@@ -271,6 +271,9 @@ namespace dllArendaJournalAccrualsPenalties
 
         bool IsTheSameCellValue(int column, int row)
         {
+            if (dtData == null) return false;
+            if (dtData.DefaultView.Count == 0) return false;
+
             DataGridViewCell cell1 = dgvData[column, row];
             DataGridViewCell cell2 = dgvData[column, row - 1];
             if (cell1.Value == null || cell2.Value == null)
@@ -605,10 +608,9 @@ namespace dllArendaJournalAccrualsPenalties
                         cSummaCredit.Name,cDatePay.Name,cSumma.Name,cCountDaysCredit.Name }.Contains(col.Name))
                     {
                         Logging.Comment($"{col.HeaderText}: {dgvData.CurrentRow.Cells[col.Name].Value.ToString()}");
-                    }
-
-                    Logging.VariableChange(cPrcPenalty.HeaderText, postCountFeedBack, preCountFeedBack);
+                    }                   
                 }
+                Logging.VariableChange(cPrcPenalty.HeaderText, postCountFeedBack, preCountFeedBack);
                 Logging.StopFirstLevel();
             }
             else
@@ -621,9 +623,9 @@ namespace dllArendaJournalAccrualsPenalties
                     {
                         Logging.Comment($"{col.HeaderText}: {dgvData.CurrentRow.Cells[col.Name].Value.ToString()}");
                     }
-
-                    Logging.VariableChange(cSummaPenalty.HeaderText, postCountFeedBack, preCountFeedBack);
                 }
+                Logging.VariableChange(cSummaPenalty.HeaderText, postCountFeedBack, preCountFeedBack);
+                
                 Logging.StopFirstLevel();
             }
 

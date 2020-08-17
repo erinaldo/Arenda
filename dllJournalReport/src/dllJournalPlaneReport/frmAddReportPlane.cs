@@ -16,6 +16,8 @@ namespace dllJournalPlaneReport
         private DataTable dtData;
         private bool isChangeValue = false;
         private DateTime _dateStart;
+        private List<string> listColumnsSum = new List<string>() { "preCredit", "preOverPayment", "prePlan", "EndPlan", "Penalty", "OtherPayments", "ultraResult", "Included", "Credit", "OverPayment" };
+
 
         public int id { set; private get; }
         public DataRowView row { set; private get; }
@@ -25,6 +27,19 @@ namespace dllJournalPlaneReport
         public frmAddReportPlane()
         {
             InitializeComponent();
+
+            foreach (string lNameTextBox in listColumnsSum)
+            {
+                TextBox _tmpTB = new TextBox();
+                _tmpTB.Name = $"tb_{lNameTextBox}";
+                _tmpTB.ReadOnly = true;
+                _tmpTB.Location = tbSumPlane.Location;
+                _tmpTB.Text = "0,00";
+                _tmpTB.Visible = false;
+                _tmpTB.TextAlign = HorizontalAlignment.Right;
+                this.Controls.Add(_tmpTB);
+            }
+
             dgvData.AutoGenerateColumns = false;
             ToolTip tp = new ToolTip();
             tp.SetToolTip(btExit, "Выход");
@@ -63,6 +78,7 @@ namespace dllJournalPlaneReport
             _dateStart = dtpStart.Value.Date;
             isChangeValue = false;
             isAcceptData = false;
+            dgvData_Scroll(null, null);
         }
 
         private void initDateType1()
@@ -166,7 +182,11 @@ namespace dllJournalPlaneReport
 
                 sumMonth = Math.Round(sumMonth, 2);
 
-                row["EndPlan"] = sumMonth;               
+                row["EndPlan"] = sumMonth;
+                row["ultraResult"] = (decimal)row["EndPlan"] + (decimal)row["preCredit"] - (decimal)row["preOverPayment"] + (decimal)row["Penalty"] - (decimal)row["OtherPayments"];
+                decimal tmpResult = (decimal)row["ultraResult"] - (decimal)row["Included"];
+                row["Credit"] = tmpResult > 0 ? tmpResult : (decimal)0;
+                row["OverPayment"] = tmpResult < 0 ? Math.Abs(tmpResult) : (decimal)0;
             }
             setFilter();
             dgvData.DataSource = dtData;
@@ -245,8 +265,29 @@ namespace dllJournalPlaneReport
         {
             if (dtData == null || dtData.Rows.Count == 0 || dtData.DefaultView.Count==0)
             {
-                tbSumPlane.Text = "0,00";
+                foreach (DataGridViewColumn col in dgvData.Columns)
+                {
+                    if (this.Controls.ContainsKey($"tb_{col.Name}"))
+                    {
+                        if (this.Controls[$"tb_{col.Name}"] is TextBox)
+                        {
+                            this.Controls[$"tb_{col.Name}"].Text = "0,00";
+                        }
+                    }
+                }
                 return;
+            }
+
+
+            foreach (DataGridViewColumn col in dgvData.Columns)
+            {
+                if (this.Controls.ContainsKey($"tb_{col.Name}"))
+                {
+                    if (this.Controls[$"tb_{col.Name}"] is TextBox)
+                    {
+                        this.Controls[$"tb_{col.Name}"].Text = dtData.DefaultView.ToTable().AsEnumerable().Sum(r => r.Field<decimal>(col.DataPropertyName)).ToString("0.00");
+                    }
+                }
             }
 
             //object objSum = dtData.DefaultView.ToTable().Compute("SUM(plane)", "");
@@ -277,6 +318,15 @@ namespace dllJournalPlaneReport
                 {
                     tbAgreements.Location = new Point(dgvData.Location.X + width + 1, tbTenant.Location.Y);
                     tbAgreements.Size = new Size(cAgreements.Width, tbTenant.Height);
+                }
+
+                if (this.Controls.ContainsKey($"tb_{col.Name}"))
+                {
+                    if (this.Controls[$"tb_{col.Name}"] is TextBox)
+                    {
+                        this.Controls[$"tb_{col.Name}"].Location = new Point(dgvData.Location.X + width, tbSumPlane.Location.Y);
+                        this.Controls[$"tb_{col.Name}"].Size = new Size(col.Width, tbSumPlane.Height);
+                    }
                 }
 
                 //if (col.Index == cPlane.Index)
@@ -317,7 +367,7 @@ namespace dllJournalPlaneReport
                 MyMessageBox.MyMessageBox mmb = new MyMessageBox.MyMessageBox($"За выбранный период для объекта:\n\"{cmbObject.Text}\"\nуже создан ежемесячный план на {dtpStart.Text}.\nПерезапись существующий план?", "", MyMessageBox.MessageBoxButtons.YesNoCancel, new List<string> { "Да", "Нет", "Отмена" });
                 DialogResult dlgResult = mmb.ShowDialog();
                 if (dlgResult == DialogResult.Cancel) return;
-                if (dlgResult == DialogResult.No) { dgvData.DataSource = null; dtData.Clear();setFilter(); return; }
+                if (dlgResult == DialogResult.No) { dgvData.DataSource = null; dtData.Clear();setFilter();statusElements(true); isChangeValue = false;return; }
                 if (dlgResult == DialogResult.Yes) {
 
                     task = Config.hCntMain.setTPlanReport(_id, _startDate.Date, (int)cmbObject.SelectedValue, false, true, 0);
@@ -343,7 +393,8 @@ namespace dllJournalPlaneReport
                         return;
                     }
 
-                    task = Config.hCntMain.setTPlanReport(_id, _startDate.Date, (int)cmbObject.SelectedValue, false, true, 1);
+                    //task = Config.hCntMain.setTPlanReport(_id, _startDate.Date, (int)cmbObject.SelectedValue, false, true, 1);
+                    task = Config.hCntMain.spg_setPlanReport(_id, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, true);
                     task.Wait();
                 }
             }
@@ -371,11 +422,19 @@ namespace dllJournalPlaneReport
 
             foreach (DataRow row in dtData.Rows)
             {
-                task = Config.hCntMain.setMonthPlan(id
+                task = Config.hCntMain.spg_setPlanReport(
+                      id
                     , (int)row["id"]
                     , (decimal)row["Total_Sum"]
-                    , (decimal)row["discount"]
-                    , (decimal)row["plane"]
+                    , (decimal)row["Discount"]
+                    , (decimal)row["sumPayCont"]
+                    , (decimal)row["EndPlan"]
+                    , (decimal)row["Penalty"]
+                    , (decimal)row["OtherPayments"]
+                    , (decimal)row["ultraResult"]
+                    , (decimal)row["Included"]
+                    , (decimal)row["Credit"]
+                    , (decimal)row["OverPayment"]
                     , false);
 
 
@@ -461,7 +520,7 @@ namespace dllJournalPlaneReport
             if (row != null)
                 status = (bool)row["isСonfirmed"] ? "Подтверждена" : "Не подтверждена";
 
-            //reports.createReport(dtData, cmbObject.Text, status, dtpStart.Value.Date);
+            reports.createReport(dtData, cmbObject.Text, status, dtpStart.Value.Date);
         }
 
         private void btAcceptD_Click(object sender, EventArgs e)
@@ -493,6 +552,55 @@ namespace dllJournalPlaneReport
         private void frmAddReportMonth_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = isChangeValue && DialogResult.No == MessageBox.Show("На форме есть не сохранённые данные.\nЗакрыть форму без сохранения данных?\n", "Закрытие формы", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+        }
+
+        private void dgvData_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && e.RowIndex != -1)// && chbMainKass.Checked && rbDateAndVVO.Checked && !new List<string> { "ПР" }.Contains(UserSettings.User.StatusCode))
+            {
+                dgvData.CurrentCell = dgvData[e.ColumnIndex, e.RowIndex];
+                cmsMainGridContext.Show(MousePosition);
+            }
+        }
+
+        private void просмотрПрочихПлатежейToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int id_Agreements = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+            DateTime datePlane = new DateTime(dtpStart.Value.Year, dtpStart.Value.Month, 1);
+
+            frmViewPayment frmVi = new frmViewPayment(id_Agreements, datePlane);
+            if (frmVi.isData) frmVi.ShowDialog();
+        }
+
+        private void dgvData_Scroll(object sender, ScrollEventArgs e)
+        {
+            int width = -80;
+            bool isLable = false;
+            foreach (DataGridViewColumn col in dgvData.Columns)
+            {
+                if (!col.Visible) 
+                    continue;
+
+                if (this.Controls.ContainsKey($"tb_{col.Name}"))
+                {
+                    if (this.Controls[$"tb_{col.Name}"] is TextBox)
+                    {
+                        this.Controls[$"tb_{col.Name}"].Visible = col.Displayed;
+                        this.Controls[$"tb_{col.Name}"].Location = new Point(dgvData.Location.X + width, tbSumPlane.Location.Y);
+                        this.Controls[$"tb_{col.Name}"].Size = new Size(col.Width, tbSumPlane.Height);
+
+                        if (!isLable)
+                        {
+                            lSumPlane.Location = new Point(this.Controls[$"tb_{col.Name}"].Location.X - 40, lSumPlane.Location.Y);
+                            isLable = true;
+                        }
+                    }
+                }
+
+                if (!col.Displayed) continue;
+
+                width += col.Width;
+            }
         }
     }
 }

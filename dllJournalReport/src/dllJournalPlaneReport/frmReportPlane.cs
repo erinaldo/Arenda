@@ -212,9 +212,9 @@ namespace dllJournalPlaneReport
                     int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
                     DataRowView row = dtData.DefaultView[dgvData.CurrentRow.Index];
 
-                    //frmAddReportMonth fARM = new frmAddReportMonth() { id = id, row = row, isView = true };
-                    //fARM.ShowDialog();
-                   // if (fARM.isAcceptData) getData();
+                    frmAddReportPlane fARM = new frmAddReportPlane() { id = id, row = row, isView = true };
+                    fARM.ShowDialog();
+                    if (fARM.isAcceptData) getData();
                 }
             }
         }
@@ -260,7 +260,7 @@ namespace dllJournalPlaneReport
                 int _tmpObjectLease = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_ObjectLease"];
                 string _nameObject  = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["nameObject"];
                 string status = (bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isСonfirmed"] ? "Подтверждена" : "Не подтверждена";
-                //reports.createReport(id, _tmpDate, _tmpObjectLease, _nameObject, status);
+                reports.createReport(id, _tmpDate, _tmpObjectLease, _nameObject, status);
             }
         }
 

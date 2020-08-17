@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbObject = new System.Windows.Forms.ComboBox();
@@ -38,15 +39,6 @@
             this.tbAgreements = new System.Windows.Forms.TextBox();
             this.tbTenant = new System.Windows.Forms.TextBox();
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.chkHideDocColumnts = new System.Windows.Forms.CheckBox();
-            this.btSave = new System.Windows.Forms.Button();
-            this.btCalcData = new System.Windows.Forms.Button();
-            this.btPrint = new System.Windows.Forms.Button();
-            this.btExit = new System.Windows.Forms.Button();
-            this.btAcceptD = new System.Windows.Forms.Button();
-            this.btClear = new System.Windows.Forms.Button();
-            this.tbSumPlane = new System.Windows.Forms.TextBox();
-            this.lSumPlane = new System.Windows.Forms.Label();
             this.nameLandLord = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameTenant = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cAgreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,7 +61,19 @@
             this.Included = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Credit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OverPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chkHideDocColumnts = new System.Windows.Forms.CheckBox();
+            this.btSave = new System.Windows.Forms.Button();
+            this.btCalcData = new System.Windows.Forms.Button();
+            this.btPrint = new System.Windows.Forms.Button();
+            this.btExit = new System.Windows.Forms.Button();
+            this.btAcceptD = new System.Windows.Forms.Button();
+            this.btClear = new System.Windows.Forms.Button();
+            this.tbSumPlane = new System.Windows.Forms.TextBox();
+            this.lSumPlane = new System.Windows.Forms.Label();
+            this.cmsMainGridContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.просмотрПрочихПлатежейToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
+            this.cmsMainGridContext.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmbObject
@@ -188,107 +192,9 @@
             this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvData.Size = new System.Drawing.Size(1227, 458);
             this.dgvData.TabIndex = 30;
+            this.dgvData.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvData_CellMouseClick);
             this.dgvData.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvData_ColumnWidthChanged);
-            // 
-            // chkHideDocColumnts
-            // 
-            this.chkHideDocColumnts.AutoSize = true;
-            this.chkHideDocColumnts.Location = new System.Drawing.Point(12, 551);
-            this.chkHideDocColumnts.Name = "chkHideDocColumnts";
-            this.chkHideDocColumnts.Size = new System.Drawing.Size(174, 17);
-            this.chkHideDocColumnts.TabIndex = 31;
-            this.chkHideDocColumnts.Text = "- скрыть данные по договору";
-            this.chkHideDocColumnts.UseVisualStyleBackColor = true;
-            this.chkHideDocColumnts.Click += new System.EventHandler(this.chkHideDocColumnts_Click);
-            // 
-            // btSave
-            // 
-            this.btSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btSave.Enabled = false;
-            this.btSave.Image = global::dllJournalPlaneReport.Properties.Resources.Save;
-            this.btSave.Location = new System.Drawing.Point(1169, 587);
-            this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(32, 32);
-            this.btSave.TabIndex = 34;
-            this.btSave.UseVisualStyleBackColor = true;
-            this.btSave.Click += new System.EventHandler(this.btSave_Click);
-            // 
-            // btCalcData
-            // 
-            this.btCalcData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btCalcData.Image = global::dllJournalPlaneReport.Properties.Resources.calculator;
-            this.btCalcData.Location = new System.Drawing.Point(1143, 11);
-            this.btCalcData.Name = "btCalcData";
-            this.btCalcData.Size = new System.Drawing.Size(45, 45);
-            this.btCalcData.TabIndex = 26;
-            this.btCalcData.UseVisualStyleBackColor = true;
-            this.btCalcData.Click += new System.EventHandler(this.btCalcData_Click);
-            // 
-            // btPrint
-            // 
-            this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btPrint.Enabled = false;
-            this.btPrint.Image = global::dllJournalPlaneReport.Properties.Resources.klpq_2511;
-            this.btPrint.Location = new System.Drawing.Point(1131, 587);
-            this.btPrint.Name = "btPrint";
-            this.btPrint.Size = new System.Drawing.Size(32, 32);
-            this.btPrint.TabIndex = 21;
-            this.btPrint.UseVisualStyleBackColor = true;
-            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
-            // 
-            // btExit
-            // 
-            this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btExit.Image = global::dllJournalPlaneReport.Properties.Resources.exit_8633;
-            this.btExit.Location = new System.Drawing.Point(1207, 587);
-            this.btExit.Name = "btExit";
-            this.btExit.Size = new System.Drawing.Size(32, 32);
-            this.btExit.TabIndex = 22;
-            this.btExit.UseVisualStyleBackColor = true;
-            this.btExit.Click += new System.EventHandler(this.btExit_Click);
-            // 
-            // btAcceptD
-            // 
-            this.btAcceptD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btAcceptD.Image = global::dllJournalPlaneReport.Properties.Resources.like;
-            this.btAcceptD.Location = new System.Drawing.Point(1003, 587);
-            this.btAcceptD.Name = "btAcceptD";
-            this.btAcceptD.Size = new System.Drawing.Size(32, 32);
-            this.btAcceptD.TabIndex = 23;
-            this.btAcceptD.UseVisualStyleBackColor = true;
-            this.btAcceptD.Click += new System.EventHandler(this.btAcceptD_Click);
-            // 
-            // btClear
-            // 
-            this.btClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClear.Image = global::dllJournalPlaneReport.Properties.Resources.Trash;
-            this.btClear.Location = new System.Drawing.Point(1194, 11);
-            this.btClear.Name = "btClear";
-            this.btClear.Size = new System.Drawing.Size(45, 45);
-            this.btClear.TabIndex = 35;
-            this.btClear.UseVisualStyleBackColor = true;
-            this.btClear.Click += new System.EventHandler(this.btClear_Click);
-            // 
-            // tbSumPlane
-            // 
-            this.tbSumPlane.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbSumPlane.Location = new System.Drawing.Point(1140, 547);
-            this.tbSumPlane.Name = "tbSumPlane";
-            this.tbSumPlane.ReadOnly = true;
-            this.tbSumPlane.Size = new System.Drawing.Size(100, 20);
-            this.tbSumPlane.TabIndex = 36;
-            this.tbSumPlane.Text = "0,00";
-            this.tbSumPlane.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // lSumPlane
-            // 
-            this.lSumPlane.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lSumPlane.AutoSize = true;
-            this.lSumPlane.Location = new System.Drawing.Point(1100, 551);
-            this.lSumPlane.Name = "lSumPlane";
-            this.lSumPlane.Size = new System.Drawing.Size(37, 13);
-            this.lSumPlane.TabIndex = 37;
-            this.lSumPlane.Text = "Итого";
+            this.dgvData.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgvData_Scroll);
             // 
             // nameLandLord
             // 
@@ -475,6 +381,121 @@
             this.OverPayment.ReadOnly = true;
             this.OverPayment.Width = 87;
             // 
+            // chkHideDocColumnts
+            // 
+            this.chkHideDocColumnts.AutoSize = true;
+            this.chkHideDocColumnts.Location = new System.Drawing.Point(12, 551);
+            this.chkHideDocColumnts.Name = "chkHideDocColumnts";
+            this.chkHideDocColumnts.Size = new System.Drawing.Size(174, 17);
+            this.chkHideDocColumnts.TabIndex = 31;
+            this.chkHideDocColumnts.Text = "- скрыть данные по договору";
+            this.chkHideDocColumnts.UseVisualStyleBackColor = true;
+            this.chkHideDocColumnts.Click += new System.EventHandler(this.chkHideDocColumnts_Click);
+            // 
+            // btSave
+            // 
+            this.btSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btSave.Enabled = false;
+            this.btSave.Image = global::dllJournalPlaneReport.Properties.Resources.Save;
+            this.btSave.Location = new System.Drawing.Point(1169, 587);
+            this.btSave.Name = "btSave";
+            this.btSave.Size = new System.Drawing.Size(32, 32);
+            this.btSave.TabIndex = 34;
+            this.btSave.UseVisualStyleBackColor = true;
+            this.btSave.Click += new System.EventHandler(this.btSave_Click);
+            // 
+            // btCalcData
+            // 
+            this.btCalcData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btCalcData.Image = global::dllJournalPlaneReport.Properties.Resources.calculator;
+            this.btCalcData.Location = new System.Drawing.Point(1143, 11);
+            this.btCalcData.Name = "btCalcData";
+            this.btCalcData.Size = new System.Drawing.Size(45, 45);
+            this.btCalcData.TabIndex = 26;
+            this.btCalcData.UseVisualStyleBackColor = true;
+            this.btCalcData.Click += new System.EventHandler(this.btCalcData_Click);
+            // 
+            // btPrint
+            // 
+            this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btPrint.Enabled = false;
+            this.btPrint.Image = global::dllJournalPlaneReport.Properties.Resources.klpq_2511;
+            this.btPrint.Location = new System.Drawing.Point(1131, 587);
+            this.btPrint.Name = "btPrint";
+            this.btPrint.Size = new System.Drawing.Size(32, 32);
+            this.btPrint.TabIndex = 21;
+            this.btPrint.UseVisualStyleBackColor = true;
+            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
+            // 
+            // btExit
+            // 
+            this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btExit.Image = global::dllJournalPlaneReport.Properties.Resources.exit_8633;
+            this.btExit.Location = new System.Drawing.Point(1207, 587);
+            this.btExit.Name = "btExit";
+            this.btExit.Size = new System.Drawing.Size(32, 32);
+            this.btExit.TabIndex = 22;
+            this.btExit.UseVisualStyleBackColor = true;
+            this.btExit.Click += new System.EventHandler(this.btExit_Click);
+            // 
+            // btAcceptD
+            // 
+            this.btAcceptD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btAcceptD.Image = global::dllJournalPlaneReport.Properties.Resources.like;
+            this.btAcceptD.Location = new System.Drawing.Point(1003, 587);
+            this.btAcceptD.Name = "btAcceptD";
+            this.btAcceptD.Size = new System.Drawing.Size(32, 32);
+            this.btAcceptD.TabIndex = 23;
+            this.btAcceptD.UseVisualStyleBackColor = true;
+            this.btAcceptD.Click += new System.EventHandler(this.btAcceptD_Click);
+            // 
+            // btClear
+            // 
+            this.btClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btClear.Image = global::dllJournalPlaneReport.Properties.Resources.Trash;
+            this.btClear.Location = new System.Drawing.Point(1194, 11);
+            this.btClear.Name = "btClear";
+            this.btClear.Size = new System.Drawing.Size(45, 45);
+            this.btClear.TabIndex = 35;
+            this.btClear.UseVisualStyleBackColor = true;
+            this.btClear.Click += new System.EventHandler(this.btClear_Click);
+            // 
+            // tbSumPlane
+            // 
+            this.tbSumPlane.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbSumPlane.Location = new System.Drawing.Point(1140, 547);
+            this.tbSumPlane.Name = "tbSumPlane";
+            this.tbSumPlane.ReadOnly = true;
+            this.tbSumPlane.Size = new System.Drawing.Size(100, 20);
+            this.tbSumPlane.TabIndex = 36;
+            this.tbSumPlane.Text = "0,00";
+            this.tbSumPlane.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbSumPlane.Visible = false;
+            // 
+            // lSumPlane
+            // 
+            this.lSumPlane.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lSumPlane.AutoSize = true;
+            this.lSumPlane.Location = new System.Drawing.Point(1100, 551);
+            this.lSumPlane.Name = "lSumPlane";
+            this.lSumPlane.Size = new System.Drawing.Size(37, 13);
+            this.lSumPlane.TabIndex = 37;
+            this.lSumPlane.Text = "Итого";
+            // 
+            // cmsMainGridContext
+            // 
+            this.cmsMainGridContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.просмотрПрочихПлатежейToolStripMenuItem});
+            this.cmsMainGridContext.Name = "cmsMainGridContext";
+            this.cmsMainGridContext.Size = new System.Drawing.Size(215, 26);
+            // 
+            // просмотрПрочихПлатежейToolStripMenuItem
+            // 
+            this.просмотрПрочихПлатежейToolStripMenuItem.Name = "просмотрПрочихПлатежейToolStripMenuItem";
+            this.просмотрПрочихПлатежейToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.просмотрПрочихПлатежейToolStripMenuItem.Text = "Просмотр прочих платежей";
+            this.просмотрПрочихПлатежейToolStripMenuItem.Click += new System.EventHandler(this.просмотрПрочихПлатежейToolStripMenuItem_Click);
+            // 
             // frmAddReportPlane
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -508,6 +529,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddReportMonth_FormClosing);
             this.Load += new System.EventHandler(this.frmAddReportMonth_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
+            this.cmsMainGridContext.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -554,5 +576,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Included;
         private System.Windows.Forms.DataGridViewTextBoxColumn Credit;
         private System.Windows.Forms.DataGridViewTextBoxColumn OverPayment;
+        private System.Windows.Forms.ContextMenuStrip cmsMainGridContext;
+        private System.Windows.Forms.ToolStripMenuItem просмотрПрочихПлатежейToolStripMenuItem;
     }
 }

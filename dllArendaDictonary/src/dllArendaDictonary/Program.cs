@@ -27,7 +27,7 @@ namespace dllArendaDictonary
                     Logging.Comment("Вход в программу");
                     Logging.StopFirstLevel();
 
-                    Application.Run(new dllArendaDictonary.dicAdvertisingSpace.frmList());
+                    Application.Run(new dllArendaDictonary.jDiscount.frmList());
 
                     Logging.StartFirstLevel(2);
                     Logging.Comment("Выход из программы");

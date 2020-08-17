@@ -1836,7 +1836,9 @@ namespace Arenda
         {
             if (dgvData.CurrentRow == null || dgvData.CurrentRow.Index == -1 || dtDiscount == null || dtDiscount.DefaultView.Count == 0 || dgvData.CurrentRow.Index >= dtDiscount.DefaultView.Count)
             {
-                btDelDiscount.Enabled = false;                
+                btDelDiscount.Enabled = false;
+                btAccept.Enabled = false;
+                btunAccept.Enabled = false;
                 return;
             }
 

@@ -122,11 +122,19 @@ namespace dllArendaDictonary
                     row["cName"] = "Все Объекты";
                     row["id"] = 0;
                     row["isMain"] = 0;
+                    row["isActive"] = 1;
                     dtResult.Rows.Add(row);
                     dtResult.AcceptChanges();
+                    dtResult.DefaultView.RowFilter = "isActive = true";
                     dtResult.DefaultView.Sort = "isMain asc, cName asc";
                     dtResult = dtResult.DefaultView.ToTable().Copy();
                 }
+            }
+            else
+            {
+                dtResult.DefaultView.RowFilter = "isActive = true";
+                dtResult.DefaultView.Sort = "cName asc";
+                dtResult = dtResult.DefaultView.ToTable().Copy();
             }
 
             return dtResult;
@@ -588,6 +596,55 @@ namespace dllArendaDictonary
             DataTable dtResult = executeProcedure("[Arenda].[spg_getDiscountObject]",
                  new string[1] { "@id_tDiscount" },
                  new DbType[1] { DbType.Int32 }, ap);
+
+            return dtResult;
+        }
+
+
+        /// <summary>
+        /// Получение списка объектов
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns>Таблица с данными</returns>        
+        public async Task<DataTable> getTypeContract(bool withAllDeps = false)
+        {
+            ap.Clear();
+
+            DataTable dtResult = executeProcedure("[Arenda].[spg_getTypeContract]",
+                 new string[0] { },
+                 new DbType[0] { }, ap);
+
+            if (withAllDeps)
+            {
+                if (dtResult != null)
+                {
+                    if (!dtResult.Columns.Contains("isMain"))
+                    {
+                        DataColumn col = new DataColumn("isMain", typeof(int));
+                        col.DefaultValue = 1;
+                        dtResult.Columns.Add(col);
+                        dtResult.AcceptChanges();
+                    }
+
+                    DataRow row = dtResult.NewRow();
+
+                    row["cName"] = "Все договора";
+                    row["id"] = 0;
+                    row["isMain"] = 0;
+                    row["isActive"] = 1;
+                    dtResult.Rows.Add(row);
+                    dtResult.AcceptChanges();
+                    dtResult.DefaultView.RowFilter = "isActive = 1";
+                    dtResult.DefaultView.Sort = "isMain asc, cName asc";
+                    dtResult = dtResult.DefaultView.ToTable().Copy();
+                }
+            }
+            else
+            {
+                dtResult.DefaultView.RowFilter = "isActive = 1";
+                dtResult.DefaultView.Sort = "cName asc";
+                dtResult = dtResult.DefaultView.ToTable().Copy();
+            }
 
             return dtResult;
         }

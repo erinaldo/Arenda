@@ -27,127 +27,42 @@ namespace dllArendaDictonary.jDiscount
             dgvData.AutoGenerateColumns = false;
 
             ToolTip tp = new ToolTip();
-            tp.SetToolTip(btAdd, "Добавить");
-            tp.SetToolTip(btEdit, "Редактировать");
-            tp.SetToolTip(btDelete, "Удалить");
             tp.SetToolTip(btClose, "Выход");
             tp.SetToolTip(btConfirmD, "Подтвердить");
+            tp.SetToolTip(btConfirmD, "Отклонить");
 
-            btConfirmD.Visible = Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.Equals("Д");
-            btAdd.Visible = btEdit.Visible = btDelete.Visible = new List<string> { "РКВ" }.Contains(UserSettings.User.StatusCode);
+            btDeAcceptD.Visible = btConfirmD.Visible = Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.Equals("Д");
         }
 
         private void frmList_Load(object sender, EventArgs e)
         {
+            init_combobox();
             get_data();
+        }
+
+        private void init_combobox()
+        {
+            Task<DataTable> task = Config.hCntMain.getObjectLease(true);
+            task.Wait();
+            DataTable dtObjectLease = task.Result;
+
+            cmbObject.DisplayMember = "cName";
+            cmbObject.ValueMember = "id";
+            cmbObject.DataSource = dtObjectLease;
+
+
+            task = Config.hCntMain.getTypeContract(true);
+            task.Wait();
+            DataTable dtTypeContract = task.Result;
+
+            cmbTypeContract.DisplayMember = "cName";
+            cmbTypeContract.ValueMember = "id";
+            cmbTypeContract.DataSource = dtTypeContract;
         }
 
         private void frmList_FormClosing(object sender, FormClosingEventArgs e)
         {
 
-        }
-
-        private void btAdd_Click(object sender, EventArgs e)
-        {
-            if (DialogResult.OK == new frmAdd() { Text = "Добавить скидку" }.ShowDialog())
-                get_data();
-        }
-
-        private void btEdit_Click(object sender, EventArgs e)
-        {
-            if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
-            {
-                DataRowView row = dtData.DefaultView[dgvData.CurrentRow.Index];
-                if (DialogResult.OK == new frmAdd() { Text = "Редактировать скидку", row = row }.ShowDialog())
-                    get_data();
-            }
-        }
-
-        private void btDelete_Click(object sender, EventArgs e)
-        {
-            if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
-            {
-                int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
-                DateTime dateStart = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
-                DateTime? dateEnd = null;
-                if (dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] !=DBNull.Value)
-                    dateEnd = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
-
-                int id_TypeDiscount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
-                int id_TypeTenant = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeTenant"];
-                int id_TypeAgreements = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeAgreements"];
-                int id_StatusDiscount = 1;
-                bool isActive = true;
-
-                Task<DataTable> task = Config.hCntMain.setTDiscount(id, dateStart, dateEnd, id_TypeDiscount, id_TypeTenant, id_TypeAgreements, id_StatusDiscount, isActive, true, 0);
-                task.Wait();
-
-                if (task.Result == null)
-                {
-                    MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                int result = (int)task.Result.Rows[0]["id"];
-
-                if (result == -1)
-                {
-                    MessageBox.Show(Config.centralText("Запись уже удалена другим пользователем\n"), "Удаление записи", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    get_data();
-                    return;
-                }
-
-
-                if (result == -2 && isActive)
-                {
-                    if (DialogResult.Yes == MessageBox.Show(Config.centralText("Выбранная для удаления запись используется в программе.\nСделать запись недействующей?\n"), "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
-                    {
-                        setLog(id, 3);
-                        task = Config.hCntMain.setTDiscount(id, dateStart, dateEnd, id_TypeDiscount, id_TypeTenant, id_TypeAgreements, id_StatusDiscount, !isActive, false, 0);
-                        task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                        get_data();
-                        return;
-                    }
-                }
-                else
-                if (result == 0 && isActive)
-                {
-                    if (DialogResult.Yes == MessageBox.Show("Удалить выбранную запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
-                    {
-                        setLog(id, 2);
-                        task = Config.hCntMain.setTDiscount(id, dateStart, dateEnd, id_TypeDiscount, id_TypeTenant, id_TypeAgreements, id_StatusDiscount, isActive, true, 1);
-                        task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                        get_data();
-                        return;
-                    }
-                }
-                else if (!isActive)
-                {
-                    if (DialogResult.Yes == MessageBox.Show("Сделать выбранную запись действующей?", "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
-                    {
-                        setLog(id, 4);
-                        task = Config.hCntMain.setTDiscount(id, dateStart, dateEnd, id_TypeDiscount, id_TypeTenant, id_TypeAgreements, id_StatusDiscount, !isActive, false, 0);
-                        task.Wait();
-                        if (task.Result == null)
-                        {
-                            MessageBox.Show(Config.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-                        get_data();
-                        return;
-                    }
-                }
-            }
         }
 
         private void btClose_Click(object sender, EventArgs e)
@@ -169,8 +84,7 @@ namespace dllArendaDictonary.jDiscount
         {
             if (dtData == null || dtData.Rows.Count == 0)
             {
-                btEdit.Enabled = btDelete.Enabled = false;
-                btConfirmD.Enabled = false;
+                btConfirmD.Enabled = btDeAcceptD.Enabled = false;
                 return;
             }
 
@@ -178,11 +92,27 @@ namespace dllArendaDictonary.jDiscount
             {
                 string filter = "";
 
-                //if (tbNumber.Text.Trim().Length != 0)
-                //    filter += (filter.Length == 0 ? "" : " and ") + $"cName like '%{tbNumber.Text.Trim()}%'";
+                if((int)cmbObject.SelectedValue!= 0 )
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_ObjectLease = {cmbObject.SelectedValue}";
 
-                //if (!chbNotActive.Checked)
-                //    filter += (filter.Length == 0 ? "" : " and ") + $"isActive = 1";
+                if ((int)cmbTypeContract.SelectedValue != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_TypeContract = {cmbTypeContract.SelectedValue}";
+
+                if (tbLandLord.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"nameLandLord like '%{tbLandLord.Text.Trim()}%'";
+
+                if (tbAgreements.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"Agreement like '%{tbAgreements.Text.Trim()}%'";
+
+                if (!chbNotActive.Checked && !chbIsAccept.Checked)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_StatusDiscount = 1";
+                else if (chbIsAccept.Checked && chbNotActive.Checked)
+                    filter += "";
+                else if (chbIsAccept.Checked && !chbNotActive.Checked)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_StatusDiscount in (1,2)";
+                else if (!chbIsAccept.Checked && chbNotActive.Checked)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_StatusDiscount in (1,3)";
+
 
                 dtData.DefaultView.RowFilter = filter;
             }
@@ -191,9 +121,7 @@ namespace dllArendaDictonary.jDiscount
                 dtData.DefaultView.RowFilter = "id = -1";
             }
             finally
-            {
-                btEdit.Enabled = btDelete.Enabled =
-                dtData.DefaultView.Count != 0;
+            {                
                 dgvData_SelectionChanged(null, null);
             }
         }
@@ -202,22 +130,11 @@ namespace dllArendaDictonary.jDiscount
         {
             if (dgvData.CurrentRow == null || dgvData.CurrentRow.Index == -1 || dtData == null || dtData.DefaultView.Count == 0 || dgvData.CurrentRow.Index >= dtData.DefaultView.Count)
             {
-                btDelete.Enabled = false;
-                btEdit.Enabled = false;
+                btDeAcceptD.Enabled = false;
                 btConfirmD.Enabled = false;
-                tbDiscountPrice.Text = tbPercentDiscount.Text = tbPrice.Text = tbTotalPrice.Text = "";
                 return;
             }
-
-            btDelete.Enabled = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_StatusDiscount"] == 1;
-            btEdit.Enabled = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_StatusDiscount"] == 1;
-            btConfirmD.Enabled = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_StatusDiscount"] == 1;
-
-            tbDiscountPrice.Text = dtData.DefaultView[dgvData.CurrentRow.Index]["DiscountPrice"].ToString();
-            tbPercentDiscount.Text = dtData.DefaultView[dgvData.CurrentRow.Index]["PercentDiscount"].ToString(); 
-            tbPrice.Text = dtData.DefaultView[dgvData.CurrentRow.Index]["Price"].ToString(); 
-            tbTotalPrice.Text = dtData.DefaultView[dgvData.CurrentRow.Index]["TotalPrice"].ToString();
-
+            btDeAcceptD.Enabled = btConfirmD.Enabled = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_StatusDiscount"] == 1;
         }
 
         private void dgvData_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -245,6 +162,8 @@ namespace dllArendaDictonary.jDiscount
                 Color rColor = Color.White;
                     if ((int)dtData.DefaultView[e.RowIndex]["id_StatusDiscount"]==2)
                         rColor = pConfirmD.BackColor;
+                else if ((int)dtData.DefaultView[e.RowIndex]["id_StatusDiscount"] == 3)
+                    rColor = panel1.BackColor;
 
                 dgvData.Rows[e.RowIndex].DefaultCellStyle.BackColor = rColor;
                 dgvData.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = rColor;
@@ -316,8 +235,24 @@ namespace dllArendaDictonary.jDiscount
 
         private void dgvData_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
         {
-            //tbNumber.Location = new Point(dgvData.Location.X + 1, tbNumber.Location.Y);
-            //tbNumber.Size = new Size(cName.Width, tbNumber.Height);
+            int width = 0;
+
+            foreach (DataGridViewColumn col in dgvData.Columns)
+            {
+                if (!col.Visible) continue;
+                if (col.Index == nameLandLord.Index)
+                {
+                    tbLandLord.Location = new Point(dgvData.Location.X + width + 1, tbLandLord.Location.Y);
+                    tbLandLord.Size = new Size(nameLandLord.Width, tbLandLord.Height);
+                }
+
+                if (col.Index == cAgreements.Index)
+                {
+                    tbAgreements.Location = new Point(dgvData.Location.X + width + 1, tbLandLord.Location.Y);
+                    tbAgreements.Size = new Size(cAgreements.Width, tbLandLord.Height);
+                }
+                width += col.Width;
+            }
         }
 
         private void cmbObject_SelectionChangeCommitted(object sender, EventArgs e)
@@ -363,12 +298,88 @@ namespace dllArendaDictonary.jDiscount
 
                 if ((int)dtResult.Rows[0]["id"] == -9999)
                 {
-                    MessageBox.Show("Произошла неведомая хрень.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Произошла неведомая фигня.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 get_data();
             }
+        }
+
+        private void dtpStart_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dtpStart.Value.Date > dtpEnd.Value.Date)
+                    dtpEnd.Value = dtpStart.Value.Date;
+            }
+            catch { }
+        }
+
+        private void dtpEnd_ValueChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dtpStart.Value.Date > dtpEnd.Value.Date)
+                    dtpStart.Value = dtpEnd.Value.Date;
+            }
+            catch { }
+        }
+
+        private void chbUnlimitedDiscount_CheckedChanged(object sender, EventArgs e)
+        {
+            lDateEnd.Visible = dtpEnd.Visible = !chbUnlimitedDiscount.Checked;
+        }
+
+        private void btDeAcceptD_Click(object sender, EventArgs e)
+        {
+            if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
+            {
+                int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+
+                DateTime dateStart = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
+                DateTime? dateEnd = null;
+                if (dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] != DBNull.Value)
+                    dateEnd = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
+                int id_TypeAgreements = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeAgreements"];
+                int id_TypeDiscount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
+                int id_TypeTenant = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeTenant"];
+                int id_StatusDiscount = 3;
+
+                if (DialogResult.No == MessageBox.Show("Отклонить скидку?", "Отклонение скидки", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) return;
+
+                Task<DataTable> task = Config.hCntMain.setTDiscount(id, dateStart, dateEnd, id_TypeDiscount, id_TypeTenant, id_TypeAgreements, id_StatusDiscount, true, false, 0);
+                task.Wait();
+
+                DataTable dtResult = task.Result;
+
+                if (dtResult == null || dtResult.Rows.Count == 0)
+                {
+                    MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
+                if ((int)dtResult.Rows[0]["id"] == -1)
+                {
+                    MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
+                if ((int)dtResult.Rows[0]["id"] == -9999)
+                {
+                    MessageBox.Show("Произошла неведомая фигня.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                get_data();
+            }
+        }
+
+        private void cmbObject_SelectionChangeCommitted_1(object sender, EventArgs e)
+        {
+            setFilter();
         }
     }
 }

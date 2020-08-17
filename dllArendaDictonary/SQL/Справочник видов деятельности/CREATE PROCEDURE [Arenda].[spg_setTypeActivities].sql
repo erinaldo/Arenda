@@ -7,7 +7,7 @@ GO
 -- Create date: 2020-04-25
 -- Description:	«апись справочника видов дейстельности
 -- =============================================
-CREATE PROCEDURE [Arenda].[spg_setTypeActivities]		 
+ALTER PROCEDURE [Arenda].[spg_setTypeActivities]		 
 	@id int,
 	@cName varchar(max),	
 	@isActive bit,
@@ -61,11 +61,11 @@ BEGIN TRY
 						END
 
 					
-					--IF EXISTS(select TOP(1) id from [Arenda].[j_Agreements] where id = @id)
-					--	BEGIN
-					--		select -2 as id
-					--		return;
-					--	END
+					IF EXISTS(select TOP(1) id from [Arenda].[j_Agreements] where id_TypeActivities = @id)
+						BEGIN
+							select -2 as id
+							return;
+						END
 					
 					select 0 as id
 					return;
