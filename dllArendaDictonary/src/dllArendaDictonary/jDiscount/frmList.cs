@@ -113,6 +113,8 @@ namespace dllArendaDictonary.jDiscount
                 else if (!chbIsAccept.Checked && chbNotActive.Checked)
                     filter += (filter.Length == 0 ? "" : " and ") + $"id_StatusDiscount in (1,3)";
 
+                filter += (filter.Length == 0 ? "" : " and ") + $"(('{dtpStart.Value.Date}'<=DateStart and DateStart<='{dtpEnd.Value.Date}') OR (('{dtpStart.Value.Date}'<=DateEnd and DateEnd<='{dtpEnd.Value.Date}')))";
+
 
                 dtData.DefaultView.RowFilter = filter;
             }
@@ -378,6 +380,16 @@ namespace dllArendaDictonary.jDiscount
         }
 
         private void cmbObject_SelectionChangeCommitted_1(object sender, EventArgs e)
+        {
+            setFilter();
+        }
+
+        private void dtpStart_CloseUp(object sender, EventArgs e)
+        {
+            setFilter();
+        }
+
+        private void dtpStart_Leave(object sender, EventArgs e)
         {
             setFilter();
         }

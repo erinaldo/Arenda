@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tbLandLord = new System.Windows.Forms.TextBox();
             this.chbNotActive = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -47,7 +47,6 @@
             this.btConfirmD = new System.Windows.Forms.Button();
             this.btClose = new System.Windows.Forms.Button();
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.chbIsAccept = new System.Windows.Forms.CheckBox();
             this.cObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameLandLord = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cAgreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +56,7 @@
             this.cTypeDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cSumDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cConfirmD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chbIsAccept = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -174,7 +174,9 @@
             this.dtpEnd.Name = "dtpEnd";
             this.dtpEnd.Size = new System.Drawing.Size(79, 20);
             this.dtpEnd.TabIndex = 91;
+            this.dtpEnd.CloseUp += new System.EventHandler(this.dtpStart_CloseUp);
             this.dtpEnd.ValueChanged += new System.EventHandler(this.dtpEnd_ValueChanged);
+            this.dtpEnd.Leave += new System.EventHandler(this.dtpStart_Leave);
             // 
             // dtpStart
             // 
@@ -183,7 +185,9 @@
             this.dtpStart.Name = "dtpStart";
             this.dtpStart.Size = new System.Drawing.Size(79, 20);
             this.dtpStart.TabIndex = 92;
+            this.dtpStart.CloseUp += new System.EventHandler(this.dtpStart_CloseUp);
             this.dtpStart.ValueChanged += new System.EventHandler(this.dtpStart_ValueChanged);
+            this.dtpStart.Leave += new System.EventHandler(this.dtpStart_Leave);
             // 
             // tbAgreements
             // 
@@ -235,14 +239,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cObject,
@@ -266,18 +270,6 @@
             this.dgvData.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvData_RowPostPaint);
             this.dgvData.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
             this.dgvData.SelectionChanged += new System.EventHandler(this.dgvData_SelectionChanged);
-            // 
-            // chbIsAccept
-            // 
-            this.chbIsAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.chbIsAccept.AutoSize = true;
-            this.chbIsAccept.Location = new System.Drawing.Point(39, 441);
-            this.chbIsAccept.Name = "chbIsAccept";
-            this.chbIsAccept.Size = new System.Drawing.Size(158, 17);
-            this.chbIsAccept.TabIndex = 98;
-            this.chbIsAccept.Text = "- подтвержденные скидки";
-            this.chbIsAccept.UseVisualStyleBackColor = true;
-            this.chbIsAccept.CheckedChanged += new System.EventHandler(this.chbNotActive_CheckedChanged);
             // 
             // cObject
             // 
@@ -342,6 +334,18 @@
             this.cConfirmD.Name = "cConfirmD";
             this.cConfirmD.ReadOnly = true;
             this.cConfirmD.Visible = false;
+            // 
+            // chbIsAccept
+            // 
+            this.chbIsAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.chbIsAccept.AutoSize = true;
+            this.chbIsAccept.Location = new System.Drawing.Point(39, 441);
+            this.chbIsAccept.Name = "chbIsAccept";
+            this.chbIsAccept.Size = new System.Drawing.Size(158, 17);
+            this.chbIsAccept.TabIndex = 98;
+            this.chbIsAccept.Text = "- подтвержденные скидки";
+            this.chbIsAccept.UseVisualStyleBackColor = true;
+            this.chbIsAccept.CheckedChanged += new System.EventHandler(this.chbNotActive_CheckedChanged);
             // 
             // frmList
             // 
