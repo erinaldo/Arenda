@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nwuram.Framework.Settings.Connection;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +19,10 @@ namespace JournalBorrower
         public frmMain()
         {
             InitializeComponent();
+
+            if(Config.hCntMain==null)
+                Config.hCntMain = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
+
             dgvData.AutoGenerateColumns = false;
         }
 
@@ -251,55 +256,81 @@ namespace JournalBorrower
             setFilter();
         }
 
+        Nwuram.Framework.UI.Service.EnableControlsServiceInProg fBlocker = new Nwuram.Framework.UI.Service.EnableControlsServiceInProg();
+        Nwuram.Framework.UI.Forms.frmLoad fWait;
         private void getData()
         {
-            Task<DataTable> task = Config.hCntMain.GetListOwe();
-            task.Wait();
-            dtData = task.Result;
-
-            if (dtData == null || dtData.Rows.Count == 0)
+            new Task(() =>
             {
-                dgvData.DataSource = null; return;
-            }
 
-            dtData.Columns.Add("SummaPaymentFine_1", typeof(decimal));
-            dtData.Columns.Add("SummaFine_1", typeof(decimal));
-            dtData.Columns.Add("SummaPenny_1", typeof(decimal));
-            dtData.Columns.Add("PrcPenny_1", typeof(decimal));
-            dtData.Columns.Add("SummaPaymentFine_1_filter", typeof(decimal));
-
-            dtData.Columns.Add("SummaPaymentFine_2", typeof(decimal));
-            dtData.Columns.Add("SummaFine_2", typeof(decimal));
-            dtData.Columns.Add("SummaPenny_2", typeof(decimal));
-            dtData.Columns.Add("PrcPenny_2", typeof(decimal));
-
-            task = Config.hCntMain.GetListOweAdditionalData(1);
-            task.Wait();            
-
-            if (task.Result != null && task.Result.Rows.Count > 0)
-            {
-                initDateType1(task.Result);
-            }
-
-            task = Config.hCntMain.GetListOweAdditionalData(2);
-            task.Wait();            
-            if (task.Result != null && task.Result.Rows.Count > 0)
-            {
-                foreach (DataRow row in task.Result.Rows)
+                Config.DoOnUIThread(() =>
                 {
-                    EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable().Where(r => r.Field<int>("id") == (int)row["id"]);
-                    if (rowCollect.Count() > 0)
+                    fBlocker.SaveControlsEnabledState(this);
+                    fBlocker.SetControlsEnabled(this, false);
+                    fWait = new Nwuram.Framework.UI.Forms.frmLoad();                    
+                    fWait.TextWait = "Загружаю!";
+                    fWait.Show();
+                }, this);
+
+
+
+                Task<DataTable> task = Config.hCntMain.GetListOwe();
+                task.Wait();
+                dtData = task.Result;
+
+                if (dtData == null || dtData.Rows.Count == 0)
+                {
+                    Config.DoOnUIThread(() =>
                     {
-                        rowCollect.First()["SummaPaymentFine_2"] = row["SummaPaymentFine"];
-                        rowCollect.First()["SummaFine_2"] = row["SummaFine"];
-                        rowCollect.First()["SummaPenny_2"] = row["SummaPenny"];
-                        rowCollect.First()["PrcPenny_2"] = Math.Round((decimal)row["PrcPenny"], 2);
+                        dgvData.DataSource = null;
+                    }, this); return;
+                }
+
+                dtData.Columns.Add("SummaPaymentFine_1", typeof(decimal));
+                dtData.Columns.Add("SummaFine_1", typeof(decimal));
+                dtData.Columns.Add("SummaPenny_1", typeof(decimal));
+                dtData.Columns.Add("PrcPenny_1", typeof(decimal));
+                dtData.Columns.Add("SummaPaymentFine_1_filter", typeof(decimal));
+
+                dtData.Columns.Add("SummaPaymentFine_2", typeof(decimal));
+                dtData.Columns.Add("SummaFine_2", typeof(decimal));
+                dtData.Columns.Add("SummaPenny_2", typeof(decimal));
+                dtData.Columns.Add("PrcPenny_2", typeof(decimal));
+
+                task = Config.hCntMain.GetListOweAdditionalData(1);
+                task.Wait();
+
+                if (task.Result != null && task.Result.Rows.Count > 0)
+                {
+                    initDateType1(task.Result);
+                }
+
+                task = Config.hCntMain.GetListOweAdditionalData(2);
+                task.Wait();
+                if (task.Result != null && task.Result.Rows.Count > 0)
+                {
+                    foreach (DataRow row in task.Result.Rows)
+                    {
+                        EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable().Where(r => r.Field<int>("id") == (int)row["id"]);
+                        if (rowCollect.Count() > 0)
+                        {
+                            rowCollect.First()["SummaPaymentFine_2"] = row["SummaPaymentFine"];
+                            rowCollect.First()["SummaFine_2"] = row["SummaFine"];
+                            rowCollect.First()["SummaPenny_2"] = row["SummaPenny"];
+                            rowCollect.First()["PrcPenny_2"] = Math.Round((decimal)row["PrcPenny"], 2);
+                        }
                     }
                 }
-            }
+                //System.Threading.Thread.Sleep(6000);
+                Config.DoOnUIThread(() =>
+                {
+                    fWait.Dispose();
+                    fBlocker.RestoreControlEnabledState(this);
 
-            setFilter();
-            dgvData.DataSource = dtData;
+                    setFilter();
+                    dgvData.DataSource = dtData;
+                }, this);
+            }).Start();
         }
 
         Dictionary<int, DataTable> dicPayMonth = new Dictionary<int, DataTable>();

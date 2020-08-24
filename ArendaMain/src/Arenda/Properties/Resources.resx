@@ -118,85 +118,97 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="EditTableHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pic\EditTableHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="scanner2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\scanner2.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pict_close" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pic\pict_close.BMP;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pict_ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pic\pict_ok.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DeleteHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pic\DeleteHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="scanner" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\scanner.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Log_Out_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Log-Out-icon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="zoom_out" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\zoom-out.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="zoom_in" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\zoom-in.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="shop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\shop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pic\Delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="saveHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pic\saveHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pict_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pict_delete.BMP;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="glaz" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\glaz.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="1493746719_shopping cart" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1493746719_shopping cart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="close" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DocumentHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pic\DocumentHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="upload" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\upload.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="document_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\document_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pict_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\pict_save.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Log_Out_icon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Log-Out-icon1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="arrowright" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\arrowright.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pict_excel" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\pic\pict_excel.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="pict_edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\pict_edit.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="arrowleft" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\arrowleft.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="printer_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\printer_6.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="zoom_in" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\zoom-in.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="arrowleft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrowleft.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pict_close" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\pic\pict_close.BMP;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Log_Out_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Log-Out-icon.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="document_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\document_add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="upload" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\upload.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="glaz" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\glaz.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pict_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pict_delete.BMP;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="деятельность" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\деятельность.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="деятельность1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\деятельность1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="скидки" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\скидки.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="saveHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\pic\saveHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="EditTableHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\pic\EditTableHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="document_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\document_delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1493746719_shopping cart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1493746719_shopping cart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pict_ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\pic\pict_ok.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Log_Out_icon1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Log-Out-icon1.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="zoom_out" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\zoom-out.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pict_excel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\pic\pict_excel.gif;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\pic\Delete.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="scanner2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\scanner2.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pict_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\pict_save.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="close" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\close.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="shop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\shop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="arrowright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrowright.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pict_edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\pict_edit.bmp;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\pic\DeleteHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DocumentHS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\pic\DocumentHS.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="секции" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\секции.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

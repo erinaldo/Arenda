@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Nwuram.Framework.Logging;
+using Nwuram.Framework.Settings.Connection;
 using Nwuram.Framework.Settings.User;
 
 
@@ -18,9 +19,14 @@ namespace dllJournalCongress
         private DataTable dtData;
         private bool isChangeValue = false;
         private DateTime _dateStart, _dateEnd;
+        private bool isLoadData = false;
         public frmMain()
         {
             InitializeComponent();
+
+            if(Config.hCntMain==null)
+                Config.hCntMain = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
+
             dgvData.AutoGenerateColumns = false;
             ToolTip tp = new ToolTip();
             tp.SetToolTip(btExit,"Выход");
@@ -56,16 +62,46 @@ namespace dllJournalCongress
             getData();
         }
 
+        Nwuram.Framework.UI.Service.EnableControlsServiceInProg fBlocker = new Nwuram.Framework.UI.Service.EnableControlsServiceInProg();
+        Nwuram.Framework.UI.Forms.frmLoad fWait;
         private void getData()
         {
-            Task<DataTable> task = Config.hCntMain.getJournalCongress(dtpStart.Value.Date, dtpEnd.Value.Date);
-            task.Wait();
-            dtData = task.Result.Copy();
-            task = null;
+            new Task(() =>
+            {
+                isLoadData = true;
+                DateTime _dStart = new DateTime();
+                DateTime _dEnd = new DateTime();
 
-            setFilter();
-            dgvData.DataSource = dtData;
-            isChangeValue = false;
+                Config.DoOnUIThread(() =>
+                {
+                    fBlocker.SaveControlsEnabledState(this);
+                    fBlocker.SetControlsEnabled(this, false);
+                    fWait = new Nwuram.Framework.UI.Forms.frmLoad();
+                    fWait.TextWait = "Загружаю!";
+                    fWait.Show();
+
+                    _dStart = dtpStart.Value.Date;
+                    _dEnd = dtpEnd.Value.Date;
+                }, this);
+
+
+                Task<DataTable> task = Config.hCntMain.getJournalCongress(_dStart.Date, _dEnd.Date);
+                task.Wait();
+                dtData = task.Result.Copy();
+                task = null;
+
+                Config.DoOnUIThread(() =>
+                {
+                    fWait.Dispose();
+                    fBlocker.RestoreControlEnabledState(this);
+                    setFilter();
+                    dgvData.DataSource = dtData;
+                }, this);
+
+
+                isChangeValue = false;
+                isLoadData = false;
+            }).Start();
         }
 
         private void setFilter()
@@ -129,60 +165,72 @@ namespace dllJournalCongress
 
         private void dgvData_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-            DataGridView dgv = sender as DataGridView;
-            //Рисуем рамку для выделеной строки
-            if (dgv.Rows[e.RowIndex].Selected)
+            try
             {
-                int width = dgv.Width;
-                Rectangle r = dgv.GetRowDisplayRectangle(e.RowIndex, false);
-                Rectangle rect = new Rectangle(r.X, r.Y, width - 1, r.Height - 1);
+                DataGridView dgv = sender as DataGridView;
+                //Рисуем рамку для выделеной строки
+                if (dgv.Rows[e.RowIndex].Selected)
+                {
+                    int width = dgv.Width;
+                    Rectangle r = dgv.GetRowDisplayRectangle(e.RowIndex, false);
+                    Rectangle rect = new Rectangle(r.X, r.Y, width - 1, r.Height - 1);
 
-                ControlPaint.DrawBorder(e.Graphics, rect,
-                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
-                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
-                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
-                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid);
+                    ControlPaint.DrawBorder(e.Graphics, rect,
+                        SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
+                        SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
+                        SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
+                        SystemColors.Highlight, 2, ButtonBorderStyle.Solid);
+                }
             }
+            catch  { }
         }
 
         private void dgvData_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
-            if (e.RowIndex != -1 && dtData != null && dtData.DefaultView.Count != 0)
+            try
             {
+                if (e.RowIndex != -1 && dtData != null && dtData.DefaultView.Count != 0)
+                {
+                    Color rColor = Color.White;
+                    if ((!(bool)dtData.DefaultView[e.RowIndex]["isLinkPetitionLeave"] || !(bool)dtData.DefaultView[e.RowIndex]["isConfirmed_LinkPetitionLeave"]) && (bool)dtData.DefaultView[e.RowIndex]["isConfirmed"])
+                        rColor = panel2.BackColor;
 
-                Color rColor = Color.White;
-                if ((!(bool)dtData.DefaultView[e.RowIndex]["isLinkPetitionLeave"] || !(bool)dtData.DefaultView[e.RowIndex]["isConfirmed_LinkPetitionLeave"]) && (bool)dtData.DefaultView[e.RowIndex]["isConfirmed"])
-                    rColor = panel2.BackColor;
+                    if ((bool)dtData.DefaultView[e.RowIndex]["isLinkPetitionLeave"] && (bool)dtData.DefaultView[e.RowIndex]["isConfirmed_LinkPetitionLeave"])
+                        rColor = panel3.BackColor;
+                    else if (dtData.DefaultView[e.RowIndex]["isCancelAgreements"] != DBNull.Value && (bool)dtData.DefaultView[e.RowIndex]["isConfirmed"])
+                        rColor = panel3.BackColor;
 
-                if ((bool)dtData.DefaultView[e.RowIndex]["isLinkPetitionLeave"] && (bool)dtData.DefaultView[e.RowIndex]["isConfirmed_LinkPetitionLeave"])
-                    rColor = panel3.BackColor;
-                else if (dtData.DefaultView[e.RowIndex]["isCancelAgreements"]!=DBNull.Value && (bool)dtData.DefaultView[e.RowIndex]["isConfirmed"])
-                    rColor = panel3.BackColor;
+                    dgvData.Rows[e.RowIndex].DefaultCellStyle.BackColor = rColor;
+                    dgvData.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = rColor;
 
-                dgvData.Rows[e.RowIndex].DefaultCellStyle.BackColor = rColor;
-                dgvData.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = rColor;
+                    dgvData.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black;
 
-                dgvData.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black;
-
-                if ((bool)dtData.DefaultView[e.RowIndex]["isLinkPetitionLeave"])
-                    dgvData.Rows[e.RowIndex].Cells[Date_of_Departure.Index].Style.BackColor =
-                         dgvData.Rows[e.RowIndex].Cells[Date_of_Departure.Index].Style.SelectionBackColor = panel1.BackColor;
+                    if ((bool)dtData.DefaultView[e.RowIndex]["isLinkPetitionLeave"])
+                        dgvData.Rows[e.RowIndex].Cells[Date_of_Departure.Index].Style.BackColor =
+                             dgvData.Rows[e.RowIndex].Cells[Date_of_Departure.Index].Style.SelectionBackColor = panel1.BackColor;
+                }
             }
+            catch { }
         }
 
         private void dtpStart_ValueChanged(object sender, EventArgs e)
-        {
-            if (dtpStart.Value.Date > dtpEnd.Value.Date)
-                dtpEnd.Value = dtpStart.Value.Date;
-
+        {try
+            {
+                if (dtpStart.Value.Date > dtpEnd.Value.Date)
+                    dtpEnd.Value = dtpStart.Value.Date;
+            }
+            catch { }
             isChangeValue = _dateStart.Date!=dtpStart.Value.Date;
         }
 
         private void dtpEnd_ValueChanged(object sender, EventArgs e)
         {
-            if (dtpStart.Value.Date > dtpEnd.Value.Date)
-                dtpStart.Value = dtpEnd.Value.Date;
-
+            try
+            {
+                if (dtpStart.Value.Date > dtpEnd.Value.Date)
+                    dtpStart.Value = dtpEnd.Value.Date;
+            }
+            catch { }
             isChangeValue = _dateEnd.Date != dtpEnd.Value.Date;
         }
 
@@ -468,6 +516,7 @@ namespace dllJournalCongress
 
         private void dtpStart_Leave(object sender, EventArgs e)
         {
+            if (isLoadData) return;
             if (isChangeValue)
                 getData();
         }

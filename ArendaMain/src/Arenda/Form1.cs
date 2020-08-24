@@ -273,6 +273,14 @@ namespace Arenda
             //справочникиToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim);
             выгрузкаДокументовToolStripMenuItem.Visible = new List<string> { "РКВ" }.Contains(TempData.Rezhim);
 
+            журналДолжниковToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д" }.Contains(TempData.Rezhim);
+            журналСъездовToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д" }.Contains(TempData.Rezhim);
+            журналНачисленияПениToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д" }.Contains(TempData.Rezhim);
+
+            журналЕжемесячныхПлановToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д","СБ6" }.Contains(TempData.Rezhim);            
+            журналПланОтчётовToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д", "СБ6" }.Contains(TempData.Rezhim);
+            
+
             //if (TempData.Rezhim == "РКВ") { }
             //if (TempData.Rezhim == "СОА") { }
             //if (TempData.Rezhim == "МНД") { }
@@ -392,7 +400,8 @@ namespace Arenda
             //скрываем ненужные            
             btnListPayment.Visible = 
             btnListTaxes.Visible = !new List<string> { "МНД" }.Contains(TempData.Rezhim);
-
+            btReportTenant.Visible = new List<string> { "РКВ", "МНД", "СОА" }.Contains(TempData.Rezhim);
+            btDicDiscount.Visible = new List<string> { "РКВ", "Д", "СОА" }.Contains(TempData.Rezhim);
 
             //скрываем ненужные
             // ---на этой вкладке все нужны
@@ -567,11 +576,14 @@ namespace Arenda
                     sb.Append(" (Начало <= '" + Fstring2 + "'");
                     sb.Append(" and Конец >= '" + Fstring2 + "'))");*/
 
-                    sb.Append(" and ((Начало <= '" + Fstring1 + "'");
-                    sb.Append(" and Конец >= '" + Fstring1 + "') OR ");
+                    //sb.Append(" and ((Начало <= '" + Fstring1 + "'");
+                    //sb.Append(" and Конец >= '" + Fstring1 + "') OR ");
 
-                    sb.Append(" (Начало <= '" + Fstring2 + "'");
-                    sb.Append(" and Конец >= '" + Fstring2 + "'))");
+                    //sb.Append(" (Начало <= '" + Fstring2 + "'");
+                    //sb.Append(" and Конец >= '" + Fstring2 + "'))");
+
+                    sb.Append(" and (Начало <= '" + Fstring2 + "'");
+                    sb.Append(" and Конец >= '" + Fstring1 + "')");
 
                     if (!chbCancelDoc.Checked)
                         sb.Append(" and isCancelDoc = 0");
@@ -2411,6 +2423,51 @@ namespace Arenda
         private void btKntListTaxes_Click(object sender, EventArgs e)
         {
             new Payments.frmKntListTaxes().ShowDialog();
+        }
+
+        private void журналНачисленияПениToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new dllArendaJournalAccrualsPenalties.frmMain().ShowDialog();
+        }
+
+        private void журналДолжниковToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new JournalBorrower.frmMain().ShowDialog();
+        }
+
+        private void журналСъездовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new dllJournalCongress.frmMain().ShowDialog();
+        }
+
+        private void журналЕжемесячныхПлановToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new dllJournalReport.frmReportMonth().ShowDialog();
+        }
+
+        private void журналПланОтчётовToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new dllJournalPlaneReport.frmReportPlane().ShowDialog();
+        }
+
+        private void отчетПоВидамДеятельностиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new TenantsReport.frmMain() { ShowInTaskbar = false }.ShowDialog();
+        }
+
+        private void отчетОЗанятостиСекцийToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new ArendaViewSection.frmView().ShowDialog();
+        }
+
+        private void btReportTenant_Click(object sender, EventArgs e)
+        {
+            new TenantsReport.frmMain() { ShowInTaskbar = false }.ShowDialog();
+        }
+
+        private void btDicDiscount_Click(object sender, EventArgs e)
+        {
+            new dllArendaDictonary.jDiscount.frmList().ShowDialog();
         }
 
         private void sPhone_KeyPress(object sender, KeyPressEventArgs e)

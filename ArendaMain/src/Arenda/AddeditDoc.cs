@@ -121,10 +121,18 @@ namespace Arenda
         private void init_SavePayment()
         {
             DataTable dtSavePayment = _proc.getSavePayment();
-            cmbSavePayment.DataSource = dtSavePayment.AsEnumerable().Where(r => new List<int> { 2, 3 }.Contains(r.Field<int>("id"))).CopyToDataTable();
-            cmbSavePayment.DisplayMember = "cName";
-            cmbSavePayment.ValueMember = "id";
-            cmbSavePayment.SelectedIndex = -1;
+            if (dtSavePayment == null || dtSavePayment.Rows.Count == 0) return;
+            try
+            {
+                cmbSavePayment.DataSource = dtSavePayment.AsEnumerable().Where(r => new List<int> { 2, 3 }.Contains(r.Field<int>("id"))).CopyToDataTable();
+                cmbSavePayment.DisplayMember = "cName";
+                cmbSavePayment.ValueMember = "id";
+                cmbSavePayment.SelectedIndex = -1;
+            }
+            catch
+            { 
+            
+            }
         }
 
 

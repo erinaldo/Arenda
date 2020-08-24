@@ -78,10 +78,16 @@
   <PropertyGroup>
     <ApplicationIcon>Arenda.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ArendaFileExport, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\ArendaFileExport.dll</HintPath>
+    </Reference>
+    <Reference Include="ArendaViewSection">
+      <HintPath>..\..\..\ArendaViewSection.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -90,10 +96,26 @@
     <Reference Include="dllArendaDictonary">
       <HintPath>..\..\..\dllArendaDictonary\dllArendaDictonary\dllArendaDictonary\bin\Debug\dllArendaDictonary.dll</HintPath>
     </Reference>
-    <Reference Include="Framework">
+    <Reference Include="dllArendaJournalAccrualsPenalties">
+      <HintPath>..\..\..\dllArendaJournalAccrualsPenalties\src\dllArendaJournalAccrualsPenalties\bin\Debug\dllArendaJournalAccrualsPenalties.dll</HintPath>
+    </Reference>
+    <Reference Include="dllJournalCongress">
+      <HintPath>..\..\..\dllJournalCongress\src\dllJournalCongress\bin\Debug\dllJournalCongress.dll</HintPath>
+    </Reference>
+    <Reference Include="dllJournalPlaneReport">
+      <HintPath>..\..\..\dllJournalReport\src\dllJournalPlaneReport\bin\Debug\dllJournalPlaneReport.dll</HintPath>
+    </Reference>
+    <Reference Include="dllJournalReport">
+      <HintPath>..\..\..\dllJournalReport\src\dllJournalReport\bin\Debug\dllJournalReport.dll</HintPath>
+    </Reference>
+    <Reference Include="Framework, Version=3.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\frameWork_mew\Framework\bin\Debug\Framework.dll</HintPath>
     </Reference>
     <Reference Include="Interop.Excel, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="JournalBorrower">
+      <HintPath>..\..\..\dllJournalBorrower\src\JournalBorrower\bin\Debug\JournalBorrower.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -116,6 +138,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TenantsReport">
+      <HintPath>..\..\..\TenantsReport.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddEditBasement.cs">
@@ -777,6 +802,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Arenda.ico" />
+    <None Include="Resources\секции.png" />
+    <None Include="Resources\деятельность1.png" />
+    <None Include="Resources\скидки.png" />
+    <None Include="Resources\деятельность.png" />
     <None Include="Resources\shop.png" />
     <None Include="Resources\close.png" />
     <None Include="Resources\1493746719_shopping cart.png" />
@@ -789,15 +818,6 @@
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
-      <VersionMinor>4</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>primary</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="Microsoft.Office.Interop.Word">
-      <Guid>{00020905-0000-0000-C000-000000000046}</Guid>
-      <VersionMajor>8</VersionMajor>
       <VersionMinor>4</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>

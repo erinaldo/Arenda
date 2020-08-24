@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,6 +50,8 @@
             this.справочникЗемельныхУчастковToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справочникВидаДейтельностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.справочникСкидокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отчетПоВидамДеятельностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отчетОЗанятостиСекцийToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.арендаторыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.договорыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.арендодателиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,13 +61,9 @@
             this.sPhone = new System.Windows.Forms.TextBox();
             this.sEmail = new System.Windows.Forms.TextBox();
             this.sPlace = new System.Windows.Forms.TextBox();
-            this.picConEnding = new System.Windows.Forms.PictureBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.picConEnded = new System.Windows.Forms.PictureBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.picUnContract = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.picUnactive = new System.Windows.Forms.PictureBox();
             this.sName = new System.Windows.Forms.TextBox();
             this.cbTenant = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -88,10 +86,8 @@
             this.pLordland = new System.Windows.Forms.Panel();
             this.label12 = new System.Windows.Forms.Label();
             this.cmbObject = new System.Windows.Forms.ComboBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.label10 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.chbLandlord = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tbLandpred = new System.Windows.Forms.TextBox();
@@ -156,7 +152,19 @@
             this.label5 = new System.Windows.Forms.Label();
             this.bgwExcel = new System.ComponentModel.BackgroundWorker();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.prbExcel = new System.Windows.Forms.ProgressBar();
+            this.btDicDiscount = new System.Windows.Forms.Button();
+            this.btReportTenant = new System.Windows.Forms.Button();
+            this.btKntListTaxes = new System.Windows.Forms.Button();
+            this.btCopyDoc = new System.Windows.Forms.Button();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btAcceptDoc = new System.Windows.Forms.Button();
             this.btJournalSealSections = new System.Windows.Forms.Button();
+            this.btnReport = new System.Windows.Forms.Button();
             this.btnView = new System.Windows.Forms.Button();
             this.btnListTaxes = new System.Windows.Forms.Button();
             this.btnListPayment = new System.Windows.Forms.Button();
@@ -166,31 +174,33 @@
             this.btDel = new System.Windows.Forms.Button();
             this.btEdit = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
-            this.btAcceptDoc = new System.Windows.Forms.Button();
-            this.btCopyDoc = new System.Windows.Forms.Button();
-            this.btKntListTaxes = new System.Windows.Forms.Button();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.prbExcel = new System.Windows.Forms.ProgressBar();
-            this.btnReport = new System.Windows.Forms.Button();
+            this.picConEnding = new System.Windows.Forms.PictureBox();
+            this.picConEnded = new System.Windows.Forms.PictureBox();
+            this.picUnContract = new System.Windows.Forms.PictureBox();
+            this.picUnactive = new System.Windows.Forms.PictureBox();
             this.bds = new System.Windows.Forms.BindingSource(this.components);
             this.bds1 = new System.Windows.Forms.BindingSource(this.components);
             this.dbs2 = new System.Windows.Forms.BindingSource(this.components);
+            this.журналыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.журналНачисленияПениToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.журналДолжниковToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.журналСъездовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.журналЕжемесячныхПлановToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.журналПланОтчётовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.pTenant.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picConEnded)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picUnContract)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picUnactive)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgTenant)).BeginInit();
             this.pLordland.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgLordland)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgListDoc)).BeginInit();
             this.pListDoc.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConEnded)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picUnContract)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picUnactive)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bds1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbs2)).BeginInit();
@@ -200,6 +210,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.справочникиToolStripMenuItem,
+            this.журналыToolStripMenuItem,
             this.арендаторыToolStripMenuItem,
             this.договорыToolStripMenuItem,
             this.арендодателиToolStripMenuItem,
@@ -229,7 +240,9 @@
             this.справочникРекламныхМестToolStripMenuItem,
             this.справочникЗемельныхУчастковToolStripMenuItem,
             this.справочникВидаДейтельностиToolStripMenuItem,
-            this.справочникСкидокToolStripMenuItem});
+            this.справочникСкидокToolStripMenuItem,
+            this.отчетПоВидамДеятельностиToolStripMenuItem,
+            this.отчетОЗанятостиСекцийToolStripMenuItem});
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
             this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.справочникиToolStripMenuItem.Text = "Справочники";
@@ -344,7 +357,24 @@
             this.справочникСкидокToolStripMenuItem.Name = "справочникСкидокToolStripMenuItem";
             this.справочникСкидокToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникСкидокToolStripMenuItem.Text = "Справочник скидок";
+            this.справочникСкидокToolStripMenuItem.Visible = false;
             this.справочникСкидокToolStripMenuItem.Click += new System.EventHandler(this.справочникСкидокToolStripMenuItem_Click);
+            // 
+            // отчетПоВидамДеятельностиToolStripMenuItem
+            // 
+            this.отчетПоВидамДеятельностиToolStripMenuItem.Name = "отчетПоВидамДеятельностиToolStripMenuItem";
+            this.отчетПоВидамДеятельностиToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
+            this.отчетПоВидамДеятельностиToolStripMenuItem.Text = "Отчет по видам деятельности";
+            this.отчетПоВидамДеятельностиToolStripMenuItem.Visible = false;
+            this.отчетПоВидамДеятельностиToolStripMenuItem.Click += new System.EventHandler(this.отчетПоВидамДеятельностиToolStripMenuItem_Click);
+            // 
+            // отчетОЗанятостиСекцийToolStripMenuItem
+            // 
+            this.отчетОЗанятостиСекцийToolStripMenuItem.Name = "отчетОЗанятостиСекцийToolStripMenuItem";
+            this.отчетОЗанятостиСекцийToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
+            this.отчетОЗанятостиСекцийToolStripMenuItem.Text = "Отчет о занятости секций";
+            this.отчетОЗанятостиСекцийToolStripMenuItem.Visible = false;
+            this.отчетОЗанятостиСекцийToolStripMenuItem.Click += new System.EventHandler(this.отчетОЗанятостиСекцийToolStripMenuItem_Click);
             // 
             // арендаторыToolStripMenuItem
             // 
@@ -435,18 +465,6 @@
             this.sPlace.TextChanged += new System.EventHandler(this.sPlace_TextChanged);
             this.sPlace.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.sPlace_KeyPress);
             // 
-            // picConEnding
-            // 
-            this.picConEnding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.picConEnding.BackColor = System.Drawing.Color.Tomato;
-            this.picConEnding.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picConEnding.Location = new System.Drawing.Point(168, 382);
-            this.picConEnding.Name = "picConEnding";
-            this.picConEnding.Size = new System.Drawing.Size(12, 12);
-            this.picConEnding.TabIndex = 39;
-            this.picConEnding.TabStop = false;
-            this.picConEnding.Visible = false;
-            // 
             // label11
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -457,18 +475,6 @@
             this.label11.TabIndex = 38;
             this.label11.Text = "Заканчивающиеся договора";
             this.label11.Visible = false;
-            // 
-            // picConEnded
-            // 
-            this.picConEnded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.picConEnded.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.picConEnded.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picConEnded.Location = new System.Drawing.Point(168, 363);
-            this.picConEnded.Name = "picConEnded";
-            this.picConEnded.Size = new System.Drawing.Size(12, 12);
-            this.picConEnded.TabIndex = 37;
-            this.picConEnded.TabStop = false;
-            this.picConEnded.Visible = false;
             // 
             // label9
             // 
@@ -481,17 +487,6 @@
             this.label9.Text = "Закончившиеся договора";
             this.label9.Visible = false;
             // 
-            // picUnContract
-            // 
-            this.picUnContract.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.picUnContract.BackColor = System.Drawing.Color.SkyBlue;
-            this.picUnContract.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picUnContract.Location = new System.Drawing.Point(66, 381);
-            this.picUnContract.Name = "picUnContract";
-            this.picUnContract.Size = new System.Drawing.Size(12, 12);
-            this.picUnContract.TabIndex = 35;
-            this.picUnContract.TabStop = false;
-            // 
             // label8
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -501,17 +496,6 @@
             this.label8.Size = new System.Drawing.Size(82, 13);
             this.label8.TabIndex = 34;
             this.label8.Text = "Без договоров";
-            // 
-            // picUnactive
-            // 
-            this.picUnactive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.picUnactive.BackColor = System.Drawing.Color.DarkGray;
-            this.picUnactive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picUnactive.Location = new System.Drawing.Point(66, 363);
-            this.picUnactive.Name = "picUnactive";
-            this.picUnactive.Size = new System.Drawing.Size(12, 12);
-            this.picUnactive.TabIndex = 33;
-            this.picUnactive.TabStop = false;
             // 
             // sName
             // 
@@ -746,17 +730,6 @@
             this.cmbObject.ValueMember = "id";
             this.cmbObject.SelectionChangeCommitted += new System.EventHandler(this.cmbObject_SelectionChangeCommitted);
             // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox5.BackColor = System.Drawing.Color.LightBlue;
-            this.pictureBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox5.Location = new System.Drawing.Point(125, 384);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(12, 12);
-            this.pictureBox5.TabIndex = 36;
-            this.pictureBox5.TabStop = false;
-            // 
             // label10
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -778,17 +751,6 @@
             this.checkBox1.Text = "Без договоров";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox1.BackColor = System.Drawing.Color.Coral;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(125, 364);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(12, 12);
-            this.pictureBox1.TabIndex = 33;
-            this.pictureBox1.TabStop = false;
             // 
             // chbLandlord
             // 
@@ -1025,14 +987,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgListDoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgListDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgListDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgListDoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgListDoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Date,
@@ -1059,14 +1021,14 @@
             this.dgListDoc.MultiSelect = false;
             this.dgListDoc.Name = "dgListDoc";
             this.dgListDoc.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgListDoc.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgListDoc.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgListDoc.RowHeadersVisible = false;
             this.dgListDoc.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgListDoc.Size = new System.Drawing.Size(710, 259);
@@ -1453,11 +1415,133 @@
             this.bgwExcel.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwExcel_DoWork);
             this.bgwExcel.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwExcel_RunWorkerCompleted);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 490);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(767, 22);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 32;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(109, 17);
+            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(109, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
+            // prbExcel
+            // 
+            this.prbExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.prbExcel.Location = new System.Drawing.Point(432, 482);
+            this.prbExcel.Name = "prbExcel";
+            this.prbExcel.Size = new System.Drawing.Size(315, 16);
+            this.prbExcel.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.prbExcel.TabIndex = 47;
+            this.prbExcel.Visible = false;
+            // 
+            // btDicDiscount
+            // 
+            this.btDicDiscount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btDicDiscount.Image = global::Arenda.Properties.Resources.скидки;
+            this.btDicDiscount.Location = new System.Drawing.Point(355, 435);
+            this.btDicDiscount.Name = "btDicDiscount";
+            this.btDicDiscount.Size = new System.Drawing.Size(32, 32);
+            this.btDicDiscount.TabIndex = 56;
+            this.toolTip1.SetToolTip(this.btDicDiscount, "Справочник скидок");
+            this.btDicDiscount.UseVisualStyleBackColor = true;
+            this.btDicDiscount.Visible = false;
+            this.btDicDiscount.Click += new System.EventHandler(this.btDicDiscount_Click);
+            // 
+            // btReportTenant
+            // 
+            this.btReportTenant.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btReportTenant.Image = global::Arenda.Properties.Resources.деятельность1;
+            this.btReportTenant.Location = new System.Drawing.Point(317, 435);
+            this.btReportTenant.Name = "btReportTenant";
+            this.btReportTenant.Size = new System.Drawing.Size(32, 32);
+            this.btReportTenant.TabIndex = 55;
+            this.toolTip1.SetToolTip(this.btReportTenant, "Отчёт по видам дейтельности");
+            this.btReportTenant.UseVisualStyleBackColor = true;
+            this.btReportTenant.Visible = false;
+            this.btReportTenant.Click += new System.EventHandler(this.btReportTenant_Click);
+            // 
+            // btKntListTaxes
+            // 
+            this.btKntListTaxes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btKntListTaxes.Image = ((System.Drawing.Image)(resources.GetObject("btKntListTaxes.Image")));
+            this.btKntListTaxes.Location = new System.Drawing.Point(61, 435);
+            this.btKntListTaxes.Name = "btKntListTaxes";
+            this.btKntListTaxes.Size = new System.Drawing.Size(32, 32);
+            this.btKntListTaxes.TabIndex = 54;
+            this.toolTip1.SetToolTip(this.btKntListTaxes, "Подтверждение доп оплат");
+            this.btKntListTaxes.UseVisualStyleBackColor = true;
+            this.btKntListTaxes.Visible = false;
+            this.btKntListTaxes.Click += new System.EventHandler(this.btKntListTaxes_Click);
+            // 
+            // btCopyDoc
+            // 
+            this.btCopyDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btCopyDoc.Image = ((System.Drawing.Image)(resources.GetObject("btCopyDoc.Image")));
+            this.btCopyDoc.Location = new System.Drawing.Point(23, 435);
+            this.btCopyDoc.Name = "btCopyDoc";
+            this.btCopyDoc.Size = new System.Drawing.Size(32, 32);
+            this.btCopyDoc.TabIndex = 54;
+            this.toolTip1.SetToolTip(this.btCopyDoc, "Копирование договора");
+            this.btCopyDoc.UseVisualStyleBackColor = true;
+            this.btCopyDoc.Visible = false;
+            this.btCopyDoc.Click += new System.EventHandler(this.btCopyDoc_Click);
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox5.BackColor = System.Drawing.Color.LightBlue;
+            this.pictureBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox5.Location = new System.Drawing.Point(125, 384);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(12, 12);
+            this.pictureBox5.TabIndex = 36;
+            this.pictureBox5.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox1.BackColor = System.Drawing.Color.Coral;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Location = new System.Drawing.Point(125, 364);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(12, 12);
+            this.pictureBox1.TabIndex = 33;
+            this.pictureBox1.TabStop = false;
+            // 
+            // btAcceptDoc
+            // 
+            this.btAcceptDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btAcceptDoc.BackgroundImage = global::Arenda.Properties.Resources.DeleteHS;
+            this.btAcceptDoc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btAcceptDoc.Location = new System.Drawing.Point(133, 435);
+            this.btAcceptDoc.Name = "btAcceptDoc";
+            this.btAcceptDoc.Size = new System.Drawing.Size(32, 32);
+            this.btAcceptDoc.TabIndex = 53;
+            this.toolTip1.SetToolTip(this.btAcceptDoc, "Подтвердить договор");
+            this.btAcceptDoc.UseVisualStyleBackColor = true;
+            this.btAcceptDoc.Visible = false;
+            this.btAcceptDoc.Click += new System.EventHandler(this.btAcceptDoc_Click);
+            // 
             // btJournalSealSections
             // 
             this.btJournalSealSections.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btJournalSealSections.Image = global::Arenda.Properties.Resources.upload;
-            this.btJournalSealSections.Location = new System.Drawing.Point(270, 435);
+            this.btJournalSealSections.Location = new System.Drawing.Point(172, 435);
             this.btJournalSealSections.Name = "btJournalSealSections";
             this.btJournalSealSections.Size = new System.Drawing.Size(32, 32);
             this.btJournalSealSections.TabIndex = 52;
@@ -1466,11 +1550,23 @@
             this.btJournalSealSections.Visible = false;
             this.btJournalSealSections.Click += new System.EventHandler(this.btJournalSealSections_Click);
             // 
+            // btnReport
+            // 
+            this.btnReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReport.Image = global::Arenda.Properties.Resources.printer_6;
+            this.btnReport.Location = new System.Drawing.Point(270, 435);
+            this.btnReport.Name = "btnReport";
+            this.btnReport.Size = new System.Drawing.Size(32, 32);
+            this.btnReport.TabIndex = 51;
+            this.btnReport.UseVisualStyleBackColor = true;
+            this.btnReport.Visible = false;
+            this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
+            // 
             // btnView
             // 
             this.btnView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnView.Image = global::Arenda.Properties.Resources.glaz;
-            this.btnView.Location = new System.Drawing.Point(331, 435);
+            this.btnView.Location = new System.Drawing.Point(210, 435);
             this.btnView.Name = "btnView";
             this.btnView.Size = new System.Drawing.Size(32, 32);
             this.btnView.TabIndex = 50;
@@ -1576,97 +1672,106 @@
             this.btAdd.UseVisualStyleBackColor = true;
             this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
-            // btAcceptDoc
+            // picConEnding
             // 
-            this.btAcceptDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btAcceptDoc.BackgroundImage = global::Arenda.Properties.Resources.DeleteHS;
-            this.btAcceptDoc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btAcceptDoc.Location = new System.Drawing.Point(231, 435);
-            this.btAcceptDoc.Name = "btAcceptDoc";
-            this.btAcceptDoc.Size = new System.Drawing.Size(32, 32);
-            this.btAcceptDoc.TabIndex = 53;
-            this.toolTip1.SetToolTip(this.btAcceptDoc, "Подтвердить договор");
-            this.btAcceptDoc.UseVisualStyleBackColor = true;
-            this.btAcceptDoc.Visible = false;
-            this.btAcceptDoc.Click += new System.EventHandler(this.btAcceptDoc_Click);
+            this.picConEnding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picConEnding.BackColor = System.Drawing.Color.Tomato;
+            this.picConEnding.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picConEnding.Location = new System.Drawing.Point(168, 382);
+            this.picConEnding.Name = "picConEnding";
+            this.picConEnding.Size = new System.Drawing.Size(12, 12);
+            this.picConEnding.TabIndex = 39;
+            this.picConEnding.TabStop = false;
+            this.picConEnding.Visible = false;
             // 
-            // btCopyDoc
+            // picConEnded
             // 
-            this.btCopyDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btCopyDoc.Image = ((System.Drawing.Image)(resources.GetObject("btCopyDoc.Image")));
-            this.btCopyDoc.Location = new System.Drawing.Point(23, 435);
-            this.btCopyDoc.Name = "btCopyDoc";
-            this.btCopyDoc.Size = new System.Drawing.Size(32, 32);
-            this.btCopyDoc.TabIndex = 54;
-            this.toolTip1.SetToolTip(this.btCopyDoc, "Копирование договора");
-            this.btCopyDoc.UseVisualStyleBackColor = true;
-            this.btCopyDoc.Visible = false;
-            this.btCopyDoc.Click += new System.EventHandler(this.btCopyDoc_Click);
+            this.picConEnded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picConEnded.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.picConEnded.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picConEnded.Location = new System.Drawing.Point(168, 363);
+            this.picConEnded.Name = "picConEnded";
+            this.picConEnded.Size = new System.Drawing.Size(12, 12);
+            this.picConEnded.TabIndex = 37;
+            this.picConEnded.TabStop = false;
+            this.picConEnded.Visible = false;
             // 
-            // btKntListTaxes
+            // picUnContract
             // 
-            this.btKntListTaxes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btKntListTaxes.Image = ((System.Drawing.Image)(resources.GetObject("btKntListTaxes.Image")));
-            this.btKntListTaxes.Location = new System.Drawing.Point(61, 435);
-            this.btKntListTaxes.Name = "btKntListTaxes";
-            this.btKntListTaxes.Size = new System.Drawing.Size(32, 32);
-            this.btKntListTaxes.TabIndex = 54;
-            this.toolTip1.SetToolTip(this.btKntListTaxes, "Подтверждение доп оплат");
-            this.btKntListTaxes.UseVisualStyleBackColor = true;
-            this.btKntListTaxes.Visible = false;
-            this.btKntListTaxes.Click += new System.EventHandler(this.btKntListTaxes_Click);
+            this.picUnContract.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picUnContract.BackColor = System.Drawing.Color.SkyBlue;
+            this.picUnContract.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picUnContract.Location = new System.Drawing.Point(66, 381);
+            this.picUnContract.Name = "picUnContract";
+            this.picUnContract.Size = new System.Drawing.Size(12, 12);
+            this.picUnContract.TabIndex = 35;
+            this.picUnContract.TabStop = false;
             // 
-            // statusStrip1
+            // picUnactive
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel2,
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 490);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(767, 22);
-            this.statusStrip1.SizingGrip = false;
-            this.statusStrip1.TabIndex = 32;
-            this.statusStrip1.Text = "statusStrip1";
+            this.picUnactive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picUnactive.BackColor = System.Drawing.Color.DarkGray;
+            this.picUnactive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picUnactive.Location = new System.Drawing.Point(66, 363);
+            this.picUnactive.Name = "picUnactive";
+            this.picUnactive.Size = new System.Drawing.Size(12, 12);
+            this.picUnactive.TabIndex = 33;
+            this.picUnactive.TabStop = false;
             // 
-            // toolStripStatusLabel2
+            // журналыToolStripMenuItem
             // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(109, 17);
-            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
+            this.журналыToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.журналНачисленияПениToolStripMenuItem,
+            this.журналПланОтчётовToolStripMenuItem,
+            this.журналСъездовToolStripMenuItem,
+            this.журналЕжемесячныхПлановToolStripMenuItem,
+            this.журналДолжниковToolStripMenuItem});
+            this.журналыToolStripMenuItem.Name = "журналыToolStripMenuItem";
+            this.журналыToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.журналыToolStripMenuItem.Text = "Журналы";
             // 
-            // toolStripStatusLabel1
+            // журналНачисленияПениToolStripMenuItem
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(109, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            this.журналНачисленияПениToolStripMenuItem.Name = "журналНачисленияПениToolStripMenuItem";
+            this.журналНачисленияПениToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.журналНачисленияПениToolStripMenuItem.Text = "Журнал начисления пени";
+            this.журналНачисленияПениToolStripMenuItem.Click += new System.EventHandler(this.журналНачисленияПениToolStripMenuItem_Click);
             // 
-            // prbExcel
+            // журналДолжниковToolStripMenuItem
             // 
-            this.prbExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.prbExcel.Location = new System.Drawing.Point(432, 482);
-            this.prbExcel.Name = "prbExcel";
-            this.prbExcel.Size = new System.Drawing.Size(315, 16);
-            this.prbExcel.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.prbExcel.TabIndex = 47;
-            this.prbExcel.Visible = false;
+            this.журналДолжниковToolStripMenuItem.Name = "журналДолжниковToolStripMenuItem";
+            this.журналДолжниковToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.журналДолжниковToolStripMenuItem.Text = "Журнал должников";
+            this.журналДолжниковToolStripMenuItem.Click += new System.EventHandler(this.журналДолжниковToolStripMenuItem_Click);
             // 
-            // btnReport
+            // журналСъездовToolStripMenuItem
             // 
-            this.btnReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReport.Image = global::Arenda.Properties.Resources.printer_6;
-            this.btnReport.Location = new System.Drawing.Point(411, 435);
-            this.btnReport.Name = "btnReport";
-            this.btnReport.Size = new System.Drawing.Size(32, 32);
-            this.btnReport.TabIndex = 51;
-            this.btnReport.UseVisualStyleBackColor = true;
-            this.btnReport.Visible = false;
-            this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
+            this.журналСъездовToolStripMenuItem.Name = "журналСъездовToolStripMenuItem";
+            this.журналСъездовToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.журналСъездовToolStripMenuItem.Text = "Журнал съездов";
+            this.журналСъездовToolStripMenuItem.Click += new System.EventHandler(this.журналСъездовToolStripMenuItem_Click);
+            // 
+            // журналЕжемесячныхПлановToolStripMenuItem
+            // 
+            this.журналЕжемесячныхПлановToolStripMenuItem.Name = "журналЕжемесячныхПлановToolStripMenuItem";
+            this.журналЕжемесячныхПлановToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.журналЕжемесячныхПлановToolStripMenuItem.Text = "Журнал ежемесячных планов";
+            this.журналЕжемесячныхПлановToolStripMenuItem.Click += new System.EventHandler(this.журналЕжемесячныхПлановToolStripMenuItem_Click);
+            // 
+            // журналПланОтчётовToolStripMenuItem
+            // 
+            this.журналПланОтчётовToolStripMenuItem.Name = "журналПланОтчётовToolStripMenuItem";
+            this.журналПланОтчётовToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.журналПланОтчётовToolStripMenuItem.Text = "Журнал План-Отчётов";
+            this.журналПланОтчётовToolStripMenuItem.Click += new System.EventHandler(this.журналПланОтчётовToolStripMenuItem_Click);
             // 
             // mForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(767, 512);
+            this.Controls.Add(this.btDicDiscount);
+            this.Controls.Add(this.btReportTenant);
             this.Controls.Add(this.pListDoc);
             this.Controls.Add(this.btKntListTaxes);
             this.Controls.Add(this.btCopyDoc);
@@ -1699,21 +1804,21 @@
             this.menuStrip1.PerformLayout();
             this.pTenant.ResumeLayout(false);
             this.pTenant.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picConEnded)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picUnContract)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picUnactive)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgTenant)).EndInit();
             this.pLordland.ResumeLayout(false);
             this.pLordland.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgLordland)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgListDoc)).EndInit();
             this.pListDoc.ResumeLayout(false);
             this.pListDoc.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConEnded)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picUnContract)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picUnactive)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bds)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bds1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbs2)).EndInit();
@@ -1869,6 +1974,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cTenIsConfirmed;
         private System.Windows.Forms.Button btCopyDoc;
         private System.Windows.Forms.Button btKntListTaxes;
+        private System.Windows.Forms.ToolStripMenuItem отчетПоВидамДеятельностиToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem отчетОЗанятостиСекцийToolStripMenuItem;
+        private System.Windows.Forms.Button btReportTenant;
+        private System.Windows.Forms.Button btDicDiscount;
+        private System.Windows.Forms.ToolStripMenuItem журналыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem журналНачисленияПениToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem журналПланОтчётовToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem журналСъездовToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem журналЕжемесячныхПлановToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem журналДолжниковToolStripMenuItem;
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using Nwuram.Framework.Settings.User;
+﻿using Nwuram.Framework.Settings.Connection;
+using Nwuram.Framework.Settings.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,6 +21,9 @@ namespace dllJournalPlaneReport
         public frmReportPlane()
         {
             InitializeComponent();
+            if (Config.hCntMain == null)
+                Config.hCntMain = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
+
             dgvData.AutoGenerateColumns = false;
             ToolTip tp = new ToolTip();
             tp.SetToolTip(btExit, "Выход");

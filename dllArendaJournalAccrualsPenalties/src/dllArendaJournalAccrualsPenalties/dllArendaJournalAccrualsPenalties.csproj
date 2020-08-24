@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{35BC31EC-4B13-43B8-9BEC-779259D3C9C9}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>dllArendaJournalAccrualsPenalties</RootNamespace>
     <AssemblyName>dllArendaJournalAccrualsPenalties</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -30,6 +30,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus">

@@ -300,6 +300,8 @@ namespace Arenda
             {
                 if (tbSections1.Rows.Count == 0)
                 {
+                    if (tEqVsSec == null) return;
+
                     while (tEqVsSec.Rows.Count != 0)
                         tEqVsSec.Rows.Remove(tEqVsSec.Rows[tEqVsSec.Rows.Count - 1]);
                 }
@@ -524,6 +526,7 @@ namespace Arenda
         
       private void FilterDataView()
       {
+            if (tSec == null) return;
         try
         {
           string Fstring, Fstring1, Fstring2;
@@ -1073,6 +1076,11 @@ namespace Arenda
         private void cbAllDevices_CheckedChanged(object sender, EventArgs e)
         {
             FilterDevices();
+        }
+
+        private void btReportArendSection_Click(object sender, EventArgs e)
+        {
+            new ArendaViewSection.frmView().ShowDialog();
         }
 
         private void dgv_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{28798789-9A07-4CAB-AA68-1445FC1B8279}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>JournalBorrower</RootNamespace>
     <AssemblyName>JournalBorrower</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -30,6 +30,9 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Framework">
@@ -102,6 +105,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\reload_8055.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\QkBB.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

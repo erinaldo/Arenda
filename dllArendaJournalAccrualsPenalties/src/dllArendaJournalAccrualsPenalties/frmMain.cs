@@ -1,4 +1,5 @@
 ﻿using Nwuram.Framework.Logging;
+using Nwuram.Framework.Settings.Connection;
 using Nwuram.Framework.Settings.User;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,10 @@ namespace dllArendaJournalAccrualsPenalties
         public frmMain()
         {
             InitializeComponent();
+
+            if(Config.hCntMain == null)
+                Config.hCntMain = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
+
             dgvData.AutoGenerateColumns = false;
 
             ToolTip tp = new ToolTip();
