@@ -61,10 +61,10 @@ from
 
 		left join Arenda.s_LandPlot lp on lp.id = a.id_Section and a.id_TypeContract = 3
 
-		left join Arenda.j_AdditionalDocuments ad on ad.id_Agreements = a.id and ad.id_TypeDoc = (select top(1) id from Arenda.s_TypeDoc where Rus_Name = 'Акт приёма-передачи')
+		left join Arenda.j_AdditionalDocuments ad on ad.id_Agreements = a.id and ad.id_TypeDoc = (select top(1) id from Arenda.s_TypeDoc where Rus_Name = 'Акт приёма-передачи') and ad.isActive = 1
 		left join Arenda.j_AdditionalAgreements aa on aa.id_Agreements = a.id
 where 
-	a.isConfirmed = 1
+	a.isConfirmed = 1 and a.fullPayed = 0
 order by a.id_Tenant asc
 
 DROP TABLE #tableDateSeal

@@ -57,7 +57,7 @@ BEGIN
 					left join Arenda.j_AdditionalDocuments ad on ad.id_Agreements = a.id and ad.id_TypeDoc = (select top(1) id from Arenda.s_TypeDoc where Rus_Name = 'Акт приёма-передачи')
 					left join Arenda.j_AdditionalAgreements aa on aa.id_Agreements = a.id
 			where 
-				a.isConfirmed = 1 
+				a.isConfirmed = 1  and a.fullPayed = 0 
 				--and a.id = 1053 
 				--and d.id_StatusDiscount = 2
 			order by 
@@ -73,7 +73,7 @@ BEGIN
 					inner join Arenda.j_Fines f on f.id_Agreements = a.id
 					inner join Arenda.s_AddPayment ad on ad.id = f.id_АddPayment
 			where 
-				a.isConfirmed = 1 and ad.isActive = 1
+				a.isConfirmed = 1 and ad.isActive = 1 and a.fullPayed = 0 
 
 			UNION ALL
 
@@ -82,7 +82,7 @@ BEGIN
 					inner join Arenda.j_Fines f on f.id_Agreements = a.id
 					inner join Arenda.j_PaymentContract pc on pc.id_Fines = f.id
 			where 
-				a.isConfirmed = 1
+				a.isConfirmed = 1 and a.fullPayed = 0 
 			) as a
 			GROUP BY 
 				a.id

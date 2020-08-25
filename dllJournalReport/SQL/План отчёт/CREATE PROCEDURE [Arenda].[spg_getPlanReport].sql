@@ -106,7 +106,7 @@ from
 
 		left join Arenda.j_PlanReport pr on pr.id_Agreements = a.id and pr.id_tPlanReport = @id_tPlanReport
 where 
-	a.isConfirmed = 1 and a.Start_Date<= @date and @date<=a.Stop_Date --and td.Rus_Name = 'Акт приёма-передачи' 
+	a.isConfirmed = 1 and a.Start_Date<= @date and @date<=a.Stop_Date and a.fullPayed = 0 --and td.Rus_Name = 'Акт приёма-передачи' 
 	and a.id_ObjectLease = @id_ObjectLease
 
 

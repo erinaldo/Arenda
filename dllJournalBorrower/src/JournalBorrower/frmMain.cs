@@ -268,7 +268,7 @@ namespace JournalBorrower
                     fBlocker.SaveControlsEnabledState(this);
                     fBlocker.SetControlsEnabled(this, false);
                     fWait = new Nwuram.Framework.UI.Forms.frmLoad();                    
-                    fWait.TextWait = "Загружаю!";
+                    fWait.TextWait = "Загружаю данные из базы!";
                     fWait.Show();
                 }, this);
 
@@ -283,6 +283,8 @@ namespace JournalBorrower
                     Config.DoOnUIThread(() =>
                     {
                         dgvData.DataSource = null;
+                        fWait.Dispose();
+                        fBlocker.RestoreControlEnabledState(this);
                     }, this); return;
                 }
 
@@ -321,7 +323,6 @@ namespace JournalBorrower
                         }
                     }
                 }
-                //System.Threading.Thread.Sleep(6000);
                 Config.DoOnUIThread(() =>
                 {
                     fWait.Dispose();
@@ -337,253 +338,264 @@ namespace JournalBorrower
 
         private void initDateType1(DataTable dtTmpData)
         {
-            dicPayMonth = new Dictionary<int, DataTable>();
-            DataTable dtResultPay = new DataTable();
-            dtResultPay.Columns.Add("id_Agreements", typeof(int));
-            dtResultPay.Columns.Add("date", typeof(DateTime));
-            dtResultPay.Columns.Add("sumOwe", typeof(decimal));
-            dtResultPay.Columns.Add("sumPay", typeof(decimal));
-            dtResultPay.Columns.Add("sumResult", typeof(decimal));
-            dtResultPay.AcceptChanges();
-
-            var groupIdAgreements = dtTmpData.AsEnumerable()
-                    .GroupBy(r => new { id_Agreements = r.Field<int>("id_Agreements") })
-                    .Select(s => new
-                    {
-                        s.Key.id_Agreements
-                    });
-
-            foreach (var gIdAgreements in groupIdAgreements)
+            try
             {
+                dicPayMonth = new Dictionary<int, DataTable>();
+                DataTable dtResultPay = new DataTable();
+                dtResultPay.Columns.Add("id_Agreements", typeof(int));
+                dtResultPay.Columns.Add("date", typeof(DateTime));
+                dtResultPay.Columns.Add("sumOwe", typeof(decimal));
+                dtResultPay.Columns.Add("sumPay", typeof(decimal));
+                dtResultPay.Columns.Add("sumResult", typeof(decimal));
+                dtResultPay.AcceptChanges();
 
-                dtResultPay.Clear();
-                //foreach()
-                EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable()
-                    .Where(r => r.Field<int>("id") == gIdAgreements.id_Agreements);
-
-                if (rowCollect.Count() > 0)
-                {
-                    DateTime dStart = (DateTime)rowCollect.First()["Start_Date"];
-                    DateTime dStop = (DateTime)rowCollect.First()["Stop_Date"];
-                    decimal Total_Sum = (decimal)rowCollect.First()["Total_Sum"];
-                    decimal Cost_of_Meter = (decimal)rowCollect.First()["Cost_of_Meter"];
-                    //decimal Total_Area = (decimal)rowCollect.First()["Total_Area"];
-
-                    DateTime _dateStop = DateTime.Now.Day < 25 ?
-                        new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1).AddDays(-1)
-                        : new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(2).AddDays(-1);
-
-                    //List<DateTime> listDate = new List<DateTime>();
-                    Dictionary<DateTime, decimal> dicDate = new Dictionary<DateTime, decimal>();                 
-
-                    //for (DateTime dI = dStart.Date; dI.Date <= dStop.Date; dI = dI.AddDays(1))
-                    for (DateTime dI = dStart.Date; dI.Date <= _dateStop.Date; dI = dI.AddDays(1))
-                    {
-                        if (dI.Date > dStop.Date)
-                            break;
-                        
-                        int days = DateTime.DaysInMonth(dI.Year, dI.Month);
-                        //Console.WriteLine(dI.Date.ToShortDateString());
-                        rowCollect = dtTmpData.AsEnumerable()
-                               .Where(r => r.Field<int>("id_Agreements") == gIdAgreements.id_Agreements &&
-                                r.Field<object>("id_discount") != null &&
-                                ((r.Field<DateTime>("DateStart").Date <= dI.Date && r.Field<object>("DateEnd") == null)
-                                || (r.Field<DateTime>("DateStart").Date <= dI.Date && dI.Date <= r.Field<DateTime>("DateEnd").Date))
-                               ).OrderByDescending(r => r.Field<DateTime>("DateStart"));
-
-                        if (rowCollect.Count() > 0)
+                var groupIdAgreements = dtTmpData.AsEnumerable()
+                        .GroupBy(r => new { id_Agreements = r.Field<int>("id_Agreements") })
+                        .Select(s => new
                         {
-                            int _id_TypeDiscount = (int)rowCollect.First()["id_TypeDiscount"];
-                            decimal _tmpDec = Total_Sum;
-                            //DateTime? dateMetr = null;
+                            s.Key.id_Agreements
+                        });
 
-                            EnumerableRowCollection<DataRow> rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 2);
-                            if (rows.Count() > 0)
+
+                int maxCount = groupIdAgreements.Count();
+                int cnt = 1;
+
+                foreach (var gIdAgreements in groupIdAgreements)
+                {
+
+                    int prc = (cnt * 100) / maxCount;
+
+                    Config.DoOnUIThread(() =>
+                    {
+                        fWait.TextWait = $"Идёт формирование данных: {prc} из 100%";
+                    }, this);
+
+
+                    dtResultPay.Clear();
+                    EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable()
+                        .Where(r => r.Field<int>("id") == gIdAgreements.id_Agreements);
+
+                    if (rowCollect.Count() > 0)
+                    {
+                        DateTime dStart = (DateTime)rowCollect.First()["Start_Date"];
+                        DateTime dStop = (DateTime)rowCollect.First()["Stop_Date"];
+                        decimal Total_Sum = (decimal)rowCollect.First()["Total_Sum"];
+                        decimal Cost_of_Meter = (decimal)rowCollect.First()["Cost_of_Meter"];
+
+                        DateTime _dateStop = DateTime.Now.Day < 25 ?
+                            new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1).AddDays(-1)
+                            : new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(2).AddDays(-1);
+
+                        Dictionary<DateTime, decimal> dicDate = new Dictionary<DateTime, decimal>();
+
+                        for (DateTime dI = dStart.Date; dI.Date <= _dateStop.Date; dI = dI.AddDays(1))
+                        {
+                            if (dI.Date > dStop.Date)
+                                break;
+
+                            int days = DateTime.DaysInMonth(dI.Year, dI.Month);
+                            rowCollect = dtTmpData.AsEnumerable()
+                                   .Where(r => r.Field<int>("id_Agreements") == gIdAgreements.id_Agreements &&
+                                    r.Field<object>("id_discount") != null &&
+                                    ((r.Field<DateTime>("DateStart").Date <= dI.Date && r.Field<object>("DateEnd") == null)
+                                    || (r.Field<DateTime>("DateStart").Date <= dI.Date && dI.Date <= r.Field<DateTime>("DateEnd").Date))
+                                   ).OrderByDescending(r => r.Field<DateTime>("DateStart"));
+
+                            if (rowCollect.Count() > 0)
                             {
-                                _tmpDec = (decimal)rows.First()["Discount"];
-                                _tmpDec = _tmpDec * (decimal)rows.First()["Total_Area"];
-                                //dateMetr = (DateTime)rowCollect.First()["DateStart"];
-                            }
-                            else
-                            {
-                                rows = rowCollect.Where(r => r.Field<object>("DateEnd") == null && r.Field<int>("id_TypeDiscount") == 2);
+                                int _id_TypeDiscount = (int)rowCollect.First()["id_TypeDiscount"];
+                                decimal _tmpDec = Total_Sum;
+
+                                EnumerableRowCollection<DataRow> rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 2);
                                 if (rows.Count() > 0)
                                 {
                                     _tmpDec = (decimal)rows.First()["Discount"];
                                     _tmpDec = _tmpDec * (decimal)rows.First()["Total_Area"];
-                                   // dateMetr = (DateTime)rowCollect.First()["DateStart"];
-                                }
-                            }
-
-                            if (_id_TypeDiscount != 2)
-                            {
-                                rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 1);
-                                if (rows.Count() > 0)
-                                {
-                                    _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
                                 }
                                 else
                                 {
-                                    rows = rowCollect.Where(r => r.Field<object>("DateEnd") == null && r.Field<int>("id_TypeDiscount") == 1);
+                                    rows = rowCollect.Where(r => r.Field<object>("DateEnd") == null && r.Field<int>("id_TypeDiscount") == 2);
                                     if (rows.Count() > 0)
                                     {
-                                        //if (dateMetr is null || dateMetr.Value.Date < ((DateTime)rows.First()["DateStart"]).Date)
+                                        _tmpDec = (decimal)rows.First()["Discount"];
+                                        _tmpDec = _tmpDec * (decimal)rows.First()["Total_Area"];
+                                    }
+                                }
+
+                                if (_id_TypeDiscount != 2)
+                                {
+                                    rows = rowCollect.Where(r => r.Field<object>("DateEnd") != null && r.Field<int>("id_TypeDiscount") == 1);
+                                    if (rows.Count() > 0)
+                                    {
+                                        _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
+                                    }
+                                    else
+                                    {
+                                        rows = rowCollect.Where(r => r.Field<object>("DateEnd") == null && r.Field<int>("id_TypeDiscount") == 1);
+                                        if (rows.Count() > 0)
+                                        {
                                             _tmpDec = _tmpDec - (_tmpDec * (decimal)rows.First()["Discount"]) / 100;
+                                        }
+                                    }
+                                }
+
+                                dicDate.Add(dI.Date, _tmpDec / days);
+                            }
+                            else
+                            {
+                                dicDate.Add(dI.Date, Total_Sum / days);
+                            }
+                        }
+
+
+
+                        Task<DataTable> task = Config.hCntMain.GetPaymentsForAgreemetns(gIdAgreements.id_Agreements);
+                        task.Wait();
+
+                        decimal pay = 0;
+
+                        if (task.Result != null && task.Result.Rows.Count > 0)
+                        {
+                            foreach (DataRow row in task.Result.Rows)
+                            {
+                                pay += (decimal)row["Summa"];
+                            }
+                        }
+
+
+                        for (DateTime dI = dStart.Date; dI.Date <= _dateStop.Date; dI = dI.AddMonths(1))
+                        {
+                            DateTime useDate = new DateTime(dI.Year, dI.Month, 1);
+
+                            IEnumerable<DateTime> rowDates = dicDate.Keys.AsEnumerable().Where(r => r.Month == dI.Month && r.Year == dI.Year);
+                            decimal sumMonth = 0;
+                            foreach (DateTime tt in rowDates)
+                            {
+                                sumMonth += dicDate[tt.Date];
+
+                            }
+
+                            sumMonth = Math.Round(sumMonth, 2);
+
+                            if (pay == 0)
+                            {
+                                dtResultPay.Rows.Add(gIdAgreements.id_Agreements, useDate, sumMonth, pay, sumMonth);
+                            }
+                            else
+                            if (sumMonth > pay)
+                            {
+                                dtResultPay.Rows.Add(gIdAgreements.id_Agreements, useDate, sumMonth, pay, sumMonth - pay);
+                                pay = 0;
+                            }
+                            else
+                            {
+                                dtResultPay.Rows.Add(gIdAgreements.id_Agreements, useDate, sumMonth, sumMonth, 0);
+                                pay = pay - sumMonth;
+                            }
+                        }
+
+                        var gSumItog = dtResultPay.AsEnumerable()
+                            .Where(r => r.Field<decimal>("sumResult") != 0)
+                            .GroupBy(r => new { id_Agreements = r.Field<int>("id_Agreements") })
+                            .Select(s => new
+                            {
+                                s.Key.id_Agreements,
+                                sumOwe = s.Sum(r => r.Field<decimal>("sumOwe")),
+                                sumPay = s.Sum(r => r.Field<decimal>("sumPay"))
+                            });
+
+                        if (gSumItog.Count() == 0)
+                        {
+                            EnumerableRowCollection<DataRow> rowMainCollect = dtData.AsEnumerable()
+                                        .Where(r => r.Field<int>("id") == gIdAgreements.id_Agreements);
+                            if (rowMainCollect.Count() > 0)
+                            {
+                                rowMainCollect.First()["SummaPaymentFine_1"] = ((decimal)0);
+                                rowMainCollect.First()["SummaFine_1"] = ((decimal)0);
+                                rowMainCollect.First()["SummaPenny_1"] = ((decimal)0);
+                                rowMainCollect.First()["PrcPenny_1"] = ((decimal)0);
+                                rowMainCollect.First()["SummaPaymentFine_1_filter"] = ((decimal)0);
+
+                            }
+                        }
+                        else
+                        {
+                            foreach (var gItog in gSumItog)
+                            {
+                                EnumerableRowCollection<DataRow> rowMainCollect = dtData.AsEnumerable()
+                                    .Where(r => r.Field<int>("id") == gItog.id_Agreements);
+                                if (rowMainCollect.Count() > 0)
+                                {
+                                    if (gItog.sumOwe == 0)
+                                    {
+                                        rowMainCollect.First()["SummaPaymentFine_1"] = gItog.sumOwe;
+                                        rowMainCollect.First()["SummaFine_1"] = gItog.sumPay;
+                                        rowMainCollect.First()["SummaPenny_1"] = gItog.sumOwe;
+                                        rowMainCollect.First()["PrcPenny_1"] = gItog.sumOwe;
+                                        rowMainCollect.First()["SummaPaymentFine_1_filter"] = gItog.sumOwe;
+                                    }
+                                    else
+                                    {
+                                        rowMainCollect.First()["SummaPaymentFine_1"] = gItog.sumOwe;
+                                        rowMainCollect.First()["SummaFine_1"] = gItog.sumPay;
+                                        rowMainCollect.First()["SummaPenny_1"] = (gItog.sumOwe - gItog.sumPay);
+                                        rowMainCollect.First()["PrcPenny_1"] = Math.Round(((gItog.sumOwe - gItog.sumPay) / gItog.sumOwe) * 100, 2);
+                                        rowMainCollect.First()["SummaPaymentFine_1_filter"] = gItog.sumOwe;
                                     }
                                 }
                             }
-
-                            dicDate.Add(dI.Date, _tmpDec / days);
-                        }
-                        else
-                        {
-                            dicDate.Add(dI.Date, Total_Sum / days);
-                        }
-                    }
-
-                  
-
-                    Task<DataTable> task = Config.hCntMain.GetPaymentsForAgreemetns(gIdAgreements.id_Agreements);
-                    task.Wait();
-
-                    decimal pay = 0;
-
-                    if (task.Result != null && task.Result.Rows.Count > 0)
-                    {
-                        foreach (DataRow row in task.Result.Rows)
-                        {
-                            pay += (decimal)row["Summa"];
-                        }
-                    }
-
-
-                    for (DateTime dI = dStart.Date; dI.Date <= _dateStop.Date; dI = dI.AddMonths(1))
-                    {
-                        DateTime useDate = new DateTime(dI.Year, dI.Month, 1);
-
-                        IEnumerable<DateTime> rowDates = dicDate.Keys.AsEnumerable().Where(r => r.Month == dI.Month && r.Year == dI.Year);
-                        decimal sumMonth = 0;
-                        foreach (DateTime tt in rowDates)
-                        {
-                            sumMonth += dicDate[tt.Date];
-
-                        }
-
-                        sumMonth = Math.Round(sumMonth, 2);
-
-                        if (pay == 0)
-                        {
-                            dtResultPay.Rows.Add(gIdAgreements.id_Agreements, useDate, sumMonth, pay, sumMonth);
-                        }
-                        else
-                        if (sumMonth > pay)
-                        {
-                            dtResultPay.Rows.Add(gIdAgreements.id_Agreements, useDate, sumMonth, pay, sumMonth - pay);
-                            pay = 0;
-                        }
-                        else
-                        {
-                            dtResultPay.Rows.Add(gIdAgreements.id_Agreements, useDate, sumMonth, sumMonth, 0);
-                            pay = pay - sumMonth;
-                        }
-
-                        //Console.WriteLine($"{dI.Month}.{dI.Year}  :  {sumMonth}");
-                    }
-
-                    var gSumItog = dtResultPay.AsEnumerable()
-                        .Where(r => r.Field<decimal>("sumResult") != 0)
-                        .GroupBy(r => new { id_Agreements = r.Field<int>("id_Agreements") })
-                        .Select(s => new
-                        {
-                            s.Key.id_Agreements,
-                            sumOwe = s.Sum(r => r.Field<decimal>("sumOwe")),
-                            sumPay = s.Sum(r => r.Field<decimal>("sumPay"))
-                        });
-
-                    if (gSumItog.Count() == 0)
-                    {
-                        EnumerableRowCollection<DataRow> rowMainCollect = dtData.AsEnumerable()
-                                    .Where(r => r.Field<int>("id") == gIdAgreements.id_Agreements);
-                        if (rowMainCollect.Count() > 0)
-                        {
-                            rowMainCollect.First()["SummaPaymentFine_1"] = ((decimal)0);
-                            rowMainCollect.First()["SummaFine_1"] = ((decimal)0);
-                            rowMainCollect.First()["SummaPenny_1"] = ((decimal)0);
-                            rowMainCollect.First()["PrcPenny_1"] = ((decimal)0);
-                            rowMainCollect.First()["SummaPaymentFine_1_filter"] = ((decimal)0);
-                            
                         }
                     }
                     else
+                    { 
+                    
+                    }
+                    //dicPayMonth.Add(gIdAgreements.id_Agreements, dtResultPay.Copy());
+                    cnt++;
+                }
+
+
+                var gSumData = dtData.AsEnumerable()
+                           .GroupBy(r => new { id_Tenant = r.Field<int>("id_Tenant") })
+                           .Select(s => new
+                           {
+                               s.Key.id_Tenant,
+                               SummaPaymentFine_1 = s.Sum(r => r.Field<object>("SummaPaymentFine_1") != null ? r.Field<decimal>("SummaPaymentFine_1") : 0),
+                               SummaFine_1 = s.Sum(r => r.Field<object>("SummaFine_1") != null ? r.Field<decimal>("SummaFine_1") : 0),
+                               SummaPenny_1 = s.Sum(r => r.Field<object>("SummaPenny_1") != null ? r.Field<decimal>("SummaPenny_1") : 0),
+                               Total_Sum = s.Sum(r => r.Field<object>("Total_Sum") != null ? r.Field<decimal>("Total_Sum") : 0)
+                           }); ;
+
+                if (gSumData.Count() > 0)
+                {
+                    foreach (var gSD in gSumData)
                     {
-                        foreach (var gItog in gSumItog)
+                        EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable()
+                            .Where(r => r.Field<int>("id_Tenant") == gSD.id_Tenant);
+
+                        if (rowCollect.Count() > 0)
                         {
-                            EnumerableRowCollection<DataRow> rowMainCollect = dtData.AsEnumerable()
-                                .Where(r => r.Field<int>("id") == gItog.id_Agreements);
-                            if (rowMainCollect.Count() > 0)
+                            foreach (DataRow row in rowCollect)
                             {
-                                if (gItog.sumOwe == 0)
-                                {
-                                    rowMainCollect.First()["SummaPaymentFine_1"] = gItog.sumOwe;
-                                    rowMainCollect.First()["SummaFine_1"] = gItog.sumPay;
-                                    rowMainCollect.First()["SummaPenny_1"] = gItog.sumOwe;
-                                    rowMainCollect.First()["PrcPenny_1"] = gItog.sumOwe;
-                                    rowMainCollect.First()["SummaPaymentFine_1_filter"] = gItog.sumOwe;
-                                }
+
+                                row["SummaPaymentFine_1"] = gSD.SummaPaymentFine_1;
+                                row["SummaFine_1"] = gSD.SummaFine_1;
+                                row["SummaPenny_1"] = gSD.SummaPenny_1;
+                                if (gSD.SummaPenny_1 == 0 || gSD.SummaPaymentFine_1 == 0)
+                                    row["PrcPenny_1"] = 0;
                                 else
-                                {
-                                    rowMainCollect.First()["SummaPaymentFine_1"] = gItog.sumOwe;
-                                    rowMainCollect.First()["SummaFine_1"] = gItog.sumPay;
-                                    rowMainCollect.First()["SummaPenny_1"] = (gItog.sumOwe - gItog.sumPay);
-                                    rowMainCollect.First()["PrcPenny_1"] = Math.Round(((gItog.sumOwe - gItog.sumPay) / gItog.sumOwe) * 100, 2);
-                                    rowMainCollect.First()["SummaPaymentFine_1_filter"] = gItog.sumOwe;
-                                }
+                                    row["PrcPenny_1"] = Math.Round(((gSD.SummaPenny_1) / gSD.SummaPaymentFine_1) * 100, 2);
+
+                                if (gSD.SummaPenny_1 > gSD.Total_Sum) row["PrcPenny_1"] = 100;
+
                             }
                         }
                     }
-                    //Console.WriteLine($"");
                 }
-                dicPayMonth.Add(gIdAgreements.id_Agreements, dtResultPay.Copy());
             }
-
-
-            var gSumData = dtData.AsEnumerable()
-                       //.Where(r => r.Field<decimal>("sumResult") != 0)
-                       .GroupBy(r => new { id_Tenant = r.Field<int>("id_Tenant") })
-                       .Select(s => new
-                       {
-                           s.Key.id_Tenant,
-                           SummaPaymentFine_1 = s.Sum(r => r.Field<decimal>("SummaPaymentFine_1")),
-                           SummaFine_1 = s.Sum(r => r.Field<decimal>("SummaFine_1")),
-                           SummaPenny_1 = s.Sum(r => r.Field<decimal>("SummaPenny_1")),
-                           Total_Sum = s.Sum(r => r.Field<decimal>("Total_Sum"))
-                       });
-
-            if (gSumData.Count() > 0)
-            {
-                foreach (var gSD in gSumData)
-                {
-                    EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable()
-                        .Where(r => r.Field<int>("id_Tenant") == gSD.id_Tenant);
-
-                    if (rowCollect.Count() > 0)
-                    {
-                        foreach (DataRow row in rowCollect)
-                        {
-
-                            row["SummaPaymentFine_1"] = gSD.SummaPaymentFine_1;
-                            row["SummaFine_1"] = gSD.SummaFine_1;
-                            row["SummaPenny_1"] = gSD.SummaPenny_1;
-                            if (gSD.SummaPenny_1 == 0 || gSD.SummaPaymentFine_1 == 0)
-                                row["PrcPenny_1"] = 0;
-                            else
-                                row["PrcPenny_1"] = Math.Round(((gSD.SummaPenny_1) / gSD.SummaPaymentFine_1) * 100, 2);
-
-                            if (gSD.SummaPenny_1 > gSD.Total_Sum) row["PrcPenny_1"] = 100;
-
-                        }
-                    }
-                }
+            catch (Exception ex)
+            { 
+            
             }
         }
 

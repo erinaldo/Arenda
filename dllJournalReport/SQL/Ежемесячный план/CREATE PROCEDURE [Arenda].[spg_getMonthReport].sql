@@ -68,6 +68,6 @@ from
 
 		left join Arenda.j_MonthPlan mp on mp.id_Agreements = a.id and mp.id_tMonthPlan = @id_tMonthPlane
 where 
-	a.isConfirmed = 1 and a.Start_Date<= @dateStart and @dateStart<=a.Stop_Date and a.id_ObjectLease = @id_ObjectLease
+	a.isConfirmed = 1 and a.Start_Date<= @dateStart and @dateStart<=a.Stop_Date and a.id_ObjectLease = @id_ObjectLease and a.fullPayed = 0
 	
 END
