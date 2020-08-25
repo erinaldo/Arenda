@@ -81,18 +81,43 @@ namespace dllJournalPlaneReport
             dgvData_Scroll(null, null);
         }
 
-        private void initDateType1()
+
+        Nwuram.Framework.UI.Service.EnableControlsServiceInProg fBlocker = new Nwuram.Framework.UI.Service.EnableControlsServiceInProg();
+        Nwuram.Framework.UI.Forms.frmLoad fWait;
+        private async Task initDateType1()
         {
-            DateTime _startDate = new DateTime(dtpStart.Value.Year, dtpStart.Value.Month, 1);
-            int id_objectLeaser = (int)cmbObject.SelectedValue;
+            //DateTime _startDate = new DateTime(dtpStart.Value.Year, dtpStart.Value.Month, 1);
+            //int id_objectLeaser = (int)cmbObject.SelectedValue;
+
+            DateTime _startDate = new DateTime();
+            int id_objectLeaser = 0;
+            Config.DoOnUIThread(() =>
+            {
+                _startDate = new DateTime(dtpStart.Value.Year, dtpStart.Value.Month, 1);
+                id_objectLeaser = (int)cmbObject.SelectedValue;
+
+                fBlocker.SaveControlsEnabledState(this);
+                fBlocker.SetControlsEnabled(this, false);
+                fWait = new Nwuram.Framework.UI.Forms.frmLoad();
+                fWait.TextWait = "Загружаю данные из базы!";
+                fWait.TopMost = false;
+                fWait.Owner = this;
+                fWait.Show();
+
+            }, this);
+
 
             Task<DataTable> task = Config.hCntMain.getPlanReport(_startDate.Date, id_objectLeaser);
             task.Wait();
 
             if (task.Result == null || task.Result.Rows.Count == 0)
             {
-                dgvData.DataSource = null;
-                return;
+                Config.DoOnUIThread(() =>
+                {
+                    dgvData.DataSource = null;
+                    fWait.Dispose();
+                    fBlocker.RestoreControlEnabledState(this);
+                }, this); return;
             }
 
             dtData = task.Result;
@@ -187,12 +212,25 @@ namespace dllJournalPlaneReport
                 decimal tmpResult = (decimal)row["ultraResult"] - (decimal)row["Included"];
                 row["Credit"] = tmpResult > 0 ? tmpResult : (decimal)0;
                 row["OverPayment"] = tmpResult < 0 ? Math.Abs(tmpResult) : (decimal)0;
+
+                row["timeLimit"] = $"{((DateTime)row["Start_Date"]).ToShortDateString()} - {((DateTime)row["Stop_Date"]).ToShortDateString()}";
             }
-            setFilter();
-            dgvData.DataSource = dtData;
-            isChangeValue = true;
-            statusElements(false);
-           
+            //setFilter();
+            //dgvData.DataSource = dtData;
+            //isChangeValue = true;
+            //statusElements(false);
+
+            Config.DoOnUIThread(() =>
+            {
+                fWait.Dispose();
+                fBlocker.RestoreControlEnabledState(this);
+
+                setFilter();
+                dgvData.DataSource = dtData;
+                isChangeValue = true;
+                statusElements(false);
+            }, this);
+
         }
 
         private void getdata()
@@ -219,6 +257,12 @@ namespace dllJournalPlaneReport
             }
 
             dtData = task.Result;
+
+            foreach (DataRow row in dtData.Rows)
+            {
+                row["timeLimit"] = $"{((DateTime)row["Start_Date"]).ToShortDateString()} - {((DateTime)row["Stop_Date"]).ToShortDateString()}";
+            }
+
             setFilter();
             dgvData.DataSource = dtData;
             statusElements(false);
@@ -483,7 +527,7 @@ namespace dllJournalPlaneReport
                 }
             }
 
-            initDateType1();
+            new Task(() => initDateType1()).Start();
         }
 
         private void btClear_Click(object sender, EventArgs e)

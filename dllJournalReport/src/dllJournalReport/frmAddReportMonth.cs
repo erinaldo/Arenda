@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -73,18 +74,42 @@ namespace dllJournalReport
             isAcceptData = false;
         }
 
-        private void initDateType1()
+
+        Nwuram.Framework.UI.Service.EnableControlsServiceInProg fBlocker = new Nwuram.Framework.UI.Service.EnableControlsServiceInProg();
+        Nwuram.Framework.UI.Forms.frmLoad fWait;
+
+        private async Task initDateType1()
         {
-            DateTime _startDate = new DateTime(dtpStart.Value.Year, dtpStart.Value.Month, 1);
-            int id_objectLeaser = (int)cmbObject.SelectedValue;
+            DateTime _startDate = new DateTime();
+            int id_objectLeaser = 0;
+            Config.DoOnUIThread(() =>
+            {
+                _startDate = new DateTime(dtpStart.Value.Year, dtpStart.Value.Month, 1);
+                id_objectLeaser = (int)cmbObject.SelectedValue;
+
+                fBlocker.SaveControlsEnabledState(this);
+                fBlocker.SetControlsEnabled(this, false);
+                fWait = new Nwuram.Framework.UI.Forms.frmLoad();
+                fWait.TextWait = "Загружаю данные из базы!";
+                fWait.TopMost = false;
+                fWait.Owner = this;
+                fWait.Show();
+
+            }, this);
+
+            //Thread.Sleep(5000);
 
             Task<DataTable> task = Config.hCntMain.getMonthReport(_startDate.Date, id_objectLeaser);
             task.Wait();
 
             if (task.Result == null || task.Result.Rows.Count == 0)
             {
-                dgvData.DataSource = null;
-                return;
+                Config.DoOnUIThread(() =>
+                {
+                    dgvData.DataSource = null;
+                    fWait.Dispose();
+                    fBlocker.RestoreControlEnabledState(this);
+                }, this); return;
             }
 
             dtData = task.Result;
@@ -103,11 +128,22 @@ namespace dllJournalReport
             dtResultPay.Columns.Add("sumResult", typeof(decimal));
             dtResultPay.AcceptChanges();
 
+            int maxCount = dtData.Rows.Count;
+            int cnt = 1;
+
             foreach (DataRow row in dtData.Rows)
             {
+
+                int prc = (cnt * 100) / maxCount;
+
+                Config.DoOnUIThread(() =>
+                {
+                    fWait.TextWait = $"Идёт формирование данных: {prc} из 100%";
+                }, this);
+
                 int id_Agreements = (int)row["id"];
                 bool isDiscount = false;
-       
+
                 task = Config.hCntMain.getTDiscount(id_Agreements);
                 task.Wait();
                 //if (task.Result == null || task.Result.Rows.Count == 0)
@@ -118,15 +154,11 @@ namespace dllJournalReport
                 DateTime dStart = (DateTime)row["Start_Date"];
                 DateTime dStop = (DateTime)row["Stop_Date"];
                 decimal Total_Sum = (decimal)row["Total_Sum"];
-                decimal Cost_of_Meter = (decimal)row["Cost_of_Meter"];
 
-                //DateTime _dateStop = DateTime.Now.Day < 25 ?
-                //    new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1).AddDays(-1)
-                //    : new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(2).AddDays(-1);
                 DateTime _dateStop = _startDate.AddMonths(1).AddDays(-1);
 
                 if (dStart.Date < _startDate.Date) dStart = _startDate.Date;
-                if (dStop.Date < _dateStop.Date)  _dateStop = dStop.Date;
+                if (dStop.Date < _dateStop.Date) _dateStop = dStop.Date;
 
                 Dictionary<DateTime, decimal> dicDate = new Dictionary<DateTime, decimal>();
 
@@ -202,13 +234,20 @@ namespace dllJournalReport
 
                 row["plane"] = sumMonth;
                 row["discount"] = isDiscount ? Math.Round(Total_Sum - sumMonth, 2) : 0;
-
+                row["timeLimit"] = $"{((DateTime)row["Start_Date"]).ToShortDateString()} - {((DateTime)row["Stop_Date"]).ToShortDateString()}";
             }
-            setFilter();
-            dgvData.DataSource = dtData;
-            isChangeValue = true;
-            statusElements(false);
-           
+
+
+            Config.DoOnUIThread(() =>
+            {
+                fWait.Dispose();
+                fBlocker.RestoreControlEnabledState(this);
+
+                setFilter();
+                dgvData.DataSource = dtData;
+                isChangeValue = true;
+                statusElements(false);
+            }, this);
         }
 
         private void getdata()
@@ -235,6 +274,13 @@ namespace dllJournalReport
             }
 
             dtData = task.Result;
+
+
+            foreach (DataRow row in dtData.Rows)
+            {
+                row["timeLimit"] = $"{((DateTime)row["Start_Date"]).ToShortDateString()} - {((DateTime)row["Stop_Date"]).ToShortDateString()}";
+            }
+
             setFilter();
             dgvData.DataSource = dtData;
             statusElements(false);
@@ -461,7 +507,8 @@ namespace dllJournalReport
                 }
             }
 
-            initDateType1();
+            new Task(() => initDateType1()).Start();
+
         }
 
         private void btClear_Click(object sender, EventArgs e)

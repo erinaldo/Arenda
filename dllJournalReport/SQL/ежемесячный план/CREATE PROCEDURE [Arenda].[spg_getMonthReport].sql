@@ -35,7 +35,7 @@ select
 	case when a.id_TypeContract = 2 then null else a.Total_Area end as Total_Area,--a.Total_Area,
 	case when a.id_TypeContract = 2 then null else a.Cost_of_Meter end as Cost_of_Meter, --a.Cost_of_Meter,
 	isnull(mp.SummaContract,a.Total_Sum) as Total_Sum,
-		isnull(ad.DateDocument,a.Start_Date) as Start_Date,--ad.DateDocument as Start_Date,
+	isnull(ad.DateDocument,a.Start_Date) as Start_Date,--ad.DateDocument as Start_Date,
 	--isnull(ad.Date_of_Departure,a.Stop_Date) as Stop_Date,
 	[Arenda].[fGetDateEndAgreements](a.id) as Stop_Date,
 	mp.Discount as discount,
