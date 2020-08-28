@@ -7,7 +7,7 @@ GO
 -- Create date: 2020-07-14
 -- Description:	Создание или удаления тела План отчёта
 -- =============================================
-CREATE PROCEDURE [Arenda].[spg_setPlanReport]		 
+ALTER PROCEDURE [Arenda].[spg_setPlanReport]		 
 	@id_tPlanReport int,
 	@id_Agreements int,
 	@SummaContract numeric(16,2),
@@ -67,7 +67,7 @@ ELSE
 	
 END TRY 
 BEGIN CATCH 
-	SELECT -9999 as id
+	SELECT -9999 as id,ERROR_MESSAGE() as msg
 	return;
 END CATCH
 	

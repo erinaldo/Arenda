@@ -27,7 +27,7 @@ select f.id_Agreements,sum(f.Summa) as summa INTO #tmpFinesOver from Arenda.j_Fi
 
 DECLARE @idPretPlanReport int,@idPreMonthPlane int
 select  @idPretPlanReport  = id from Arenda.j_tPlanReport where PeriodMonthPlan = dateadd(month,-1,@date)
-select  @idPreMonthPlane  = id from Arenda.j_tMonthPlan where PeriodMonthPlan = dateadd(month,-1,@date)
+select  @idPreMonthPlane  = id from Arenda.j_tMonthPlan where PeriodMonthPlan = @date -- dateadd(month,-1,@date)
 
 
 
@@ -45,7 +45,7 @@ select
 	--tc.TypeContract,	
 	--a.id_TypeContract,
 	b.Abbreviation as Build,
-	bp.Abbreviation as [Floor],
+	f.Abbreviation as [Floor],
 	case 
 		when a.id_TypeContract = 1 then s.cName
 		when a.id_TypeContract = 2 then rp.NumberPlace
@@ -66,7 +66,8 @@ select
 	isnull(case when @id_tPlanReport = 0 then tpco.summa else pr.Included end,0) as Included,	
 	isnull(case when @id_tPlanReport = 0 then 0 else pr.Credit end,0) as  Credit,
 	isnull(case when @id_tPlanReport = 0 then 0 else pr.OverPayment end,0) as OverPayment,
-	isnull(ad.DateDocument,a.Start_Date) as Start_Date,
+	dateadd(day,isnull(aa.RentalVacation,0),isnull(ad.DateDocument,a.Start_Date)) as Start_Date,
+	--isnull(ad.DateDocument,a.Start_Date) as Start_Date,
 	--isnull(ad.Date_of_Departure,a.Stop_Date) as Stop_Date
 	[Arenda].[fGetDateEndAgreements](a.id) as Stop_Date
 INTO 
@@ -74,6 +75,8 @@ INTO
 from 
 	Arenda.j_Agreements a
 		inner join Arenda.s_TypeContract tc on tc.id = a.id_TypeContract
+		left join Arenda.j_AdditionalAgreements aa on aa.id_Agreements = a.id
+
 
 		left join Arenda.j_AdditionalDocuments ad on ad.id_Agreements = a.id and ad.id_TypeDoc = (select top(1) td.id from Arenda.s_TypeDoc td  where td.Rus_Name = 'Акт приёма-передачи')
 		--left join Arenda.j_AdditionalDocuments ad on ad.id_Agreements = a.id
@@ -106,9 +109,10 @@ from
 
 		left join Arenda.j_PlanReport pr on pr.id_Agreements = a.id and pr.id_tPlanReport = @id_tPlanReport
 where 
-	a.isConfirmed = 1 and a.Start_Date<= @date and @date<=a.Stop_Date and a.fullPayed = 0 --and td.Rus_Name = 'Акт приёма-передачи' 
+	a.isConfirmed = 1 --and a.Start_Date<= @date and @date<=a.Stop_Date 
+	and a.fullPayed = 0 --and td.Rus_Name = 'Акт приёма-передачи' 
 	and a.id_ObjectLease = @id_ObjectLease
-
+	and (@id_tPlanReport = 0 or pr.id is not null)
 
 SELECT 
 	t.id,
@@ -124,7 +128,7 @@ SELECT
 	t.Total_Area,
 	t.Cost_of_Meter,
 	t.Total_Sum,
-	isnull(t.Total_Sum,0) - isnull(t.prePlan,0) as Discount,
+	isnull(t.Total_Sum,0) - isnull(t.EndPlan,0) as Discount,
 	t.sumPayCont,
 	t.preCredit,
 	t.preOverPayment,
@@ -144,6 +148,10 @@ SELECT
 	t.Stop_Date
 FROM 
 	#tmpTable t
+where
+		--YEAR(t.Start_Date)<= YEAR(@date) and MONTH(t.Start_Date)<= MONTH(@date)  and YEAR(t.Stop_Date)>= YEAR(@date) and MONTH(t.Stop_Date)>= MONTH(@date)
+		t.Stop_Date>=@date and DATEADD(day,-1, DATEADD(month,1,@date))>=t.Start_Date
+
 
 DROP TABLE #tmpPayContr,#tmpPayContrOver,#tmpFines,#tmpFinesOver,#tmpTable
 

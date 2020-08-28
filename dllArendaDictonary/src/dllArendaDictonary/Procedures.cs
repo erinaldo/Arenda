@@ -496,6 +496,27 @@ namespace dllArendaDictonary
             return dtResult;
         }
 
+        public async Task<DataTable> setTDiscount(int id, int id_Agreements, DateTime dateStart, DateTime? dateEnd, int id_TypeDiscount, int id_StatusDiscount, decimal discount, int result = 0, bool isDel = false)
+        {
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(id_Agreements);
+            ap.Add(dateStart);
+            ap.Add(dateEnd);
+            ap.Add(id_TypeDiscount);
+            ap.Add(id_StatusDiscount);
+            ap.Add(discount);
+            ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
+            ap.Add(result);
+            ap.Add(isDel);
+
+
+            return executeProcedure("Arenda.spg_setTDiscount",
+              new string[10] { "@id", "@id_Agreements", "@dateStart", "@dateEnd", "@id_TypeDiscount", "@id_StatusDiscount", "@Discount", "@id_user", "@result", "@isDel" },
+              new DbType[10] { DbType.Int32, DbType.Int32, DbType.Date, DbType.Date, DbType.Int32, DbType.Int32, DbType.Decimal, DbType.Int32, DbType.Int32, DbType.Boolean }, ap);
+        }
+
+
         public async Task<DataTable> setDiscountValue(int id, int id_tDiscount, decimal? PercentDiscount, decimal? DiscountPrice, decimal? Price, decimal? TotalPrice, bool isActive, bool isDel, int result)
         {
             ap.Clear();

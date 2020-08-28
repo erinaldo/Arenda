@@ -266,20 +266,34 @@ namespace dllArendaDictonary.jDiscount
         {
             if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
             {
-                int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
-                
-                DateTime dateStart = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
-                DateTime? dateEnd = null;
-                if (dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] != DBNull.Value)
-                    dateEnd = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
-                int id_TypeAgreements = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeAgreements"];
+                //int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+
+                //DateTime dateStart = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
+                //DateTime? dateEnd = null;
+                //if (dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] != DBNull.Value)
+                //    dateEnd = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
+                //int id_TypeAgreements = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeAgreements"];
+                //int id_TypeDiscount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
+                //int id_TypeTenant = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeTenant"];
+                //int id_StatusDiscount = 2;
+
+                int id_discount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+                int _id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_Agreements"];
+                DateTime dStart = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
+                DateTime? dEnd = null;
+                if (dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] != DBNull.Value) dEnd = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
                 int id_TypeDiscount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
-                int id_TypeTenant = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeTenant"];
-                int id_StatusDiscount = 2;
+                decimal discount = (decimal)dtData.DefaultView[dgvData.CurrentRow.Index]["Discount"];
+                int id_Status = 2;
+
+                //DataTable dtResult = _proc.setTDiscount(id_discount, _id, dStart, dEnd, id_TypeDiscount, id_Status, discount);
+
+
 
                 if (DialogResult.No == MessageBox.Show("Подтвердить скидку?", "Подтверждение скидки", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) return;                        
 
-                Task<DataTable> task = Config.hCntMain.setTDiscount(id, dateStart, dateEnd, id_TypeDiscount, id_TypeTenant, id_TypeAgreements, id_StatusDiscount, true, false, 0);
+                //Task<DataTable> task = Config.hCntMain.setTDiscount(id, dateStart, dateEnd, id_TypeDiscount, id_TypeTenant, id_TypeAgreements, id_StatusDiscount, true, false, 0);
+                Task<DataTable> task = Config.hCntMain.setTDiscount(id_discount, _id, dStart, dEnd, id_TypeDiscount, id_Status, discount);
                 task.Wait();
 
                 DataTable dtResult = task.Result;
@@ -337,20 +351,32 @@ namespace dllArendaDictonary.jDiscount
         {
             if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
             {
-                int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+                //int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
 
-                DateTime dateStart = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
-                DateTime? dateEnd = null;
-                if (dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] != DBNull.Value)
-                    dateEnd = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
-                int id_TypeAgreements = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeAgreements"];
+                //DateTime dateStart = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
+                //DateTime? dateEnd = null;
+                //if (dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] != DBNull.Value)
+                //    dateEnd = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
+                //int id_TypeAgreements = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeAgreements"];
+                //int id_TypeDiscount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
+                //int id_TypeTenant = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeTenant"];
+                //int id_StatusDiscount = 3;
+
+
+                int id_discount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+                int _id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_Agreements"];
+                DateTime dStart = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
+                DateTime? dEnd = null;
+                if (dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] != DBNull.Value) dEnd = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
                 int id_TypeDiscount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
-                int id_TypeTenant = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeTenant"];
-                int id_StatusDiscount = 3;
+                decimal discount = (decimal)dtData.DefaultView[dgvData.CurrentRow.Index]["Discount"];
+                int id_Status = 3;
 
                 if (DialogResult.No == MessageBox.Show("Отклонить скидку?", "Отклонение скидки", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) return;
 
-                Task<DataTable> task = Config.hCntMain.setTDiscount(id, dateStart, dateEnd, id_TypeDiscount, id_TypeTenant, id_TypeAgreements, id_StatusDiscount, true, false, 0);
+                //Task<DataTable> task = Config.hCntMain.setTDiscount(id, dateStart, dateEnd, id_TypeDiscount, id_TypeTenant, id_TypeAgreements, id_StatusDiscount, true, false, 0);
+                Task<DataTable> task = Config.hCntMain.setTDiscount(id_discount, _id, dStart, dEnd, id_TypeDiscount, id_Status, discount);
+
                 task.Wait();
 
                 DataTable dtResult = task.Result;

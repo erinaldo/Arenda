@@ -550,7 +550,7 @@ namespace JournalBorrower
                     { 
                     
                     }
-                    //dicPayMonth.Add(gIdAgreements.id_Agreements, dtResultPay.Copy());
+                    dicPayMonth.Add(gIdAgreements.id_Agreements, dtResultPay.Copy());
                     cnt++;
                 }
 
@@ -710,7 +710,8 @@ namespace JournalBorrower
             if (rbPayDoc.Checked && e.RowIndex != -1)
             {
                 int id = (int)dtData.DefaultView[e.RowIndex]["id"];
-                new frmView() { dt = dicPayMonth[id] }.ShowDialog();
+                if (dicPayMonth.ContainsKey(id))
+                    new frmView() { dt = dicPayMonth[id] }.ShowDialog();
             }
         }
     }

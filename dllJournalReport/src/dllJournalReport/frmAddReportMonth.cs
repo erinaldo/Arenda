@@ -235,6 +235,7 @@ namespace dllJournalReport
                 row["plane"] = sumMonth;
                 row["discount"] = isDiscount ? Math.Round(Total_Sum - sumMonth, 2) : 0;
                 row["timeLimit"] = $"{((DateTime)row["Start_Date"]).ToShortDateString()} - {((DateTime)row["Stop_Date"]).ToShortDateString()}";
+                row["discount"] = (decimal)row["Total_Sum"] - (decimal)row["plane"];
             }
 
 
@@ -422,11 +423,13 @@ namespace dllJournalReport
 
                     if ((int)dtResult.Rows[0]["id"] == -9999)
                     {
-                        MessageBox.Show("Ошибка выполнения процедуры", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"Ошибка выполнения процедуры", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                         return;
                     }
 
-                    task = Config.hCntMain.setTMonthPlan(_id, _startDate.Date, (int)cmbObject.SelectedValue, false, true, 1);
+                    //task = Config.hCntMain.setTMonthPlan(_id, _startDate.Date, (int)cmbObject.SelectedValue, false, true, 2);
+                    task = Config.hCntMain.setMonthPlan(_id, 0, 0, 0, 0, true);
                     task.Wait();
                 }
             }

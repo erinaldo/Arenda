@@ -15,7 +15,7 @@ AS
 BEGIN
 	SET NOCOUNT ON;
 
-
+select * from (
 select 
 	a.id,
 	torg.Abbreviation+' ' + lt.cName as nameLandLord,
@@ -26,7 +26,7 @@ select
 	a.Agreement,	
 	a.id_TypeContract,
 	b.Abbreviation as Build,
-	bp.Abbreviation as [Floor],
+	f.Abbreviation as [Floor],
 	case 
 		when a.id_TypeContract = 1 then s.cName
 		when a.id_TypeContract = 2 then rp.NumberPlace
@@ -35,7 +35,8 @@ select
 	case when a.id_TypeContract = 2 then null else a.Total_Area end as Total_Area,--a.Total_Area,
 	case when a.id_TypeContract = 2 then null else a.Cost_of_Meter end as Cost_of_Meter, --a.Cost_of_Meter,
 	isnull(mp.SummaContract,a.Total_Sum) as Total_Sum,
-	isnull(ad.DateDocument,a.Start_Date) as Start_Date,--ad.DateDocument as Start_Date,
+	dateadd(day,isnull(aa.RentalVacation,0),isnull(ad.DateDocument,a.Start_Date)) as Start_Date,
+	--isnull(ad.DateDocument,a.Start_Date) as Start_Date,--ad.DateDocument as Start_Date,
 	--isnull(ad.Date_of_Departure,a.Stop_Date) as Stop_Date,
 	[Arenda].[fGetDateEndAgreements](a.id) as Stop_Date,
 	mp.Discount as discount,
@@ -45,9 +46,10 @@ select
 from 
 	Arenda.j_Agreements a
 		inner join Arenda.s_TypeContract tc on tc.id = a.id_TypeContract
+		left join Arenda.j_AdditionalAgreements aa on aa.id_Agreements = a.id
 
-		inner join Arenda.j_AdditionalDocuments ad on ad.id_Agreements = a.id 
-		inner join Arenda.s_TypeDoc td on td.id = ad.id_TypeDoc and td.Rus_Name = 'Акт приёма-передачи' 
+		left join Arenda.j_AdditionalDocuments ad on ad.id_Agreements = a.id and ad.id_TypeDoc = (select top(1) td.id from Arenda.s_TypeDoc td  where td.Rus_Name = 'Акт приёма-передачи')
+		left join Arenda.s_TypeDoc td on td.id = ad.id_TypeDoc and td.Rus_Name = 'Акт приёма-передачи' 
 
 		left join Arenda.s_Landlord_Tenant lt on lt.id = a.id_Landlord
 		left join Arenda.s_Type_of_Organization torg on torg.id = lt.id_Type_Of_Organization
@@ -68,6 +70,13 @@ from
 
 		left join Arenda.j_MonthPlan mp on mp.id_Agreements = a.id and mp.id_tMonthPlan = @id_tMonthPlane
 where 
-	a.isConfirmed = 1 and a.Start_Date<= @dateStart and @dateStart<=a.Stop_Date and a.id_ObjectLease = @id_ObjectLease and a.fullPayed = 0
-	
+	a.isConfirmed = 1 
+	--and a.Start_Date<= @dateStart and @dateStart<=a.Stop_Date 
+	and a.id_ObjectLease = @id_ObjectLease and a.fullPayed = 0 and (@id_tMonthPlane = 0 or mp.id is not null)
+	and (@id_tMonthPlane = 0 or mp.id is not null)
+) as t
+where
+		--YEAR(t.Start_Date)<= YEAR(@dateStart) and MONTH(t.Start_Date)<= MONTH(@dateStart)  and YEAR(t.Stop_Date)>= YEAR(@dateStart) and MONTH(t.Stop_Date)>= MONTH(@dateStart)
+		t.Stop_Date>=@dateStart and DATEADD(day,-1, DATEADD(month,1,@dateStart))>=t.Start_Date
+
 END

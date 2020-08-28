@@ -85,8 +85,10 @@ ELSE
 					END
 				ELSE
 					BEGIN
+
 						DELETE FROM Arenda.j_MonthPlan where id_tMonthPlan = @id
-						DELETE FROM Arenda.j_tMonthPlan where id = @id
+						if(@result = 1)
+							DELETE FROM Arenda.j_tMonthPlan where id = @id
 
 						Select @id as id
 					END
@@ -95,7 +97,7 @@ ELSE
 		
 END TRY 
 BEGIN CATCH 
-	SELECT -9999 as id
+	SELECT -9999 as id,ERROR_MESSAGE() as msg
 	return;
 END CATCH
 	

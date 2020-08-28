@@ -525,7 +525,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Ежемесячный план";
+            this.Text = "План отчёт";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddReportMonth_FormClosing);
             this.Load += new System.EventHandler(this.frmAddReportMonth_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();

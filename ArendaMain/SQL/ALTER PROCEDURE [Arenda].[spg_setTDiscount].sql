@@ -28,21 +28,21 @@ BEGIN TRY
 
 			if( @dateStart is not null and @dateEnd is not null)
 				BEGIN
-					if exists(select top(1) id from Arenda.j_tDiscount where id_Agreements = @id_Agreements and id_StatusDiscount in (1,2) and DateStart<=@dateStart and @dateStart<=DateEnd and DateEnd is not null)
+					if exists(select top(1) id from Arenda.j_tDiscount where id_Agreements = @id_Agreements and id_StatusDiscount in (1,2) and DateStart<=@dateStart and @dateStart<=DateEnd and DateEnd is not null and id  <> @id)
 						begin select -2 as id;return; end
 
-					if exists(select top(1) id from Arenda.j_tDiscount where id_Agreements = @id_Agreements and id_StatusDiscount in (1,2) and DateStart<=@dateEnd and @dateEnd<=DateEnd and DateEnd is not null)
+					if exists(select top(1) id from Arenda.j_tDiscount where id_Agreements = @id_Agreements and id_StatusDiscount in (1,2) and DateStart<=@dateEnd and @dateEnd<=DateEnd and DateEnd is not null and id  <> @id)
 						begin select -2 as id;return; end
 
-					if exists(select top(1) id from Arenda.j_tDiscount where id_Agreements = @id_Agreements and id_StatusDiscount in (1,2) and @dateStart<= DateStart and DateStart<=@dateEnd and DateEnd is not null)
+					if exists(select top(1) id from Arenda.j_tDiscount where id_Agreements = @id_Agreements and id_StatusDiscount in (1,2) and @dateStart<= DateStart and DateStart<=@dateEnd and DateEnd is not null and id  <> @id)
 						begin select -2 as id;return; end
 
-					if exists(select top(1) id from Arenda.j_tDiscount where id_Agreements = @id_Agreements and id_StatusDiscount in (1,2) and @dateStart<= DateEnd and DateEnd<=@dateEnd and DateEnd is not null)
+					if exists(select top(1) id from Arenda.j_tDiscount where id_Agreements = @id_Agreements and id_StatusDiscount in (1,2) and @dateStart<= DateEnd and DateEnd<=@dateEnd and DateEnd is not null and id  <> @id)
 						begin select -2 as id;return; end
 				END
 			ELSE IF @dateStart is not null and @dateEnd is null
 				BEGIN
-					if exists(select top(1) id from Arenda.j_tDiscount where id_Agreements = @id_Agreements and id_StatusDiscount in (1,2) and DateStart = @dateStart  and DateEnd is null)
+					if exists(select top(1) id from Arenda.j_tDiscount where id_Agreements = @id_Agreements and id_StatusDiscount in (1,2) and DateStart = @dateStart  and DateEnd is null and id  <> @id )
 						begin select -2 as id;return; end
 				END
 

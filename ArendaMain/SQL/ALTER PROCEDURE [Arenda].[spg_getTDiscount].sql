@@ -47,7 +47,8 @@ ELSE
 			lt.cName as nameLandLord,
 			a.Agreement,
 			a.id_TypeContract,
-			tc.TypeContract
+			tc.TypeContract,
+			d.id_Agreements
 			
 		from 
 			[Arenda].[j_tDiscount] d
