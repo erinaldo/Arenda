@@ -57,6 +57,6 @@ ELSE
 				left join Arenda.j_Agreements a on a.id = d.id_Agreements
 				left join Arenda.s_TypeContract tc on tc.id = a.id_TypeContract
 				left join Arenda.s_ObjectLease ol on ol.id = a.id_ObjectLease
-				left join Arenda.s_Landlord_Tenant lt on lt.id = a.id_Landlord
+				left join Arenda.s_Landlord_Tenant lt on lt.id = a.id_Tenant
 	END
 END

@@ -154,6 +154,7 @@ namespace dllJournalReport
                 DateTime dStart = (DateTime)row["Start_Date"];
                 DateTime dStop = (DateTime)row["Stop_Date"];
                 decimal Total_Sum = (decimal)row["Total_Sum"];
+                decimal Phone = (decimal)row["Phone"];
 
                 DateTime _dateStop = _startDate.AddMonths(1).AddDays(-1);
 
@@ -186,7 +187,7 @@ namespace dllJournalReport
                         if (rows.Count() > 0)
                         {
                             _tmpDec = (decimal)rows.First()["Discount"];
-                            _tmpDec = _tmpDec * (decimal)row["Total_Area"];
+                            _tmpDec = _tmpDec * (decimal)row["Total_Area"]+ Phone;
                         }
                         else
                         {
@@ -194,7 +195,7 @@ namespace dllJournalReport
                             if (rows.Count() > 0)
                             {
                                 _tmpDec = (decimal)rows.First()["Discount"];
-                                _tmpDec = _tmpDec * (decimal)row["Total_Area"];
+                                _tmpDec = _tmpDec * (decimal)row["Total_Area"]+ Phone;
                             }
                         }
 
@@ -230,10 +231,10 @@ namespace dllJournalReport
 
                 }
 
-                sumMonth = Math.Round(sumMonth, 2);
+                sumMonth = Math.Round(sumMonth, 0);
 
                 row["plane"] = sumMonth;
-                row["discount"] = isDiscount ? Math.Round(Total_Sum - sumMonth, 2) : 0;
+                row["discount"] = isDiscount ? Math.Round(Total_Sum - sumMonth, 0) : 0;
                 row["timeLimit"] = $"{((DateTime)row["Start_Date"]).ToShortDateString()} - {((DateTime)row["Stop_Date"]).ToShortDateString()}";
                 row["discount"] = (decimal)row["Total_Sum"] - (decimal)row["plane"];
             }

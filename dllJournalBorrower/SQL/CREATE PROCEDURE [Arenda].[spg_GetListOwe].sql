@@ -43,7 +43,8 @@ select
 	--a.Start_Date,
 	dateadd(day,isnull(aa.RentalVacation,0),isnull(ad.DateDocument,a.Start_Date)) as Start_Date,
 	[Arenda].[fGetDateEndAgreements](a.id) as Stop_Date,-- a.Stop_Date,
-	a.id_Tenant
+	a.id_Tenant,
+	isnull(a.Phone,0) as Phone
 from
 	Arenda.j_Agreements a 
 		inner join Arenda.s_Landlord_Tenant lt on lt.id = a.id_Tenant

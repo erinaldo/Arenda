@@ -170,12 +170,12 @@ namespace JournalBorrower
             indexRow++;
 
             
-            var groupByPost = dtData.DefaultView.ToTable().AsEnumerable().GroupBy(r => new { id = r.Field<int>("id") })
+            var groupByPost = dtData.DefaultView.ToTable().AsEnumerable().GroupBy(r => new { id = r.Field<int>("id_Tenant") })
                 .Select(s => new { s.Key.id });
 
             foreach (var gPost in groupByPost)
             {
-                EnumerableRowCollection<DataRow> rowCollect = dtData.DefaultView.ToTable().AsEnumerable().Where(r => r.Field<int>("id") == gPost.id);
+                EnumerableRowCollection<DataRow> rowCollect = dtData.DefaultView.ToTable().AsEnumerable().Where(r => r.Field<int>("id_Tenant") == gPost.id);
                 int startMergRow = indexRow;
 
                 foreach (DataRow row in rowCollect)
@@ -319,7 +319,7 @@ namespace JournalBorrower
                             rowCollect.First()["SummaPaymentFine_2"] = row["SummaPaymentFine"];
                             rowCollect.First()["SummaFine_2"] = row["SummaFine"];
                             rowCollect.First()["SummaPenny_2"] = row["SummaPenny"];
-                            rowCollect.First()["PrcPenny_2"] = Math.Round((decimal)row["PrcPenny"], 2);
+                            rowCollect.First()["PrcPenny_2"] = Math.Round((decimal)row["PrcPenny"], 0);
                         }
                     }
                 }
@@ -381,6 +381,7 @@ namespace JournalBorrower
                         DateTime dStop = (DateTime)rowCollect.First()["Stop_Date"];
                         decimal Total_Sum = (decimal)rowCollect.First()["Total_Sum"];
                         decimal Cost_of_Meter = (decimal)rowCollect.First()["Cost_of_Meter"];
+                        decimal Phone = (decimal)rowCollect.First()["Phone"];
 
                         DateTime _dateStop = DateTime.Now.Day < 25 ?
                             new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1).AddDays(-1)
@@ -410,7 +411,7 @@ namespace JournalBorrower
                                 if (rows.Count() > 0)
                                 {
                                     _tmpDec = (decimal)rows.First()["Discount"];
-                                    _tmpDec = _tmpDec * (decimal)rows.First()["Total_Area"];
+                                    _tmpDec = _tmpDec * (decimal)rows.First()["Total_Area"]+ Phone;
                                 }
                                 else
                                 {
@@ -418,7 +419,7 @@ namespace JournalBorrower
                                     if (rows.Count() > 0)
                                     {
                                         _tmpDec = (decimal)rows.First()["Discount"];
-                                        _tmpDec = _tmpDec * (decimal)rows.First()["Total_Area"];
+                                        _tmpDec = _tmpDec * (decimal)rows.First()["Total_Area"]+ Phone;
                                     }
                                 }
 
@@ -475,7 +476,7 @@ namespace JournalBorrower
 
                             }
 
-                            sumMonth = Math.Round(sumMonth, 2);
+                            sumMonth = Math.Round(sumMonth, 0);
 
                             if (pay == 0)
                             {
@@ -500,7 +501,7 @@ namespace JournalBorrower
                             .Select(s => new
                             {
                                 s.Key.id_Agreements,
-                                sumOwe = s.Sum(r => r.Field<decimal>("sumOwe")),
+                                sumOwe = Math.Round(s.Sum(r => r.Field<decimal>("sumOwe")),0),
                                 sumPay = s.Sum(r => r.Field<decimal>("sumPay"))
                             });
 
@@ -515,7 +516,6 @@ namespace JournalBorrower
                                 rowMainCollect.First()["SummaPenny_1"] = ((decimal)0);
                                 rowMainCollect.First()["PrcPenny_1"] = ((decimal)0);
                                 rowMainCollect.First()["SummaPaymentFine_1_filter"] = ((decimal)0);
-
                             }
                         }
                         else
@@ -539,7 +539,7 @@ namespace JournalBorrower
                                         rowMainCollect.First()["SummaPaymentFine_1"] = gItog.sumOwe;
                                         rowMainCollect.First()["SummaFine_1"] = gItog.sumPay;
                                         rowMainCollect.First()["SummaPenny_1"] = (gItog.sumOwe - gItog.sumPay);
-                                        rowMainCollect.First()["PrcPenny_1"] = Math.Round(((gItog.sumOwe - gItog.sumPay) / gItog.sumOwe) * 100, 2);
+                                        rowMainCollect.First()["PrcPenny_1"] = Math.Round(((gItog.sumOwe - gItog.sumPay) / gItog.sumOwe) * 100, 0);
                                         rowMainCollect.First()["SummaPaymentFine_1_filter"] = gItog.sumOwe;
                                     }
                                 }
@@ -584,7 +584,7 @@ namespace JournalBorrower
                                 if (gSD.SummaPenny_1 == 0 || gSD.SummaPaymentFine_1 == 0)
                                     row["PrcPenny_1"] = 0;
                                 else
-                                    row["PrcPenny_1"] = Math.Round(((gSD.SummaPenny_1) / gSD.SummaPaymentFine_1) * 100, 2);
+                                    row["PrcPenny_1"] = Math.Round(((gSD.SummaPenny_1) / gSD.SummaPaymentFine_1) * 100, 0);
 
                                 if (gSD.SummaPenny_1 > gSD.Total_Sum) row["PrcPenny_1"] = 100;
 

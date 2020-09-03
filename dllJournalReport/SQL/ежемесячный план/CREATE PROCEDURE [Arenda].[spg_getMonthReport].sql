@@ -41,7 +41,8 @@ select
 	[Arenda].[fGetDateEndAgreements](a.id) as Stop_Date,
 	mp.Discount as discount,
 	mp.[Plan] as plane,
-	a.id_Landlord
+	a.id_Landlord,
+	isnull(a.Phone,0) as Phone
 	
 from 
 	Arenda.j_Agreements a

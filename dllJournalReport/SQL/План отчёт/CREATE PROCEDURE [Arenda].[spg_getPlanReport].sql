@@ -17,8 +17,8 @@ BEGIN
 
 	
 
-select id_Agreements,sum(Summa) as summa INTO #tmpPayContr from Arenda.j_PaymentContract where id_PayType = 1 group by id_Agreements
-select id_Agreements,sum(Summa) as summa INTO #tmpPayContrOver from Arenda.j_PaymentContract where id_PayType in(2,3) and PlaneDate = @date group by id_Agreements
+select id_Agreements,sum(case when isToTenant = 1 then -1 else 1 end * Summa) as summa INTO #tmpPayContr from Arenda.j_PaymentContract where id_PayType = 1 group by id_Agreements
+select id_Agreements,sum(case when isToTenant = 1 then -1 else 1 end * Summa) as summa INTO #tmpPayContrOver from Arenda.j_PaymentContract where id_PayType in (2,3) and PlaneDate = @date group by id_Agreements
 
 
 select f.id_Agreements,sum(f.Summa) as summa INTO #tmpFines from Arenda.j_Fines f inner join Arenda.s_AddPayment a on a.id = f.id_ÀddPayment where f.PlanDate = @date and a.cName = 'Ïåíè' group by f.id_Agreements
@@ -69,7 +69,8 @@ select
 	dateadd(day,isnull(aa.RentalVacation,0),isnull(ad.DateDocument,a.Start_Date)) as Start_Date,
 	--isnull(ad.DateDocument,a.Start_Date) as Start_Date,
 	--isnull(ad.Date_of_Departure,a.Stop_Date) as Stop_Date
-	[Arenda].[fGetDateEndAgreements](a.id) as Stop_Date
+	[Arenda].[fGetDateEndAgreements](a.id) as Stop_Date,
+	isnull(a.Phone,0) as Phone
 INTO 
 	#tmpTable
 from 

@@ -20,11 +20,12 @@ BEGIN
 	SET NOCOUNT ON;
 
 	select 
-		p.Summa
+		SUM(case when isToTenant = 1 then -1 else 1 end * p.Summa) as Summa
 	from 
 		Arenda.j_PaymentContract p
 	where 
 		id_Agreements = @id_Agreements and p.id_PayType = 2
+	group by id_Agreements
 
 END
 

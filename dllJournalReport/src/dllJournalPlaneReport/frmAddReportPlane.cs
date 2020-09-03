@@ -134,6 +134,7 @@ namespace dllJournalPlaneReport
                 DateTime dStart = (DateTime)row["Start_Date"];
                 DateTime dStop = (DateTime)row["Stop_Date"];
                 decimal Total_Sum = (decimal)row["Total_Sum"];
+                decimal Phone = (decimal)row["Phone"];
 
                 DateTime _dateStop = _startDate.AddMonths(1).AddDays(-1);
 
@@ -164,7 +165,7 @@ namespace dllJournalPlaneReport
                         if (rows.Count() > 0)
                         {
                             _tmpDec = (decimal)rows.First()["Discount"];
-                            _tmpDec = _tmpDec * (decimal)row["Total_Area"];
+                            _tmpDec = _tmpDec * (decimal)row["Total_Area"]+ Phone;
                         }
                         else
                         {
@@ -172,7 +173,7 @@ namespace dllJournalPlaneReport
                             if (rows.Count() > 0)
                             {
                                 _tmpDec = (decimal)rows.First()["Discount"];
-                                _tmpDec = _tmpDec * (decimal)row["Total_Area"];
+                                _tmpDec = _tmpDec * (decimal)row["Total_Area"]+ Phone;
                             }
                         }
 
@@ -205,14 +206,14 @@ namespace dllJournalPlaneReport
                 decimal sumMonth = 0;
                 foreach (DateTime tt in rowDates) sumMonth += dicDate[tt.Date];
 
-                sumMonth = Math.Round(sumMonth, 2);
+                sumMonth = Math.Round(sumMonth, 0);
 
                 row["EndPlan"] = sumMonth;
                 row["ultraResult"] = (decimal)row["EndPlan"] + (decimal)row["preCredit"] - (decimal)row["preOverPayment"] + (decimal)row["Penalty"] - (decimal)row["OtherPayments"];
                 decimal tmpResult = (decimal)row["ultraResult"] - (decimal)row["Included"];
                 row["Credit"] = tmpResult > 0 ? tmpResult : (decimal)0;
                 row["OverPayment"] = tmpResult < 0 ? Math.Abs(tmpResult) : (decimal)0;
-
+                row["Discount"] = (decimal)row["Total_Sum"] - (decimal)row["EndPlan"];
                 row["timeLimit"] = $"{((DateTime)row["Start_Date"]).ToShortDateString()} - {((DateTime)row["Stop_Date"]).ToShortDateString()}";
             }
             //setFilter();
