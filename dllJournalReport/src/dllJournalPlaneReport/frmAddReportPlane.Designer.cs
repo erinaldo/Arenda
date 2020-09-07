@@ -30,7 +30,21 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbObject = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -39,6 +53,17 @@
             this.tbAgreements = new System.Windows.Forms.TextBox();
             this.tbTenant = new System.Windows.Forms.TextBox();
             this.dgvData = new System.Windows.Forms.DataGridView();
+            this.chkHideDocColumnts = new System.Windows.Forms.CheckBox();
+            this.btSave = new System.Windows.Forms.Button();
+            this.btCalcData = new System.Windows.Forms.Button();
+            this.btPrint = new System.Windows.Forms.Button();
+            this.btExit = new System.Windows.Forms.Button();
+            this.btAcceptD = new System.Windows.Forms.Button();
+            this.btClear = new System.Windows.Forms.Button();
+            this.tbSumPlane = new System.Windows.Forms.TextBox();
+            this.lSumPlane = new System.Windows.Forms.Label();
+            this.cmsMainGridContext = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.просмотрПрочихПлатежейToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nameLandLord = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameTenant = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cAgreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,17 +86,6 @@
             this.Included = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Credit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.OverPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chkHideDocColumnts = new System.Windows.Forms.CheckBox();
-            this.btSave = new System.Windows.Forms.Button();
-            this.btCalcData = new System.Windows.Forms.Button();
-            this.btPrint = new System.Windows.Forms.Button();
-            this.btExit = new System.Windows.Forms.Button();
-            this.btAcceptD = new System.Windows.Forms.Button();
-            this.btClear = new System.Windows.Forms.Button();
-            this.tbSumPlane = new System.Windows.Forms.TextBox();
-            this.lSumPlane = new System.Windows.Forms.Label();
-            this.cmsMainGridContext = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.просмотрПрочихПлатежейToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.cmsMainGridContext.SuspendLayout();
             this.SuspendLayout();
@@ -176,14 +190,14 @@
             this.Included,
             this.Credit,
             this.OverPayment});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvData.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvData.DefaultCellStyle = dataGridViewCellStyle16;
             this.dgvData.Location = new System.Drawing.Point(12, 80);
             this.dgvData.MultiSelect = false;
             this.dgvData.Name = "dgvData";
@@ -195,194 +209,9 @@
             this.dgvData.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvData_ColumnWidthChanged);
             this.dgvData.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dgvData_Scroll);
             // 
-            // nameLandLord
-            // 
-            this.nameLandLord.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.nameLandLord.DataPropertyName = "nameLandLord";
-            this.nameLandLord.Frozen = true;
-            this.nameLandLord.HeaderText = "Арендодатель";
-            this.nameLandLord.MinimumWidth = 120;
-            this.nameLandLord.Name = "nameLandLord";
-            this.nameLandLord.ReadOnly = true;
-            this.nameLandLord.Width = 120;
-            // 
-            // nameTenant
-            // 
-            this.nameTenant.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.nameTenant.DataPropertyName = "nameTenant";
-            this.nameTenant.Frozen = true;
-            this.nameTenant.HeaderText = "Арендатор";
-            this.nameTenant.MinimumWidth = 120;
-            this.nameTenant.Name = "nameTenant";
-            this.nameTenant.ReadOnly = true;
-            this.nameTenant.Width = 120;
-            // 
-            // cAgreements
-            // 
-            this.cAgreements.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cAgreements.DataPropertyName = "Agreement";
-            this.cAgreements.Frozen = true;
-            this.cAgreements.HeaderText = "Номер договора";
-            this.cAgreements.MinimumWidth = 120;
-            this.cAgreements.Name = "cAgreements";
-            this.cAgreements.ReadOnly = true;
-            this.cAgreements.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.cAgreements.Width = 120;
-            // 
-            // timeLimit
-            // 
-            this.timeLimit.DataPropertyName = "timeLimit";
-            this.timeLimit.HeaderText = "Срок действия";
-            this.timeLimit.Name = "timeLimit";
-            this.timeLimit.ReadOnly = true;
-            this.timeLimit.Width = 107;
-            // 
-            // cBuild
-            // 
-            this.cBuild.DataPropertyName = "Build";
-            this.cBuild.HeaderText = "Здание";
-            this.cBuild.Name = "cBuild";
-            this.cBuild.ReadOnly = true;
-            this.cBuild.Width = 69;
-            // 
-            // cFloor
-            // 
-            this.cFloor.DataPropertyName = "Floor";
-            this.cFloor.HeaderText = "Этаж";
-            this.cFloor.Name = "cFloor";
-            this.cFloor.ReadOnly = true;
-            this.cFloor.Width = 58;
-            // 
-            // cSection
-            // 
-            this.cSection.DataPropertyName = "namePlace";
-            this.cSection.HeaderText = "№ секции";
-            this.cSection.Name = "cSection";
-            this.cSection.ReadOnly = true;
-            this.cSection.Width = 82;
-            // 
-            // cSquart
-            // 
-            this.cSquart.DataPropertyName = "Total_Area";
-            this.cSquart.HeaderText = "Площадь м2";
-            this.cSquart.Name = "cSquart";
-            this.cSquart.ReadOnly = true;
-            this.cSquart.Width = 96;
-            // 
-            // Cost_of_Meter
-            // 
-            this.Cost_of_Meter.DataPropertyName = "Cost_of_Meter";
-            this.Cost_of_Meter.HeaderText = "Стоимость м2";
-            this.Cost_of_Meter.Name = "Cost_of_Meter";
-            this.Cost_of_Meter.ReadOnly = true;
-            this.Cost_of_Meter.Width = 104;
-            // 
-            // cSumDog
-            // 
-            this.cSumDog.DataPropertyName = "Total_Sum";
-            this.cSumDog.HeaderText = "Сумма по договору";
-            this.cSumDog.Name = "cSumDog";
-            this.cSumDog.ReadOnly = true;
-            this.cSumDog.Width = 130;
-            // 
-            // cDiscount
-            // 
-            this.cDiscount.DataPropertyName = "Discount";
-            this.cDiscount.HeaderText = "Скидка";
-            this.cDiscount.Name = "cDiscount";
-            this.cDiscount.ReadOnly = true;
-            this.cDiscount.Width = 69;
-            // 
-            // sumPayCont
-            // 
-            this.sumPayCont.DataPropertyName = "sumPayCont";
-            this.sumPayCont.HeaderText = "Обеспечительный платеж";
-            this.sumPayCont.Name = "sumPayCont";
-            this.sumPayCont.ReadOnly = true;
-            this.sumPayCont.Width = 164;
-            // 
-            // preCredit
-            // 
-            this.preCredit.DataPropertyName = "preCredit";
-            this.preCredit.HeaderText = "Долг за предыдущ. период";
-            this.preCredit.Name = "preCredit";
-            this.preCredit.ReadOnly = true;
-            this.preCredit.Width = 170;
-            // 
-            // preOverPayment
-            // 
-            this.preOverPayment.DataPropertyName = "preOverPayment";
-            this.preOverPayment.HeaderText = "Переплата за предыдущ. период";
-            this.preOverPayment.Name = "preOverPayment";
-            this.preOverPayment.ReadOnly = true;
-            this.preOverPayment.Width = 199;
-            // 
-            // prePlan
-            // 
-            this.prePlan.DataPropertyName = "prePlan";
-            this.prePlan.HeaderText = "План на начало";
-            this.prePlan.Name = "prePlan";
-            this.prePlan.ReadOnly = true;
-            this.prePlan.Width = 111;
-            // 
-            // EndPlan
-            // 
-            this.EndPlan.DataPropertyName = "EndPlan";
-            this.EndPlan.HeaderText = "План на конец";
-            this.EndPlan.Name = "EndPlan";
-            this.EndPlan.ReadOnly = true;
-            this.EndPlan.Width = 106;
-            // 
-            // Penalty
-            // 
-            this.Penalty.DataPropertyName = "Penalty";
-            this.Penalty.HeaderText = "Пени";
-            this.Penalty.Name = "Penalty";
-            this.Penalty.ReadOnly = true;
-            this.Penalty.Width = 58;
-            // 
-            // OtherPayments
-            // 
-            this.OtherPayments.DataPropertyName = "OtherPayments";
-            this.OtherPayments.HeaderText = "Прочие платежи";
-            this.OtherPayments.Name = "OtherPayments";
-            this.OtherPayments.ReadOnly = true;
-            this.OtherPayments.Width = 115;
-            // 
-            // ultraResult
-            // 
-            this.ultraResult.DataPropertyName = "ultraResult";
-            this.ultraResult.HeaderText = "Всего к оплате";
-            this.ultraResult.Name = "ultraResult";
-            this.ultraResult.ReadOnly = true;
-            this.ultraResult.Width = 109;
-            // 
-            // Included
-            // 
-            this.Included.DataPropertyName = "Included";
-            this.Included.HeaderText = "Внесено";
-            this.Included.Name = "Included";
-            this.Included.ReadOnly = true;
-            this.Included.Width = 75;
-            // 
-            // Credit
-            // 
-            this.Credit.DataPropertyName = "Credit";
-            this.Credit.HeaderText = "Долг";
-            this.Credit.Name = "Credit";
-            this.Credit.ReadOnly = true;
-            this.Credit.Width = 58;
-            // 
-            // OverPayment
-            // 
-            this.OverPayment.DataPropertyName = "OverPayment";
-            this.OverPayment.HeaderText = "Переплата";
-            this.OverPayment.Name = "OverPayment";
-            this.OverPayment.ReadOnly = true;
-            this.OverPayment.Width = 87;
-            // 
             // chkHideDocColumnts
             // 
+            this.chkHideDocColumnts.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chkHideDocColumnts.AutoSize = true;
             this.chkHideDocColumnts.Location = new System.Drawing.Point(12, 551);
             this.chkHideDocColumnts.Name = "chkHideDocColumnts";
@@ -496,6 +325,262 @@
             this.просмотрПрочихПлатежейToolStripMenuItem.Text = "Просмотр прочих платежей";
             this.просмотрПрочихПлатежейToolStripMenuItem.Click += new System.EventHandler(this.просмотрПрочихПлатежейToolStripMenuItem_Click);
             // 
+            // nameLandLord
+            // 
+            this.nameLandLord.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.nameLandLord.DataPropertyName = "nameLandLord";
+            this.nameLandLord.Frozen = true;
+            this.nameLandLord.HeaderText = "Арендодатель";
+            this.nameLandLord.MinimumWidth = 120;
+            this.nameLandLord.Name = "nameLandLord";
+            this.nameLandLord.ReadOnly = true;
+            this.nameLandLord.Width = 120;
+            // 
+            // nameTenant
+            // 
+            this.nameTenant.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.nameTenant.DataPropertyName = "nameTenant";
+            this.nameTenant.Frozen = true;
+            this.nameTenant.HeaderText = "Арендатор";
+            this.nameTenant.MinimumWidth = 120;
+            this.nameTenant.Name = "nameTenant";
+            this.nameTenant.ReadOnly = true;
+            this.nameTenant.Width = 120;
+            // 
+            // cAgreements
+            // 
+            this.cAgreements.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cAgreements.DataPropertyName = "Agreement";
+            this.cAgreements.Frozen = true;
+            this.cAgreements.HeaderText = "Номер договора";
+            this.cAgreements.MinimumWidth = 120;
+            this.cAgreements.Name = "cAgreements";
+            this.cAgreements.ReadOnly = true;
+            this.cAgreements.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.cAgreements.Width = 120;
+            // 
+            // timeLimit
+            // 
+            this.timeLimit.DataPropertyName = "timeLimit";
+            this.timeLimit.HeaderText = "Срок действия";
+            this.timeLimit.Name = "timeLimit";
+            this.timeLimit.ReadOnly = true;
+            this.timeLimit.Width = 107;
+            // 
+            // cBuild
+            // 
+            this.cBuild.DataPropertyName = "Build";
+            this.cBuild.HeaderText = "Здание";
+            this.cBuild.Name = "cBuild";
+            this.cBuild.ReadOnly = true;
+            this.cBuild.Width = 69;
+            // 
+            // cFloor
+            // 
+            this.cFloor.DataPropertyName = "Floor";
+            this.cFloor.HeaderText = "Этаж";
+            this.cFloor.Name = "cFloor";
+            this.cFloor.ReadOnly = true;
+            this.cFloor.Width = 58;
+            // 
+            // cSection
+            // 
+            this.cSection.DataPropertyName = "namePlace";
+            this.cSection.HeaderText = "№ секции";
+            this.cSection.Name = "cSection";
+            this.cSection.ReadOnly = true;
+            this.cSection.Width = 82;
+            // 
+            // cSquart
+            // 
+            this.cSquart.DataPropertyName = "Total_Area";
+            this.cSquart.HeaderText = "Площадь м2";
+            this.cSquart.Name = "cSquart";
+            this.cSquart.ReadOnly = true;
+            this.cSquart.Width = 96;
+            // 
+            // Cost_of_Meter
+            // 
+            this.Cost_of_Meter.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Cost_of_Meter.DataPropertyName = "Cost_of_Meter";
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.Cost_of_Meter.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Cost_of_Meter.HeaderText = "Стоимость м2";
+            this.Cost_of_Meter.MinimumWidth = 80;
+            this.Cost_of_Meter.Name = "Cost_of_Meter";
+            this.Cost_of_Meter.ReadOnly = true;
+            this.Cost_of_Meter.Width = 150;
+            // 
+            // cSumDog
+            // 
+            this.cSumDog.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cSumDog.DataPropertyName = "Total_Sum";
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.cSumDog.DefaultCellStyle = dataGridViewCellStyle3;
+            this.cSumDog.HeaderText = "Сумма по договору";
+            this.cSumDog.MinimumWidth = 80;
+            this.cSumDog.Name = "cSumDog";
+            this.cSumDog.ReadOnly = true;
+            this.cSumDog.Width = 150;
+            // 
+            // cDiscount
+            // 
+            this.cDiscount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cDiscount.DataPropertyName = "Discount";
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.cDiscount.DefaultCellStyle = dataGridViewCellStyle4;
+            this.cDiscount.HeaderText = "Скидка";
+            this.cDiscount.MinimumWidth = 80;
+            this.cDiscount.Name = "cDiscount";
+            this.cDiscount.ReadOnly = true;
+            this.cDiscount.Width = 150;
+            // 
+            // sumPayCont
+            // 
+            this.sumPayCont.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.sumPayCont.DataPropertyName = "sumPayCont";
+            dataGridViewCellStyle5.Format = "N2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.sumPayCont.DefaultCellStyle = dataGridViewCellStyle5;
+            this.sumPayCont.HeaderText = "Обеспечительный платеж";
+            this.sumPayCont.MinimumWidth = 80;
+            this.sumPayCont.Name = "sumPayCont";
+            this.sumPayCont.ReadOnly = true;
+            this.sumPayCont.Width = 150;
+            // 
+            // preCredit
+            // 
+            this.preCredit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.preCredit.DataPropertyName = "preCredit";
+            dataGridViewCellStyle6.Format = "N2";
+            dataGridViewCellStyle6.NullValue = null;
+            this.preCredit.DefaultCellStyle = dataGridViewCellStyle6;
+            this.preCredit.HeaderText = "Долг за предыдущ. период";
+            this.preCredit.MinimumWidth = 80;
+            this.preCredit.Name = "preCredit";
+            this.preCredit.ReadOnly = true;
+            this.preCredit.Width = 150;
+            // 
+            // preOverPayment
+            // 
+            this.preOverPayment.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.preOverPayment.DataPropertyName = "preOverPayment";
+            dataGridViewCellStyle7.Format = "N2";
+            dataGridViewCellStyle7.NullValue = null;
+            this.preOverPayment.DefaultCellStyle = dataGridViewCellStyle7;
+            this.preOverPayment.HeaderText = "Переплата за предыдущ. период";
+            this.preOverPayment.MinimumWidth = 80;
+            this.preOverPayment.Name = "preOverPayment";
+            this.preOverPayment.ReadOnly = true;
+            this.preOverPayment.Width = 150;
+            // 
+            // prePlan
+            // 
+            this.prePlan.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.prePlan.DataPropertyName = "prePlan";
+            dataGridViewCellStyle8.Format = "N2";
+            dataGridViewCellStyle8.NullValue = null;
+            this.prePlan.DefaultCellStyle = dataGridViewCellStyle8;
+            this.prePlan.HeaderText = "План на начало";
+            this.prePlan.MinimumWidth = 80;
+            this.prePlan.Name = "prePlan";
+            this.prePlan.ReadOnly = true;
+            this.prePlan.Width = 150;
+            // 
+            // EndPlan
+            // 
+            this.EndPlan.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.EndPlan.DataPropertyName = "EndPlan";
+            dataGridViewCellStyle9.Format = "N2";
+            dataGridViewCellStyle9.NullValue = null;
+            this.EndPlan.DefaultCellStyle = dataGridViewCellStyle9;
+            this.EndPlan.HeaderText = "План на конец";
+            this.EndPlan.MinimumWidth = 80;
+            this.EndPlan.Name = "EndPlan";
+            this.EndPlan.ReadOnly = true;
+            this.EndPlan.Width = 150;
+            // 
+            // Penalty
+            // 
+            this.Penalty.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Penalty.DataPropertyName = "Penalty";
+            dataGridViewCellStyle10.Format = "N2";
+            dataGridViewCellStyle10.NullValue = null;
+            this.Penalty.DefaultCellStyle = dataGridViewCellStyle10;
+            this.Penalty.HeaderText = "Пени";
+            this.Penalty.MinimumWidth = 80;
+            this.Penalty.Name = "Penalty";
+            this.Penalty.ReadOnly = true;
+            this.Penalty.Width = 150;
+            // 
+            // OtherPayments
+            // 
+            this.OtherPayments.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.OtherPayments.DataPropertyName = "OtherPayments";
+            dataGridViewCellStyle11.Format = "N2";
+            dataGridViewCellStyle11.NullValue = null;
+            this.OtherPayments.DefaultCellStyle = dataGridViewCellStyle11;
+            this.OtherPayments.HeaderText = "Прочие платежи";
+            this.OtherPayments.MinimumWidth = 80;
+            this.OtherPayments.Name = "OtherPayments";
+            this.OtherPayments.ReadOnly = true;
+            this.OtherPayments.Width = 150;
+            // 
+            // ultraResult
+            // 
+            this.ultraResult.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.ultraResult.DataPropertyName = "ultraResult";
+            dataGridViewCellStyle12.Format = "N2";
+            dataGridViewCellStyle12.NullValue = null;
+            this.ultraResult.DefaultCellStyle = dataGridViewCellStyle12;
+            this.ultraResult.HeaderText = "Всего к оплате";
+            this.ultraResult.MinimumWidth = 80;
+            this.ultraResult.Name = "ultraResult";
+            this.ultraResult.ReadOnly = true;
+            this.ultraResult.Width = 150;
+            // 
+            // Included
+            // 
+            this.Included.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Included.DataPropertyName = "Included";
+            dataGridViewCellStyle13.Format = "N2";
+            dataGridViewCellStyle13.NullValue = null;
+            this.Included.DefaultCellStyle = dataGridViewCellStyle13;
+            this.Included.HeaderText = "Внесено";
+            this.Included.MinimumWidth = 80;
+            this.Included.Name = "Included";
+            this.Included.ReadOnly = true;
+            this.Included.Width = 150;
+            // 
+            // Credit
+            // 
+            this.Credit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Credit.DataPropertyName = "Credit";
+            dataGridViewCellStyle14.Format = "N2";
+            dataGridViewCellStyle14.NullValue = null;
+            this.Credit.DefaultCellStyle = dataGridViewCellStyle14;
+            this.Credit.HeaderText = "Долг";
+            this.Credit.MinimumWidth = 80;
+            this.Credit.Name = "Credit";
+            this.Credit.ReadOnly = true;
+            this.Credit.Width = 150;
+            // 
+            // OverPayment
+            // 
+            this.OverPayment.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.OverPayment.DataPropertyName = "OverPayment";
+            dataGridViewCellStyle15.Format = "N2";
+            dataGridViewCellStyle15.NullValue = null;
+            this.OverPayment.DefaultCellStyle = dataGridViewCellStyle15;
+            this.OverPayment.HeaderText = "Переплата";
+            this.OverPayment.MinimumWidth = 80;
+            this.OverPayment.Name = "OverPayment";
+            this.OverPayment.ReadOnly = true;
+            this.OverPayment.Width = 150;
+            // 
             // frmAddReportPlane
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -519,7 +604,6 @@
             this.Controls.Add(this.cmbObject);
             this.Controls.Add(this.label3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmAddReportPlane";
             this.ShowIcon = false;
@@ -554,6 +638,8 @@
         private System.Windows.Forms.Button btClear;
         private System.Windows.Forms.TextBox tbSumPlane;
         private System.Windows.Forms.Label lSumPlane;
+        private System.Windows.Forms.ContextMenuStrip cmsMainGridContext;
+        private System.Windows.Forms.ToolStripMenuItem просмотрПрочихПлатежейToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameLandLord;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameTenant;
         private System.Windows.Forms.DataGridViewTextBoxColumn cAgreements;
@@ -576,7 +662,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Included;
         private System.Windows.Forms.DataGridViewTextBoxColumn Credit;
         private System.Windows.Forms.DataGridViewTextBoxColumn OverPayment;
-        private System.Windows.Forms.ContextMenuStrip cmsMainGridContext;
-        private System.Windows.Forms.ToolStripMenuItem просмотрПрочихПлатежейToolStripMenuItem;
     }
 }

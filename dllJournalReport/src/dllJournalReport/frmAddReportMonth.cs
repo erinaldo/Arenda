@@ -398,7 +398,7 @@ namespace dllJournalReport
             {
                  _id = (int)task.Result.Rows[0]["id"];
 
-                MyMessageBox.MyMessageBox mmb = new MyMessageBox.MyMessageBox($"За выбранный период для объекта:\n\"{cmbObject.Text}\"\nуже создан ежемесячный план на {dtpStart.Text}.\nПерезапись существующий план?", "", MyMessageBox.MessageBoxButtons.YesNoCancel, new List<string> { "Да", "Нет", "Отмена" });
+                MyMessageBox.MyMessageBox mmb = new MyMessageBox.MyMessageBox($"За выбранный период для объекта:\n\"{cmbObject.Text}\"\nуже создан ежемесячный план на {dtpStart.Text}.\nПерезаписать существующий план?", "", MyMessageBox.MessageBoxButtons.YesNoCancel, new List<string> { "Да", "Нет", "Отмена" });
                 DialogResult dlgResult = mmb.ShowDialog();
                 if (dlgResult == DialogResult.Cancel) return;
                 //if (dlgResult == DialogResult.No) { dgvData.DataSource = null; dtData.Clear();setFilter(); return; }

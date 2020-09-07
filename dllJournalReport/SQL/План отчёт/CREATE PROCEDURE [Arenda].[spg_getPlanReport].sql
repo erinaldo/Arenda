@@ -115,7 +115,7 @@ where
 	and a.id_ObjectLease = @id_ObjectLease
 	and (@id_tPlanReport = 0 or pr.id is not null)
 
-SELECT 
+SELECT distinct
 	t.id,
 	t.id_Landlord,
 	t.nameLandLord,
@@ -152,7 +152,7 @@ FROM
 	#tmpTable t
 where
 		--YEAR(t.Start_Date)<= YEAR(@date) and MONTH(t.Start_Date)<= MONTH(@date)  and YEAR(t.Stop_Date)>= YEAR(@date) and MONTH(t.Stop_Date)>= MONTH(@date)
-		t.Stop_Date>=@date and DATEADD(day,-1, DATEADD(month,1,@date))>=t.Start_Date
+		(t.Stop_Date>=@date and DATEADD(day,-1, DATEADD(month,1,@date))>=t.Start_Date) or @id_tPlanReport <>0
 
 
 DROP TABLE #tmpPayContr,#tmpPayContrOver,#tmpFines,#tmpFinesOver,#tmpTable

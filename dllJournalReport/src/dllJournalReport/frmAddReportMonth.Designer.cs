@@ -29,7 +29,11 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbObject = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,17 +42,6 @@
             this.tbAgreements = new System.Windows.Forms.TextBox();
             this.tbTenant = new System.Windows.Forms.TextBox();
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.chkHideDocColumnts = new System.Windows.Forms.CheckBox();
-            this.cmbTypeContract = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btSave = new System.Windows.Forms.Button();
-            this.btCalcData = new System.Windows.Forms.Button();
-            this.btPrint = new System.Windows.Forms.Button();
-            this.btExit = new System.Windows.Forms.Button();
-            this.btAcceptD = new System.Windows.Forms.Button();
-            this.btClear = new System.Windows.Forms.Button();
-            this.tbSumPlane = new System.Windows.Forms.TextBox();
-            this.lSumPlane = new System.Windows.Forms.Label();
             this.nameLandLord = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameTenant = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TypeContract = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,6 +55,17 @@
             this.cSumDog = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cPlane = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.chkHideDocColumnts = new System.Windows.Forms.CheckBox();
+            this.cmbTypeContract = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btSave = new System.Windows.Forms.Button();
+            this.btCalcData = new System.Windows.Forms.Button();
+            this.btPrint = new System.Windows.Forms.Button();
+            this.btExit = new System.Windows.Forms.Button();
+            this.btAcceptD = new System.Windows.Forms.Button();
+            this.btClear = new System.Windows.Forms.Button();
+            this.tbSumPlane = new System.Windows.Forms.TextBox();
+            this.lSumPlane = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -157,14 +161,14 @@
             this.cSumDog,
             this.cDiscount,
             this.cPlane});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvData.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvData.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvData.Location = new System.Drawing.Point(12, 80);
             this.dgvData.MultiSelect = false;
             this.dgvData.Name = "dgvData";
@@ -173,6 +177,110 @@
             this.dgvData.Size = new System.Drawing.Size(1227, 458);
             this.dgvData.TabIndex = 30;
             this.dgvData.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvData_ColumnWidthChanged);
+            // 
+            // nameLandLord
+            // 
+            this.nameLandLord.DataPropertyName = "nameLandLord";
+            this.nameLandLord.HeaderText = "Арендодатель";
+            this.nameLandLord.Name = "nameLandLord";
+            this.nameLandLord.ReadOnly = true;
+            // 
+            // nameTenant
+            // 
+            this.nameTenant.DataPropertyName = "nameTenant";
+            this.nameTenant.HeaderText = "Арендатор";
+            this.nameTenant.Name = "nameTenant";
+            this.nameTenant.ReadOnly = true;
+            // 
+            // TypeContract
+            // 
+            this.TypeContract.DataPropertyName = "TypeContract";
+            this.TypeContract.HeaderText = "Тип договора";
+            this.TypeContract.Name = "TypeContract";
+            this.TypeContract.ReadOnly = true;
+            // 
+            // cAgreements
+            // 
+            this.cAgreements.DataPropertyName = "Agreement";
+            this.cAgreements.HeaderText = "Номер договора";
+            this.cAgreements.Name = "cAgreements";
+            this.cAgreements.ReadOnly = true;
+            this.cAgreements.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // timeLimit
+            // 
+            this.timeLimit.DataPropertyName = "timeLimit";
+            this.timeLimit.HeaderText = "Срок действия";
+            this.timeLimit.Name = "timeLimit";
+            this.timeLimit.ReadOnly = true;
+            // 
+            // cBuild
+            // 
+            this.cBuild.DataPropertyName = "Build";
+            this.cBuild.HeaderText = "Здание";
+            this.cBuild.Name = "cBuild";
+            this.cBuild.ReadOnly = true;
+            // 
+            // cFloor
+            // 
+            this.cFloor.DataPropertyName = "Floor";
+            this.cFloor.HeaderText = "Этаж";
+            this.cFloor.Name = "cFloor";
+            this.cFloor.ReadOnly = true;
+            // 
+            // cSection
+            // 
+            this.cSection.DataPropertyName = "namePlace";
+            this.cSection.HeaderText = "№ секции";
+            this.cSection.Name = "cSection";
+            this.cSection.ReadOnly = true;
+            // 
+            // cSquart
+            // 
+            this.cSquart.DataPropertyName = "Total_Area";
+            this.cSquart.HeaderText = "Площадь м2";
+            this.cSquart.Name = "cSquart";
+            this.cSquart.ReadOnly = true;
+            // 
+            // Cost_of_Meter
+            // 
+            this.Cost_of_Meter.DataPropertyName = "Cost_of_Meter";
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.Cost_of_Meter.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Cost_of_Meter.HeaderText = "Стоимость м2";
+            this.Cost_of_Meter.Name = "Cost_of_Meter";
+            this.Cost_of_Meter.ReadOnly = true;
+            // 
+            // cSumDog
+            // 
+            this.cSumDog.DataPropertyName = "Total_Sum";
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.cSumDog.DefaultCellStyle = dataGridViewCellStyle3;
+            this.cSumDog.HeaderText = "Сумма по договору";
+            this.cSumDog.Name = "cSumDog";
+            this.cSumDog.ReadOnly = true;
+            // 
+            // cDiscount
+            // 
+            this.cDiscount.DataPropertyName = "discount";
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.cDiscount.DefaultCellStyle = dataGridViewCellStyle4;
+            this.cDiscount.HeaderText = "Скидка";
+            this.cDiscount.Name = "cDiscount";
+            this.cDiscount.ReadOnly = true;
+            // 
+            // cPlane
+            // 
+            this.cPlane.DataPropertyName = "plane";
+            dataGridViewCellStyle5.Format = "N2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.cPlane.DefaultCellStyle = dataGridViewCellStyle5;
+            this.cPlane.HeaderText = "План";
+            this.cPlane.Name = "cPlane";
+            this.cPlane.ReadOnly = true;
             // 
             // chkHideDocColumnts
             // 
@@ -293,98 +401,6 @@
             this.lSumPlane.TabIndex = 37;
             this.lSumPlane.Text = "Итого";
             // 
-            // nameLandLord
-            // 
-            this.nameLandLord.DataPropertyName = "nameLandLord";
-            this.nameLandLord.HeaderText = "Арендодатель";
-            this.nameLandLord.Name = "nameLandLord";
-            this.nameLandLord.ReadOnly = true;
-            // 
-            // nameTenant
-            // 
-            this.nameTenant.DataPropertyName = "nameTenant";
-            this.nameTenant.HeaderText = "Арендатор";
-            this.nameTenant.Name = "nameTenant";
-            this.nameTenant.ReadOnly = true;
-            // 
-            // TypeContract
-            // 
-            this.TypeContract.DataPropertyName = "TypeContract";
-            this.TypeContract.HeaderText = "Тип договора";
-            this.TypeContract.Name = "TypeContract";
-            this.TypeContract.ReadOnly = true;
-            // 
-            // cAgreements
-            // 
-            this.cAgreements.DataPropertyName = "Agreement";
-            this.cAgreements.HeaderText = "Номер договора";
-            this.cAgreements.Name = "cAgreements";
-            this.cAgreements.ReadOnly = true;
-            this.cAgreements.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // timeLimit
-            // 
-            this.timeLimit.DataPropertyName = "timeLimit";
-            this.timeLimit.HeaderText = "Срок действия";
-            this.timeLimit.Name = "timeLimit";
-            this.timeLimit.ReadOnly = true;
-            // 
-            // cBuild
-            // 
-            this.cBuild.DataPropertyName = "Build";
-            this.cBuild.HeaderText = "Здание";
-            this.cBuild.Name = "cBuild";
-            this.cBuild.ReadOnly = true;
-            // 
-            // cFloor
-            // 
-            this.cFloor.DataPropertyName = "Floor";
-            this.cFloor.HeaderText = "Этаж";
-            this.cFloor.Name = "cFloor";
-            this.cFloor.ReadOnly = true;
-            // 
-            // cSection
-            // 
-            this.cSection.DataPropertyName = "namePlace";
-            this.cSection.HeaderText = "№ секции";
-            this.cSection.Name = "cSection";
-            this.cSection.ReadOnly = true;
-            // 
-            // cSquart
-            // 
-            this.cSquart.DataPropertyName = "Total_Area";
-            this.cSquart.HeaderText = "Площадь м2";
-            this.cSquart.Name = "cSquart";
-            this.cSquart.ReadOnly = true;
-            // 
-            // Cost_of_Meter
-            // 
-            this.Cost_of_Meter.DataPropertyName = "Cost_of_Meter";
-            this.Cost_of_Meter.HeaderText = "Стоимость м2";
-            this.Cost_of_Meter.Name = "Cost_of_Meter";
-            this.Cost_of_Meter.ReadOnly = true;
-            // 
-            // cSumDog
-            // 
-            this.cSumDog.DataPropertyName = "Total_Sum";
-            this.cSumDog.HeaderText = "Сумма по договору";
-            this.cSumDog.Name = "cSumDog";
-            this.cSumDog.ReadOnly = true;
-            // 
-            // cDiscount
-            // 
-            this.cDiscount.DataPropertyName = "discount";
-            this.cDiscount.HeaderText = "Скидка";
-            this.cDiscount.Name = "cDiscount";
-            this.cDiscount.ReadOnly = true;
-            // 
-            // cPlane
-            // 
-            this.cPlane.DataPropertyName = "plane";
-            this.cPlane.HeaderText = "План";
-            this.cPlane.Name = "cPlane";
-            this.cPlane.ReadOnly = true;
-            // 
             // frmAddReportMonth
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -410,7 +426,6 @@
             this.Controls.Add(this.cmbObject);
             this.Controls.Add(this.label3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmAddReportMonth";
             this.ShowIcon = false;

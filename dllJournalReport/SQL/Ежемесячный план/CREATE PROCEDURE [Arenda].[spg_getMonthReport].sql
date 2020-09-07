@@ -78,6 +78,6 @@ where
 ) as t
 where
 		--YEAR(t.Start_Date)<= YEAR(@dateStart) and MONTH(t.Start_Date)<= MONTH(@dateStart)  and YEAR(t.Stop_Date)>= YEAR(@dateStart) and MONTH(t.Stop_Date)>= MONTH(@dateStart)
-		t.Stop_Date>=@dateStart and DATEADD(day,-1, DATEADD(month,1,@dateStart))>=t.Start_Date
+		(t.Stop_Date>=@dateStart and DATEADD(day,-1, DATEADD(month,1,@dateStart))>=t.Start_Date) or @id_tMonthPlane <>0
 
 END
