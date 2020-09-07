@@ -146,7 +146,8 @@ SELECT
 	when @id_tPlanReport = 0 then (isnull(t.EndPlan,0) + isnull(t.preCredit,0) - isnull(t.preOverPayment,0) + t.Penalty - t.OtherPayments) - isnull(t.Included, 0)
 	else t.OverPayment end as OverPayment,
 	t.Start_Date,
-	t.Stop_Date
+	t.Stop_Date,
+	t.Phone
 FROM 
 	#tmpTable t
 where

@@ -153,7 +153,6 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameLandLord,
             this.nameTenant,
@@ -236,7 +235,7 @@
             this.timeLimit.HeaderText = "Срок действия";
             this.timeLimit.Name = "timeLimit";
             this.timeLimit.ReadOnly = true;
-            this.timeLimit.Width = 98;
+            this.timeLimit.Width = 107;
             // 
             // cBuild
             // 
@@ -260,7 +259,7 @@
             this.cSection.HeaderText = "№ секции";
             this.cSection.Name = "cSection";
             this.cSection.ReadOnly = true;
-            this.cSection.Width = 76;
+            this.cSection.Width = 82;
             // 
             // cSquart
             // 
@@ -268,7 +267,7 @@
             this.cSquart.HeaderText = "Площадь м2";
             this.cSquart.Name = "cSquart";
             this.cSquart.ReadOnly = true;
-            this.cSquart.Width = 88;
+            this.cSquart.Width = 96;
             // 
             // Cost_of_Meter
             // 
@@ -276,7 +275,7 @@
             this.Cost_of_Meter.HeaderText = "Стоимость м2";
             this.Cost_of_Meter.Name = "Cost_of_Meter";
             this.Cost_of_Meter.ReadOnly = true;
-            this.Cost_of_Meter.Width = 96;
+            this.Cost_of_Meter.Width = 104;
             // 
             // cSumDog
             // 
@@ -284,7 +283,7 @@
             this.cSumDog.HeaderText = "Сумма по договору";
             this.cSumDog.Name = "cSumDog";
             this.cSumDog.ReadOnly = true;
-            this.cSumDog.Width = 119;
+            this.cSumDog.Width = 130;
             // 
             // cDiscount
             // 
@@ -300,7 +299,7 @@
             this.sumPayCont.HeaderText = "Обеспечительный платеж";
             this.sumPayCont.Name = "sumPayCont";
             this.sumPayCont.ReadOnly = true;
-            this.sumPayCont.Width = 150;
+            this.sumPayCont.Width = 164;
             // 
             // preCredit
             // 
@@ -308,7 +307,7 @@
             this.preCredit.HeaderText = "Долг за предыдущ. период";
             this.preCredit.Name = "preCredit";
             this.preCredit.ReadOnly = true;
-            this.preCredit.Width = 155;
+            this.preCredit.Width = 170;
             // 
             // preOverPayment
             // 
@@ -316,7 +315,7 @@
             this.preOverPayment.HeaderText = "Переплата за предыдущ. период";
             this.preOverPayment.Name = "preOverPayment";
             this.preOverPayment.ReadOnly = true;
-            this.preOverPayment.Width = 149;
+            this.preOverPayment.Width = 199;
             // 
             // prePlan
             // 
@@ -324,7 +323,7 @@
             this.prePlan.HeaderText = "План на начало";
             this.prePlan.Name = "prePlan";
             this.prePlan.ReadOnly = true;
-            this.prePlan.Width = 102;
+            this.prePlan.Width = 111;
             // 
             // EndPlan
             // 
@@ -332,7 +331,7 @@
             this.EndPlan.HeaderText = "План на конец";
             this.EndPlan.Name = "EndPlan";
             this.EndPlan.ReadOnly = true;
-            this.EndPlan.Width = 97;
+            this.EndPlan.Width = 106;
             // 
             // Penalty
             // 
@@ -348,7 +347,7 @@
             this.OtherPayments.HeaderText = "Прочие платежи";
             this.OtherPayments.Name = "OtherPayments";
             this.OtherPayments.ReadOnly = true;
-            this.OtherPayments.Width = 105;
+            this.OtherPayments.Width = 115;
             // 
             // ultraResult
             // 
@@ -356,6 +355,7 @@
             this.ultraResult.HeaderText = "Всего к оплате";
             this.ultraResult.Name = "ultraResult";
             this.ultraResult.ReadOnly = true;
+            this.ultraResult.Width = 109;
             // 
             // Included
             // 
