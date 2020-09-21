@@ -154,7 +154,11 @@ namespace dllJournalReport
                 DateTime dStart = (DateTime)row["Start_Date"];
                 DateTime dStop = (DateTime)row["Stop_Date"];
                 decimal Total_Sum = (decimal)row["Total_Sum"];
-                decimal Phone = (decimal)row["Phone"];
+
+                decimal Phone = 0;
+                if (dtData.Columns.Contains("Phone"))
+                    Phone = (decimal)row["Phone"];
+
 
                 DateTime _dateStop = _startDate.AddMonths(1).AddDays(-1);
 

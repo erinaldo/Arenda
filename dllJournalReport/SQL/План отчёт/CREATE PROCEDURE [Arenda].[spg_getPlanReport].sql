@@ -79,7 +79,7 @@ from
 		left join Arenda.j_AdditionalAgreements aa on aa.id_Agreements = a.id
 
 
-		left join Arenda.j_AdditionalDocuments ad on ad.id_Agreements = a.id and ad.id_TypeDoc = (select top(1) td.id from Arenda.s_TypeDoc td  where td.Rus_Name = 'Акт приёма-передачи')
+		left join Arenda.j_AdditionalDocuments ad on ad.id_Agreements = a.id and ad.id_TypeDoc = (select top(1) td.id from Arenda.s_TypeDoc td  where td.Rus_Name = 'Акт приёма-передачи') and ad.isActive = 1
 		--left join Arenda.j_AdditionalDocuments ad on ad.id_Agreements = a.id
 		--left join Arenda.s_TypeDoc td on td.id = ad.id_TypeDoc and td.Rus_Name = 'Акт приёма-передачи' 
 		 

@@ -363,6 +363,11 @@ namespace JournalBorrower
                 foreach (var gIdAgreements in groupIdAgreements)
                 {
 
+                    //if (gIdAgreements.id_Agreements == 2165)
+                    //{ 
+                    
+                    //}
+
                     int prc = (cnt * 100) / maxCount;
 
                     Config.DoOnUIThread(() =>
@@ -381,7 +386,9 @@ namespace JournalBorrower
                         DateTime dStop = (DateTime)rowCollect.First()["Stop_Date"];
                         decimal Total_Sum = (decimal)rowCollect.First()["Total_Sum"];
                         decimal Cost_of_Meter = (decimal)rowCollect.First()["Cost_of_Meter"];
-                        decimal Phone = (decimal)rowCollect.First()["Phone"];
+                        decimal Phone = 0;
+                        if (dtData.Columns.Contains("Phone"))
+                            Phone = (decimal)rowCollect.First()["Phone"];
 
                         DateTime _dateStop = DateTime.Now.Day < 25 ?
                             new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(1).AddDays(-1)
