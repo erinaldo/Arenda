@@ -67,7 +67,7 @@ namespace dllJournalReport
 
             string[] monthNames = DateTimeFormatInfo.CurrentInfo.MonthNames;
             report.Merge(indexRow, 1, indexRow, maxColumns);
-            report.AddSingleValue($"Период ежемесячного отчёта {monthNames[_startDate.Month]}.{_startDate.Year}", indexRow, 1);
+            report.AddSingleValue($"Период ежемесячного отчёта {monthNames[_startDate.Month-1]}.{_startDate.Year}", indexRow, 1);
             indexRow++;
 
             report.Merge(indexRow, 1, indexRow, maxColumns);
