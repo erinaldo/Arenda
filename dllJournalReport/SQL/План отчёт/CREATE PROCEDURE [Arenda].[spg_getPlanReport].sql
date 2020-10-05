@@ -137,7 +137,7 @@ SELECT distinct
 	t.EndPlan,
 	t.Penalty,
 	t.OtherPayments,
-	isnull(t.EndPlan,0) + isnull(t.preCredit,0) - isnull(t.preOverPayment,0) + t.Penalty - t.OtherPayments as ultraResult,
+	isnull(t.EndPlan,0) + isnull(t.preCredit,0) - isnull(t.preOverPayment,0) + t.Penalty + t.OtherPayments as ultraResult,
 	t.Included,
 	case 
 	when @id_tPlanReport = 0 then (isnull(t.EndPlan,0) + isnull(t.preCredit,0) - isnull(t.preOverPayment,0) + t.Penalty - t.OtherPayments) - isnull(t.Included,0)

@@ -212,7 +212,7 @@ namespace dllJournalPlaneReport
                 sumMonth = Math.Round(sumMonth, 0);
 
                 row["EndPlan"] = sumMonth;
-                row["ultraResult"] = (decimal)row["EndPlan"] + (decimal)row["preCredit"] - (decimal)row["preOverPayment"] + (decimal)row["Penalty"] - (decimal)row["OtherPayments"];
+                row["ultraResult"] = (decimal)row["EndPlan"] + (decimal)row["preCredit"] - (decimal)row["preOverPayment"] + (decimal)row["Penalty"] + (decimal)row["OtherPayments"];
                 decimal tmpResult = (decimal)row["ultraResult"] - (decimal)row["Included"];
                 row["Credit"] = tmpResult > 0 ? tmpResult : (decimal)0;
                 row["OverPayment"] = tmpResult < 0 ? Math.Abs(tmpResult) : (decimal)0;

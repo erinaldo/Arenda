@@ -563,6 +563,7 @@ namespace JournalBorrower
 
 
                 var gSumData = dtData.AsEnumerable()
+                            .Where(r => r.Field<object>("SummaPenny_1") != null && r.Field<decimal>("SummaPenny_1") != 0)
                            .GroupBy(r => new { id_Tenant = r.Field<int>("id_Tenant") })
                            .Select(s => new
                            {
@@ -571,7 +572,7 @@ namespace JournalBorrower
                                SummaFine_1 = s.Sum(r => r.Field<object>("SummaFine_1") != null ? r.Field<decimal>("SummaFine_1") : 0),
                                SummaPenny_1 = s.Sum(r => r.Field<object>("SummaPenny_1") != null ? r.Field<decimal>("SummaPenny_1") : 0),
                                Total_Sum = s.Sum(r => r.Field<object>("Total_Sum") != null ? r.Field<decimal>("Total_Sum") : 0)
-                           }); ;
+                           });
 
                 if (gSumData.Count() > 0)
                 {
