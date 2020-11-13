@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Nwuram.Framework.Project;
 using Nwuram.Framework.Logging;
 using Nwuram.Framework.Settings.Connection;
+using System.Globalization;
 
 namespace dllJournalReport
 {
@@ -13,7 +14,7 @@ namespace dllJournalReport
         /// </summary>
         [STAThread]
         static void Main(string[] args)
-        {
+        {           
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             if (args.Length != 0)
