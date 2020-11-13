@@ -46,10 +46,15 @@
             this.btPrint = new System.Windows.Forms.Button();
             this.btExit = new System.Windows.Forms.Button();
             this.btUpdate = new System.Windows.Forms.Button();
+            this.cmbTypeDoc = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.nameTenant = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cAgreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cPlace = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cNameBuild = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cFloor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cSection = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cSumMeter = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cSumDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cSumPay = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -127,6 +132,9 @@
             this.cAgreements,
             this.cObject,
             this.cPlace,
+            this.cNameBuild,
+            this.cFloor,
+            this.cSection,
             this.cSumMeter,
             this.cSumDoc,
             this.cSumPay,
@@ -220,6 +228,25 @@
             this.btUpdate.UseVisualStyleBackColor = true;
             this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
             // 
+            // cmbTypeDoc
+            // 
+            this.cmbTypeDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTypeDoc.FormattingEnabled = true;
+            this.cmbTypeDoc.Location = new System.Drawing.Point(100, 39);
+            this.cmbTypeDoc.Name = "cmbTypeDoc";
+            this.cmbTypeDoc.Size = new System.Drawing.Size(230, 21);
+            this.cmbTypeDoc.TabIndex = 28;
+            this.cmbTypeDoc.SelectionChangeCommitted += new System.EventHandler(this.cmbObject_SelectionChangeCommitted);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 43);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 13);
+            this.label1.TabIndex = 27;
+            this.label1.Text = "Тип договора";
+            // 
             // nameTenant
             // 
             this.nameTenant.DataPropertyName = "nameTenant";
@@ -247,6 +274,28 @@
             this.cPlace.HeaderText = "Местоположение места аренды";
             this.cPlace.Name = "cPlace";
             this.cPlace.ReadOnly = true;
+            this.cPlace.Visible = false;
+            // 
+            // cNameBuild
+            // 
+            this.cNameBuild.DataPropertyName = "buildName";
+            this.cNameBuild.HeaderText = "Здание";
+            this.cNameBuild.Name = "cNameBuild";
+            this.cNameBuild.ReadOnly = true;
+            // 
+            // cFloor
+            // 
+            this.cFloor.DataPropertyName = "floorName";
+            this.cFloor.HeaderText = "Этаж";
+            this.cFloor.Name = "cFloor";
+            this.cFloor.ReadOnly = true;
+            // 
+            // cSection
+            // 
+            this.cSection.DataPropertyName = "sectionName";
+            this.cSection.HeaderText = "Секция";
+            this.cSection.Name = "cSection";
+            this.cSection.ReadOnly = true;
             // 
             // cSumMeter
             // 
@@ -313,6 +362,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1065, 639);
+            this.Controls.Add(this.cmbTypeDoc);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgvData);
             this.Controls.Add(this.btPrint);
@@ -352,10 +403,15 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbPayDopDoc;
         private System.Windows.Forms.RadioButton rbPayDoc;
+        private System.Windows.Forms.ComboBox cmbTypeDoc;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameTenant;
         private System.Windows.Forms.DataGridViewTextBoxColumn cAgreements;
         private System.Windows.Forms.DataGridViewTextBoxColumn cObject;
         private System.Windows.Forms.DataGridViewTextBoxColumn cPlace;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cNameBuild;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cFloor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cSection;
         private System.Windows.Forms.DataGridViewTextBoxColumn cSumMeter;
         private System.Windows.Forms.DataGridViewTextBoxColumn cSumDoc;
         private System.Windows.Forms.DataGridViewTextBoxColumn cSumPay;

@@ -23,6 +23,7 @@ namespace Arenda
             check();
             _cName = "";
             _abbr = "";
+            this.Text = "Добавить запись";
         }
 
         public AddEditBasement(int id, string cname, string abbr, int mode,int needDate)
@@ -38,6 +39,7 @@ namespace Arenda
             if (needDate == 1)
                 checkBox1.Checked = true;
             else checkBox1.Checked = false;
+            this.Text = "Редактировать запись";
         }
       
       private void btAdd_Click(object sender, EventArgs e)
@@ -47,7 +49,16 @@ namespace Arenda
           boom = 1;
         else boom = 0;
         DataTable dtb = _proc.CheakAll(tbCname.Text, "bs");
-        if(dtb == null || dtb.Rows.Count == 0)
+
+            if (_mode == 0)
+            {
+                DataRow[] dttemp = dtb.Select($"id = {zid}");
+                if (dttemp.Length > 0)
+                    dtb.Rows.Remove(dttemp[0]);
+            }
+
+
+            if (dtb == null || dtb.Rows.Count == 0)
         {
           if (_mode == 1)
           {

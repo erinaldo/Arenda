@@ -44,10 +44,8 @@
             this.needDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bds = new System.Windows.Forms.BindingSource(this.components);
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.bgBase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -68,11 +66,11 @@
             // checAll
             // 
             this.checAll.AutoSize = true;
-            this.checAll.Location = new System.Drawing.Point(7, 202);
+            this.checAll.Location = new System.Drawing.Point(29, 202);
             this.checAll.Name = "checAll";
-            this.checAll.Size = new System.Drawing.Size(45, 17);
+            this.checAll.Size = new System.Drawing.Size(110, 17);
             this.checAll.TabIndex = 30;
-            this.checAll.Text = "Все";
+            this.checAll.Text = "     - Неактивные";
             this.checAll.UseVisualStyleBackColor = true;
             this.checAll.CheckedChanged += new System.EventHandler(this.checAll_CheckedChanged);
             // 
@@ -178,49 +176,31 @@
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Coral;
-            this.pictureBox2.Location = new System.Drawing.Point(61, 205);
+            this.pictureBox2.Location = new System.Drawing.Point(47, 204);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(12, 12);
             this.pictureBox2.TabIndex = 32;
             this.pictureBox2.TabStop = false;
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(74, 203);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(68, 13);
-            this.label3.TabIndex = 31;
-            this.label3.Text = "неактивные";
-            // 
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(7, 225);
+            this.checkBox1.Location = new System.Drawing.Point(29, 225);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(143, 17);
+            this.checkBox1.Size = new System.Drawing.Size(168, 17);
             this.checkBox1.TabIndex = 33;
-            this.checkBox1.Text = "Наличие даты у док.-та";
+            this.checkBox1.Text = "     - Наличие номера и даты";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.LightBlue;
-            this.pictureBox1.Location = new System.Drawing.Point(168, 206);
+            this.pictureBox1.Location = new System.Drawing.Point(47, 227);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(12, 12);
             this.pictureBox1.TabIndex = 35;
             this.pictureBox1.TabStop = false;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(181, 204);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 13);
-            this.label1.TabIndex = 34;
-            this.label1.Text = "с датой";
             // 
             // Basement
             // 
@@ -229,10 +209,8 @@
             this.ClientSize = new System.Drawing.Size(389, 266);
             this.ControlBox = false;
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.btDel);
             this.Controls.Add(this.checAll);
             this.Controls.Add(this.button4);
@@ -272,9 +250,7 @@
         private System.Windows.Forms.Button btAddtoo;
         private System.Windows.Forms.BindingSource bds;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.Label label3;        
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label1;
     }
 }

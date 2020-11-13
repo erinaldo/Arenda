@@ -85,14 +85,14 @@ namespace Arenda
             if (!prosmotr)
             {
                 rezhim = "edit";
-                this.Text = "Редактирование документа";
+                this.Text = "Редактирование договора";
                 cmbTypeDog.Enabled = false;
                 //if (isConfirmed) rezhim = "view";
             }
             else
             {
                 rezhim = "view";
-                this.Text = "Просмотр документа";
+                this.Text = "Просмотр договора";
             }
             EditLoad(id);
             getDiscount();
@@ -102,7 +102,7 @@ namespace Arenda
             {
                 _id = 0;
                 rezhim = "add";
-                this.Text = "Копирование документа";
+                this.Text = "Копирование договора";
                 DopSoglButtons();
                 doc.Value = DateTime.Now;
                 startdate.Value = DateTime.Now;
@@ -185,7 +185,7 @@ namespace Arenda
             tbphone.Text = numTextBox.CheckAndChange(tbcbm.Text, 2, 0, 9999999999, false, defaultVal, format);
             tbcbm.Text = numTextBox.CheckAndChange(tbcbm.Text, 2, 0, 9999999999, false, defaultVal, format);
             stopdate.Value = DateTime.Now.AddMonths(GetSRKA());
-            this.Text = "Добавление документа";
+            this.Text = "Добавление договора";
             DopSoglButtons();
 
             num = tbnumd.Text;
@@ -708,9 +708,12 @@ namespace Arenda
 
         private void ini(int id)
         {
-            TypeDoc = _proc.GetTD(id);
-            bds.DataSource = TypeDoc;
-            dgAddDoc.DataSource = bds;
+            if (!isCopyDoc)
+            {
+                TypeDoc = _proc.GetTD(id);
+                bds.DataSource = TypeDoc;
+                dgAddDoc.DataSource = bds;
+            }
             DopSoglButtons();
         }
 
@@ -1200,7 +1203,10 @@ namespace Arenda
             tbcbm.Text = numTextBox.CheckAndChange(tbcbm.Text, 2, 0, 9999999999, false, defaultVal, format);
             tbphone.Text = numTextBox.CheckAndChange(tbphone.Text, 2, 0, 9999999999, false, defaultVal, format);
             tbReklNumber.Text = numTextBox.CheckAndChange(tbReklNumber.Text, 0, 0, 999999999, false, defaultValInt, formatInt);
-            tbAr.Text = numTextBox.CheckAndChange(tbAr.Text, 2, 0, 9999999999, false, defaultVal, format);
+            string arenda = tbAr.Text;
+            decimal ar = decimal.Parse(arenda.Replace(".",","));
+            decimal ar_round = Math.Round(ar);
+            tbAr.Text = numTextBox.CheckAndChange(ar_round.ToString(), 2, 0, 9999999999, false, defaultVal, format);
             txtReklamma.Text = numTextBox.CheckAndChange(txtReklamma.Text, 2, 0, 9999999999, false, defaultVal, format);
             s = numTextBox.CheckAndChange(s, 2, 0, 9999999999, false, defaultVal, format);
             st = numTextBox.CheckAndChange(st, 2, 0, 9999999999, false, defaultVal, format);
@@ -2175,7 +2181,7 @@ namespace Arenda
                 (tbcbm.Text.Trim().Length != 0 ? decimal.Parse(numTextBox.ConvertToCompPunctuation(tbcbm.Text)) : 0)
                 +
                 (tbphone.Text.Trim().Length != 0 ? decimal.Parse(numTextBox.ConvertToCompPunctuation(tbphone.Text)) : 0);
-            tbAr.Text = numTextBox.CheckAndChange(asdasd.ToString(), 2, 0, 9999999999, false, defaultVal, format);
+            tbAr.Text = numTextBox.CheckAndChange(Math.Round(asdasd).ToString(), 2, 0, 9999999999, false, defaultVal, format);
         }
 
         private void tbphone_TextChanged(object sender, EventArgs e)
@@ -2489,10 +2495,14 @@ namespace Arenda
 
         private void getDiscount()
         {
-            dgvData.AutoGenerateColumns = false;
-            dtDiscount = _proc.getTDiscount(_id);
-            dgvData.DataSource = dtDiscount;
+            if (!isCopyDoc)
+            {
+                dgvData.AutoGenerateColumns = false;
+                dtDiscount = _proc.getTDiscount(_id);
+                dgvData.DataSource = dtDiscount;
 
+                btAccept.Enabled = btunAccept.Enabled = btDelDiscount.Enabled = dtDiscount.Rows.Count > 0;
+            }
         }
     }
 }

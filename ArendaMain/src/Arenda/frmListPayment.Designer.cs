@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmListPayment));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblNum = new System.Windows.Forms.Label();
             this.lblDate = new System.Windows.Forms.Label();
             this.lblTenant = new System.Windows.Forms.Label();
@@ -56,6 +56,7 @@
             this.txtEditor = new System.Windows.Forms.TextBox();
             this.txtDateEdit = new System.Windows.Forms.TextBox();
             this.PaymentDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cPlaneDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PaymentSum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sign = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cTypePay = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,6 +68,14 @@
             this.DateEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id_Editor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Editor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbType = new System.Windows.Forms.TextBox();
+            this.tbSumm = new System.Windows.Forms.TextBox();
+            this.tbMonth = new System.Windows.Forms.TextBox();
+            this.tbDateCreate = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.grdPayments)).BeginInit();
             this.SuspendLayout();
             // 
@@ -165,17 +174,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grdPayments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.grdPayments.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdPayments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdPayments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.grdPayments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grdPayments.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PaymentDate,
+            this.cPlaneDate,
             this.PaymentSum,
             this.sign,
             this.cTypePay,
@@ -322,19 +332,26 @@
             // PaymentDate
             // 
             this.PaymentDate.DataPropertyName = "PaymentDate";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.PaymentDate.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.PaymentDate.DefaultCellStyle = dataGridViewCellStyle8;
             this.PaymentDate.HeaderText = "Дата оплаты";
             this.PaymentDate.Name = "PaymentDate";
             this.PaymentDate.ReadOnly = true;
             // 
+            // cPlaneDate
+            // 
+            this.cPlaneDate.DataPropertyName = "planedate";
+            this.cPlaneDate.HeaderText = "План";
+            this.cPlaneDate.Name = "cPlaneDate";
+            this.cPlaneDate.ReadOnly = true;
+            // 
             // PaymentSum
             // 
             this.PaymentSum.DataPropertyName = "PaymentSum";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = "0";
-            this.PaymentSum.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle9.Format = "N2";
+            dataGridViewCellStyle9.NullValue = "0";
+            this.PaymentSum.DefaultCellStyle = dataGridViewCellStyle9;
             this.PaymentSum.HeaderText = "Сумма оплаты";
             this.PaymentSum.Name = "PaymentSum";
             this.PaymentSum.ReadOnly = true;
@@ -416,11 +433,99 @@
             this.Editor.ReadOnly = true;
             this.Editor.Visible = false;
             // 
+            // tbType
+            // 
+            this.tbType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbType.Location = new System.Drawing.Point(113, 351);
+            this.tbType.Name = "tbType";
+            this.tbType.ReadOnly = true;
+            this.tbType.Size = new System.Drawing.Size(168, 20);
+            this.tbType.TabIndex = 40;
+            this.tbType.TabStop = false;
+            // 
+            // tbSumm
+            // 
+            this.tbSumm.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbSumm.Location = new System.Drawing.Point(113, 380);
+            this.tbSumm.Name = "tbSumm";
+            this.tbSumm.ReadOnly = true;
+            this.tbSumm.Size = new System.Drawing.Size(88, 20);
+            this.tbSumm.TabIndex = 41;
+            this.tbSumm.TabStop = false;
+            // 
+            // tbMonth
+            // 
+            this.tbMonth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbMonth.Location = new System.Drawing.Point(113, 408);
+            this.tbMonth.Name = "tbMonth";
+            this.tbMonth.ReadOnly = true;
+            this.tbMonth.Size = new System.Drawing.Size(88, 20);
+            this.tbMonth.TabIndex = 42;
+            this.tbMonth.TabStop = false;
+            // 
+            // tbDateCreate
+            // 
+            this.tbDateCreate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.tbDateCreate.Location = new System.Drawing.Point(113, 438);
+            this.tbDateCreate.Name = "tbDateCreate";
+            this.tbDateCreate.ReadOnly = true;
+            this.tbDateCreate.Size = new System.Drawing.Size(88, 20);
+            this.tbDateCreate.TabIndex = 43;
+            this.tbDateCreate.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(64, 354);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 13);
+            this.label1.TabIndex = 44;
+            this.label1.Text = "Тип:";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(63, 383);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.TabIndex = 45;
+            this.label2.Text = "Сумма:";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(64, 411);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.TabIndex = 46;
+            this.label3.Text = "Месяц:";
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(20, 441);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 13);
+            this.label4.TabIndex = 47;
+            this.label4.Text = "Дата создания:";
+            // 
             // frmListPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(688, 470);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.tbDateCreate);
+            this.Controls.Add(this.tbMonth);
+            this.Controls.Add(this.tbSumm);
+            this.Controls.Add(this.tbType);
             this.Controls.Add(this.btnExcel);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnEdit);
@@ -483,6 +588,7 @@
         private System.Windows.Forms.TextBox txtDateEdit;
         private System.Windows.Forms.Button btnExcel;
         private System.Windows.Forms.DataGridViewTextBoxColumn PaymentDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cPlaneDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn PaymentSum;
         private System.Windows.Forms.DataGridViewTextBoxColumn sign;
         private System.Windows.Forms.DataGridViewTextBoxColumn cTypePay;
@@ -494,5 +600,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DateEdit;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_Editor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Editor;
+        private System.Windows.Forms.TextBox tbType;
+        private System.Windows.Forms.TextBox tbSumm;
+        private System.Windows.Forms.TextBox tbMonth;
+        private System.Windows.Forms.TextBox tbDateCreate;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }

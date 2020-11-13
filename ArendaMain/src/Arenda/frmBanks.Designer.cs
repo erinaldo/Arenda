@@ -212,6 +212,7 @@
             // 
             // btExel
             // 
+            this.btExel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btExel.Image = global::Arenda.Properties.Resources.pict_excel;
             this.btExel.Location = new System.Drawing.Point(278, 337);
             this.btExel.Name = "btExel";
@@ -222,6 +223,7 @@
             // 
             // btChoose
             // 
+            this.btChoose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btChoose.Image = global::Arenda.Properties.Resources.pict_ok;
             this.btChoose.Location = new System.Drawing.Point(240, 337);
             this.btChoose.Name = "btChoose";

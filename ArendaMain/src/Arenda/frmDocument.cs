@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Drawing.Printing;
 using Nwuram.Framework.Logging;
 using System.Security.AccessControl;
+using System.Threading;
 
 namespace Arenda
 {
@@ -28,7 +29,7 @@ namespace Arenda
         int doc_Type;
         DateTime date_doc;
         string name = "";
-
+        NetworkShare net = new NetworkShare(true);
         public frmDocument(bool isView)
         {
             InitializeComponent();
@@ -174,125 +175,156 @@ namespace Arenda
 
         private void btView_Click(object sender, EventArgs e)
         {
-          if (dtScan != null && dtScan.DefaultView.Count > 0 && dgvScan.CurrentRow != null && id_Doc != 0)
-          {
-            int indexRow = dgvScan.CurrentRow.Index;
-            int id = int.Parse(dtScan.DefaultView[indexRow]["id"].ToString());
-                
-            DataTable dtFile = _proc.getScan(id_Doc, id);
-            if (dtFile != null && dtFile.Rows.Count > 0 && dtFile.Rows[0]["Scan"] != DBNull.Value)
+            if (dtScan != null && dtScan.DefaultView.Count > 0 && dgvScan.CurrentRow != null && id_Doc != 0)
             {
-              byte[] img = (byte[])dtFile.Rows[0]["Scan"];
-              string @Extension = (string)dtScan.DefaultView[indexRow]["Extension"];
-              string @name = dtScan.DefaultView[indexRow]["cName"].ToString();
-              try
-              {
-                using (var fs = new FileStream("tmpFile" + @Extension, FileMode.Create,
-                  FileAccess.Write))
-                {
-                  fs.Write(img, 0, img.Length);
-                  Process.Start("tmpFile" + @Extension);
+                int indexRow = dgvScan.CurrentRow.Index;
+                int id = int.Parse(dtScan.DefaultView[indexRow]["id"].ToString());
+                string name = dtScan.DefaultView[indexRow]["cName"].ToString();
+                string extension = dtScan.DefaultView[indexRow]["Extension"].ToString();
+                if (!Directory.Exists(Application.StartupPath + "\\temp"))
+                    Directory.CreateDirectory(Application.StartupPath + "\\temp");
+                string filename = Application.StartupPath + "\\temp\\" + DateTime.Now.ToString().Replace(":","") + extension;
+                net.CopyFromServer(id_Doc.ToString(), name, extension, filename);
+                Thread.Sleep(500);
+                Process.Start(filename);
+                Logging.StartFirstLevel(1065);
+                Logging.Comment("Произведена выгрузка внешнего файла у доп.документа договора");
 
-                  Logging.StartFirstLevel(1065);
-                  Logging.Comment("Произведена выгрузка внешнего файла у доп.документа договора");
+                Logging.Comment("ID: " + id);
+                //Logging.Comment("Тип документа ID: " + r["id_DocType"]);// + " ; Наименование: " + cbTypeDoc.Text);
+                Logging.Comment("Наименование файла: " + @name + " ;Расширение: "
+                  + extension);
 
-                  Logging.Comment("ID: " + id);
-                  //Logging.Comment("Тип документа ID: " + r["id_DocType"]);// + " ; Наименование: " + cbTypeDoc.Text);
-                  Logging.Comment("Наименование файла: " + @name + " ;Расширение: "
-                    + @Extension);
+                Logging.Comment("Данные договора, к которому добавляется внешний файл");
+                Logging.Comment("Дата заключения договора: "
+                  + oldDoc.ToShortDateString());
+                Logging.Comment("Номер договора: " + num_doc);
+                Logging.Comment("Арендатор ID: " + _old_id_ten + "; Наименование: "
+                  + oldTen);
+                Logging.Comment("Арендодатель ID: " + _old_id_lord + "; Наименование: "
+                  + oldLord);
 
-                  Logging.Comment("Данные договора, к которому добавляется внешний файл");
-                  Logging.Comment("Дата заключения договора: "
-                    + oldDoc.ToShortDateString());
-                  Logging.Comment("Номер договора: " + num_doc);
-                  Logging.Comment("Арендатор ID: " + _old_id_ten + "; Наименование: "
-                    + oldTen);
-                  Logging.Comment("Арендодатель ID: " + _old_id_lord + "; Наименование: "
-                    + oldLord);
-
-                  Logging.Comment("Операцию выполнил: ID:"
-                    + Nwuram.Framework.Settings.User.UserSettings.User.Id + " ; ФИО:"
-                    + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
-                  Logging.StopFirstLevel();
-
-                  return;
-                }
-              }
-              catch (Exception ex)
-              {
-                Console.WriteLine("Exception caught in process: {0}", ex);
+                Logging.Comment("Операцию выполнил: ID:"
+                  + Nwuram.Framework.Settings.User.UserSettings.User.Id + " ; ФИО:"
+                  + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                Logging.StopFirstLevel();
                 return;
-              }
             }
-            if (dtFile != null && dtFile.Rows.Count > 0 && dtFile.Rows[0]["Path"]
-              != DBNull.Value)
+                /*
+                DataTable dtFile = _proc.getScan(id_Doc, id);
+                if (dtFile != null && dtFile.Rows.Count > 0 && dtFile.Rows[0]["Scan"] != DBNull.Value)
+                {
+                    byte[] img = (byte[])dtFile.Rows[0]["Scan"];
+                    string @Extension = (string)dtScan.DefaultView[indexRow]["Extension"];
+                    string @name = dtScan.DefaultView[indexRow]["cName"].ToString();
+                    try
+                    {
+                        using (var fs = new FileStream("tmpFile" + @Extension, FileMode.Create,
+                          FileAccess.Write))
+                        {
+                            fs.Write(img, 0, img.Length);
+                            Process.Start("tmpFile" + @Extension);
+
+                            Logging.StartFirstLevel(1065);
+                            Logging.Comment("Произведена выгрузка внешнего файла у доп.документа договора");
+
+                            Logging.Comment("ID: " + id);
+                            //Logging.Comment("Тип документа ID: " + r["id_DocType"]);// + " ; Наименование: " + cbTypeDoc.Text);
+                            Logging.Comment("Наименование файла: " + @name + " ;Расширение: "
+                              + @Extension);
+
+                            Logging.Comment("Данные договора, к которому добавляется внешний файл");
+                            Logging.Comment("Дата заключения договора: "
+                              + oldDoc.ToShortDateString());
+                            Logging.Comment("Номер договора: " + num_doc);
+                            Logging.Comment("Арендатор ID: " + _old_id_ten + "; Наименование: "
+                              + oldTen);
+                            Logging.Comment("Арендодатель ID: " + _old_id_lord + "; Наименование: "
+                              + oldLord);
+
+                            Logging.Comment("Операцию выполнил: ID:"
+                              + Nwuram.Framework.Settings.User.UserSettings.User.Id + " ; ФИО:"
+                              + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                            Logging.StopFirstLevel();
+
+                            return;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Exception caught in process: {0}", ex);
+                        return;
+                    }
+                }
+                if (dtFile != null && dtFile.Rows.Count > 0 && dtFile.Rows[0]["Path"]
+                  != DBNull.Value)
+                {
+                    try
+                    {
+                        string @Extension = (string)dtScan.DefaultView[indexRow]["Extension"];
+                        string @name = dtScan.DefaultView[indexRow]["cName"].ToString();
+                        Process.Start(dtFile.Rows[0]["Path"].ToString() + "\\" + @name
+                          + @Extension);
+                    }
+                    catch { }
+                }
+            }
+            else
+              if (id_Doc == 0 && dtScan != null && dtScan.Rows.Count > 0
+                && dgvScan.CurrentRow != null)
             {
-              try
-              {
+                int indexRow = dgvScan.CurrentRow.Index;
                 string @Extension = (string)dtScan.DefaultView[indexRow]["Extension"];
                 string @name = dtScan.DefaultView[indexRow]["cName"].ToString();
-                Process.Start(dtFile.Rows[0]["Path"].ToString() + "\\" + @name
-                  + @Extension);
-              }
-              catch { }
-            }
-          }
-          else
-            if (id_Doc == 0 && dtScan != null && dtScan.Rows.Count > 0
-              && dgvScan.CurrentRow != null)
-            {
-              int indexRow = dgvScan.CurrentRow.Index;
-              string @Extension = (string)dtScan.DefaultView[indexRow]["Extension"];
-              string @name = dtScan.DefaultView[indexRow]["cName"].ToString();
-              if (dtScan.DefaultView[indexRow]["Scan"] != DBNull.Value)
-              {
-                byte[] img = (byte[])dtScan.DefaultView[indexRow]["Scan"];
-                
-                try
+                if (dtScan.DefaultView[indexRow]["Scan"] != DBNull.Value)
                 {
-                  using (var fs = new FileStream("tmpFile" + @Extension,
-                    FileMode.Create, FileAccess.Write))
+                    byte[] img = (byte[])dtScan.DefaultView[indexRow]["Scan"];
+
+                    try
                     {
-                    fs.Write(img, 0, img.Length);
-                    Process.Start("tmpFile" + @Extension);
+                        using (var fs = new FileStream("tmpFile" + @Extension,
+                          FileMode.Create, FileAccess.Write))
+                        {
+                            fs.Write(img, 0, img.Length);
+                            Process.Start("tmpFile" + @Extension);
 
-                    Logging.StartFirstLevel(1065);
-                    Logging.Comment("Произведена выгрузка внешнего файла у доп.документа договора");
+                            Logging.StartFirstLevel(1065);
+                            Logging.Comment("Произведена выгрузка внешнего файла у доп.документа договора");
 
-                    //Logging.Comment("ID: " + id);
-                    //Logging.Comment("Тип документа ID: " + r["id_DocType"]);// + " ; Наименование: " + cbTypeDoc.Text);
-                    Logging.Comment("Наименование файла: " + @name + " ;Расширение: "
-                      + @Extension);
+                            //Logging.Comment("ID: " + id);
+                            //Logging.Comment("Тип документа ID: " + r["id_DocType"]);// + " ; Наименование: " + cbTypeDoc.Text);
+                            Logging.Comment("Наименование файла: " + @name + " ;Расширение: "
+                              + @Extension);
 
-                    Logging.Comment("Данные договора, к которому добавляется внешний файл");
-                    Logging.Comment("Дата заключения договора: "
-                      + oldDoc.ToShortDateString());
-                    Logging.Comment("Номер договора: " + num_doc);
-                    Logging.Comment("Арендатор ID: " + _old_id_ten + "; Наименование: "
-                      + oldTen);
-                    Logging.Comment("Арендодатель ID: " + _old_id_lord
-                      + "; Наименование: " + oldLord);
+                            Logging.Comment("Данные договора, к которому добавляется внешний файл");
+                            Logging.Comment("Дата заключения договора: "
+                              + oldDoc.ToShortDateString());
+                            Logging.Comment("Номер договора: " + num_doc);
+                            Logging.Comment("Арендатор ID: " + _old_id_ten + "; Наименование: "
+                              + oldTen);
+                            Logging.Comment("Арендодатель ID: " + _old_id_lord
+                              + "; Наименование: " + oldLord);
 
-                    Logging.Comment("Операцию выполнил: ID:"
-                      + Nwuram.Framework.Settings.User.UserSettings.User.Id + " ; ФИО:"
-                      + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
-                    Logging.StopFirstLevel();
+                            Logging.Comment("Операцию выполнил: ID:"
+                              + Nwuram.Framework.Settings.User.UserSettings.User.Id + " ; ФИО:"
+                              + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                            Logging.StopFirstLevel();
 
-                    return;
-                  }
+                            return;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Exception caught in process: {0}", ex);
+                        return;
+                    }
                 }
-                catch (Exception ex)
+                else if (dtScan.DefaultView[indexRow]["Path"] != DBNull.Value)
                 {
-                  Console.WriteLine("Exception caught in process: {0}", ex);
-                  return;
+                    Process.Start(dtScan.DefaultView[indexRow]["Path"].ToString()
+                      + "\\" + @name + @Extension);
                 }
-              }
-              else if (dtScan.DefaultView[indexRow]["Path"] != DBNull.Value)
-              {
-                Process.Start(dtScan.DefaultView[indexRow]["Path"].ToString()
-                  + "\\" + @name + @Extension);
-              }
-            }
+            }*/
         }
 
         private void btAddFile_Click(object sender, EventArgs e)
@@ -345,9 +377,10 @@ namespace Arenda
                 dtScan.AcceptChanges();
             }
         }
-
+       
         private void saveFileToDataBase(byte[] byteFile, string nameFile, string Extension, int id_dt, DateTime dd)
         {
+            //kav меняем запись на серверную папку
             DataRow row = dtScan.Rows.Add();
             row["id"] = -1;
             row["cName"] = nameFile;
@@ -356,7 +389,11 @@ namespace Arenda
             row["id_DocType"] = id_dt;
             row["DateDocument"] = dd;
 
-          DataRow[] tmp = _proc.EditGetConf(ConnectionSettings.GetIdProgram(), "", "").Select("id_value = \'psss\'");
+            if (!net.CopyBytes(byteFile, nameFile + Extension, id_Doc.ToString()))
+                MessageBox.Show("Ошибка копирования файла", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            row["Path"] = net.server + "\\" + id_Doc.ToString();
+            
+         /* DataRow[] tmp = _proc.EditGetConf(ConnectionSettings.GetIdProgram(), "", "").Select("id_value = \'psss\'");
 
           if (tmp.Length == 0)
           {
@@ -380,74 +417,75 @@ namespace Arenda
             }
           }
           catch { }
-
+          */
             dgvScan_CurrentCellChanged(null, null);
         }
-      
-      private void dgvScan_CurrentCellChanged(object sender, EventArgs e)
-      {
-        if (dtScan != null && dtScan.Rows.Count > 0 && dgvScan.CurrentRow != null)
+
+        private void dgvScan_CurrentCellChanged(object sender, EventArgs e)
         {
-          int indexRow = dgvScan.CurrentRow.Index;
-
-          if (dtScan.DefaultView[indexRow]["id"] == DBNull.Value) return;
-
-          int id = int.Parse(dtScan.DefaultView[indexRow]["id"].ToString());
-          byte[] img;
-          if(dtScan.DefaultView[indexRow]["Scan"] != DBNull.Value)
-            img = (byte[])dtScan.DefaultView[indexRow]["Scan"];
-          else
-          {
-            string tmp = dtScan.DefaultView[indexRow]["Path"].ToString() + "\\" +
-              dtScan.DefaultView[indexRow]["cName"].ToString()
-              + dtScan.DefaultView[indexRow]["Extension"].ToString();
-            try
+            if (dtScan != null && dtScan.Rows.Count > 0 && dgvScan.CurrentRow != null)
             {
-              img = File.ReadAllBytes(tmp);
-            }
-            catch
-            {
-              img = null;
-              imagePanel1.Image = null;
-              btDel.Enabled = false;
-              btSaveDoc.Enabled = false;
-              btEditName.Enabled = false;
-              btZoomIn.Enabled = btZoomOut.Enabled = false;
-              btView.Enabled = false;
-            }
-          }
-          string @Extension = (string)dtScan.DefaultView[indexRow]["Extension"];
-          try
-          {
-            MemoryStream ms = new MemoryStream(img);
-            Bitmap b = new Bitmap(ms);
-            imagePanel1.Image = (Bitmap)b;
-            ZoomValue = 10;
-            imagePanel1.Zoom = ZoomValue * 0.02f;
-          }
-          catch (Exception ex)
-          {
-            Console.WriteLine("Exception caught in process: {0}", ex);
-            imagePanel1.Image = null;
-            return;
-          }
+                int indexRow = dgvScan.CurrentRow.Index;
 
-          btDel.Enabled = true;
-          btSaveDoc.Enabled = true;
-          btEditName.Enabled = true;
-          btZoomIn.Enabled = btZoomOut.Enabled = true;
-          btView.Enabled = true;
+                if (dtScan.DefaultView[indexRow]["id"] == DBNull.Value) return;
+
+                int id = int.Parse(dtScan.DefaultView[indexRow]["id"].ToString());
+                byte[] img;
+                if (dtScan.DefaultView[indexRow]["Scan"] != DBNull.Value)
+                    img = (byte[])dtScan.DefaultView[indexRow]["Scan"];
+                else
+                {
+                    string tmp = dtScan.DefaultView[indexRow]["Path"].ToString() + "\\" +
+                      dtScan.DefaultView[indexRow]["cName"].ToString()
+                      + dtScan.DefaultView[indexRow]["Extension"].ToString();
+                    try
+                    {
+                        //img = File.ReadAllBytes(tmp);
+                        img = net.GetFileBytes(id_Doc.ToString(), dtScan.DefaultView[indexRow]["cName"].ToString(), dtScan.DefaultView[indexRow]["Extension"].ToString());
+                    }
+                    catch
+                    {
+                        img = null;
+                        imagePanel1.Image = null;
+                        btDel.Enabled = false;
+                        //btSaveDoc.Enabled = false;
+                        btEditName.Enabled = false;
+                        btZoomIn.Enabled = btZoomOut.Enabled = false;
+                        //btView.Enabled = false;
+                    }
+                }
+                string @Extension = (string)dtScan.DefaultView[indexRow]["Extension"];
+                try
+                {
+                    MemoryStream ms = new MemoryStream(img);
+                    Bitmap b = new Bitmap(ms);
+                    imagePanel1.Image = (Bitmap)b;
+                    ZoomValue = 10;
+                    imagePanel1.Zoom = ZoomValue * 0.02f;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Exception caught in process: {0}", ex);
+                    imagePanel1.Image = null;
+                    return;
+                }
+
+                btDel.Enabled = true;
+                btSaveDoc.Enabled = true;
+                btEditName.Enabled = true;
+                btZoomIn.Enabled = btZoomOut.Enabled = true;
+                //btView.Enabled = true;
+            }
+            else
+            {
+                imagePanel1.Image = null;
+                btDel.Enabled = false;
+                //btSaveDoc.Enabled = false;
+                btEditName.Enabled = false;
+                btZoomIn.Enabled = btZoomOut.Enabled = false;
+                //btView.Enabled = false;
+            }
         }
-        else
-        {
-          imagePanel1.Image = null;
-          btDel.Enabled = false;
-          btSaveDoc.Enabled = false;
-          btEditName.Enabled = false;
-          btZoomIn.Enabled = btZoomOut.Enabled = false;
-          btView.Enabled = false;
-        }
-      }
 
         private void tbNameImg_TextChanged(object sender, EventArgs e)
         {
@@ -546,6 +584,15 @@ namespace Arenda
 
         private void frmDocument_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (Directory.Exists(Application.StartupPath + "\\temp"))
+            {
+                string folder = Application.StartupPath + "\\temp";
+                DirectoryInfo di = new DirectoryInfo(folder);
+                foreach (FileInfo f in di.GetFiles())
+                {
+                    f.Delete();
+                }
+            }
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
         }
 
@@ -559,12 +606,13 @@ namespace Arenda
                 string extension = dtScan.DefaultView[indexRow]["Extension"].ToString();
                 byte[] file = new byte[0];
                 DataTable dtFile = _proc.getScan(id_Doc, id);
-                if (dtFile != null && dtFile.Rows.Count > 0 && dtFile.Rows[0]["Scan"] != DBNull.Value)
+                /*if (dtFile != null && dtFile.Rows.Count > 0 && dtFile.Rows[0]["Scan"] != DBNull.Value)
                     file = (byte[])dtFile.Rows[0]["Scan"];
                 else if (dtFile != null && dtFile.Rows.Count > 0 && dtFile.Rows[0]["Path"] != DBNull.Value
                   && dtFile.Rows[0]["Path"].ToString() != "")
                   try
                   {
+
                     file = File.ReadAllBytes(dtFile.Rows[0]["Path"].ToString()
                       + "\\" + dtFile.Rows[0]["cName"].ToString()
                       + dtFile.Rows[0]["Extension"].ToString());
@@ -575,6 +623,11 @@ namespace Arenda
                             + dtFile.Rows[0]["cName"].ToString() + dtFile.Rows[0]["Extension"].ToString() + "/nТекст ошибки: "
                             + ex.Message);
                   }
+                  */
+
+
+
+
 
                 SaveFileDialog fileDialog = new SaveFileDialog();
                 fileDialog.Filter = @"(All Image Files)|*.BMP;*.bmp;*.JPG;*.JPEG*.jpg;*.jpeg;*.PNG;*.png;*.GIF;*.gif;*.tif;*.tiff;*.ico;*.ICO" +
@@ -584,8 +637,8 @@ namespace Arenda
                 fileDialog.FileName = name + extension;
                 if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    File.WriteAllBytes(fileDialog.FileName, file);
-
+                    //File.WriteAllBytes(fileDialog.FileName, file);
+                    net.CopyFromServer(id_Doc.ToString(), name,extension , fileDialog.FileName);
 
                     Logging.StartFirstLevel(821);
                     Logging.Comment("Произведена выгрузка внешнего файла у доп.документа договора");
@@ -705,65 +758,77 @@ namespace Arenda
                 {
                     if ((int)r["id"] == -1)
                     {
-                      if (r["Path"] == null || r["Path"].ToString() == "")
+                      /*if (r["Path"] == null || r["Path"].ToString() == "")
                       {
                         r["Path"] = "\\\\192.168.5.31\\Scans";
                         _proc.EditGetConf(ConnectionSettings.GetIdProgram(), "psss", r["Path"].ToString());
-                      }
-                      if (!Directory.Exists(r["Path"].ToString()))
-                      {
-                        MessageBox.Show("   Введенный путь хранения\nотсканированных документов\n      недоступен для чтения.\n      Выберите другой путь.",
-                          "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        var fd = new FolderBrowser2 { };
-                        if (fd.ShowDialog(this) == DialogResult.OK)
+                      }*/
+
+                        #region проверка в комменте
+                        /*
+                        if (!Directory.Exists(r["Path"].ToString()))
                         {
-                          if (fd.DirectoryPath.Trim().Length == 0)
+                          MessageBox.Show("   Введенный путь хранения\nотсканированных документов\n      недоступен для чтения.\n      Выберите другой путь.",
+                            "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                          var fd = new FolderBrowser2 { };
+                          if (fd.ShowDialog(this) == DialogResult.OK)
                           {
-                            return;
-                          }
-                          r["Path"] = fd.DirectoryPath.Trim() + id_Doc.ToString();
-                        }
-                        else
-                        {
-                          return;
-                        }
-                      }
-                      else
-                      {
-                        DirectoryInfo di = new DirectoryInfo(r["Path"].ToString());
-                        DirectorySecurity ds = di.GetAccessControl();
-                        var rules = ds.GetAccessRules(true, true, typeof(System.Security.Principal.SecurityIdentifier));
-                        foreach (FileSystemAccessRule rule in rules)
-                        {
-                          if (rule.FileSystemRights == FileSystemRights.Read && rule.AccessControlType == AccessControlType.Deny)
-                          {
-                            MessageBox.Show("   Введенный путь хранения\nотсканированных документов\n      недоступен для чтения.\n      Выберите другой путь.",
-                              "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            var fd = new FolderBrowser2 { };
-                            if (fd.ShowDialog(this) == DialogResult.OK)
-                            {
-                              if (fd.DirectoryPath.Trim().Length == 0)
-                              {
-                                return;
-                              }
-                              r["Path"] = fd.DirectoryPath.Trim() + id_Doc.ToString();
-                            }
-                            else
+                            if (fd.DirectoryPath.Trim().Length == 0)
                             {
                               return;
                             }
+                            r["Path"] = fd.DirectoryPath.Trim() + id_Doc.ToString();
+                          }
+                          else
+                          {
+                            return;
                           }
                         }
-                      }
+                        else
+                        {
+                          DirectoryInfo di = new DirectoryInfo(r["Path"].ToString());
+                          DirectorySecurity ds = di.GetAccessControl();
+                          var rules = ds.GetAccessRules(true, true, typeof(System.Security.Principal.SecurityIdentifier));
+                          foreach (FileSystemAccessRule rule in rules)
+                          {
+                            if (rule.FileSystemRights == FileSystemRights.Read && rule.AccessControlType == AccessControlType.Deny)
+                            {
+                              MessageBox.Show("   Введенный путь хранения\nотсканированных документов\n      недоступен для чтения.\n      Выберите другой путь.",
+                                "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                              var fd = new FolderBrowser2 { };
+                              if (fd.ShowDialog(this) == DialogResult.OK)
+                              {
+                                if (fd.DirectoryPath.Trim().Length == 0)
+                                {
+                                  return;
+                                }
+                                r["Path"] = fd.DirectoryPath.Trim() + id_Doc.ToString();
+                              }
+                              else
+                              {
+                                return;
+                              }
+                            }
+                          }
+                        }*/
+                        #endregion
+
                         _proc.setScan(id_Doc, r["cName"].ToString(), r["Extension"].ToString(), (int)r["id_DocType"],
                           (DateTime)r["DateDocument"], r["Path"].ToString());
                         if (r["Scan"] != DBNull.Value)
                         {
                           try
                           {
-                            File.WriteAllBytes(r["Path"].ToString() + "\\"
+                                if (!net.CopyBytesWithServer((byte[])r["Scan"],r["Path"].ToString(), r["cName"].ToString() + r["Extension"].ToString()))
+                                {
+                                    MessageBox.Show("Не удалось сохранить файл " + r["Path"].ToString() + "\\"
+                              + r["cName"].ToString() + r["Extension"].ToString(), "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+                                
+
+                           /* File.WriteAllBytes(r["Path"].ToString() + "\\"
                               + r["cName"].ToString() + r["Extension"].ToString(),
-                              (byte[])r["Scan"]);
+                              (byte[])r["Scan"]);*/
                           }
                           catch (Exception ex)
                           {

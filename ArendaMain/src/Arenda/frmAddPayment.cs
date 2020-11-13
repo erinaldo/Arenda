@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Nwuram.Framework.Settings.Connection;
 using Nwuram.Framework.Logging;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Arenda
 {
@@ -183,6 +184,11 @@ namespace Arenda
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (cmbPayType.SelectedIndex == -1)
+            {
+                MessageBox.Show("Выберите тип оплаты", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if (txtSum.Text == defaultVal)
             {
                 MessageBox.Show("Введите сумму оплаты!");
@@ -198,12 +204,12 @@ namespace Arenda
                 return;
             }
 
-            DateTime AgrDate = DateTime.Parse(dtAgreement.Rows[0]["Date_of_Conclusion"].ToString()).Date;
+           /* DateTime AgrDate = DateTime.Parse(dtAgreement.Rows[0]["Date_of_Conclusion"].ToString()).Date;
             if (dtpDate.Value.Date < AgrDate)
             {
                 MessageBox.Show("Дата договора - " + AgrDate.ToShortDateString() + "\nДата оплаты не может быть меньше!");
                 return;
-            }            
+            } */           
 
             //int curSign = 0;            
             //if (rbRek.Checked)
@@ -250,156 +256,102 @@ namespace Arenda
             {
                 //MessageBox.Show("Ошибка соединения с сервером");
                 return;
-            }
+            }       
         }
 
         private void save()
         {
-            if (dtY == null)
+            if (int.Parse(cmbPayType.SelectedValue.ToString()) != 2 || rbSendMoney.Checked)
             {
-                MessageBox.Show("Ошибка расчета данных");
-                return;
-            }
-
-            int curSign = 0;            
-            //if (rbRek.Checked)
-            //    curSign = 2;
-
-            int id_row = 0;
-            
-            DataTable dt = new DataTable();
-            dt = _proc.AddEditPayment(id,
-                     id_agreement,
-                     dtpDate.Value.Date,
-                     decimal.Parse(numTextBox.ConvertToCompPunctuation(txtSum.Text)),
-                     (int)cmbPayType.SelectedValue,
-                     DateTime.Parse(cmbPlaneDate.Text),
-                     rbRealMoney.Checked,
-                     rbSendMoney.Checked,
-                     id_Fine
-                     );
-
-            if ((dt != null) && (dt.Rows.Count > 0))
-            {
-                id_row = int.Parse(dt.Rows[0]["id"].ToString());
+                DataTable dt = new DataTable();
+                dt = _proc.AddEditPayment(id,
+                         id_agreement,
+                         dtpDate.Value.Date,
+                         decimal.Parse(numTextBox.ConvertToCompPunctuation(txtSum.Text)),
+                         (int)cmbPayType.SelectedValue,
+                         DateTime.Parse(cmbPlaneDate.Text),
+                         rbRealMoney.Checked,
+                         rbSendMoney.Checked,
+                         id_Fine
+                         );
+                MessageBox.Show("Оплата добавлена", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("Ошибка!");
-                return;
-            }
+                Penni penni = new Penni(id_agreement, dtpDate.Value, decimal.Parse(numTextBox.ConvertToCompPunctuation(txtSum.Text)));
+                penni.setDataToAddPay((int)cmbPayType.SelectedValue, DateTime.Parse(cmbPlaneDate.Text), rbRealMoney.Checked,
+                         rbSendMoney.Checked,
+                         id_Fine);
+                penni.PenniCalculate();
+                MessageBox.Show(penni.message, "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                int id_Payment = 0;
+                if (new int[] { 1, 2, 3 }.Contains(penni.statusPenni))
+                    id_Payment = penni.id_PaymentContract;
+                else
+                {
+                    this.Close();
+                    return;
+                }
+                Logging.StartFirstLevel(181);
 
-            Logging.StartFirstLevel(181);
+                string operation = "";
+                if (mode == "add")
+                {
+                    operation = "Добавление оплаты по договору № " + num + ", id договора = " + id_agreement.ToString();
 
-            string operation = "";
-            if (mode == "add")
-            {
-                operation = "Добавление оплаты по договору № " + num + ", id договора = " + id_agreement.ToString();
+                    Logging.Comment(operation);
+                    Logging.Comment("");
+                    Logging.Comment("id оплаты = " + id_Payment.ToString());
+                    Logging.Comment("Дата: " + dtpDate.Value.ToShortDateString());
+                    Logging.Comment("Сумма оплаты: " + txtSum.Text);
+                    //Logging.Comment("Признак оплаты: " + (rbAr.Checked ? "Аренда" : "Реклама"));
+                    Logging.Comment("");
+                    Logging.Comment("Оплата просрочена на " + penni.dtPaymentContract.Rows[0]["days"].ToString() + " дней.");
+                    // sveta Logging.Comment("Начислено пени в размере " + numTextBox.CheckAndChange(dt.Rows[0]["peni"].ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}") + " руб. "); 
+                    Logging.Comment("В оплату принято " + numTextBox.CheckAndChange(penni.dtPaymentContract.Rows[0]["payed"].ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}") + " руб. ");
+                    Logging.Comment("Итого долг равен " + numTextBox.CheckAndChange(penni.dtPaymentContract.Rows[0]["debt"].ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}") + " руб. ");
+                }
+                else
+                {
+                    operation = "Редактирование оплаты по договору № " + num + ", id договора = " + id_agreement.ToString();
 
-                Logging.Comment(operation);
+                    Logging.Comment(operation);
+                    Logging.Comment("");
+                    Logging.Comment("id оплаты = " + id.ToString());
+                    Logging.VariableChange("Дата", dtpDate.Value.ToShortDateString(), oldDate.ToShortDateString());
+                    Logging.VariableChange("Сумма оплаты", txtSum.Text, oldSum);
+                    //Logging.VariableChange("Признак оплаты",
+                    //    (rbAr.Checked ? "Аренда" : "Реклама"),
+                    //    (oldSign == 0) ? "Аренда" : "Реклама");
+                    Logging.Comment("");
+                    Logging.Comment("Оплата просрочена на " + penni.dtPaymentContract.Rows[0]["days"].ToString() + " дней.");
+                    // sveta Logging.Comment("Начислено пени в размере " + numTextBox.CheckAndChange(dt.Rows[0]["peni"].ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}") + " руб. ");
+                    Logging.Comment("В оплату принято " + numTextBox.CheckAndChange(penni.dtPaymentContract.Rows[0]["payed"].ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}") + " руб. ");
+                    Logging.Comment("Итого долг равен " + numTextBox.CheckAndChange(penni.dtPaymentContract.Rows[0]["debt"].ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}") + " руб. ");
+                }
+
+                if (TempData.SumDebtAfterCount != 0)
+                {
+                    Logging.Comment("Оплатить до " + TempData.dateToPayAfterCount.Date.ToShortDateString());
+                }
+
+                Logging.Comment("Итого переплата "
+                    + numTextBox.CheckAndChange(
+                        TempData.PereplataAfterCount.ToString(),
+                        2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")
+                    + " руб. ");
                 Logging.Comment("");
-                Logging.Comment("id оплаты = " + id_row.ToString());
-                Logging.Comment("Дата: " + dtpDate.Value.ToShortDateString());
-                Logging.Comment("Сумма оплаты: " + txtSum.Text);
-                //Logging.Comment("Признак оплаты: " + (rbAr.Checked ? "Аренда" : "Реклама"));
+
+                oldDate = dtpDate.Value;
+                oldSum = txtSum.Text = numTextBox.CheckAndChange(txtSum.Text, 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}");
+
+                oldSign = 0;
+
                 Logging.Comment("");
-                Logging.Comment("Оплата просрочена на " + dt.Rows[0]["days"].ToString() + " дней."); 
-                Logging.Comment("Начислено пени в размере " + numTextBox.CheckAndChange(dt.Rows[0]["peni"].ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}") + " руб. "); 
-                Logging.Comment("В оплату принято " + numTextBox.CheckAndChange(dt.Rows[0]["payed"].ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}") + " руб. ");
-                Logging.Comment("Итого долг равен " + numTextBox.CheckAndChange(dt.Rows[0]["debt"].ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}") + " руб. ");                
+                Logging.Comment("Завершение операции \"" + operation + "\"");
+                Logging.StopFirstLevel();
             }
-            else
-            {
-                operation = "Редактирование оплаты по договору № " + num + ", id договора = " + id_agreement.ToString();
-
-                Logging.Comment(operation);
-                Logging.Comment("");
-                Logging.Comment("id оплаты = " + id.ToString());
-                Logging.VariableChange("Дата", dtpDate.Value.ToShortDateString(), oldDate.ToShortDateString());
-                Logging.VariableChange("Сумма оплаты", txtSum.Text, oldSum);
-               //Logging.VariableChange("Признак оплаты",
-                //    (rbAr.Checked ? "Аренда" : "Реклама"),
-                //    (oldSign == 0) ? "Аренда" : "Реклама");
-                Logging.Comment("");
-                Logging.Comment("Оплата просрочена на " + dt.Rows[0]["days"].ToString() + " дней.");
-                Logging.Comment("Начислено пени в размере " + numTextBox.CheckAndChange(dt.Rows[0]["peni"].ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}") + " руб. ");
-                Logging.Comment("В оплату принято " + numTextBox.CheckAndChange(dt.Rows[0]["payed"].ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}") + " руб. ");
-                Logging.Comment("Итого долг равен " + numTextBox.CheckAndChange(dt.Rows[0]["debt"].ToString(), 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}") + " руб. ");
-            }
-
-            if (TempData.SumDebtAfterCount != 0)
-            {
-                Logging.Comment("Оплатить до " + TempData.dateToPayAfterCount.Date.ToShortDateString());
-            }
-
-            Logging.Comment("Итого переплата "                             
-                + numTextBox.CheckAndChange(
-                    TempData.PereplataAfterCount.ToString(),
-                    2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")
-                + " руб. ");
-            Logging.Comment("");
-
-            oldDate = dtpDate.Value;
-            oldSum = txtSum.Text = numTextBox.CheckAndChange(txtSum.Text, 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}");
-
-            oldSign = 0;
-            //if (rbRek.Checked)
-            //    oldSign = 2;
-
-            saveDetails(id_row);
-            
-            decimal sumPay = decimal.Parse(numTextBox.ConvertToCompPunctuation(txtSum.Text));
-
-            decimal pen = Convert.ToDecimal(dtY.Compute("Sum(Peni)", ""));
-
-            decimal payed = sumPay - pen;
-
-            //MessageBox.Show("Оплата "
-            //    +                 
-            //    numTextBox.CheckAndChange(
-            //        sumPay.ToString(), 
-            //        2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")
-            //    + " руб. просрочена на "
-            //    + Convert.ToInt32(dtY.Compute("Max(Pr)", "")).ToString()
-            //    + " дней. "
-            //    + "\nНачислено пени в размере "
-            //    + numTextBox.CheckAndChange(
-            //        pen.ToString(), 
-            //        2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")
-            //    + " руб. "
-            //    + "\nВ оплату принято " 
-            //    + numTextBox.CheckAndChange(
-            //        payed.ToString(), 
-            //        2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")                                
-            //    + " руб. "
-            //    + "\n\nИтого долг равен "
-            //    + numTextBox.CheckAndChange(
-            //        TempData.SumDebtAfterCount.ToString(), 
-            //        2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")                
-            //    + " руб. "
-            //    + ((TempData.SumDebtAfterCount == 0) ? "" : "\nОплатить до " + TempData.dateToPayAfterCount.Date.ToShortDateString())
-            //    + "\nИтого переплата "
-            //    + numTextBox.CheckAndChange(
-            //        TempData.PereplataAfterCount.ToString(),
-            //        2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")
-            //    + " руб. "
-            //    + ((TempData.isFullPayed) ? ("\n\nДоговор оплачен полностью.") : "")
-            //    );
-
-            //PrintSavedResults("Результат сохранения оплаты", true);
-
-            if (TempData.isFullPayed)
-            {
-                _proc.FullPayed(id_agreement, true);
-                Logging.Comment("");
-                Logging.Comment("Договор полностью оплачен.");
-            }
-
-            Logging.Comment("");
-            Logging.Comment("Завершение операции \"" + operation + "\"");
-            Logging.StopFirstLevel();
-
-            this.Close();
+             this.Close();
         }
 
         private string Month(int numMonth)
@@ -476,7 +428,7 @@ namespace Arenda
 
         private void Algoritm()
         {
-            if (_date == dtpDate.Value.Date &&
+           /* sveta if (_date == dtpDate.Value.Date &&
             _summa == txtSum.Text) return;
 
             if (!Running)
@@ -488,7 +440,7 @@ namespace Arenda
                     Enabled(false);
                     bgwToExcel.RunWorkerAsync();
                 }
-            }
+            }*/
         }
 
         private void dtpDate_ValueChanged(object sender, EventArgs e)
@@ -554,13 +506,16 @@ namespace Arenda
 
             Phone = (Reklama) ? 0 : decimal.Parse(dt.Rows[0]["Phone"].ToString());
 
-            DataTable dtX = new DataTable();
-            dtX = GetX.GetXtable(StartDate, DateEnd, TS, OST, L, Reklama, Cost_of_Meter, Phone, id_agreement);
+           //sveta DataTable dtX = new DataTable();
+           /*sveta dtX = GetX.GetXtable(StartDate, DateEnd, TS, OST, L, Reklama, Cost_of_Meter, Phone, id_agreement);
                 
 
             if ((dtX == null) || (dtX.Rows.Count == 0))
             {
-                MessageBox.Show("Ошибка получения данных");
+                DoOnUIThread(delegate ()
+                {
+                    MessageBox.Show("Ошибка получения данных");
+                });
                 return;
             }            
                         
@@ -570,7 +525,12 @@ namespace Arenda
                        
 
             //процедура получения Y
-            dtY = GetY.GetYtable(dtX, Sopl, StartDate.Day, N, dtpDate.Value.Date, SumProg, Phone, id_agreement);
+            dtY = GetY.GetYtable(dtX, Sopl, StartDate.Day, N, dtpDate.Value.Date, SumProg, Phone, id_agreement);*/
+        }
+
+        private void DoOnUIThread(MethodInvoker d)
+        {
+            if (this.InvokeRequired) { this.Invoke(d); } else { d(); }
         }
 
         private void ShowTel(bool isActive)

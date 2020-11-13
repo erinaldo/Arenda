@@ -230,7 +230,7 @@
             this.Controls.Add(this.btAdd);
             this.Controls.Add(this.dgBanks);
             this.Controls.Add(this.sBanks);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "Banks";
             this.ShowInTaskbar = false;

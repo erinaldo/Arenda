@@ -74,7 +74,7 @@ namespace Arenda
                 btnDel.Enabled = true;
                 for (int i = 0; dtPayments.Rows.Count > i; i++)
                 {
-                    summa += decimal.Parse(numTextBox.ConvertToCompPunctuation(dtPayments.Rows[i]["PaymentSum"].ToString()));
+                    summa += decimal.Parse(numTextBox.ConvertToCompPunctuation(dtPayments.Rows[i]["PaymentSum"].ToString())) * ((bool)dtPayments.Rows[i]["isToTenant"] ? -1 : 1);
                     dtPayments.Rows[i]["PaymentSum"] = numTextBox.ConvertToSqlPunctuation(dtPayments.Rows[i]["PaymentSum"].ToString());
                 }
             }
@@ -89,7 +89,7 @@ namespace Arenda
             grdPayments.AutoGenerateColumns = false;
             grdPayments.DataSource = dtPayments;
 
-            txtItog.Text = numTextBox.CheckAndChange(summa.ToString().Trim(), 2, 0, 999999999999, false, "0.00", "{0:# ### ### ##0.00}");
+            txtItog.Text = numTextBox.CheckAndChange(summa.ToString().Trim(), 2, -999999999, 999999999999, true, "0.00", "{0:# ### ### ##0.00}");
         }
 
         private void btnQuit_Click(object sender, EventArgs e)
@@ -151,6 +151,32 @@ namespace Arenda
                 txtDateEdit.Text = grdPayments.CurrentRow.Cells["DateEdit"].Value.ToString();
             }
             catch { txtEditor.Text = ""; txtDateEdit.Text = ""; }
+            try
+            {
+                if (int.Parse(dtPayments.DefaultView[grdPayments.CurrentRow.Index]["id_PayType"].ToString()) == 3)
+                {
+                    tbType.Visible = tbSumm.Visible = tbMonth.Visible = tbDateCreate.Visible =
+                        label1.Visible = label2.Visible = label3.Visible = label4.Visible = true;
+                    tbType.Text = dtPayments.DefaultView[grdPayments.CurrentRow.Index]["fTypePayment"].ToString();
+                    tbSumm.Text = dtPayments.DefaultView[grdPayments.CurrentRow.Index]["fSumma"].ToString();
+
+                    tbMonth.Text = dtPayments.DefaultView[grdPayments.CurrentRow.Index]["fMonth"].ToString() == "" ? "" :
+                        DateTime.Parse(dtPayments.DefaultView[grdPayments.CurrentRow.Index]["fMonth"].ToString()).ToShortDateString();
+                    tbDateCreate.Text = dtPayments.DefaultView[grdPayments.CurrentRow.Index]["fDateCreate"].ToString() == "" ? "" :
+                         DateTime.Parse(dtPayments.DefaultView[grdPayments.CurrentRow.Index]["fDateCreate"].ToString()).ToShortDateString();
+                }
+                else
+                {
+                    tbType.Visible = tbSumm.Visible = tbMonth.Visible = tbDateCreate.Visible =
+                        label1.Visible = label2.Visible = label3.Visible = label4.Visible = false;
+                    tbType.Text = tbSumm.Text = tbMonth.Text = tbDateCreate.Text = "";
+                }
+            }
+            catch
+            {
+                tbType.Text = tbSumm.Text = tbMonth.Text = tbDateCreate.Text = "";
+            }
+
         }
 
         private void btnDel_Click(object sender, EventArgs e)

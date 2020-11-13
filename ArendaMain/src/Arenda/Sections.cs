@@ -12,6 +12,7 @@ using Exc = Microsoft.Office.Interop.Excel;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Nwuram.Framework.Logging;
+using Nwuram.Framework.ToExcelNew;
 
 namespace Arenda
 {
@@ -757,31 +758,11 @@ namespace Arenda
 
         private void btExel_Click(object sender, EventArgs e)
         {
-            var fd = new SaveFileDialog { Filter = @"Файлы Excel|*.xls" };
-            fd.ShowDialog();
-            if (fd.FileName.Trim().Length == 0)
-            {
-                return;
-            }
-
-            /*if (!File.Exists(Application.StartupPath + "\\Templates\\Sections.xls"))
-            {
-                MessageBox.Show(@"Не обнаружен файл шаблона " + "\\Templates\\Sections.xls", @"Внимание", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }*/
-                                  
-            _fileName = fd.FileName.Trim();
-            if (!_fileName.EndsWith(".xls", StringComparison.CurrentCultureIgnoreCase))
-            {
-                _fileName += ".xls";
-            }
-
-            file = new System.IO.FileInfo(fd.FileName.Trim());
-
+          
             this.Enabled = false;
-
-          frmWait.TextWait = "ЖДИТЕ. ИДЁТ ВЫГРУЗКА";
-          frmWait.Show();
+            frmWait = new frmLoad();
+            frmWait.TextWait = "ЖДИТЕ. ИДЁТ ВЫГРУЗКА";
+            frmWait.Show();
 
             backgroundWorker1.RunWorkerAsync(new object[] {"\\Templates\\Sections.xls" });
             
@@ -795,65 +776,68 @@ namespace Arenda
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            Exc.Application appExc = new Exc.Application();
-            appExc.DisplayAlerts = false;
-            appExc.Visible = false;
-            appExc.SheetsInNewWorkbook = 1;
-            Exc.Workbook book = appExc.Workbooks.Add(1);
-            Exc.Worksheet sheet = (Exc.Worksheet)book.Worksheets[1];
+            ExcelUnLoad rep = new ExcelUnLoad("Отчет по секциям");
+         
+            rep.AddSingleValue("Справочник секций",1,1);
+            rep.Merge(1, 1, 1, 9);
+            rep.SetBordersToBottom(1, 1, 9, true);
+            rep.SetBordersToBottom(1, 2, 9, true);
+            rep.SetBordersToBottom(1, 3, 9, true);
+            rep.SetBordersToBottom(1, 4, 9, true);
+            rep.SetBordersToBottom(1, 5, 9, true);
+            rep.SetBordersToBottom(1, 6, 9, true);
+            rep.SetBordersToBottom(1, 7, 9, true);
+            rep.SetBordersToBottom(1, 8, 9, true);
+            rep.SetBordersToBottom(1, 9, 9, true);
 
-            sheet.Cells[1, 1] = "Справочник секций";
-            sheet.get_Range("A1", "I1").Merge();
-            sheet.get_Range("A1", "I1").BorderAround();
-            sheet.get_Range("A1", "I1").Font.Bold = true;
-            sheet.get_Range("A1", "I1").Font.Size = 16;
-            sheet.get_Range("A1", "I1").HorizontalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter;
+            // rep.SetBorders(1, 1, 1, 9);
+            rep.SetFontBold(1, 1, 1, 1);
+            rep.SetFontSize(1, 1, 1, 1, 16);
+            rep.SetCellAlignmentToCenter(1, 1, 1, 1);
+            int crow = 3;
+            rep.AddSingleValue($"Объект: {obj}", crow, 1);
+            crow++;
+            rep.AddSingleValue($"Здание: {build}", crow, 1);
+            crow++;
+            rep.AddSingleValue($"Этаж: {floor}", crow, 1);
+            crow += 2;
+            rep.AddSingleValue($"Выгрузил: {Nwuram.Framework.Settings.User.UserSettings.User.FullUsername}", crow, 1);
+            crow++;
+            rep.AddSingleValue($"Дата выгрузки: {DateTime.Now}", crow, 1);
+            crow += 2;
+            int startRow = crow;
+            #region Шапка
+            rep.AddSingleValue("Секция", crow, 1);
+            rep.AddSingleValue("Объект", crow, 2);
+            rep.AddSingleValue("Здание", crow, 3);
+            rep.AddSingleValue("Этаж", crow, 4);
+            rep.AddSingleValue("Кол-во телефонных линий", crow, 5);
+            rep.AddSingleValue("Кол-во светильников", crow, 6);
+            rep.AddSingleValue("Номер телефона", crow, 7);
+            rep.AddSingleValue("Оборудование и кол-во", crow, 8);
+            rep.AddSingleValue("Приборы/части системы", crow, 9);
 
-            sheet.Cells[3, 1] = "Объект: " + obj;
-            sheet.get_Range("A3", "I3").Merge();
-            sheet.Cells[4, 1] = "Здание: " + build;
-            sheet.get_Range("A4", "I4").Merge();
-            sheet.Cells[5, 1] = "Этаж: " + floor;
-            sheet.get_Range("A5", "I5").Merge();
-            sheet.Cells[7, 1] = "Выгрузил: " + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername;
-            sheet.get_Range("A7", "I7").Merge();
-            sheet.Cells[8, 1] = "Дата выгрузки: " + DateTime.Now;
-            sheet.get_Range("A8", "I8").Merge();
+            #endregion
 
-            sheet.Cells[10, 1] = "Секция";
-            sheet.Cells[10, 2] = "Объект";
-            sheet.Cells[10, 3] = "Здание";
-            sheet.Cells[10, 4] = "Этаж";
-            sheet.Cells[10, 5] = "Кол-во телефонных линий";
-            sheet.Cells[10, 6] = "Кол-во светильников";
-            sheet.Cells[10, 7] = "Номер телефона";
-            sheet.Cells[10, 8] = "Оборудование и кол-во";
-            sheet.Cells[10, 9] = "Приборы/части системы";
+            #region ширина столбцов
+            rep.SetColumnWidth(1, 1, 1, 1, 9);
+            rep.SetColumnWidth(1, 2, 1, 2, 9);
+            rep.SetColumnWidth(1, 3, 1, 3, 17);
+            rep.SetColumnWidth(1, 4, 1, 4, 9);
+            rep.SetColumnWidth(1, 5, 1, 5, 13);
+            rep.SetColumnWidth(1, 6, 1, 6, 14);
+            rep.SetColumnWidth(1, 7, 1, 7, 10);
+            rep.SetColumnWidth(1, 8, 1, 8, 20);
+            rep.SetColumnWidth(1, 9, 1, 9, 20);
+            #endregion
 
-            sheet.get_Range("A10", "A10").ColumnWidth = 9;
-            sheet.get_Range("B10", "B10").ColumnWidth = 9;
-            sheet.get_Range("C10", "C10").ColumnWidth = 19;
-            sheet.get_Range("D10", "D10").ColumnWidth = 9;
-            sheet.get_Range("E10", "E10").ColumnWidth = 13;
-            sheet.get_Range("F10", "F10").ColumnWidth = 15;
-            sheet.get_Range("G10", "G10").ColumnWidth = 13;
-            sheet.get_Range("H10", "H10").ColumnWidth = 25;
-            sheet.get_Range("I10", "I10").ColumnWidth = 25;
+            rep.SetFontBold(crow, 1, crow, 9);
+            rep.SetCellAlignmentToCenter(crow, 1, crow, 9);
+            rep.SetCellAlignmentToJustify(crow, 1, crow, 9);
+            rep.SetWrapText(crow, 1, crow, 9);
+            crow++;
 
-            sheet.get_Range("A10", "A10").Font.Bold = true;
-            sheet.get_Range("B10", "B10").Font.Bold = true;
-            sheet.get_Range("C10", "C10").Font.Bold = true;
-            sheet.get_Range("D10", "D10").Font.Bold = true;
-            sheet.get_Range("E10", "E10").Font.Bold = true;
-            sheet.get_Range("F10", "F10").Font.Bold = true;
-            sheet.get_Range("G10", "G10").Font.Bold = true;
-            sheet.get_Range("H10", "H10").Font.Bold = true;
-            sheet.get_Range("I10", "I10").Font.Bold = true;
-            sheet.get_Range("A10", "I10").RowHeight = 45;
-            sheet.get_Range("A10", "I10").HorizontalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter;
-            sheet.get_Range("A10", "I10").VerticalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter;
-            sheet.get_Range("A10", "I10").Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
-            sheet.get_Range("A10", "I10").WrapText = true;
+          
                                              
             if (tSec.Rows.Count > 0)
             {
@@ -885,36 +869,24 @@ namespace Arenda
                       sDevices += dr["cname"].ToString() + " " + dr["quantity"].ToString() + " " + dr["unit"].ToString();
                     }
 
-                    sheet.get_Range("A1", I).NumberFormat = "@";
-                    sheet.Cells[i + 11, 1] = tSec.DefaultView[i]["Sec"];
-                    sheet.Cells[i + 11, 2] = tSec.DefaultView[i]["Obj"];
-                    sheet.Cells[i + 11, 3] = tSec.DefaultView[i]["Build"];
-                    sheet.Cells[i + 11, 4] = tSec.DefaultView[i]["Floo"];
-                    sheet.Cells[i + 11, 5] = tSec.DefaultView[i]["Telephone_lines"];
-                    sheet.Cells[i + 11, 6] = tSec.DefaultView[i]["Lamps"];
-                    sheet.Cells[i + 11, 7] = tSec.DefaultView[i]["Phone_number"];
-                    sheet.Cells[i + 11, 8] = sEq;
-                    sheet.Cells[i + 11, 9] = sDevices;
-                    sheet.get_Range(A, I).WrapText = true;
-                    sheet.get_Range(A, I).Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
-                    sheet.get_Range(A, I).VerticalAlignment = Microsoft.Office.Interop.Excel.Constants.xlTop;
-                    sheet.PageSetup.PrintArea = "A1:" + I;
-                    
+                    rep.AddSingleValue(tSec.DefaultView[i]["Sec"].ToString(), crow, 1);
+                    rep.AddSingleValue(tSec.DefaultView[i]["Obj"].ToString(), crow, 2);
+                    rep.AddSingleValue(tSec.DefaultView[i]["Build"].ToString(), crow, 3);
+                    rep.AddSingleValue(tSec.DefaultView[i]["Floo"].ToString(), crow, 4);
+                    rep.AddSingleValue(tSec.DefaultView[i]["Telephone_lines"].ToString(), crow, 5);
+                    rep.AddSingleValue(tSec.DefaultView[i]["Lamps"].ToString(), crow, 6);
+                    rep.AddSingleValue(tSec.DefaultView[i]["Phone_number"].ToString(), crow, 7);
+                    rep.AddSingleValue(sEq, crow,8);
+                    rep.AddSingleValue(sDevices, crow, 9);
+                    rep.SetWrapText(crow, 1, crow, 9);
+                    rep.SetCellAlignmentToTop(crow, 1, crow, 9);
+                    crow++;
                 }
             }
-            sheet.PageSetup.Orientation = Microsoft.Office.Interop.Excel.XlPageOrientation.xlLandscape;
-            sheet.PageSetup.LeftMargin = 13.88;
-            sheet.PageSetup.RightMargin = 13.88;
-            sheet.PageSetup.TopMargin = 13.88;
-            sheet.PageSetup.BottomMargin = 13.88;
-            sheet.PageSetup.HeaderMargin = 0;
-            sheet.PageSetup.FooterMargin = 0;
-            appExc.Visible = true;
-            object[] args = new object[2];
-            args[0] = @_fileName;
-            args[1] = 39;
-            book.GetType().InvokeMember("SaveAs", BindingFlags.InvokeMethod, null, book, args);
 
+            rep.SetBorders(startRow, 1, crow - 1, 9);
+            rep.SetPageOrientationToLandscape();                   
+            rep.Show();
             string logEvent = "Выгрузка справочника секций в Excel";
 
             string BuildName = "";
@@ -929,7 +901,7 @@ namespace Arenda
             {
                 FloorName = cbZloor.Text;
             });
-
+            
             Logging.StartFirstLevel(763);
             Logging.Comment(logEvent);
             Logging.Comment("Имя выгруженного excel файла \"" + file.Name + "\"");

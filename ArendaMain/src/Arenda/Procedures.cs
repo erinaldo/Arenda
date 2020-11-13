@@ -753,7 +753,7 @@ namespace Arenda
         
         }
 
-        public DataTable AddeditTD(int id, int id_agreements, DateTime datedoc, int id_typedoc, int? number,
+        public DataTable AddeditTD(int id, int id_agreements, DateTime datedoc, int id_typedoc, object number,
             DateTime? daterenewal, decimal? Total_Area, DateTime? departureDate, string comment,int? id_PetitionLeave)
         {
             DbType x, w, depDateType, numType;
@@ -771,7 +771,7 @@ namespace Arenda
 
             if (number == null)
                 numType = DbType.Boolean;
-            else numType = DbType.Int32;
+            else numType = DbType.String;
 
             if (daterenewal == null)
                 x = DbType.Boolean;
@@ -899,7 +899,7 @@ namespace Arenda
                 string regNum, string numCert, string serCer, string WPON, string numAcc, 
                 string serAcc, bool nds, int slt, string remark, 
                 int mode, string numbase, DateTime? datebas, int id_Posts, string Adress_trade, 
-                bool outReport, int id_obj, string path, string email,string factAdress)
+                bool outReport, int id_obj, string path, string email,string factAdress, bool tenant)
         {
             ap.Clear();
             ap.Add(id);
@@ -941,7 +941,7 @@ namespace Arenda
             ap.Add(path);
             ap.Add(email);
             ap.Add(factAdress);
-
+            ap.Add(tenant);
             DataTable dt = executeProcedure("Arenda.AddEditTL", 
                 new string[] { "@id", "@type", "@cName", "@name", "@otc", 
                                "@fam", "@fam_par", "@sex", "@wphone", "@hphone", 
@@ -950,7 +950,8 @@ namespace Arenda
                                "@regNum", "@numCert", "@serCer", "@WPON", "@numAcc", 
                                "@serAcc", "@nds", "@slt", "@remark", 
                                "@mode", "@numofbas", "@datebas", "@id_Posts", "@adress_trade",
-                               "@outReport", "@id_obj", "@path", "@email","@factAdress"},
+                               "@outReport", "@id_obj", "@path", "@email","@factAdress"
+                                ,"@isTenant"},
                                
                                  //  "@id",       "@type",      "@cName",      "@name",      "@otc",       
                 new DbType[] { DbType.Int32, DbType.String, DbType.String, DbType.String, DbType.String, 
@@ -967,7 +968,9 @@ namespace Arenda
                                  //"@mode",     "@numofbas",    "@datebas",     "@id_Posts", "@adress_trade"
                                  DbType.Int32, DbType.String, DbType.DateTime, DbType.Int32, DbType.String,
                                  //"@outReport", "@id_obj"      "@path"         "@email"    "@factAdress"
-                                 DbType.Boolean, DbType.Int32, DbType.String, DbType.String,DbType.String}, ap);
+                                 DbType.Boolean, DbType.Int32, DbType.String, DbType.String,DbType.String
+                                 // "@isTenant"
+                                ,DbType.Boolean}, ap);
             return dt != null && dt.Rows.Count > 0 ? Convert.ToInt32(dt.Rows[0]["id"]) : 0;
         }
         public DataTable CheakLT(string cName, string INN, string too, string area_trade)
@@ -2498,6 +2501,79 @@ namespace Arenda
             }
 
             return dtResult;
+        }
+
+        public DataTable getTablePayment(int id_agreement)
+        {
+            ap.Clear();
+            ap.Add(id_agreement);
+            return executeProcedure("[Arenda].[kav_getTablePayment]",
+                new string[] { "@id_agr" },
+                new DbType[] { DbType.Int32 }, ap);
+        }
+
+        public DataTable getArendaPeriod(int id_agreement, DateTime datePayment)
+        {
+            ap.Clear();
+            ap.Add(id_agreement);
+            ap.Add(datePayment);
+            return executeProcedure("[Arenda].[kav_getArendaPeriod]",
+                new string[] { "@id_agr", "@datePayment" },
+                new DbType[] { DbType.Int32, DbType.DateTime }, ap);
+        }
+
+        public DataTable getDiscounts(int id_agreement)
+        {
+            ap.Clear();
+            ap.Add(id_agreement);
+            return executeProcedure("[Arenda].[kav_getDiscounts]",
+                new string[] { "@id_agr" },
+                new DbType[] { DbType.Int32 }, ap);
+        }
+        /// <summary>
+        /// Проверка на наличие подтвержденных пени
+        /// </summary>
+        /// <param name="id_agreement">id договора</param>
+        /// <param name="dateNeedPayment">дата, за которую вводится оплата(min)</param>
+        /// <returns></returns>
+        public bool getAcceptedPeni(int id_agreement, DateTime dateNeedPayment)
+        {
+            ap.Clear();
+            ap.Add(id_agreement);
+            ap.Add(dateNeedPayment);
+            DataTable dtAcceptedPeni = executeProcedure("[Arenda].[kav_getAcceptedPeni]",
+                                                        new string[] { "@id_agr", "@dateNeedPayment" },
+                                                        new DbType[] { DbType.Int32, DbType.DateTime }, ap);
+            if (dtAcceptedPeni == null)
+                return true;
+            else
+                return (bool)dtAcceptedPeni.Rows[0]["isAccepted"];
+        }
+        /// <summary>
+        /// сохранение пени
+        /// </summary>
+        /// <param name="id_agr">id договора</param>
+        /// <param name="summaCredit">сумма долга</param>
+        /// <param name="countDays">кол-во дней просрочки</param>
+        /// <param name="id_PaymentContract">id оплаты</param>
+        /// <param name="periodContract">дата насчитывания пени</param>
+        /// <param name="status">статус 1-неполностью оплачено, 2-полностью оплачено</param>
+        /// <returns></returns>
+        public DataTable setPeni(int id_agr, decimal summaCredit, int countDays, int id_PaymentContract, DateTime periodContract, int status)
+        {
+            ap.Clear();
+            ap.Add(id_agr);
+            ap.Add(summaCredit);
+            ap.Add(countDays);
+            ap.Add(ConnectionSettings.GetIdProgram());
+            ap.Add(id_PaymentContract);
+            ap.Add(periodContract);
+            ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
+            ap.Add(status);
+            return executeProcedure("[Arenda].[kav_setPeni]",
+                new string[] { "@id_agr", "@summaCredit", "@countDays", "@id_prog", "@id_PaymentContract", "@periodCredit", "@id_user", "@status" },
+                new DbType[] { DbType.Int32, DbType.Decimal, DbType.Int32, DbType.Int32, DbType.Int32, DbType.DateTime, DbType.Int32, DbType.Int32 }, ap);
+
         }
     }    
 }

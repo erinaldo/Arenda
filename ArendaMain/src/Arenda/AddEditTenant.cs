@@ -57,7 +57,7 @@ namespace Arenda
             if (prz == false)
             { 
                 this.Text = "Добавление арендодателя";                
-                checkBox1.Enabled = false; 
+               // checkBox1.Enabled = false; 
                 tbAdrTrade.Enabled = true;
                 tabControl1.TabPages.Remove(tbpAddInfo);
                 //lEmail.Visible = tbEmail.Visible = false;
@@ -67,7 +67,7 @@ namespace Arenda
             else 
             { 
                 this.Text = "Добавление арендатора";                
-                checkBox1.Enabled = true;
+               // checkBox1.Enabled = true;
                 checkBox1.Checked = true;
                 tbAdrTrade.Enabled = false;
                 groupBox8.Visible = false;
@@ -249,7 +249,7 @@ namespace Arenda
                 cbBasment.SelectedValue = int.Parse(Ten.Rows[0]["id_Basement"].ToString());
             }
             catch (Exception) { }
-            checkBox1.Enabled = tenant;
+            //checkBox1.Enabled = tenant;
             tbAdrTrade.Enabled = !tenant;
             groupBox8.Visible = !tenant;
             label44.Visible = cmbObject.Visible = label28.Visible = tbOGRN.Visible = !tenant;
@@ -849,7 +849,8 @@ namespace Arenda
                              (cmbObject.SelectedValue == null ? 0 : int.Parse(cmbObject.SelectedValue.ToString())),
                              tbScanD.Text,
                              tbEmail.Text,
-                             tbFactAdress.Text.Trim());
+                             tbFactAdress.Text.Trim(),
+                             tenant);
 
 
             if (id == 0)
@@ -1390,10 +1391,12 @@ namespace Arenda
 
         private void btPrint_Click(object sender, EventArgs e)
         {
-            PrintForm f = new PrintForm(int.Parse(dgdoc.CurrentRow.Cells["iddoc"].Value.ToString()),
+            /*PrintForm f = new PrintForm(int.Parse(dgdoc.CurrentRow.Cells["iddoc"].Value.ToString()),
+                    dgdoc.CurrentRow.Cells["number"].Value.ToString().Trim(),
+                    int.Parse(dgdoc.CurrentRow.Cells["cId_Type"].Value.ToString()));*/
+            ArendaPrint.frmPrint f = new ArendaPrint.frmPrint(int.Parse(dgdoc.CurrentRow.Cells["iddoc"].Value.ToString()),
                     dgdoc.CurrentRow.Cells["number"].Value.ToString().Trim(),
                     int.Parse(dgdoc.CurrentRow.Cells["cId_Type"].Value.ToString()));
-
             
             f.setData(dgdoc.SelectedRows[0].Cells["date"].Value.ToString(), dgdoc.SelectedRows[0].Cells["number"].Value.ToString(), dgdoc.SelectedRows[0].Cells["aren"].Value.ToString(),
                 dgdoc.SelectedRows[0].Cells["place"].Value.ToString(), dgdoc.SelectedRows[0].Cells["begin"].Value.ToString(), dgdoc.SelectedRows[0].Cells["end"].Value.ToString(), dgdoc.SelectedRows[0].Cells["id_lanlord"].Value.ToString());

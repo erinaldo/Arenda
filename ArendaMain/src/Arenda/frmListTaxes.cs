@@ -230,10 +230,11 @@ namespace Arenda
                 txtDateEdit.Text = grdPayments.CurrentRow.Cells["DateEdit"].Value.ToString();
                 txtComment.Text = grdPayments.CurrentRow.Cells["Comment"].Value.ToString();
                 btnDel.Enabled = btnEdit.Enabled = !(bool)grdPayments.CurrentRow.Cells["isConfirmed"].Value;
+                tbMetersData.Text = dtTaxes.DefaultView[grdPayments.CurrentRow.Index]["MetersData"].ToString();
             }
             catch
             {
-                txtEditor.Text = ""; txtDateEdit.Text = ""; txtComment.Text = "";
+                txtEditor.Text =  txtDateEdit.Text =  txtComment.Text =  tbMetersData.Text = "";
                 btnDel.Enabled = btnEdit.Enabled = false;
             }
         }

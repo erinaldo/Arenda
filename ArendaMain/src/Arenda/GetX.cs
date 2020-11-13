@@ -23,11 +23,11 @@ namespace Arenda
                 //int.Parse(ch.ToString());
 
             bool inDiapazon = (StartDate.Day < K);
-
-            dtX = _proc.GetTempTableForPenni(K, StartDate, DateEnd, TS, OST, L, inDiapazon);
+            //тут прям совсем закомментить
+            //sveta dtX = _proc.GetTempTableForPenni(K, StartDate, DateEnd, TS, OST, L, inDiapazon);
 
             //для договора рекламы не имеет значение соглашение об изменении площади 
-            if (!Reklama)
+           /*sveta if (!Reklama)
             {
 
                 int countDaysEnd = getCountDays(DateEnd);
@@ -36,8 +36,9 @@ namespace Arenda
                             dtX,
                             CostOfMeter,
                             TS, StartDate, countDaysEnd, DateEnd, Phone, id_agreement);
-            }
-            return dtX;
+            }*/
+            //sveta return dtX;
+            return null;
         }
 
         //передать TS назвать TSforcount 

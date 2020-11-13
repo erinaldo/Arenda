@@ -48,8 +48,8 @@ namespace Arenda
             if ((dtTypes != null) && (dtTypes.Rows.Count > 0))
             {
                 cbTypeDoc.DataSource = dtTypes;
-                if (_id_type_dog == 3)
-                    dtTypes.DefaultView.RowFilter = "id in (3, 6, 7)";
+                /*if (_id_type_dog == 3)
+                    dtTypes.DefaultView.RowFilter = "id in (3, 6, 7)";*/
             }
             else
             {
@@ -72,7 +72,7 @@ namespace Arenda
 
         private void btAdd_Click(object sender, EventArgs e)
         {
-            int? num = 0;
+            string num = "";
             decimal? AreaS;
 
             if (tbAreaNew.Text == Area)
@@ -87,7 +87,7 @@ namespace Arenda
             if (tbNumber.Text == "")
             { num = null; }
             else
-            { num = Convert.ToInt32(tbNumber.Text); }
+            { num = tbNumber.Text; }
 
             if (cbTypeDoc.Text == "")
             {
@@ -201,7 +201,9 @@ namespace Arenda
                 label3.Text = "№";
                 dateadddoc.Location = new Point(128, 40);
                 label2.Text = "Дата доп. документа:";
-
+                //это чуть пониже вставить над
+                tbNumber.Location = new Point(128, 70);
+                label3.Location = new Point(12, 70);
                 isNullRequestOut = false;
                 dtpOutDate.Enabled = true;
                 tbComment.Enabled = true;
@@ -465,12 +467,12 @@ namespace Arenda
 
         private void tbNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Regex pat = new Regex(@"[\b]|[0-9]|[\s]");
+            /*Regex pat = new Regex(@"[\b]|[0-9]|[\s]");
             bool b = pat.IsMatch(e.KeyChar.ToString());
             if (b == false)
             {
                 e.Handled = true;
-            }
+            }*/
         }
 
         private void tbAreaNew_Leave(object sender, EventArgs e)

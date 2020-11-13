@@ -41,7 +41,7 @@ namespace Arenda
         private void frmBanks_Load(object sender, EventArgs e)
         {
             //if (TempData.Rezhim == "ПР")
-            if (new List<string> { "СОА", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim))
+            if (new List<string> { "СОА", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim) )
             {
                 btAdd.Visible =
                     btEdit.Visible =
@@ -53,14 +53,11 @@ namespace Arenda
                 dgBanks.ReadOnly = true;
             }
 
-            if (TempData.Rezhim == "МН")
-            {
-                btAdd.Visible = btEdit.Visible = false;
-            }
 
             if (_choose == 1)
             {
-                btChoose.Enabled = true;                
+                btChoose.Enabled = true;
+                btChoose.Visible = true;
             }
             else
                 btChoose.Enabled = false;
@@ -79,14 +76,20 @@ namespace Arenda
 
         private void SetButtonsEnabled()
         {
-            if (Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.ToLower() == "адм")
+
+            if (!(Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.ToLower() == "ркв"))
+            {
+                btAdd.Visible = btDel.Visible = btEdit.Visible = false;
+            }
+
+           /* if (Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.ToLower() == "адм")
             {
                 btDel.Enabled = dgBanks.Rows.Count > 0 && dgBanks.CurrentRow != null;
                 btEdit.Enabled = dgBanks.Rows.Count > 0 && dgBanks.CurrentRow != null
                   && bool.Parse(dgBanks.CurrentRow.Cells["isActive"].Value.ToString());
             }
             else
-                btAdd.Visible = btEdit.Visible = btDel.Visible = false;
+                btAdd.Visible = btEdit.Visible = btDel.Visible = false;*/
         }
 
         private void Filter()

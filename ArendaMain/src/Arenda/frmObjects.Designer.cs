@@ -33,11 +33,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tbName = new System.Windows.Forms.TextBox();
             this.dgvObjects = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isActive = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CadastralNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbIsActive = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.pnlInActive = new System.Windows.Forms.Panel();
@@ -46,6 +41,11 @@
             this.btDel = new System.Windows.Forms.Button();
             this.btEdit = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Comment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isActive = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CadastralNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvObjects)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,52 +96,12 @@
             this.dgvObjects.ReadOnly = true;
             this.dgvObjects.RowHeadersVisible = false;
             this.dgvObjects.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvObjects.Size = new System.Drawing.Size(421, 211);
+            this.dgvObjects.Size = new System.Drawing.Size(512, 211);
             this.dgvObjects.TabIndex = 1;
             this.dgvObjects.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvObjects_CellClick);
             this.dgvObjects.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvObjects_ColumnWidthChanged);
             this.dgvObjects.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvObjects_RowPostPaint);
             this.dgvObjects.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvObjects_RowPrePaint);
-            // 
-            // id
-            // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            // 
-            // cName
-            // 
-            this.cName.DataPropertyName = "cName";
-            this.cName.FillWeight = 40F;
-            this.cName.HeaderText = "Наименование";
-            this.cName.Name = "cName";
-            this.cName.ReadOnly = true;
-            // 
-            // Comment
-            // 
-            this.Comment.DataPropertyName = "Comment";
-            this.Comment.FillWeight = 60F;
-            this.Comment.HeaderText = "Примечание";
-            this.Comment.Name = "Comment";
-            this.Comment.ReadOnly = true;
-            // 
-            // isActive
-            // 
-            this.isActive.DataPropertyName = "isActive";
-            this.isActive.HeaderText = "isActive";
-            this.isActive.Name = "isActive";
-            this.isActive.ReadOnly = true;
-            this.isActive.Visible = false;
-            // 
-            // CadastralNumber
-            // 
-            this.CadastralNumber.DataPropertyName = "CadastralNumber";
-            this.CadastralNumber.HeaderText = "CadastralNumber";
-            this.CadastralNumber.Name = "CadastralNumber";
-            this.CadastralNumber.ReadOnly = true;
-            this.CadastralNumber.Visible = false;
             // 
             // cbIsActive
             // 
@@ -178,7 +138,7 @@
             // 
             this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btExit.Image = global::Arenda.Properties.Resources.pict_close;
-            this.btExit.Location = new System.Drawing.Point(401, 266);
+            this.btExit.Location = new System.Drawing.Point(492, 266);
             this.btExit.Name = "btExit";
             this.btExit.Size = new System.Drawing.Size(32, 32);
             this.btExit.TabIndex = 10;
@@ -190,7 +150,7 @@
             // 
             this.btDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btDel.Image = global::Arenda.Properties.Resources.pict_delete;
-            this.btDel.Location = new System.Drawing.Point(362, 266);
+            this.btDel.Location = new System.Drawing.Point(453, 266);
             this.btDel.Name = "btDel";
             this.btDel.Size = new System.Drawing.Size(32, 32);
             this.btDel.TabIndex = 9;
@@ -202,7 +162,7 @@
             // 
             this.btEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btEdit.Image = global::Arenda.Properties.Resources.pict_edit;
-            this.btEdit.Location = new System.Drawing.Point(324, 266);
+            this.btEdit.Location = new System.Drawing.Point(415, 266);
             this.btEdit.Name = "btEdit";
             this.btEdit.Size = new System.Drawing.Size(32, 32);
             this.btEdit.TabIndex = 8;
@@ -214,7 +174,7 @@
             // 
             this.btAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btAdd.Image = global::Arenda.Properties.Resources.DocumentHS;
-            this.btAdd.Location = new System.Drawing.Point(286, 266);
+            this.btAdd.Location = new System.Drawing.Point(377, 266);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(32, 32);
             this.btAdd.TabIndex = 7;
@@ -222,11 +182,51 @@
             this.btAdd.UseVisualStyleBackColor = true;
             this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // cName
+            // 
+            this.cName.DataPropertyName = "cName";
+            this.cName.FillWeight = 40F;
+            this.cName.HeaderText = "Наименование";
+            this.cName.Name = "cName";
+            this.cName.ReadOnly = true;
+            // 
+            // Comment
+            // 
+            this.Comment.DataPropertyName = "Comment";
+            this.Comment.FillWeight = 60F;
+            this.Comment.HeaderText = "Примечание";
+            this.Comment.Name = "Comment";
+            this.Comment.ReadOnly = true;
+            // 
+            // isActive
+            // 
+            this.isActive.DataPropertyName = "isActive";
+            this.isActive.HeaderText = "isActive";
+            this.isActive.Name = "isActive";
+            this.isActive.ReadOnly = true;
+            this.isActive.Visible = false;
+            // 
+            // CadastralNumber
+            // 
+            this.CadastralNumber.DataPropertyName = "CadastralNumber";
+            this.CadastralNumber.FillWeight = 40F;
+            this.CadastralNumber.HeaderText = "Кадастровый номер";
+            this.CadastralNumber.Name = "CadastralNumber";
+            this.CadastralNumber.ReadOnly = true;
+            // 
             // frmObjects
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(453, 331);
+            this.ClientSize = new System.Drawing.Size(544, 331);
             this.ControlBox = false;
             this.Controls.Add(this.btExit);
             this.Controls.Add(this.btDel);
@@ -237,6 +237,7 @@
             this.Controls.Add(this.cbIsActive);
             this.Controls.Add(this.dgvObjects);
             this.Controls.Add(this.tbName);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MinimumSize = new System.Drawing.Size(461, 339);
             this.Name = "frmObjects";
             this.ShowIcon = false;

@@ -124,7 +124,7 @@
             // btAddEq
             // 
             this.btAddEq.Image = global::Arenda.Properties.Resources.saveHS;
-            this.btAddEq.Location = new System.Drawing.Point(274, 302);
+            this.btAddEq.Location = new System.Drawing.Point(271, 309);
             this.btAddEq.Name = "btAddEq";
             this.btAddEq.Size = new System.Drawing.Size(32, 32);
             this.btAddEq.TabIndex = 24;
@@ -135,7 +135,7 @@
             // btExit
             // 
             this.btExit.Image = global::Arenda.Properties.Resources.Log_Out_icon1;
-            this.btExit.Location = new System.Drawing.Point(312, 302);
+            this.btExit.Location = new System.Drawing.Point(309, 309);
             this.btExit.Name = "btExit";
             this.btExit.Size = new System.Drawing.Size(32, 32);
             this.btExit.TabIndex = 25;
@@ -184,7 +184,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(8, 175);
+            this.label7.Location = new System.Drawing.Point(5, 182);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(206, 13);
             this.label7.TabIndex = 12;
@@ -193,7 +193,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 205);
+            this.label8.Location = new System.Drawing.Point(6, 212);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(209, 13);
             this.label8.TabIndex = 14;
@@ -201,7 +201,7 @@
             // 
             // txtMan
             // 
-            this.txtMan.Location = new System.Drawing.Point(256, 172);
+            this.txtMan.Location = new System.Drawing.Point(253, 179);
             this.txtMan.MaxLength = 64;
             this.txtMan.Name = "txtMan";
             this.txtMan.Size = new System.Drawing.Size(89, 20);
@@ -210,7 +210,7 @@
             // 
             // txtWoman
             // 
-            this.txtWoman.Location = new System.Drawing.Point(256, 198);
+            this.txtWoman.Location = new System.Drawing.Point(253, 205);
             this.txtWoman.MaxLength = 64;
             this.txtWoman.Name = "txtWoman";
             this.txtWoman.Size = new System.Drawing.Size(88, 20);
@@ -219,7 +219,7 @@
             // 
             // txtPeni
             // 
-            this.txtPeni.Location = new System.Drawing.Point(255, 224);
+            this.txtPeni.Location = new System.Drawing.Point(252, 231);
             this.txtPeni.MaxLength = 6;
             this.txtPeni.Name = "txtPeni";
             this.txtPeni.Size = new System.Drawing.Size(52, 20);
@@ -232,7 +232,7 @@
             // lblPeni
             // 
             this.lblPeni.AutoSize = true;
-            this.lblPeni.Location = new System.Drawing.Point(8, 227);
+            this.lblPeni.Location = new System.Drawing.Point(5, 234);
             this.lblPeni.Name = "lblPeni";
             this.lblPeni.Size = new System.Drawing.Size(76, 13);
             this.lblPeni.TabIndex = 16;
@@ -240,7 +240,7 @@
             // 
             // txtNds
             // 
-            this.txtNds.Location = new System.Drawing.Point(256, 250);
+            this.txtNds.Location = new System.Drawing.Point(253, 257);
             this.txtNds.MaxLength = 3;
             this.txtNds.Name = "txtNds";
             this.txtNds.Size = new System.Drawing.Size(52, 20);
@@ -253,7 +253,7 @@
             // lblNds
             // 
             this.lblNds.AutoSize = true;
-            this.lblNds.Location = new System.Drawing.Point(8, 253);
+            this.lblNds.Location = new System.Drawing.Point(5, 260);
             this.lblNds.Name = "lblNds";
             this.lblNds.Size = new System.Drawing.Size(34, 13);
             this.lblNds.TabIndex = 19;
@@ -261,7 +261,7 @@
             // 
             // txtMonth
             // 
-            this.txtMonth.Location = new System.Drawing.Point(255, 276);
+            this.txtMonth.Location = new System.Drawing.Point(252, 283);
             this.txtMonth.MaxLength = 2;
             this.txtMonth.Name = "txtMonth";
             this.txtMonth.Size = new System.Drawing.Size(52, 20);
@@ -275,7 +275,7 @@
             // 
             this.txtMonth1.BackColor = System.Drawing.SystemColors.Control;
             this.txtMonth1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMonth1.Location = new System.Drawing.Point(11, 276);
+            this.txtMonth1.Location = new System.Drawing.Point(8, 283);
             this.txtMonth1.MaxLength = 64;
             this.txtMonth1.Multiline = true;
             this.txtMonth1.Name = "txtMonth1";
@@ -287,7 +287,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(309, 227);
+            this.label4.Location = new System.Drawing.Point(306, 234);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(15, 13);
             this.label4.TabIndex = 18;
@@ -296,7 +296,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(310, 253);
+            this.label9.Location = new System.Drawing.Point(307, 260);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(15, 13);
             this.label9.TabIndex = 21;
@@ -327,7 +327,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(353, 346);
+            this.ClientSize = new System.Drawing.Size(353, 348);
             this.ControlBox = false;
             this.Controls.Add(this.button2);
             this.Controls.Add(this.tbScanD);

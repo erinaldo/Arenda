@@ -28,15 +28,24 @@ namespace JournalBorrower
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            Task<DataTable> task = Config.hCntMain.getObjectLease(true);
+            Task<DataTable> task = Config.hCntMain.getObjectLease(false);
             task.Wait();
             DataTable dtObjectLease = task.Result;
 
             cmbObject.DisplayMember = "cName";
             cmbObject.ValueMember = "id";
             cmbObject.DataSource = dtObjectLease;
+
+            task = Config.hCntMain.getTypeContract(true);
+            task.Wait();
+            DataTable dtTypeDoc = task.Result;
+
+            cmbTypeDoc.DisplayMember = "cName";
+            cmbTypeDoc.ValueMember = "id";
+            cmbTypeDoc.DataSource = dtTypeDoc;
+
             rbPayDoc_Click(null, null);
-            getData();
+            //getData();
         }
 
         private void dgvData_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
@@ -199,6 +208,8 @@ namespace JournalBorrower
                 indexRow++;
             }
 
+            report.SetPageSetup(1, 9999, true);
+
             /*
             var groupByPost = dtData.DefaultView.ToTable().AsEnumerable().GroupBy(r => new { id = r.Field<int>("id_Tenant") })
                 .Select(s => new { s.Key.id });
@@ -290,6 +301,7 @@ namespace JournalBorrower
         Nwuram.Framework.UI.Forms.frmLoad fWait;
         private void getData()
         {
+            int id_object = (int)cmbObject.SelectedValue;
             new Task(() =>
             {
 
@@ -297,14 +309,16 @@ namespace JournalBorrower
                 {
                     fBlocker.SaveControlsEnabledState(this);
                     fBlocker.SetControlsEnabled(this, false);
-                    fWait = new Nwuram.Framework.UI.Forms.frmLoad();                    
+                    fWait = new Nwuram.Framework.UI.Forms.frmLoad();
+                    fWait.TopMost = false;
+                    fWait.Owner = this;
                     fWait.TextWait = "Загружаю данные из базы!";
                     fWait.Show();
                 }, this);
 
 
 
-                Task<DataTable> task = Config.hCntMain.GetListOwe();
+                Task<DataTable> task = Config.hCntMain.GetListOwe(id_object);
                 task.Wait();
                 dtData = task.Result;
 
@@ -329,7 +343,7 @@ namespace JournalBorrower
                 dtData.Columns.Add("SummaPenny_2", typeof(decimal));
                 dtData.Columns.Add("PrcPenny_2", typeof(decimal));
 
-                task = Config.hCntMain.GetListOweAdditionalData(1);
+                task = Config.hCntMain.GetListOweAdditionalData(1, id_object);
                 task.Wait();
 
                 if (task.Result != null && task.Result.Rows.Count > 0)
@@ -337,7 +351,7 @@ namespace JournalBorrower
                     initDateType1(task.Result);
                 }
 
-                task = Config.hCntMain.GetListOweAdditionalData(2);
+                task = Config.hCntMain.GetListOweAdditionalData(2, id_object);
                 task.Wait();
                 if (task.Result != null && task.Result.Rows.Count > 0)
                 {
@@ -576,7 +590,7 @@ namespace JournalBorrower
                                         rowMainCollect.First()["SummaPaymentFine_1"] = gItog.sumOwe;
                                         rowMainCollect.First()["SummaFine_1"] = gItog.sumPay;
                                         rowMainCollect.First()["SummaPenny_1"] = (gItog.sumOwe - gItog.sumPay);
-                                        rowMainCollect.First()["PrcPenny_1"] = Math.Round(((gItog.sumOwe - gItog.sumPay) / gItog.sumOwe) * 100, 0);
+                                        rowMainCollect.First()["PrcPenny_1"] = Math.Round(((gItog.sumOwe - gItog.sumPay) * 100 / gItog.sumOwe), 0);
                                         rowMainCollect.First()["SummaPaymentFine_1_filter"] = gItog.sumOwe;
                                     }
                                 }
@@ -661,10 +675,14 @@ namespace JournalBorrower
                 if ((int)cmbObject.SelectedValue !=0)
                     filter += (filter.Length == 0 ? "" : " and ") + $"id_ObjectLease = {cmbObject.SelectedValue}";
 
+                if ((int)cmbTypeDoc.SelectedValue != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_TypeContract = {cmbTypeDoc.SelectedValue}";
+
+
                 //if (!chbNotActive.Checked)
                 //    filter += (filter.Length == 0 ? "" : " and ") + $"isActive = 1";
 
-                if(rbPayDoc.Checked)
+                if (rbPayDoc.Checked)
                     filter += (filter.Length == 0 ? "" : " and ") + $"SummaPaymentFine_1_filter <> 0"; 
                 else if(rbPayDopDoc.Checked)
                     filter += (filter.Length == 0 ? "" : " and ") + $"SummaFine_2 is not null"; 

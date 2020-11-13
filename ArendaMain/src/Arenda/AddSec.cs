@@ -257,7 +257,12 @@ namespace Arenda
             int uniqRec;
 
             DataTable dtCheakSec = _proc.CheakSec(tbcName.Text, /*cbZdan.Text, cbFloor.Text,*/ (int)cmbObject.SelectedValue);
-
+            if (mode == 0)
+            {
+                DataRow[] dttemp = dtCheakSec.Select($"id = {_id}");
+                if (dttemp.Length>0)
+                    dtCheakSec.Rows.Remove(dttemp[0]);
+            }
             if ((dtCheakSec != null) && (dtCheakSec.Rows.Count > 0))
             {
                 uniqRec = int.Parse(dtCheakSec.Rows[0][0].ToString());

@@ -18,7 +18,7 @@ using System.Reflection;
 using Word = Microsoft.Office.Interop.Word;
 using Nwuram.Framework.ToExcel;
 using System.Threading;
-
+using Nwuram.Framework.ToExcelNew;
 
 namespace Arenda
 {
@@ -183,7 +183,7 @@ namespace Arenda
             btJournalSealSections.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
             btAcceptDoc.Visible = new List<string> { "СОА", "РКВ", "КНТ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
             btCopyDoc.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
-            btKntListTaxes.Visible = new List<string> { "КНТ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
+            btKntListTaxes.Visible = new List<string> { "КНТ", "РКВ", "Д" }.Contains(TempData.Rezhim) && pListDoc.Visible;
         }
 
         private void арендаторыToolStripMenuItem_Click(object sender, EventArgs e)
@@ -274,12 +274,14 @@ namespace Arenda
             выгрузкаДокументовToolStripMenuItem.Visible = new List<string> { "РКВ" }.Contains(TempData.Rezhim);
 
             журналДолжниковToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д" }.Contains(TempData.Rezhim);
-            журналСъездовToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д" }.Contains(TempData.Rezhim);
+            журналСъездовToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д", "МНД" }.Contains(TempData.Rezhim);
             журналНачисленияПениToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д" }.Contains(TempData.Rezhim);
 
             журналЕжемесячныхПлановToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д","СБ6" }.Contains(TempData.Rezhim);            
             журналПланОтчётовToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д", "СБ6" }.Contains(TempData.Rezhim);
-            
+
+            btnMassDiscounts.Visible = new List<string> { "РКВ", "СОА" }.Contains(TempData.Rezhim);
+
 
             //if (TempData.Rezhim == "РКВ") { }
             //if (TempData.Rezhim == "СОА") { }
@@ -1349,21 +1351,23 @@ namespace Arenda
         {
             if (nullPrint())
             {
-                var fd = new SaveFileDialog { Filter = @"Файлы Excel|*.xls" };
-                fd.ShowDialog();
-                if (fd.FileName.Trim().Length == 0)
+                if (!pListDoc.Visible)
                 {
-                    return;
+                    var fd = new SaveFileDialog { Filter = @"Файлы Excel|*.xls" };
+                    fd.ShowDialog();
+                    if (fd.FileName.Trim().Length == 0)
+                    {
+                        return;
+                    }
+                    _fileName = fd.FileName.Trim();
                 }
-                _fileName = fd.FileName.Trim();
-
                 if (pListDoc.Visible == true)
                 {
 
                     Logging.StartFirstLevel(472);
                     Logging.Comment("Выгрузка отчета со списком договоров в Excel файл");
 
-                    Logging.Comment("Файл: " + _fileName);
+                    //Logging.Comment("Файл: " + _fileName);
 
                     Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
                     + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
@@ -1583,73 +1587,107 @@ namespace Arenda
             #region Список договоров
             if (template == "Agreements")
             {
-                Exc.Application appExc = new Exc.Application();
-                appExc.DisplayAlerts = false;
-                appExc.Visible = false;
-                appExc.SheetsInNewWorkbook = 1;
-                Exc.Workbook book = appExc.Workbooks.Add(1);
-                Exc.Worksheet sheet = (Exc.Worksheet)book.Worksheets[1];
+                ExcelUnLoad rep = new ExcelUnLoad("Договора");
 
-                sheet.Cells[1, 1] = "Список договоров";
-                sheet.get_Range("A1", "K1").Font.Bold = true;
-                sheet.get_Range("A1", "K1").BorderAround();
-                sheet.get_Range("A1", "K1").Merge();
-                sheet.get_Range("A1", "K1").Font.Size = 16;
-                sheet.get_Range("A1", "K1").HorizontalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter;
+                rep.AddSingleValue("Список договоров", 1, 1);
+                rep.Merge(1, 1, 1, 11);
+                rep.SetFontBold(1, 1, 1, 11);
+                rep.SetFontSize(1, 1, 1, 1, 16);
+                rep.SetCellAlignmentToCenter(1, 1, 1, 1);
+                #region Начало отчета
+                int crow = 3;
+                rep.AddSingleValue($"Период: с {dateTimePicker1.Value.ToShortDateString()} по {dateTimePicker2.Value.ToShortDateString()}", crow, 1);
+                rep.Merge(crow, 1, crow, 11);
+                rep.SetFontBold(crow, 1, crow, 1);
+                crow++;
+                rep.AddSingleValue($"Арендодатель: {cbLordland.Text}", crow, 1);
+                rep.Merge(crow, 1, crow, 11);
+                rep.SetFontBold(crow, 1, crow, 11);
+                crow++;
+                rep.AddSingleValue($"Объект: {cmbObj.Text}", crow, 1);
+                rep.Merge(crow, 1, crow, 11);
+                rep.SetFontBold(crow, 1, crow, 11);
+                crow++;
+                rep.AddSingleValue($"Тип договора: {cmbType.Text}", crow, 1);
+                rep.Merge(crow, 1, crow, 11);
+                rep.SetFontBold(crow, 1, crow, 11);
+                crow += 2;
+                rep.AddSingleValue($"Выгрузил: {Nwuram.Framework.Settings.User.UserSettings.User.FullUsername}",crow,1);
+                rep.Merge(crow, 1, crow, 11);
+                rep.SetFontBold(crow, 1, crow, 11);
+                crow++;
+                rep.AddSingleValue($"Дата выгрузки: {DateTime.Now}", crow, 1);
+                rep.Merge(crow, 1, crow, 11);
+                rep.SetFontBold(crow, 1, crow, 11);
+                crow += 2;
+                #endregion
+                int startrow = crow;
+                #region Шапка
+                rep.AddSingleValue("Дата заключения", crow, 1);
+                rep.AddSingleValue("Объект", crow, 2);
+                rep.AddSingleValue("Арендатор", crow, 3);
+                rep.AddSingleValue("Номер договора", crow, 4);
+                rep.AddSingleValue("Тип договора", crow, 5);
+                rep.AddSingleValue("Начало действия", crow, 6);
+                rep.AddSingleValue("Конец действия", crow, 7);
+                rep.AddSingleValue("Место", crow, 8);
+                rep.AddSingleValue("S, m2", crow, 9);
+                rep.AddSingleValue("Стоимость аренды", crow, 10);
+                rep.AddSingleValue("Оплата телефона", crow, 11);
+                rep.SetFontBold(crow, 1, crow, 11);
+                rep.SetCellAlignmentToCenter(crow, 1, crow, 11);
+                rep.SetWrapText(crow, 1, crow, 11);
+                crow++;
+                #endregion
 
-                sheet.Cells[3, 1] = "Период: с " + dateTimePicker1.Value.ToShortDateString() +
-                  " по " + dateTimePicker2.Value.ToShortDateString();
-                sheet.get_Range("A3", "K3").Merge();
-                sheet.get_Range("A1", "K9").Font.Bold = true;
-                sheet.Cells[4, 1] = "Арендодатель: " + cbLordland.Text;
-                sheet.get_Range("A4", "K4").Merge();
-                sheet.Cells[5, 1] = "Объект: " + cmbObj.Text;
-                sheet.get_Range("A5", "K5").Merge();
-                sheet.Cells[6, 1] = "Тип договора: " + cmbType.Text;
-                sheet.get_Range("A6", "K6").Merge();
-                sheet.Cells[8, 1] = "Выгрузил: " + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername;
-                sheet.get_Range("A8", "E8").Merge();
-                sheet.Cells[9, 1] = "Дата выгрузки: " + DateTime.Now;
-                sheet.get_Range("A9", "E9").Merge();
+                rep.SetColumnWidth(1, 1, 1, 1, 11);
+                rep.SetColumnWidth(2, 2, 2, 2, 7);
+                rep.SetColumnWidth(3, 3, 3, 3, 15);
+                rep.SetColumnWidth(4, 4, 4, 4, 11);
+                rep.SetColumnWidth(5, 5, 5, 5, 16);
+                rep.SetColumnWidth(6, 6, 6, 6, 11);
+                rep.SetColumnWidth(7, 7, 7, 7, 11);
+                rep.SetColumnWidth(8, 8, 8, 8, 29);
+                rep.SetColumnWidth(9, 9, 9, 9, 8);
+                rep.SetColumnWidth(10, 10, 10, 10, 10);
+                rep.SetColumnWidth(11, 11, 11, 11, 10);
 
-                sheet.Cells[11, 1] = "Дата заключения";
-                sheet.Cells[11, 2] = "Объект";
-                sheet.Cells[11, 3] = "Арендатор";
-                sheet.Cells[11, 4] = "Номер договора";
-                sheet.Cells[11, 5] = "Тип договора";
-                sheet.Cells[11, 6] = "Начало действия";
-                sheet.Cells[11, 7] = "Конец действия";
-                sheet.Cells[11, 8] = "Место";
-                sheet.Cells[11, 9] = "S, m2";
-                sheet.Cells[11, 10] = "Стоимость аренды";
-                sheet.Cells[11, 11] = "Оплата телефона";
+                if (_ListDoc.DefaultView.Count>0)
+                {
+                    DataTable dtReportAgr = _ListDoc.DefaultView.ToTable();
+                    foreach (DataRow dr in dtReportAgr.Rows)
+                    {
+                        rep.AddSingleValue(DateTime.Parse(dr["Дата"].ToString()).ToShortDateString(), crow, 1);
+                        rep.AddSingleValue(dr["ObjName"].ToString(), crow, 2);
+                        rep.AddSingleValue(dr["Арендатор"].ToString(), crow, 3);
+                        rep.AddSingleValue(dr["№"].ToString(), crow, 4);
+                        rep.AddSingleValue(dr["TypeContract"].ToString(), crow, 5);
+                        rep.AddSingleValue(DateTime.Parse(dr["Начало"].ToString()).ToShortDateString(), crow, 6);
+                        rep.AddSingleValue(DateTime.Parse(dr["Конец"].ToString()).ToShortDateString(), crow, 7);
+                        rep.AddSingleValue(dr["Место"].ToString(), crow, 8);
+                        rep.AddSingleValue(dr["S"].ToString(), crow, 9);
+                        rep.AddSingleValue(dr["Аренда"].ToString(), crow, 10);
+                        rep.AddSingleValue(dr["Тел"].ToString(), crow, 11);
 
-                sheet.get_Range("A1", "A1").ColumnWidth = 11;
-                sheet.get_Range("B1", "B1").ColumnWidth = 7;
-                sheet.get_Range("C1", "C1").ColumnWidth = 15;
-                sheet.get_Range("D1", "D1").ColumnWidth = 11;
-                sheet.get_Range("E1", "E1").ColumnWidth = 16;
-                sheet.get_Range("F1", "F1").ColumnWidth = 11;
-                sheet.get_Range("G1", "G1").ColumnWidth = 11;
-                sheet.get_Range("H1", "H1").ColumnWidth = 29;
-                sheet.get_Range("I1", "I1").ColumnWidth = 5;
-                sheet.get_Range("J1", "J1").ColumnWidth = 10;
-                sheet.get_Range("K1", "K1").ColumnWidth = 10;
-                sheet.get_Range("A11", "K11").Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
+                        rep.SetCellAlignmentToLeft(crow, 1, crow, 11);
+                        rep.SetCellAlignmentToTop(crow, 1, crow, 11);
+                        rep.SetWrapText(crow, 1, crow, 11);
 
-                sheet.get_Range("A11", "K11").Font.Bold = true;
-                sheet.get_Range("A11", "K11").HorizontalAlignment = Microsoft.Office.Interop.Excel.Constants.xlCenter;
-                sheet.get_Range("A11", "K11").WrapText = true;
-                sheet.get_Range("A11", "K11").RowHeight = 30;
-
-                if (_ListDoc.Rows.Count > 0)
+                        crow++;
+                    }
+                }
+                rep.SetBorders(startrow, 1, crow - 1, 11);
+                rep.SetPageOrientationToLandscape();
+                rep.SetPageSetup(1, 1000, true);
+                rep.Show();
+                /*if (_ListDoc.Rows.Count > 0)
                 {
                     for (int i = 0; i < dgListDoc.Rows.Count; i++)
                     {
                         sheet.Cells[i + 12, 1] = _ListDoc.DefaultView[i]["Дата"];
                         sheet.Cells[i + 12, 2] = _ListDoc.DefaultView[i]["ObjName"];
                         sheet.Cells[i + 12, 3] = _ListDoc.DefaultView[i]["Арендатор"];
-                        sheet.Cells[i + 12, 4] = _ListDoc.DefaultView[i]["№"];
+                        //sheet.Cells[i + 12, 4] = _ListDoc.DefaultView[i]["№"].ToString();
                         sheet.Cells[i + 12, 5] = _ListDoc.DefaultView[i]["TypeContract"];
                         sheet.Cells[i + 12, 6] = _ListDoc.DefaultView[i]["Начало"];
                         sheet.Cells[i + 12, 7] = _ListDoc.DefaultView[i]["Конец"];
@@ -1676,7 +1714,7 @@ namespace Arenda
                 object[] args = new object[2];
                 args[0] = @_fileName;
                 args[1] = 39;
-                book.GetType().InvokeMember("SaveAs", BindingFlags.InvokeMethod, null, book, args);
+                book.GetType().InvokeMember("SaveAs", BindingFlags.InvokeMethod, null, book, args);*/
             }
             #endregion
 
@@ -1840,10 +1878,12 @@ namespace Arenda
         {
             if (pListDoc.Visible)
             {
-                PrintForm f = new PrintForm(int.Parse(dgListDoc.CurrentRow.Cells["id_agreements"].Value.ToString()),
+                /*PrintForm f = new PrintForm(int.Parse(dgListDoc.CurrentRow.Cells["id_agreements"].Value.ToString()),
+                    dgListDoc.CurrentRow.Cells["number"].Value.ToString().Trim(),
+                    int.Parse(dgListDoc.CurrentRow.Cells["id_type"].Value.ToString()));*/
+                ArendaPrint.frmPrint f = new ArendaPrint.frmPrint(int.Parse(dgListDoc.CurrentRow.Cells["id_agreements"].Value.ToString()),
                     dgListDoc.CurrentRow.Cells["number"].Value.ToString().Trim(),
                     int.Parse(dgListDoc.CurrentRow.Cells["id_type"].Value.ToString()));
-
                 f.setData(
                         dgListDoc.CurrentRow.Cells["Date"].Value.ToString(),
                         dgListDoc.CurrentRow.Cells["number"].Value.ToString(),
@@ -2468,6 +2508,16 @@ namespace Arenda
         private void btDicDiscount_Click(object sender, EventArgs e)
         {
             new dllArendaDictonary.jDiscount.frmList().ShowDialog();
+        }
+
+        private void btnMassDiscounts_Click(object sender, EventArgs e)
+        {
+            new ArendaDiscount.frmDiscounts().ShowDialog();
+        }
+
+        private void chbCancelDoc_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void sPhone_KeyPress(object sender, KeyPressEventArgs e)

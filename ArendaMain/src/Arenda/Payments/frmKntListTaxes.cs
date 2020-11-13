@@ -20,6 +20,11 @@ namespace Arenda.Payments
         {
             InitializeComponent();
             dgvData.AutoGenerateColumns = false;
+            if (!new string[] { "КНТ" }.Contains(Nwuram.Framework.Settings.User.UserSettings.User.StatusCode))
+            {
+                btSelect.Enabled = false;
+                cSelect.Visible = false;
+            }
         }
 
         private void frmKntListTaxes_Load(object sender, EventArgs e)
