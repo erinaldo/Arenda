@@ -169,7 +169,37 @@ namespace JournalBorrower
             report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
             indexRow++;
 
-            
+            foreach (DataRowView row in dtData.DefaultView)
+            {
+                indexCol = 1;
+                report.SetWrapText(indexRow, indexCol, indexRow, maxColumns);
+                foreach (DataGridViewColumn col in dgvData.Columns)
+                {
+                    if (col.Visible)
+                    {
+
+                        if (row[col.DataPropertyName] is DateTime)
+                            report.AddSingleValue(((DateTime)row[col.DataPropertyName]).ToShortDateString(), indexRow, indexCol);
+                        else
+                           if (row[col.DataPropertyName] is decimal || row[col.DataPropertyName] is double)
+                        {
+                            report.AddSingleValueObject(row[col.DataPropertyName], indexRow, indexCol);
+                            report.SetFormat(indexRow, indexCol, indexRow, indexCol, "0.00");
+                        }
+                        else
+                            report.AddSingleValue(row[col.DataPropertyName].ToString(), indexRow, indexCol);
+
+                        indexCol++;
+                    }
+                }
+
+                report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+                report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
+                indexRow++;
+            }
+
+            /*
             var groupByPost = dtData.DefaultView.ToTable().AsEnumerable().GroupBy(r => new { id = r.Field<int>("id_Tenant") })
                 .Select(s => new { s.Key.id });
 
@@ -236,7 +266,7 @@ namespace JournalBorrower
                     indexCol++;
                 }
             }
-            
+            */
 
             report.Show();
         }
@@ -562,44 +592,44 @@ namespace JournalBorrower
                 }
 
 
-                var gSumData = dtData.AsEnumerable()
-                            .Where(r => r.Field<object>("SummaPenny_1") != null && r.Field<decimal>("SummaPenny_1") != 0)
-                           .GroupBy(r => new { id_Tenant = r.Field<int>("id_Tenant") })
-                           .Select(s => new
-                           {
-                               s.Key.id_Tenant,
-                               SummaPaymentFine_1 = s.Sum(r => r.Field<object>("SummaPaymentFine_1") != null ? r.Field<decimal>("SummaPaymentFine_1") : 0),
-                               SummaFine_1 = s.Sum(r => r.Field<object>("SummaFine_1") != null ? r.Field<decimal>("SummaFine_1") : 0),
-                               SummaPenny_1 = s.Sum(r => r.Field<object>("SummaPenny_1") != null ? r.Field<decimal>("SummaPenny_1") : 0),
-                               Total_Sum = s.Sum(r => r.Field<object>("Total_Sum") != null ? r.Field<decimal>("Total_Sum") : 0)
-                           });
+                //var gSumData = dtData.AsEnumerable()
+                //            .Where(r => r.Field<object>("SummaPenny_1") != null && r.Field<decimal>("SummaPenny_1") != 0)
+                //           .GroupBy(r => new { id_Tenant = r.Field<int>("id_Tenant") })
+                //           .Select(s => new
+                //           {
+                //               s.Key.id_Tenant,
+                //               SummaPaymentFine_1 = s.Sum(r => r.Field<object>("SummaPaymentFine_1") != null ? r.Field<decimal>("SummaPaymentFine_1") : 0),
+                //               SummaFine_1 = s.Sum(r => r.Field<object>("SummaFine_1") != null ? r.Field<decimal>("SummaFine_1") : 0),
+                //               SummaPenny_1 = s.Sum(r => r.Field<object>("SummaPenny_1") != null ? r.Field<decimal>("SummaPenny_1") : 0),
+                //               Total_Sum = s.Sum(r => r.Field<object>("Total_Sum") != null ? r.Field<decimal>("Total_Sum") : 0)
+                //           });
 
-                if (gSumData.Count() > 0)
-                {
-                    foreach (var gSD in gSumData)
-                    {
-                        EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable()
-                            .Where(r => r.Field<int>("id_Tenant") == gSD.id_Tenant);
+                //if (gSumData.Count() > 0)
+                //{
+                //    foreach (var gSD in gSumData)
+                //    {
+                //        EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable()
+                //            .Where(r => r.Field<int>("id_Tenant") == gSD.id_Tenant);
 
-                        if (rowCollect.Count() > 0)
-                        {
-                            foreach (DataRow row in rowCollect)
-                            {
+                //        if (rowCollect.Count() > 0)
+                //        {
+                //            foreach (DataRow row in rowCollect)
+                //            {
 
-                                row["SummaPaymentFine_1"] = gSD.SummaPaymentFine_1;
-                                row["SummaFine_1"] = gSD.SummaFine_1;
-                                row["SummaPenny_1"] = gSD.SummaPenny_1;
-                                if (gSD.SummaPenny_1 == 0 || gSD.SummaPaymentFine_1 == 0)
-                                    row["PrcPenny_1"] = 0;
-                                else
-                                    row["PrcPenny_1"] = Math.Round(((gSD.SummaPenny_1) / gSD.SummaPaymentFine_1) * 100, 0);
+                //                row["SummaPaymentFine_1"] = gSD.SummaPaymentFine_1;
+                //                row["SummaFine_1"] = gSD.SummaFine_1;
+                //                row["SummaPenny_1"] = gSD.SummaPenny_1;
+                //                if (gSD.SummaPenny_1 == 0 || gSD.SummaPaymentFine_1 == 0)
+                //                    row["PrcPenny_1"] = 0;
+                //                else
+                //                    row["PrcPenny_1"] = Math.Round(((gSD.SummaPenny_1) / gSD.SummaPaymentFine_1) * 100, 0);
 
-                                if (gSD.SummaPenny_1 > gSD.Total_Sum) row["PrcPenny_1"] = 100;
+                //                if (gSD.SummaPenny_1 > gSD.Total_Sum) row["PrcPenny_1"] = 100;
 
-                            }
-                        }
-                    }
-                }
+                //            }
+                //        }
+                //    }
+                //}
             }
             catch (Exception ex)
             { 
@@ -636,6 +666,8 @@ namespace JournalBorrower
 
                 if(rbPayDoc.Checked)
                     filter += (filter.Length == 0 ? "" : " and ") + $"SummaPaymentFine_1_filter <> 0"; 
+                else if(rbPayDopDoc.Checked)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"SummaFine_2 is not null"; 
 
                 dtData.DefaultView.RowFilter = filter;               
             }

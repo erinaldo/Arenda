@@ -28,18 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbObject = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.tbTenant = new System.Windows.Forms.TextBox();
             this.tbAgreements = new System.Windows.Forms.TextBox();
             this.tbPlace = new System.Windows.Forms.TextBox();
             this.dgvData = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbPayDopDoc = new System.Windows.Forms.RadioButton();
+            this.rbPayDoc = new System.Windows.Forms.RadioButton();
+            this.btPrint = new System.Windows.Forms.Button();
+            this.btExit = new System.Windows.Forms.Button();
+            this.btUpdate = new System.Windows.Forms.Button();
             this.nameTenant = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cAgreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,12 +57,6 @@
             this.cSumOwe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cPrcOwe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cDateCloseSection = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbPayDopDoc = new System.Windows.Forms.RadioButton();
-            this.rbPayDoc = new System.Windows.Forms.RadioButton();
-            this.btPrint = new System.Windows.Forms.Button();
-            this.btExit = new System.Windows.Forms.Button();
-            this.btUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -113,14 +113,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameTenant,
@@ -134,14 +134,14 @@
             this.cSumOwe,
             this.cPrcOwe,
             this.cDateCloseSection});
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvData.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvData.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvData.Location = new System.Drawing.Point(12, 91);
             this.dgvData.MultiSelect = false;
             this.dgvData.Name = "dgvData";
@@ -149,108 +149,8 @@
             this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvData.Size = new System.Drawing.Size(1041, 498);
             this.dgvData.TabIndex = 25;
-            this.dgvData.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvData_CellFormatting);
             this.dgvData.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvData_CellMouseDoubleClick);
-            this.dgvData.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvData_CellPainting);
             this.dgvData.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvData_ColumnWidthChanged);
-            // 
-            // nameTenant
-            // 
-            this.nameTenant.DataPropertyName = "nameTenant";
-            this.nameTenant.HeaderText = "Арендатор";
-            this.nameTenant.Name = "nameTenant";
-            this.nameTenant.ReadOnly = true;
-            // 
-            // cAgreements
-            // 
-            this.cAgreements.DataPropertyName = "Agreement";
-            this.cAgreements.HeaderText = "Номер договора";
-            this.cAgreements.Name = "cAgreements";
-            this.cAgreements.ReadOnly = true;
-            this.cAgreements.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // cObject
-            // 
-            this.cObject.DataPropertyName = "nameObjectLease";
-            this.cObject.HeaderText = "Объект аренды";
-            this.cObject.Name = "cObject";
-            this.cObject.ReadOnly = true;
-            this.cObject.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // cPlace
-            // 
-            this.cPlace.DataPropertyName = "namePlace";
-            this.cPlace.HeaderText = "Местоположение места аренды";
-            this.cPlace.Name = "cPlace";
-            this.cPlace.ReadOnly = true;
-            this.cPlace.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // cSumMeter
-            // 
-            this.cSumMeter.DataPropertyName = "Cost_of_Meter";
-            this.cSumMeter.HeaderText = "Стоимость 1м2";
-            this.cSumMeter.Name = "cSumMeter";
-            this.cSumMeter.ReadOnly = true;
-            this.cSumMeter.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // cSumDoc
-            // 
-            this.cSumDoc.DataPropertyName = "Total_Sum";
-            dataGridViewCellStyle8.Format = "N2";
-            dataGridViewCellStyle8.NullValue = null;
-            this.cSumDoc.DefaultCellStyle = dataGridViewCellStyle8;
-            this.cSumDoc.HeaderText = "Сумма по договору";
-            this.cSumDoc.Name = "cSumDoc";
-            this.cSumDoc.ReadOnly = true;
-            this.cSumDoc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // cSumPay
-            // 
-            dataGridViewCellStyle9.Format = "N2";
-            dataGridViewCellStyle9.NullValue = null;
-            this.cSumPay.DefaultCellStyle = dataGridViewCellStyle9;
-            this.cSumPay.HeaderText = "Сумма к оплате";
-            this.cSumPay.Name = "cSumPay";
-            this.cSumPay.ReadOnly = true;
-            this.cSumPay.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // cSumItogSum
-            // 
-            dataGridViewCellStyle10.Format = "N2";
-            dataGridViewCellStyle10.NullValue = null;
-            this.cSumItogSum.DefaultCellStyle = dataGridViewCellStyle10;
-            this.cSumItogSum.HeaderText = "Сумма оплаты";
-            this.cSumItogSum.Name = "cSumItogSum";
-            this.cSumItogSum.ReadOnly = true;
-            this.cSumItogSum.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // cSumOwe
-            // 
-            dataGridViewCellStyle11.Format = "N2";
-            dataGridViewCellStyle11.NullValue = null;
-            this.cSumOwe.DefaultCellStyle = dataGridViewCellStyle11;
-            this.cSumOwe.HeaderText = "Сумма долга";
-            this.cSumOwe.Name = "cSumOwe";
-            this.cSumOwe.ReadOnly = true;
-            this.cSumOwe.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // cPrcOwe
-            // 
-            this.cPrcOwe.HeaderText = "% долга";
-            this.cPrcOwe.Name = "cPrcOwe";
-            this.cPrcOwe.ReadOnly = true;
-            this.cPrcOwe.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // cDateCloseSection
-            // 
-            this.cDateCloseSection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.cDateCloseSection.DataPropertyName = "DateSeal";
-            this.cDateCloseSection.HeaderText = "Дата опечат. секции";
-            this.cDateCloseSection.MinimumWidth = 80;
-            this.cDateCloseSection.Name = "cDateCloseSection";
-            this.cDateCloseSection.ReadOnly = true;
-            this.cDateCloseSection.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.cDateCloseSection.Width = 80;
             // 
             // groupBox1
             // 
@@ -319,6 +219,94 @@
             this.btUpdate.TabIndex = 22;
             this.btUpdate.UseVisualStyleBackColor = true;
             this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
+            // 
+            // nameTenant
+            // 
+            this.nameTenant.DataPropertyName = "nameTenant";
+            this.nameTenant.HeaderText = "Арендатор";
+            this.nameTenant.Name = "nameTenant";
+            this.nameTenant.ReadOnly = true;
+            // 
+            // cAgreements
+            // 
+            this.cAgreements.DataPropertyName = "Agreement";
+            this.cAgreements.HeaderText = "Номер договора";
+            this.cAgreements.Name = "cAgreements";
+            this.cAgreements.ReadOnly = true;
+            // 
+            // cObject
+            // 
+            this.cObject.DataPropertyName = "nameObjectLease";
+            this.cObject.HeaderText = "Объект аренды";
+            this.cObject.Name = "cObject";
+            this.cObject.ReadOnly = true;
+            // 
+            // cPlace
+            // 
+            this.cPlace.DataPropertyName = "namePlace";
+            this.cPlace.HeaderText = "Местоположение места аренды";
+            this.cPlace.Name = "cPlace";
+            this.cPlace.ReadOnly = true;
+            // 
+            // cSumMeter
+            // 
+            this.cSumMeter.DataPropertyName = "Cost_of_Meter";
+            this.cSumMeter.HeaderText = "Стоимость 1м2";
+            this.cSumMeter.Name = "cSumMeter";
+            this.cSumMeter.ReadOnly = true;
+            // 
+            // cSumDoc
+            // 
+            this.cSumDoc.DataPropertyName = "Total_Sum";
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.cSumDoc.DefaultCellStyle = dataGridViewCellStyle2;
+            this.cSumDoc.HeaderText = "Сумма по договору";
+            this.cSumDoc.Name = "cSumDoc";
+            this.cSumDoc.ReadOnly = true;
+            // 
+            // cSumPay
+            // 
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.cSumPay.DefaultCellStyle = dataGridViewCellStyle3;
+            this.cSumPay.HeaderText = "Сумма к оплате";
+            this.cSumPay.Name = "cSumPay";
+            this.cSumPay.ReadOnly = true;
+            // 
+            // cSumItogSum
+            // 
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.cSumItogSum.DefaultCellStyle = dataGridViewCellStyle4;
+            this.cSumItogSum.HeaderText = "Сумма оплаты";
+            this.cSumItogSum.Name = "cSumItogSum";
+            this.cSumItogSum.ReadOnly = true;
+            // 
+            // cSumOwe
+            // 
+            dataGridViewCellStyle5.Format = "N2";
+            dataGridViewCellStyle5.NullValue = null;
+            this.cSumOwe.DefaultCellStyle = dataGridViewCellStyle5;
+            this.cSumOwe.HeaderText = "Сумма долга";
+            this.cSumOwe.Name = "cSumOwe";
+            this.cSumOwe.ReadOnly = true;
+            // 
+            // cPrcOwe
+            // 
+            this.cPrcOwe.HeaderText = "% долга";
+            this.cPrcOwe.Name = "cPrcOwe";
+            this.cPrcOwe.ReadOnly = true;
+            // 
+            // cDateCloseSection
+            // 
+            this.cDateCloseSection.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.cDateCloseSection.DataPropertyName = "DateSeal";
+            this.cDateCloseSection.HeaderText = "Дата опечат. секции";
+            this.cDateCloseSection.MinimumWidth = 80;
+            this.cDateCloseSection.Name = "cDateCloseSection";
+            this.cDateCloseSection.ReadOnly = true;
+            this.cDateCloseSection.Width = 80;
             // 
             // frmMain
             // 

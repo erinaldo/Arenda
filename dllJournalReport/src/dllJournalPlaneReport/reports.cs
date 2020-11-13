@@ -24,7 +24,14 @@ namespace dllJournalPlaneReport
                 return;
             }
 
-            createReport(task.Result, _nameObject, status, _startDate);
+            DataTable dtData = task.Result;
+
+            foreach (DataRow row in dtData.Rows)
+            {
+                row["timeLimit"] = $"{((DateTime)row["Start_Date"]).ToShortDateString()} - {((DateTime)row["Stop_Date"]).ToShortDateString()}";
+            }
+
+            createReport(dtData, _nameObject, status, _startDate);
         }
 
         public static void createReport(DataTable dtReport, string _nameObject,string status,DateTime _startDate)
