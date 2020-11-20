@@ -67,6 +67,14 @@ namespace dllJournalPlaneReport
             cmbObject.DataSource = dtObjectLease;
             cmbObject.SelectedIndex = -1;
 
+            task = Config.hCntMain.getTypeContract(true);
+            task.Wait();
+            DataTable dtTypeContract = task.Result;
+
+            cmbTypeDoc.DisplayMember = "cName";
+            cmbTypeDoc.ValueMember = "id";
+            cmbTypeDoc.DataSource = dtTypeContract;
+
             if (id != 0)
                 getdata();
             else
@@ -293,6 +301,18 @@ namespace dllJournalPlaneReport
                 if (tbAgreements.Text.Trim().Length != 0)
                     filter += (filter.Length == 0 ? "" : " and ") + $"Agreement like '%{tbAgreements.Text.Trim()}%'";
 
+                if (tbBuild.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"Build like '%{tbBuild.Text.Trim()}%'";
+
+                if (tbFloor.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"Floor like '%{tbFloor.Text.Trim()}%'";
+
+                if (tbSection.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"namePlace like '%{tbSection.Text.Trim()}%'";
+
+                if ((int)cmbTypeDoc.SelectedValue != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_TypeContract = {cmbTypeDoc.SelectedValue}";
+
                 //if ((int)cmbTypeContract.SelectedValue != 0)
                 //    filter += (filter.Length == 0 ? "" : " and ") + $"id_TypeContract  = {cmbTypeContract.SelectedValue}";
 
@@ -377,13 +397,32 @@ namespace dllJournalPlaneReport
                     }
                 }
 
+
+                if (col.Index == cBuild.Index)
+                {
+                    tbBuild.Location = new Point(dgvData.Location.X + width + 1, tbTenant.Location.Y);
+                    tbBuild.Size = new Size(cBuild.Width, tbTenant.Height);
+                }
+
+                if (col.Index == cFloor.Index)
+                {
+                    tbFloor.Location = new Point(dgvData.Location.X + width + 1, tbTenant.Location.Y);
+                    tbFloor.Size = new Size(cFloor.Width, tbTenant.Height);
+                }
+
+                if (col.Index == cSection.Index)
+                {
+                    tbSection.Location = new Point(dgvData.Location.X + width + 1, tbTenant.Location.Y);
+                    tbSection.Size = new Size(cSection.Width, tbTenant.Height);
+                }
+
                 //if (col.Index == cPlane.Index)
                 //{
                 //    tbSumPlane.Location = new Point(dgvData.Location.X + width , tbSumPlane.Location.Y);
                 //    tbSumPlane.Size = new Size(cPlane.Width, tbSumPlane.Height);
                 //    lSumPlane.Location = new Point(tbSumPlane.Location.X - 40, lSumPlane.Location.Y);
                 //}
-                
+
 
                 width += col.Width;
             }
@@ -392,6 +431,8 @@ namespace dllJournalPlaneReport
         private void chkHideDocColumnts_Click(object sender, EventArgs e)
         {
             cBuild.Visible = cFloor.Visible = cSection.Visible = cSquart.Visible = Cost_of_Meter.Visible = !chkHideDocColumnts.Checked;
+
+            tbBuild.Visible = tbFloor.Visible = tbSection.Visible = !chkHideDocColumnts.Checked;
         }
 
         private void btExit_Click(object sender, EventArgs e)
@@ -625,9 +666,19 @@ namespace dllJournalPlaneReport
             int width = -80;
             bool isLable = false;
             foreach (DataGridViewColumn col in dgvData.Columns)
-            {
-                if (!col.Visible) 
+            {             
+                if (!col.Visible)                
                     continue;
+
+                //if (new List<string>(new string[] { cBuild.Name, cSection.Name, cFloor.Name }).Contains(col.Name))
+                //{
+                //    if (cBuild.Name.Equals(col.Name))
+                //        tbBuild.Visible = col.Displayed;
+                //    if (cFloor.Name.Equals(col.Name))
+                //        tbFloor.Visible = col.Displayed;
+                //    if (cSection.Name.Equals(col.Name))
+                //        tbSection.Visible = col.Displayed;
+                //}
 
                 if (this.Controls.ContainsKey($"tb_{col.Name}"))
                 {
@@ -649,6 +700,11 @@ namespace dllJournalPlaneReport
 
                 width += col.Width;
             }
+        }
+
+        private void cmbTypeDoc_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            setFilter();
         }
     }
 }

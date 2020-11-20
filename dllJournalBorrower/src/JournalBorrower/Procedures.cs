@@ -162,5 +162,20 @@ namespace JournalBorrower
                  new string[1] { "@id_Agreements" },
                  new DbType[1] { DbType.Int32 }, ap);
         }
+
+        /// <summary>
+        /// Получение списка оплат по договору
+        /// </summary>
+        /// <param name=""></param>
+        /// <returns>Таблица с данными</returns>        
+        public async Task<DataTable> GetListPaymentContractForAgreements(int id_Agreements)
+        {
+            ap.Clear();
+            ap.Add(id_Agreements);
+
+            return executeProcedure("[Arenda].[GetListPaymentContractForAgreements]",
+                 new string[1] { "@id_Agreements" },
+                 new DbType[1] { DbType.Int32 }, ap);
+        }
     }
 }

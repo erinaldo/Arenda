@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{1529797C-3140-44F5-BEC9-3E311316DACB}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>dllJournalReport</RootNamespace>
     <AssemblyName>dllJournalReport</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>

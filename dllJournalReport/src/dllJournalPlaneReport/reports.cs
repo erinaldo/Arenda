@@ -81,11 +81,11 @@ namespace dllJournalPlaneReport
 
             string[] monthNames = DateTimeFormatInfo.CurrentInfo.MonthNames;
             report.Merge(indexRow, 1, indexRow, maxColumns);
-<<<<<<< HEAD
+//<<<<<<< HEAD
             report.AddSingleValue($"Период план-отчёта {monthNames[_startDate.Month-1]}.{_startDate.Year}", indexRow, 1);
-=======
-            report.AddSingleValue($"Период ежемесячного отчёта {monthNames[_startDate.Month-1]}.{_startDate.Year}", indexRow, 1);
->>>>>>> 5b40c2b8d571ec7b2bfd3ee230bb62ce5596e5b9
+//=======
+//            report.AddSingleValue($"Период ежемесячного отчёта {monthNames[_startDate.Month-1]}.{_startDate.Year}", indexRow, 1);
+//>>>>>>> 5b40c2b8d571ec7b2bfd3ee230bb62ce5596e5b9
             indexRow++;
 
             report.Merge(indexRow, 1, indexRow, maxColumns);

@@ -66,6 +66,9 @@
             this.btClear = new System.Windows.Forms.Button();
             this.tbSumPlane = new System.Windows.Forms.TextBox();
             this.lSumPlane = new System.Windows.Forms.Label();
+            this.tbSection = new System.Windows.Forms.TextBox();
+            this.tbFloor = new System.Windows.Forms.TextBox();
+            this.tbBuild = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -401,11 +404,38 @@
             this.lSumPlane.TabIndex = 37;
             this.lSumPlane.Text = "Итого";
             // 
+            // tbSection
+            // 
+            this.tbSection.Location = new System.Drawing.Point(589, 54);
+            this.tbSection.Name = "tbSection";
+            this.tbSection.Size = new System.Drawing.Size(100, 20);
+            this.tbSection.TabIndex = 41;
+            this.tbSection.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
+            // 
+            // tbFloor
+            // 
+            this.tbFloor.Location = new System.Drawing.Point(483, 54);
+            this.tbFloor.Name = "tbFloor";
+            this.tbFloor.Size = new System.Drawing.Size(100, 20);
+            this.tbFloor.TabIndex = 42;
+            this.tbFloor.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
+            // 
+            // tbBuild
+            // 
+            this.tbBuild.Location = new System.Drawing.Point(377, 54);
+            this.tbBuild.Name = "tbBuild";
+            this.tbBuild.Size = new System.Drawing.Size(100, 20);
+            this.tbBuild.TabIndex = 43;
+            this.tbBuild.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
+            // 
             // frmAddReportMonth
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1251, 640);
+            this.Controls.Add(this.tbSection);
+            this.Controls.Add(this.tbFloor);
+            this.Controls.Add(this.tbBuild);
             this.Controls.Add(this.lSumPlane);
             this.Controls.Add(this.tbSumPlane);
             this.Controls.Add(this.btClear);
@@ -474,5 +504,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cSumDog;
         private System.Windows.Forms.DataGridViewTextBoxColumn cDiscount;
         private System.Windows.Forms.DataGridViewTextBoxColumn cPlane;
+        private System.Windows.Forms.TextBox tbSection;
+        private System.Windows.Forms.TextBox tbFloor;
+        private System.Windows.Forms.TextBox tbBuild;
     }
 }

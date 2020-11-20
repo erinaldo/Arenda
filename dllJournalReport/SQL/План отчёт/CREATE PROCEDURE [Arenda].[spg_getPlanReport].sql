@@ -43,7 +43,7 @@ select
 	'' as timeLimit,
 	ol.cName as nameObject,	
 	--tc.TypeContract,	
-	--a.id_TypeContract,
+	a.id_TypeContract,
 	b.Abbreviation as Build,
 	f.Abbreviation as [Floor],
 	case 
@@ -71,6 +71,7 @@ select
 	--isnull(ad.Date_of_Departure,a.Stop_Date) as Stop_Date
 	[Arenda].[fGetDateEndAgreements](a.id) as Stop_Date,
 	isnull(a.Phone,0) as Phone
+
 INTO 
 	#tmpTable
 from 
@@ -147,7 +148,8 @@ SELECT distinct
 	else t.OverPayment end as OverPayment,
 	t.Start_Date,
 	t.Stop_Date,
-	t.Phone
+	t.Phone,
+	t.id_TypeContract
 FROM 
 	#tmpTable t
 where

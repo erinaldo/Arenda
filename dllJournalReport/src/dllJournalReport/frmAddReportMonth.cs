@@ -316,6 +316,15 @@ namespace dllJournalReport
                 if ((int)cmbTypeContract.SelectedValue != 0)
                     filter += (filter.Length == 0 ? "" : " and ") + $"id_TypeContract  = {cmbTypeContract.SelectedValue}";
 
+                if (tbBuild.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"Build like '%{tbBuild.Text.Trim()}%'";
+
+                if (tbFloor.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"Floor like '%{tbFloor.Text.Trim()}%'";
+
+                if (tbSection.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"namePlace like '%{tbSection.Text.Trim()}%'";
+
                 dtData.DefaultView.RowFilter = filter;
             }
             catch
@@ -373,7 +382,25 @@ namespace dllJournalReport
                     tbSumPlane.Size = new Size(cPlane.Width, tbSumPlane.Height);
                     lSumPlane.Location = new Point(tbSumPlane.Location.X - 40, lSumPlane.Location.Y);
                 }
-                
+
+
+                if (col.Index == cBuild.Index)
+                {
+                    tbBuild.Location = new Point(dgvData.Location.X + width + 1, tbTenant.Location.Y);
+                    tbBuild.Size = new Size(cBuild.Width, tbTenant.Height);
+                }
+
+                if (col.Index == cFloor.Index)
+                {
+                    tbFloor.Location = new Point(dgvData.Location.X + width + 1, tbTenant.Location.Y);
+                    tbFloor.Size = new Size(cFloor.Width, tbTenant.Height);
+                }
+
+                if (col.Index == cSection.Index)
+                {
+                    tbSection.Location = new Point(dgvData.Location.X + width + 1, tbTenant.Location.Y);
+                    tbSection.Size = new Size(cSection.Width, tbTenant.Height);
+                }
 
                 width += col.Width;
             }

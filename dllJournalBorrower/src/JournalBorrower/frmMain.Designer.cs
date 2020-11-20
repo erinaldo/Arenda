@@ -40,14 +40,6 @@
             this.tbAgreements = new System.Windows.Forms.TextBox();
             this.tbPlace = new System.Windows.Forms.TextBox();
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.rbPayDopDoc = new System.Windows.Forms.RadioButton();
-            this.rbPayDoc = new System.Windows.Forms.RadioButton();
-            this.btPrint = new System.Windows.Forms.Button();
-            this.btExit = new System.Windows.Forms.Button();
-            this.btUpdate = new System.Windows.Forms.Button();
-            this.cmbTypeDoc = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.nameTenant = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cAgreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,6 +54,17 @@
             this.cSumOwe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cPrcOwe = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cDateCloseSection = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbPayDopDoc = new System.Windows.Forms.RadioButton();
+            this.rbPayDoc = new System.Windows.Forms.RadioButton();
+            this.btPrint = new System.Windows.Forms.Button();
+            this.btExit = new System.Windows.Forms.Button();
+            this.btUpdate = new System.Windows.Forms.Button();
+            this.cmbTypeDoc = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbBuild = new System.Windows.Forms.TextBox();
+            this.tbFloor = new System.Windows.Forms.TextBox();
+            this.tbSection = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -107,6 +110,7 @@
             this.tbPlace.Name = "tbPlace";
             this.tbPlace.Size = new System.Drawing.Size(100, 20);
             this.tbPlace.TabIndex = 21;
+            this.tbPlace.Visible = false;
             this.tbPlace.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
             // 
             // dgvData
@@ -157,95 +161,9 @@
             this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvData.Size = new System.Drawing.Size(1041, 498);
             this.dgvData.TabIndex = 25;
+            this.dgvData.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvData_CellMouseClick);
             this.dgvData.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvData_CellMouseDoubleClick);
             this.dgvData.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvData_ColumnWidthChanged);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.rbPayDopDoc);
-            this.groupBox1.Controls.Add(this.rbPayDoc);
-            this.groupBox1.Location = new System.Drawing.Point(336, 1);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(259, 58);
-            this.groupBox1.TabIndex = 26;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Тип долгов";
-            // 
-            // rbPayDopDoc
-            // 
-            this.rbPayDopDoc.AutoSize = true;
-            this.rbPayDopDoc.Location = new System.Drawing.Point(6, 37);
-            this.rbPayDopDoc.Name = "rbPayDopDoc";
-            this.rbPayDopDoc.Size = new System.Drawing.Size(211, 17);
-            this.rbPayDopDoc.TabIndex = 0;
-            this.rbPayDopDoc.Text = "оплата по дополнительным оплатам\r\n";
-            this.rbPayDopDoc.UseVisualStyleBackColor = true;
-            this.rbPayDopDoc.Click += new System.EventHandler(this.rbPayDoc_Click);
-            // 
-            // rbPayDoc
-            // 
-            this.rbPayDoc.AutoSize = true;
-            this.rbPayDoc.Checked = true;
-            this.rbPayDoc.Location = new System.Drawing.Point(6, 15);
-            this.rbPayDoc.Name = "rbPayDoc";
-            this.rbPayDoc.Size = new System.Drawing.Size(133, 17);
-            this.rbPayDoc.TabIndex = 0;
-            this.rbPayDoc.TabStop = true;
-            this.rbPayDoc.Text = "оплата по договорам";
-            this.rbPayDoc.UseVisualStyleBackColor = true;
-            this.rbPayDoc.Click += new System.EventHandler(this.rbPayDoc_Click);
-            // 
-            // btPrint
-            // 
-            this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btPrint.Image = global::JournalBorrower.Properties.Resources.klpq_2511;
-            this.btPrint.Location = new System.Drawing.Point(983, 595);
-            this.btPrint.Name = "btPrint";
-            this.btPrint.Size = new System.Drawing.Size(32, 32);
-            this.btPrint.TabIndex = 23;
-            this.btPrint.UseVisualStyleBackColor = true;
-            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
-            // 
-            // btExit
-            // 
-            this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btExit.Image = global::JournalBorrower.Properties.Resources.exit_8633;
-            this.btExit.Location = new System.Drawing.Point(1021, 595);
-            this.btExit.Name = "btExit";
-            this.btExit.Size = new System.Drawing.Size(32, 32);
-            this.btExit.TabIndex = 24;
-            this.btExit.UseVisualStyleBackColor = true;
-            this.btExit.Click += new System.EventHandler(this.btExit_Click);
-            // 
-            // btUpdate
-            // 
-            this.btUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btUpdate.Image = global::JournalBorrower.Properties.Resources.reload_8055;
-            this.btUpdate.Location = new System.Drawing.Point(1005, 11);
-            this.btUpdate.Name = "btUpdate";
-            this.btUpdate.Size = new System.Drawing.Size(48, 48);
-            this.btUpdate.TabIndex = 22;
-            this.btUpdate.UseVisualStyleBackColor = true;
-            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
-            // 
-            // cmbTypeDoc
-            // 
-            this.cmbTypeDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTypeDoc.FormattingEnabled = true;
-            this.cmbTypeDoc.Location = new System.Drawing.Point(100, 39);
-            this.cmbTypeDoc.Name = "cmbTypeDoc";
-            this.cmbTypeDoc.Size = new System.Drawing.Size(230, 21);
-            this.cmbTypeDoc.TabIndex = 28;
-            this.cmbTypeDoc.SelectionChangeCommitted += new System.EventHandler(this.cmbObject_SelectionChangeCommitted);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 43);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 13);
-            this.label1.TabIndex = 27;
-            this.label1.Text = "Тип договора";
             // 
             // nameTenant
             // 
@@ -357,11 +275,125 @@
             this.cDateCloseSection.ReadOnly = true;
             this.cDateCloseSection.Width = 80;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbPayDopDoc);
+            this.groupBox1.Controls.Add(this.rbPayDoc);
+            this.groupBox1.Location = new System.Drawing.Point(336, 1);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(259, 58);
+            this.groupBox1.TabIndex = 26;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Тип долгов";
+            // 
+            // rbPayDopDoc
+            // 
+            this.rbPayDopDoc.AutoSize = true;
+            this.rbPayDopDoc.Location = new System.Drawing.Point(6, 37);
+            this.rbPayDopDoc.Name = "rbPayDopDoc";
+            this.rbPayDopDoc.Size = new System.Drawing.Size(211, 17);
+            this.rbPayDopDoc.TabIndex = 0;
+            this.rbPayDopDoc.Text = "оплата по дополнительным оплатам\r\n";
+            this.rbPayDopDoc.UseVisualStyleBackColor = true;
+            this.rbPayDopDoc.Click += new System.EventHandler(this.rbPayDoc_Click);
+            // 
+            // rbPayDoc
+            // 
+            this.rbPayDoc.AutoSize = true;
+            this.rbPayDoc.Checked = true;
+            this.rbPayDoc.Location = new System.Drawing.Point(6, 15);
+            this.rbPayDoc.Name = "rbPayDoc";
+            this.rbPayDoc.Size = new System.Drawing.Size(133, 17);
+            this.rbPayDoc.TabIndex = 0;
+            this.rbPayDoc.TabStop = true;
+            this.rbPayDoc.Text = "оплата по договорам";
+            this.rbPayDoc.UseVisualStyleBackColor = true;
+            this.rbPayDoc.Click += new System.EventHandler(this.rbPayDoc_Click);
+            // 
+            // btPrint
+            // 
+            this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btPrint.Image = global::JournalBorrower.Properties.Resources.klpq_2511;
+            this.btPrint.Location = new System.Drawing.Point(983, 595);
+            this.btPrint.Name = "btPrint";
+            this.btPrint.Size = new System.Drawing.Size(32, 32);
+            this.btPrint.TabIndex = 23;
+            this.btPrint.UseVisualStyleBackColor = true;
+            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
+            // 
+            // btExit
+            // 
+            this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btExit.Image = global::JournalBorrower.Properties.Resources.exit_8633;
+            this.btExit.Location = new System.Drawing.Point(1021, 595);
+            this.btExit.Name = "btExit";
+            this.btExit.Size = new System.Drawing.Size(32, 32);
+            this.btExit.TabIndex = 24;
+            this.btExit.UseVisualStyleBackColor = true;
+            this.btExit.Click += new System.EventHandler(this.btExit_Click);
+            // 
+            // btUpdate
+            // 
+            this.btUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btUpdate.Image = global::JournalBorrower.Properties.Resources.reload_8055;
+            this.btUpdate.Location = new System.Drawing.Point(1005, 11);
+            this.btUpdate.Name = "btUpdate";
+            this.btUpdate.Size = new System.Drawing.Size(48, 48);
+            this.btUpdate.TabIndex = 22;
+            this.btUpdate.UseVisualStyleBackColor = true;
+            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
+            // 
+            // cmbTypeDoc
+            // 
+            this.cmbTypeDoc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTypeDoc.FormattingEnabled = true;
+            this.cmbTypeDoc.Location = new System.Drawing.Point(100, 39);
+            this.cmbTypeDoc.Name = "cmbTypeDoc";
+            this.cmbTypeDoc.Size = new System.Drawing.Size(230, 21);
+            this.cmbTypeDoc.TabIndex = 28;
+            this.cmbTypeDoc.SelectionChangeCommitted += new System.EventHandler(this.cmbObject_SelectionChangeCommitted);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 43);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 13);
+            this.label1.TabIndex = 27;
+            this.label1.Text = "Тип договора";
+            // 
+            // tbBuild
+            // 
+            this.tbBuild.Location = new System.Drawing.Point(375, 65);
+            this.tbBuild.Name = "tbBuild";
+            this.tbBuild.Size = new System.Drawing.Size(100, 20);
+            this.tbBuild.TabIndex = 29;
+            this.tbBuild.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
+            // 
+            // tbFloor
+            // 
+            this.tbFloor.Location = new System.Drawing.Point(481, 65);
+            this.tbFloor.Name = "tbFloor";
+            this.tbFloor.Size = new System.Drawing.Size(100, 20);
+            this.tbFloor.TabIndex = 29;
+            this.tbFloor.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
+            // 
+            // tbSection
+            // 
+            this.tbSection.Location = new System.Drawing.Point(587, 65);
+            this.tbSection.Name = "tbSection";
+            this.tbSection.Size = new System.Drawing.Size(100, 20);
+            this.tbSection.TabIndex = 29;
+            this.tbSection.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1065, 639);
+            this.Controls.Add(this.tbSection);
+            this.Controls.Add(this.tbFloor);
+            this.Controls.Add(this.tbBuild);
             this.Controls.Add(this.cmbTypeDoc);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
@@ -419,6 +451,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cSumOwe;
         private System.Windows.Forms.DataGridViewTextBoxColumn cPrcOwe;
         private System.Windows.Forms.DataGridViewTextBoxColumn cDateCloseSection;
+        private System.Windows.Forms.TextBox tbBuild;
+        private System.Windows.Forms.TextBox tbFloor;
+        private System.Windows.Forms.TextBox tbSection;
     }
 }
 
