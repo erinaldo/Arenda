@@ -272,13 +272,14 @@ namespace Arenda
                          DateTime.Parse(cmbPlaneDate.Text),
                          rbRealMoney.Checked,
                          rbSendMoney.Checked,
-                         id_Fine
+                         id_Fine,
+                         tbDescription.Text.Trim()
                          );
                 MessageBox.Show("Оплата добавлена", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                Penni penni = new Penni(id_agreement, dtpDate.Value, decimal.Parse(numTextBox.ConvertToCompPunctuation(txtSum.Text)));
+                Penni penni = new Penni(id_agreement, dtpDate.Value, decimal.Parse(numTextBox.ConvertToCompPunctuation(txtSum.Text)), tbDescription.Text.Trim());
                 penni.setDataToAddPay((int)cmbPayType.SelectedValue, DateTime.Parse(cmbPlaneDate.Text), rbRealMoney.Checked,
                          rbSendMoney.Checked,
                          id_Fine);

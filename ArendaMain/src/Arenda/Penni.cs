@@ -37,6 +37,8 @@ namespace Arenda
         /// <summary>
         /// 0- есть подтвержденные пени, не добавлено 1-добавлена оплата без пени, 2-добавлена оплата с неполным пени, 3- добавлена оплата с полным пени 
         /// </summary>
+        /// 
+        private string Description;
         public int statusPenni { get; private set; } = 0;
         public int id_PaymentContract { get; private set; } = 0;
         public DataTable dtPaymentContract { get; private set; }
@@ -76,11 +78,12 @@ namespace Arenda
         /// </summary>
         /// <param name="id_agreement">договор</param>
         /// <param name="datePayment">дата оплаты</param>
-        public Penni(int id_agreement, DateTime datePayment, decimal sumPay)
+        public Penni(int id_agreement, DateTime datePayment, decimal sumPay,string Description)
         {
             this.id_agreement = id_agreement;
             this.datePayment = datePayment;
             this.sumPay = sumPay;
+            this.Description = Description;
             getTablePayment();
         }
 
@@ -211,7 +214,8 @@ namespace Arenda
                          planeDate,
                          isRealMoney,
                          isSendMoney,
-                         id_Fine
+                         id_Fine,
+                         Description
                          );
                 id_PaymentContract = int.Parse(dt.Rows[0]["id"].ToString());
                 statusPenni = 1;
@@ -245,7 +249,8 @@ namespace Arenda
                              planeDate,
                              isRealMoney,
                              isSendMoney,
-                             id_Fine
+                             id_Fine,
+                             Description
                              );
                     id_PaymentContract = int.Parse(dt.Rows[0]["id"].ToString());
                     dtPaymentContract = dt;

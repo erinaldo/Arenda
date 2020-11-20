@@ -846,7 +846,7 @@ namespace Arenda
 
             if (cmbTypeActivities.SelectedValue == null)
             {
-                MessageBox.Show(TempData.centralText($"Не выбран:\n{label6.Text.Replace(":","")}.\nСохранение невозможно.\n"),
+                MessageBox.Show(TempData.centralText($"Не выбран:\n{label6.Text.Replace(":", "")}.\nСохранение невозможно.\n"),
                   "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 cmbTypeActivities.Focus();
                 return;
@@ -904,7 +904,7 @@ namespace Arenda
                         id_SavePayment = (int)cmbSavePayment.SelectedValue;
 
 
-                    DataTable dtTmp =  _proc.getInfoUsedSection(_id, startdate.Value.Date, stopdate.Value.Date,
+                    DataTable dtTmp = _proc.getInfoUsedSection(_id, startdate.Value.Date, stopdate.Value.Date,
                         (int)cmbTypeDog.SelectedValue == 3 ? (int)cbLandPlot.SelectedValue
                                 : (int)cmbTypeDog.SelectedValue == 1 ? (int)cbSec.SelectedValue
                                 : (int)cmbReclamaPlace.SelectedValue, (int)cmbTypeDog.SelectedValue);
@@ -929,7 +929,7 @@ namespace Arenda
                             (int)cmbTypeDog.SelectedValue == 3 ? null : (int?)cbZdan.SelectedValue,
                             (int)cmbTypeDog.SelectedValue == 3 ? null : (int?)cbFloor.SelectedValue,
                             (int)cmbTypeDog.SelectedValue == 3 ? (int)cbLandPlot.SelectedValue
-                                : (int)cmbTypeDog.SelectedValue == 1? (int)cbSec.SelectedValue
+                                : (int)cmbTypeDog.SelectedValue == 1 ? (int)cbSec.SelectedValue
                                 : (int)cmbReclamaPlace.SelectedValue,
 
                             (int)cmbTypeDog.SelectedValue == 3 ? null : (int?)cbTp.SelectedValue,
@@ -1085,7 +1085,7 @@ namespace Arenda
                         {
                             Logging.Comment("Здание ID: " + cbFloor.SelectedValue + "; Наименование: " + cbZdan.Text);
                             Logging.Comment("Этаж ID: " + cbFloor.SelectedValue + "; Наименование: " + cbFloor.Text);
-                            
+
                             if ((int)cmbTypeDog.SelectedValue == 1)
                                 Logging.Comment("Номер секции ID: " + cbSec.SelectedValue + "; Наименование: " + cbSec.Text);
                             else if ((int)cmbTypeDog.SelectedValue == 2)
@@ -1182,7 +1182,7 @@ namespace Arenda
                         button4.Enabled = true;
                         this.Text = "Редактирование документа";
                         btAddDoc.Visible = true;
-                        btAddDiscount.Visible = btDelDiscount.Visible = rezhim.Equals("edit") &&  new List<string> { "СОА", "РКВ", "МНД"}.Contains(TempData.Rezhim);
+                        btAddDiscount.Visible = btDelDiscount.Visible = rezhim.Equals("edit") && new List<string> { "СОА", "РКВ", "МНД" }.Contains(TempData.Rezhim);
                         cmbTypeDog.Enabled = false;
                     }
                 }

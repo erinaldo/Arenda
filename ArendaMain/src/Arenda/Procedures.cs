@@ -1235,7 +1235,7 @@ namespace Arenda
                 new DbType[] { DbType.Int32, DbType.Int32, DbType.DateTime }, ap);
         }        
 
-        public DataTable AddEditPayment(int id, int id_Agreements, DateTime Date, decimal Summa, int id_PayType,DateTime PlaneDate,bool isRealMoney,bool isSendMoney,int? id_Fine)
+        public DataTable AddEditPayment(int id, int id_Agreements, DateTime Date, decimal Summa, int id_PayType,DateTime PlaneDate,bool isRealMoney,bool isSendMoney,int? id_Fine,string Description)
         {
             ap.Clear();
             ap.Add(id);
@@ -1247,14 +1247,15 @@ namespace Arenda
             ap.Add(isRealMoney);
             ap.Add(isSendMoney);
             ap.Add(id_Fine);
-
             ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
+
+            ap.Add(Description);
 
             return executeProcedure("[Arenda].[AddEditPayment]",
                 new string[] { "@id", "@id_Agreements", "@Date", "@Summa", "@id_PayType","@PlaneDate","@isRealMoney","@isSendMoney","@id_Fines",
-                               "@id_Editor" },
+                               "@id_Editor","@Description" },
                 new DbType[] { DbType.Int32, DbType.Int32, DbType.DateTime, DbType.Decimal, DbType.Int32,DbType.DateTime,DbType.Boolean,DbType.Boolean,DbType.Int32,
-                               DbType.Int32 }, ap);                        
+                               DbType.Int32,DbType.String }, ap);
         }
 
         public DataTable GetPayments(int id_Agreements)
