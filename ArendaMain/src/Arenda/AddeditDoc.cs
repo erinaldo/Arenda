@@ -40,6 +40,7 @@ namespace Arenda
         DataTable dtDiscount;
         string defaultVal = "0.00";
         string format = "{0:### ### ##0.00}";
+        string format4 = "{0:### ### ##0.0000}";
         string defaultValInt = "0";
         string formatInt = "{0:### ### ##0}";
         bool IsView;
@@ -1200,7 +1201,7 @@ namespace Arenda
             tbReklSize1.Text = numTextBox.CheckAndChange(tbReklSize1.Text, 2, 0, 9999999999, false, defaultVal, format);
             tbReklSize2.Text = numTextBox.CheckAndChange(tbReklSize2.Text, 2, 0, 9999999999, false, defaultVal, format);
             tbSt.Text = numTextBox.CheckAndChange(tbSt.Text, 2, 0, 9999999999, false, defaultVal, format);
-            tbcbm.Text = numTextBox.CheckAndChange(tbcbm.Text, 2, 0, 9999999999, false, defaultVal, format);
+            tbcbm.Text = numTextBox.CheckAndChange(tbcbm.Text, 4, 0, 9999999999, false, defaultVal, format4);
             tbphone.Text = numTextBox.CheckAndChange(tbphone.Text, 2, 0, 9999999999, false, defaultVal, format);
             tbReklNumber.Text = numTextBox.CheckAndChange(tbReklNumber.Text, 0, 0, 999999999, false, defaultValInt, formatInt);
             string arenda = tbAr.Text;
@@ -2052,6 +2053,14 @@ namespace Arenda
 
             groupBox7.Enabled = true;
             dgvData.Enabled = true;
+
+            if (rezhim.Equals("edit") && isConfirmed && new List<string> { "СОА", "РКВ", "КНТ" }.Contains(TempData.Rezhim))
+            {
+                btAdd.Visible = true;
+                btAdd.Enabled = true;
+                tbremark.Enabled = true;
+            }
+
         }
 
         private void cbZdan_SelectedIndexChanged(object sender, EventArgs e)
@@ -2215,7 +2224,7 @@ namespace Arenda
 
         private void tbcbm_Leave(object sender, EventArgs e)
         {
-            tbcbm.Text = numTextBox.CheckAndChange(tbcbm.Text, 2, 0, 9999999999, false, defaultVal, format);
+            tbcbm.Text = numTextBox.CheckAndChange(tbcbm.Text, 4, 0, 9999999999, false, defaultVal, format4);
             FormatSumms();
         }
 

@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddeditDoc));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
             this.cmbTypeDog = new System.Windows.Forms.ComboBox();
@@ -868,13 +869,13 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.пиуToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(114, 26);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(112, 26);
             this.contextMenuStrip1.Text = "Печать";
             // 
             // пиуToolStripMenuItem
             // 
             this.пиуToolStripMenuItem.Name = "пиуToolStripMenuItem";
-            this.пиуToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.пиуToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.пиуToolStripMenuItem.Text = "Печать";
             this.пиуToolStripMenuItem.Click += new System.EventHandler(this.пиуToolStripMenuItem_Click);
             // 
@@ -1282,7 +1283,7 @@
             // number
             // 
             this.number.DataPropertyName = "Number";
-            this.number.FillWeight = 30F;
+            this.number.FillWeight = 17.30964F;
             this.number.HeaderText = "№";
             this.number.Name = "number";
             this.number.ReadOnly = true;
@@ -1290,18 +1291,21 @@
             // td
             // 
             this.td.DataPropertyName = "Rus";
-            this.td.FillWeight = 110F;
+            this.td.FillWeight = 63.4687F;
             this.td.HeaderText = "Тип документа";
             this.td.Name = "td";
             this.td.ReadOnly = true;
             // 
             // datetd
             // 
+            this.datetd.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.datetd.DataPropertyName = "DateDocument";
-            this.datetd.FillWeight = 70F;
+            this.datetd.FillWeight = 40.38917F;
             this.datetd.HeaderText = "Дата документа";
+            this.datetd.MinimumWidth = 120;
             this.datetd.Name = "datetd";
             this.datetd.ReadOnly = true;
+            this.datetd.Width = 120;
             // 
             // tdid
             // 
@@ -1345,11 +1349,17 @@
             // 
             // DateCreate
             // 
+            this.DateCreate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.DateCreate.DataPropertyName = "DateCreate";
-            this.DateCreate.HeaderText = "DC";
+            dataGridViewCellStyle3.Format = "d";
+            dataGridViewCellStyle3.NullValue = null;
+            this.DateCreate.DefaultCellStyle = dataGridViewCellStyle3;
+            this.DateCreate.FillWeight = 188.8325F;
+            this.DateCreate.HeaderText = "Дата создания";
+            this.DateCreate.MinimumWidth = 120;
             this.DateCreate.Name = "DateCreate";
             this.DateCreate.ReadOnly = true;
-            this.DateCreate.Visible = false;
+            this.DateCreate.Width = 120;
             // 
             // id_Editor
             // 
@@ -1397,20 +1407,20 @@
             this.подтвердитьToolStripMenuItem,
             this.отклонитьToolStripMenuItem});
             this.cmsDiscount.Name = "cmsDiscount";
-            this.cmsDiscount.Size = new System.Drawing.Size(145, 48);
+            this.cmsDiscount.Size = new System.Drawing.Size(144, 48);
             this.cmsDiscount.Opening += new System.ComponentModel.CancelEventHandler(this.cmsDiscount_Opening);
             // 
             // подтвердитьToolStripMenuItem
             // 
             this.подтвердитьToolStripMenuItem.Name = "подтвердитьToolStripMenuItem";
-            this.подтвердитьToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.подтвердитьToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.подтвердитьToolStripMenuItem.Text = "Подтвердить";
             this.подтвердитьToolStripMenuItem.Click += new System.EventHandler(this.подтвердитьToolStripMenuItem_Click);
             // 
             // отклонитьToolStripMenuItem
             // 
             this.отклонитьToolStripMenuItem.Name = "отклонитьToolStripMenuItem";
-            this.отклонитьToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.отклонитьToolStripMenuItem.Size = new System.Drawing.Size(143, 22);
             this.отклонитьToolStripMenuItem.Text = "Отклонить";
             this.отклонитьToolStripMenuItem.Click += new System.EventHandler(this.отклонитьToolStripMenuItem_Click);
             // 
@@ -1542,20 +1552,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.DataGridView dgAddDoc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn number;
-        private System.Windows.Forms.DataGridViewTextBoxColumn td;
-        private System.Windows.Forms.DataGridViewTextBoxColumn datetd;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tdid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_agree;
-        private System.Windows.Forms.DataGridViewTextBoxColumn isActive;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateRenewal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_Creator;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateCreate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_Editor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateEdit;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_TypeDoc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Total_Area;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Date_of_Departure;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.DataGridView dgvData;
         private System.Windows.Forms.Button btAddDiscount;
@@ -1572,5 +1568,19 @@
         private System.Windows.Forms.Button btAccept;
         private System.Windows.Forms.ComboBox cmbTypeActivities;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn td;
+        private System.Windows.Forms.DataGridViewTextBoxColumn datetd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tdid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_agree;
+        private System.Windows.Forms.DataGridViewTextBoxColumn isActive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateRenewal;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_Creator;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateCreate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_Editor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DateEdit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_TypeDoc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Total_Area;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date_of_Departure;
     }
 }

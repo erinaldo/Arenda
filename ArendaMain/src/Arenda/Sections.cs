@@ -37,22 +37,30 @@ namespace Arenda
             if (new List<string> { "СОА", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim))
             {
                 btAddSec.Visible =
-                    btEditSec.Visible =
-                    btDelSec.Visible =
-                    btAddEq.Visible = 
-                    btEditEq.Visible = 
-                    btDelEq.Visible = 
-                    btnAddDeviceToSection.Visible = 
-                    btnEditDevice.Visible = 
-                    btnDeleteDeviceFromSection.Visible =
-                    false;
+                btEditSec.Visible =
+                btDelSec.Visible =
+                //btAddEq.Visible =
+                //btEditEq.Visible =
+                //btDelEq.Visible =
+                //btnAddDeviceToSection.Visible =
+                //btnEditDevice.Visible =
+                //btnDeleteDeviceFromSection.Visible =
+                false;
+
+
+                btAddEq.Visible =
+                btEditEq.Visible =
+                btDelEq.Visible =
+                btnAddDeviceToSection.Visible =
+                btnEditDevice.Visible =
+                btnDeleteDeviceFromSection.Visible = new List<string> { "СОА" }.Contains(TempData.Rezhim);
             }
             else
             {
                 btAddEq.Visible =
                     btEditEq.Visible =
                     btDelEq.Visible = new List<string> { "РКВ" }.Contains(TempData.Rezhim);
-                    //_proc.SuperUserMode();
+                //_proc.SuperUserMode();
             }
             
 

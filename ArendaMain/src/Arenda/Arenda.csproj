@@ -346,6 +346,18 @@
       <DependentUpon>frmSelectFines.cs</DependentUpon>
     </Compile>
     <Compile Include="Penni.cs" />
+    <Compile Include="Reports\frmReportFinesPay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\frmReportFinesPay.Designer.cs">
+      <DependentUpon>frmReportFinesPay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmRepotPayTypeDates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\frmRepotPayTypeDates.Designer.cs">
+      <DependentUpon>frmRepotPayTypeDates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Section.cs" />
     <Compile Include="Equipment.cs">
       <SubType>Form</SubType>
@@ -649,6 +661,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\frmReportFinesPay.resx">
+      <DependentUpon>frmReportFinesPay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\frmRepotPayTypeDates.resx">
+      <DependentUpon>frmRepotPayTypeDates.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="rptActG.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

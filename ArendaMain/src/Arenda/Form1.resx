@@ -267,6 +267,9 @@
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>443, 17</value>
   </metadata>
+  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>535, 17</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btKntListTaxes.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -354,6 +357,16 @@
         DMz9sNlszEXd++wBVCr/AGl6CPToR2s4AAAAAElFTkSuQmCC
 </value>
   </data>
+  <data name="btPrint.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        Qk1mAQAAAAAAAHYAAAAoAAAAFAAAABQAAAABAAQAAAAAAAAAAADEDgAAxA4AABAAAAAQAAAAAAAA/wAA
+        gP8AgAD/AICA/4AAAP+AAID/gIAA/4CAgP/AwMD/AAD//wD/AP8A/////wAA//8A/////wD/////////
+        //////////8AAP////////////8AAP////////////8AAP//AAAAAAAP//8AAP/wd3d3d3Bw//8AAP8A
+        AAAAAAAHD/8AAP8Hd3d3//dwcP8AAP8Hd3d3AAdwAP8AAP8Hd3d3d3dwcP8AAP8AAAAAAAAAdw8AAP/w
+        d3d3d3cIBw8AAP//AAAAAABwgA8AAP//8P////B3CA8AAP///w8AAP8AAP8AAP///w////8P//8AAP//
+        //DwAA/w//8AAP////D////w//8AAP////8AAAAA//8AAP////////////8AAP////////////8AAA==
+</value>
+  </data>
   <data name="btExit.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
@@ -398,19 +411,6 @@
         t8YA5ecObksfwQXew6nvXRQrTeQetGAC1rJIBewzSPgOizv8LQh9A0WnLh4mw7/HAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="btPrint.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        Qk1mAQAAAAAAAHYAAAAoAAAAFAAAABQAAAABAAQAAAAAAAAAAADEDgAAxA4AABAAAAAQAAAAAAAA/wAA
-        gP8AgAD/AICA/4AAAP+AAID/gIAA/4CAgP/AwMD/AAD//wD/AP8A/////wAA//8A/////wD/////////
-        //////////8AAP////////////8AAP////////////8AAP//AAAAAAAP//8AAP/wd3d3d3Bw//8AAP8A
-        AAAAAAAHD/8AAP8Hd3d3//dwcP8AAP8Hd3d3AAdwAP8AAP8Hd3d3d3dwcP8AAP8AAAAAAAAAdw8AAP/w
-        d3d3d3cIBw8AAP//AAAAAABwgA8AAP//8P////B3CA8AAP///w8AAP8AAP8AAP///w////8P//8AAP//
-        //DwAA/w//8AAP////D////w//8AAP////8AAAAA//8AAP////////////8AAP////////////8AAA==
-</value>
-  </data>
-  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>535, 17</value>
-  </metadata>
   <metadata name="bds.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>126, 17</value>
   </metadata>

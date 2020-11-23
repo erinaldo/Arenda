@@ -35,7 +35,7 @@ namespace Arenda
         {
             ap.Clear();
             ap.Add(isActive);
-            return executeProcedure("Arenda.GetZdan",  new string[1]{"@isActive"}, new DbType[1] { DbType.Byte }, ap);
+            return executeProcedure("Arenda.GetZdan", new string[1] { "@isActive" }, new DbType[1] { DbType.Byte }, ap);
         }
 
         public DataTable ChgZdan(int id, string cname, string abbr, int isActive)
@@ -147,7 +147,7 @@ namespace Arenda
             ap.Add(id);
             ap.Add(cname);
             ap.Add(isActive);
-            return executeProcedure("Arenda.ChgTypePr", new string[3] { "@id", "@cname",  "@isActive" }, new DbType[3] { DbType.Int32, DbType.String, DbType.Int32 }, ap);
+            return executeProcedure("Arenda.ChgTypePr", new string[3] { "@id", "@cname", "@isActive" }, new DbType[3] { DbType.Int32, DbType.String, DbType.Int32 }, ap);
         }
 
 
@@ -236,7 +236,7 @@ namespace Arenda
 
 
         #endregion
-        public DataTable CheakAll(string cname,  string prz, int id = 0, int id_Obj = 0)
+        public DataTable CheakAll(string cname, string prz, int id = 0, int id_Obj = 0)
         {
             ap.Clear();
             ap.Add(cname);
@@ -248,22 +248,22 @@ namespace Arenda
               new string[4] { "@cname", "@prz", "@id", "@id_Obj" },
               new DbType[4] { DbType.String, DbType.String, DbType.Int32, DbType.Int32 }, ap);
         }
-      
-      public DataTable CheckPosts(int id, string cname)
-      {
-        ap.Clear();
-        ap.Add(id);
-        ap.Add(cname);
-        return executeProcedure("Arenda.CheckPosts",
-          new string[2] { "@id", "@cName" },
-          new DbType[2] { DbType.Int32, DbType.String }, ap);
-      }
+
+        public DataTable CheckPosts(int id, string cname)
+        {
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(cname);
+            return executeProcedure("Arenda.CheckPosts",
+              new string[2] { "@id", "@cName" },
+              new DbType[2] { DbType.Int32, DbType.String }, ap);
+        }
 
         #region Справочник оборудования и секции
         public DataTable FillCbEq()
         {
             ap.Clear();
-            return executeProcedure("Arenda.FillCbEq", new string[0] {  }, new DbType[0] { }, ap);
+            return executeProcedure("Arenda.FillCbEq", new string[0] { }, new DbType[0] { }, ap);
         }
 
         public int AddEditEqVsSec(int sec, int id_eq, int count, int mode, int id)
@@ -277,7 +277,7 @@ namespace Arenda
             ap.Add(mode);
             ap.Add(id);
             DataTable dt = new DataTable();
-            dt = executeProcedure("Arenda.AddEditEqVsSec", 
+            dt = executeProcedure("Arenda.AddEditEqVsSec",
                 new string[5] { "@Sec", "@Eq", "@Count", "@mode", "@id" },
                 new DbType[5] { DbType.Int32, DbType.Int32, DbType.Int32, DbType.Int32, DbType.Int32 }, ap);
 
@@ -290,10 +290,10 @@ namespace Arenda
         }
 
         public DataTable AddEditSec(string cname, string bl, string fl, int mode,
-          int id, int isActive, int? lamp , int? tl, string phn, decimal total_area,
+          int id, int isActive, int? lamp, int? tl, string phn, decimal total_area,
           decimal area_trade, int id_Obj = 0)
         {
-            System.Data.DbType i,y,u;
+            System.Data.DbType i, y, u;
 
             ap.Clear();
             ap.Add(cname);
@@ -351,7 +351,7 @@ namespace Arenda
             ap.Add(area_trade);
             ap.Add(isAPPZ);
             ap.Add(id_Obj);
-            
+
             if (lamp == null)
             { i = DbType.Boolean; }
             else i = DbType.Int32;
@@ -369,12 +369,12 @@ namespace Arenda
             dt = executeProcedure("Arenda.AddEditSec",
                 new string[] { "@cName", "@id_bl", "@id_fl", "@mode", "@id",
                   "@isActive", "@lamps", "@telephone_lines", "@phone_number",
-                  "@Total_Area", "@Area_of_Trading_Hall", "@isAPPZ", "@id_Obj" }, 
+                  "@Total_Area", "@Area_of_Trading_Hall", "@isAPPZ", "@id_Obj" },
                 new DbType[] { DbType.String, DbType.String, DbType.String,
                   DbType.Int32, DbType.Int32, DbType.Int32, i, y, u, DbType.Decimal,
                   DbType.Decimal, DbType.Boolean, DbType.Int32 }, ap);
 
-            if ((dt!=null) && (dt.Rows.Count>0))
+            if ((dt != null) && (dt.Rows.Count > 0))
             {
                 resultId = int.Parse(dt.Rows[0][0].ToString());
             }
@@ -386,7 +386,7 @@ namespace Arenda
         {
             ap.Clear();
             ap.Add(mode);
-            return executeProcedure("Arenda.FillCbZdFl", new string[1] {"@mode" }, new DbType[1] {DbType.Int32 }, ap);
+            return executeProcedure("Arenda.FillCbZdFl", new string[1] { "@mode" }, new DbType[1] { DbType.Int32 }, ap);
         }
 
         public DataTable FillCbZdFl(int mode, int id_build)
@@ -401,7 +401,7 @@ namespace Arenda
         {
             ap.Clear();
             ap.Add(isActive);
-            return executeProcedure("Arenda.GetSec", new string[1] { "@isActive" }, new DbType[1] {  DbType.Int32 }, ap);
+            return executeProcedure("Arenda.GetSec", new string[1] { "@isActive" }, new DbType[1] { DbType.Int32 }, ap);
         }
 
 
@@ -410,7 +410,7 @@ namespace Arenda
             ap.Clear();
             ap.Add(cName);
             ap.Add(mode);
-            return executeProcedure("Arenda.GetEqVsSec", new string[2] { "@cName","@mode" }, new DbType[2] { DbType.String, DbType.Int32 }, ap);
+            return executeProcedure("Arenda.GetEqVsSec", new string[2] { "@cName", "@mode" }, new DbType[2] { DbType.String, DbType.Int32 }, ap);
         }
 
         public DataTable isActiveSec(int id)
@@ -435,7 +435,7 @@ namespace Arenda
         }
 
         public DataTable CheakEVS(string sec, string item, int count)
-        { 
+        {
             ap.Clear();
             ap.Add(sec);
             ap.Add(item);
@@ -447,8 +447,8 @@ namespace Arenda
         {
             ap.Clear();
             ap.Add(id);
-            return executeProcedure("Arenda.DelEVS", new string[1] { "@id"}, new DbType[1] { DbType.Int32 }, ap);
-        
+            return executeProcedure("Arenda.DelEVS", new string[1] { "@id" }, new DbType[1] { DbType.Int32 }, ap);
+
         }
 
         public DataTable CheakSec(string cname, /*string build, string floor,*/ int id_Obj)
@@ -466,7 +466,7 @@ namespace Arenda
 
         #endregion
         #region Типы организаций
-        public DataTable AddEditType_o_o(string cName, string abbr,int id, int mode, int isActive)
+        public DataTable AddEditType_o_o(string cName, string abbr, int id, int mode, int isActive)
         {
             ap.Clear();
             ap.Add(cName);
@@ -495,7 +495,7 @@ namespace Arenda
         {
             ap.Clear();
             ap.Add(id);
-            return executeProcedure("Arenda.delTOO", new string[1] { "@id" }, new DbType[1] { DbType.Int32}, ap);
+            return executeProcedure("Arenda.delTOO", new string[1] { "@id" }, new DbType[1] { DbType.Int32 }, ap);
         }
         #endregion
         #region Основания заключения договоров
@@ -517,7 +517,7 @@ namespace Arenda
             ap.Clear();
             ap.Add(isActive);
 
-            return executeProcedure("Arenda.GetBas", new string[1] {"@isActive" }, new DbType[1] { DbType.Int32 }, ap);
+            return executeProcedure("Arenda.GetBas", new string[1] { "@isActive" }, new DbType[1] { DbType.Int32 }, ap);
         }
         public DataTable BefBas(int id)
         {
@@ -532,18 +532,18 @@ namespace Arenda
             ap.Add(id);
             return executeProcedure("Arenda.DelBas", new string[1] { "@id" }, new DbType[1] { DbType.Int32 }, ap);
         }
-      
-      public DataTable ChangeBasementActiveStatus(int id, bool isActive, bool used)
-      {
-        ap.Clear();
-        ap.Add(id);
-        ap.Add(isActive);
-        ap.Add(used);
 
-        return executeProcedure("Arenda.ChangeBasementActiveStatus",
-          new string[] { "@id", "@IsActive", "@Used" },
-          new DbType[] { DbType.Int32, DbType.Boolean, DbType.Boolean }, ap);
-      }
+        public DataTable ChangeBasementActiveStatus(int id, bool isActive, bool used)
+        {
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(isActive);
+            ap.Add(used);
+
+            return executeProcedure("Arenda.ChangeBasementActiveStatus",
+              new string[] { "@id", "@IsActive", "@Used" },
+              new DbType[] { DbType.Int32, DbType.Boolean, DbType.Boolean }, ap);
+        }
         #endregion
         #region Арендаторы
 
@@ -571,7 +571,7 @@ namespace Arenda
             ap.Clear();
             ap.Add(id);
 
-            return executeProcedure("Arenda.GetLD", new string[1] { "@id"}, new DbType[1] { DbType.Int32 }, ap);
+            return executeProcedure("Arenda.GetLD", new string[1] { "@id" }, new DbType[1] { DbType.Int32 }, ap);
         }
 
         public DateTime getdate()
@@ -666,7 +666,7 @@ namespace Arenda
 
 
             return executeProcedure("Arenda.AddEditLD",
-                new string[] { 
+                new string[] {
                     "@id",
                     "@ten",
                     "@lord",
@@ -681,24 +681,24 @@ namespace Arenda
                     "@Total_Area",
                     "@Area_of_Trading_Hall",
                     "@Cost_of_Meter",
-                    "@Phone", 
+                    "@Phone",
                     "@Total_Sum",
-                    "@Payment_Type",  
-                    "@Remark", 
-                    "@Reklama", 
+                    "@Payment_Type",
+                    "@Remark",
+                    "@Reklama",
                     "@ReklLength",
-                    "@ReklWidth", 
-                    "@ReklArea", 
-                    "@ReklNumber", 
+                    "@ReklWidth",
+                    "@ReklArea",
+                    "@ReklNumber",
                     "@failComment",
-                    "@id_TypeDog", 
-                    "@KadNum", 
+                    "@id_TypeDog",
+                    "@KadNum",
                     "@id_obg",
                     "@RentalVacation",
                     "@id_SavePayment",
                     "@id_TypeActivities",
                     "@id_user"},
-                new DbType[] { 
+                new DbType[] {
                     DbType.Int32,
                     DbType.Int32,
                     DbType.Int32,
@@ -708,25 +708,25 @@ namespace Arenda
                     DbType.DateTime,
                     DbType.Int32,
                     DbType.Int32,
-                    DbType.Int32, 
-                    DbType.Int32,   
-                    DbType.Decimal, 
-                    DbType.Decimal, 
-                    DbType.Decimal, 
-                    DbType.Decimal,
-                    DbType.Decimal, 
-                    DbType.Int32,  
-                    DbType.String, 
-                    DbType.Decimal,
-                    DbType.Decimal, 
-                    DbType.Decimal, 
-                    DbType.Decimal, 
                     DbType.Int32,
-                    DbType.String, 
-                    DbType.Int32, 
-                    DbType.String, 
                     DbType.Int32,
-                    DbType.Int32, 
+                    DbType.Decimal,
+                    DbType.Decimal,
+                    DbType.Decimal,
+                    DbType.Decimal,
+                    DbType.Decimal,
+                    DbType.Int32,
+                    DbType.String,
+                    DbType.Decimal,
+                    DbType.Decimal,
+                    DbType.Decimal,
+                    DbType.Decimal,
+                    DbType.Int32,
+                    DbType.String,
+                    DbType.Int32,
+                    DbType.String,
+                    DbType.Int32,
+                    DbType.Int32,
                     DbType.Int32,
                     DbType.Int32,
                     DbType.Int32
@@ -735,13 +735,13 @@ namespace Arenda
 
         public DataTable CheckDogNum(int id, string num)
         {
-          ap.Clear();
-          ap.Add(id);
-          ap.Add(num);
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(num);
 
-          return executeProcedure("Arenda.CheckDogNum",
-            new string[] { "@id", "@cNum" },
-            new DbType[] { DbType.Int32, DbType.String }, ap);
+            return executeProcedure("Arenda.CheckDogNum",
+              new string[] { "@id", "@cNum" },
+              new DbType[] { DbType.Int32, DbType.String }, ap);
         }
 
         public DataTable GetTD(int id)
@@ -750,11 +750,11 @@ namespace Arenda
             ap.Clear();
             ap.Add(id);
             return executeProcedure("Arenda.GetTD", new string[1] { "@id" }, new DbType[1] { DbType.Int32 }, ap);
-        
+
         }
 
         public DataTable AddeditTD(int id, int id_agreements, DateTime datedoc, int id_typedoc, object number,
-            DateTime? daterenewal, decimal? Total_Area, DateTime? departureDate, string comment,int? id_PetitionLeave)
+            DateTime? daterenewal, decimal? Total_Area, DateTime? departureDate, string comment, int? id_PetitionLeave)
         {
             DbType x, w, depDateType, numType;
 
@@ -810,7 +810,7 @@ namespace Arenda
             ap.Clear();
             ap.Add(prz);
 
-            return executeProcedure("Arenda.FillCbTen", new string[1] {"@prz" }, new DbType[1] { DbType.Int32}, ap);
+            return executeProcedure("Arenda.FillCbTen", new string[1] { "@prz" }, new DbType[1] { DbType.Int32 }, ap);
         }
         public DataTable FillCbSecTp(int mode)
         {
@@ -822,8 +822,8 @@ namespace Arenda
         public DataTable FillCbSecTp(int mode, int id_building, int id_floor, int id_obj)
         {
             ap.Clear();
-            ap.Add(mode); 
-            ap.Add(id_building);            
+            ap.Add(mode);
+            ap.Add(id_building);
             ap.Add(id_floor);
             ap.Add(id_obj);
             return executeProcedure("Arenda.FillCbSecTp",
@@ -856,7 +856,7 @@ namespace Arenda
             ap.Clear();
             ap.Add(id);
             ap.Add(prz);
-            return executeProcedure("Arenda.DelDTL", new string[2] {"@id","@prz" }, new DbType[2] { DbType.Int32, DbType.String}, ap);
+            return executeProcedure("Arenda.DelDTL", new string[2] { "@id", "@prz" }, new DbType[2] { DbType.Int32, DbType.String }, ap);
         }
         #region Арендодатели
 
@@ -873,8 +873,8 @@ namespace Arenda
             ap.Clear();
             ap.Add(id);
 
-            return executeProcedure("Arenda.GetLT", new string[1]{"@tid"}, new DbType[1]{DbType.Int32}, ap);
-  
+            return executeProcedure("Arenda.GetLT", new string[1] { "@tid" }, new DbType[1] { DbType.Int32 }, ap);
+
         }
         public DataTable BefLordTen(int id, string prz)
         {
@@ -884,22 +884,22 @@ namespace Arenda
             return executeProcedure("Arenda.BefLordTen", new string[2] { "@id", "@prz" }, new DbType[2] { DbType.Int32, DbType.String }, ap);
         }
 
-        public DataTable Active (int id, int active)
+        public DataTable Active(int id, int active)
         {
             ap.Clear();
             ap.Add(id);
             ap.Add(active);
-            return executeProcedure("Arenda.Active", new string[2] { "@id", "@isActive" }, new DbType[2] { DbType.Int32, DbType.Int32}, ap);
+            return executeProcedure("Arenda.Active", new string[2] { "@id", "@isActive" }, new DbType[2] { DbType.Int32, DbType.Int32 }, ap);
         }
         public int addedintLT(
-                int id, string type, string cName, string name, string otc, 
-                string fam, string fam_par, int sex, string wphone, string hphone, 
-                string mphone, string adress, int id_bank, string pa, string okpo, 
+                int id, string type, string cName, string name, string otc,
+                string fam, string fam_par, int sex, string wphone, string hphone,
+                string mphone, string adress, int id_bank, string pa, string okpo,
                 string kpp, string inn, int? id_basment, string WiS, DateTime? dateReg,
-                string regNum, string numCert, string serCer, string WPON, string numAcc, 
-                string serAcc, bool nds, int slt, string remark, 
-                int mode, string numbase, DateTime? datebas, int id_Posts, string Adress_trade, 
-                bool outReport, int id_obj, string path, string email,string factAdress, bool tenant)
+                string regNum, string numCert, string serCer, string WPON, string numAcc,
+                string serAcc, bool nds, int slt, string remark,
+                int mode, string numbase, DateTime? datebas, int id_Posts, string Adress_trade,
+                bool outReport, int id_obj, string path, string email, string factAdress, bool tenant)
         {
             ap.Clear();
             ap.Add(id);
@@ -942,18 +942,18 @@ namespace Arenda
             ap.Add(email);
             ap.Add(factAdress);
             ap.Add(tenant);
-            DataTable dt = executeProcedure("Arenda.AddEditTL", 
-                new string[] { "@id", "@type", "@cName", "@name", "@otc", 
-                               "@fam", "@fam_par", "@sex", "@wphone", "@hphone", 
-                               "@mphone", "@adress", "@id_bank", "@pa", "@okpo", 
-                               "@kpp", "@inn", "@id_basment", "@WiS", "@dateReg", 
-                               "@regNum", "@numCert", "@serCer", "@WPON", "@numAcc", 
-                               "@serAcc", "@nds", "@slt", "@remark", 
+            DataTable dt = executeProcedure("Arenda.AddEditTL",
+                new string[] { "@id", "@type", "@cName", "@name", "@otc",
+                               "@fam", "@fam_par", "@sex", "@wphone", "@hphone",
+                               "@mphone", "@adress", "@id_bank", "@pa", "@okpo",
+                               "@kpp", "@inn", "@id_basment", "@WiS", "@dateReg",
+                               "@regNum", "@numCert", "@serCer", "@WPON", "@numAcc",
+                               "@serAcc", "@nds", "@slt", "@remark",
                                "@mode", "@numofbas", "@datebas", "@id_Posts", "@adress_trade",
                                "@outReport", "@id_obj", "@path", "@email","@factAdress"
                                 ,"@isTenant"},
-                               
-                                 //  "@id",       "@type",      "@cName",      "@name",      "@otc",       
+
+                //  "@id",       "@type",      "@cName",      "@name",      "@otc",       
                 new DbType[] { DbType.Int32, DbType.String, DbType.String, DbType.String, DbType.String, 
                                  //"@fam",          @fam_par    "@sex",        "@wphone",    "@hphone",     
                                  DbType.String, DbType.String, DbType.Int32, DbType.String, DbType.String, 
@@ -980,14 +980,14 @@ namespace Arenda
             ap.Add(INN);
             ap.Add(too);
             ap.Add(area_trade);
-            return executeProcedure("Arenda.CheakLT", new string[4] { "@cName", "@INN", "@type", "@area_trade" }, new DbType[4] { DbType.String, DbType.String, DbType.String , DbType.String}, ap);
+            return executeProcedure("Arenda.CheakLT", new string[4] { "@cName", "@INN", "@type", "@area_trade" }, new DbType[4] { DbType.String, DbType.String, DbType.String, DbType.String }, ap);
         }
 
         public DataTable GetDocById(int id)
         {
             ap.Clear();
             ap.Add(id);
-            return executeProcedure("Arenda.GetDocById", new string[1] {"@id"} , new DbType[1]{DbType.Int32},ap);        
+            return executeProcedure("Arenda.GetDocById", new string[1] { "@id" }, new DbType[1] { DbType.Int32 }, ap);
         }
 
         public DataTable GetPrintData(int id)
@@ -1012,12 +1012,12 @@ namespace Arenda
 
         public DataTable GetPrintDataZem(int id)
         {
-          ap.Clear();
-          ap.Add(id);
-          ap.Add(ConnectionSettings.GetIdProgram());
-          return executeProcedure("Arenda.GetPrintDataZem",
-            new string[2] { "@id", "@id_prog" },
-            new DbType[2] { DbType.Int32, DbType.Int32 }, ap);
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(ConnectionSettings.GetIdProgram());
+            return executeProcedure("Arenda.GetPrintDataZem",
+              new string[2] { "@id", "@id_prog" },
+              new DbType[2] { DbType.Int32, DbType.Int32 }, ap);
         }
 
         public DataTable GetPrintDataAct(int id, int id_actpriema)
@@ -1059,19 +1059,19 @@ namespace Arenda
         {
             ap.Clear();
             ap.Add(id);
-            return executeProcedure("Arenda.GetAdditionDocs", 
-                new string[1] { "@id" }, 
+            return executeProcedure("Arenda.GetAdditionDocs",
+                new string[1] { "@id" },
                 new DbType[1] { DbType.Int32 }, ap);
         }
 
-        
+
         public DataTable GetPrintDataActEquipment(int id)
         {
             ap.Clear();
             ap.Add(id);
             return executeProcedure("Arenda.GetPrintDataActEquipment", new string[1] { "@id" }, new DbType[1] { DbType.Int32 }, ap);
         }
-        
+
 
         /// <summary>
         /// Получение списка действующих должностей
@@ -1087,7 +1087,7 @@ namespace Arenda
         {
             ap.Clear();
             ap.Add(id);
-            ap.Add(cname);            
+            ap.Add(cname);
             ap.Add(isActive);
             ap.Add(Dative_case);
             return executeProcedure("[Arenda].[addeditPost]",
@@ -1095,7 +1095,7 @@ namespace Arenda
                     new DbType[4] { DbType.Int32, DbType.String, DbType.Int32, DbType.String }, ap);
         }
 
-       
+
 
         #region Банки
         public DataTable getBank()
@@ -1103,7 +1103,7 @@ namespace Arenda
             ap.Clear();
             return executeProcedure("Arenda.getBanks", new string[0] { }, new DbType[0] { }, ap);
         }
-        public DataTable addeditBank(int id, string cName , string ca, string bik, int mode,int isActive)
+        public DataTable addeditBank(int id, string cName, string ca, string bik, int mode, int isActive)
         {
             ap.Clear();
             ap.Add(id);
@@ -1113,11 +1113,11 @@ namespace Arenda
             ap.Add(mode);
             ap.Add(isActive);
 
-            return executeProcedure("Arenda.AddEditBank", new string[6] { "@id", "@cName", "@ca", "@bik" , "@mode", "@isActive" }, new DbType[6] { DbType.Int32, DbType.String, DbType.String, DbType.String, DbType.Int32 , DbType.Int32}, ap); 
-        
-        
+            return executeProcedure("Arenda.AddEditBank", new string[6] { "@id", "@cName", "@ca", "@bik", "@mode", "@isActive" }, new DbType[6] { DbType.Int32, DbType.String, DbType.String, DbType.String, DbType.Int32, DbType.Int32 }, ap);
+
+
         }
-        public DataTable CheakBK (string cName, string cA, string bik)
+        public DataTable CheakBK(string cName, string cA, string bik)
         {
             ap.Clear();
             ap.Add(cName);
@@ -1130,27 +1130,27 @@ namespace Arenda
             ap.Clear();
             ap.Add(id);
 
-            return executeProcedure("Arenda.delBank", new string[1] { "@id"}, new DbType[1] { DbType.Int32 }, ap);
+            return executeProcedure("Arenda.delBank", new string[1] { "@id" }, new DbType[1] { DbType.Int32 }, ap);
         }
 
         public DataTable CheckBankIsNotDel(int id)
         {
-          ap.Clear();
-          ap.Add(id);
+            ap.Clear();
+            ap.Add(id);
 
-          return executeProcedure("Arenda.CheckBankIsNotDel", new string[] { "@id" },
-            new DbType[] { DbType.Int32 }, ap);
+            return executeProcedure("Arenda.CheckBankIsNotDel", new string[] { "@id" },
+              new DbType[] { DbType.Int32 }, ap);
         }
 
         public DataTable CheckBankName(int id, string name)
         {
-          ap.Clear();
-          ap.Add(id);
-          ap.Add(name);
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(name);
 
-          return executeProcedure("Arenda.CheckBankName",
-            new string[] { "@id", "@cName" },
-            new DbType[] { DbType.Int32, DbType.String }, ap);
+            return executeProcedure("Arenda.CheckBankName",
+              new string[] { "@id", "@cName" },
+              new DbType[] { DbType.Int32, DbType.String }, ap);
         }
 
         public DataTable ActiveSprav(string basa, int id, int isActive, int id_Obj = 0)
@@ -1177,27 +1177,27 @@ namespace Arenda
 
         public DataTable CheckDeviceName(int id, string name)
         {
-          ap.Clear();
-          ap.Add(id);
-          ap.Add(name);
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(name);
 
-          return executeProcedure("Arenda.CheckDeviceName",
-            new string[] { "@id", "@cName" },
-            new DbType[] { DbType.Int32, DbType.String }, ap);
+            return executeProcedure("Arenda.CheckDeviceName",
+              new string[] { "@id", "@cName" },
+              new DbType[] { DbType.Int32, DbType.String }, ap);
         }
 
-#endregion
+        #endregion
 
-       // @id_prog, 	@id_value,	@type_value,	@value_name, @value, 	@comment, 	@mode 
+        // @id_prog, 	@id_value,	@type_value,	@value_name, @value, 	@comment, 	@mode 
 
-        public DataTable EditGetConf(int id_prog, string id_value , string value)
+        public DataTable EditGetConf(int id_prog, string id_value, string value)
         {
             ap.Clear();
             ap.Add(id_prog);
             ap.Add(id_value);
             ap.Add(value);
-            return executeProcedure("[Arenda].[EditGetConf]", 
-                new string[3] { "@id_prog", "@id_value", "@value" }, 
+            return executeProcedure("[Arenda].[EditGetConf]",
+                new string[3] { "@id_prog", "@id_value", "@value" },
                 new DbType[3] { DbType.Int32, DbType.String, DbType.String }, ap);
         }
 
@@ -1213,13 +1213,13 @@ namespace Arenda
             ap.Add(id);
             ap.Add(id_Agreements);
             ap.Add(Date);
-            ap.Add(Summa);            
+            ap.Add(Summa);
             ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
 
             return executeProcedure("[Arenda].[CheckAnotherPayment]",
-                new string[] { "@id", "@id_Agreements", "@Date", "@Summa",  
+                new string[] { "@id", "@id_Agreements", "@Date", "@Summa",
                                "@id_Editor" },
-                new DbType[] { DbType.Int32, DbType.Int32, DbType.DateTime, DbType.Decimal, 
+                new DbType[] { DbType.Int32, DbType.Int32, DbType.DateTime, DbType.Decimal,
                                DbType.Int32 }, ap);
         }
 
@@ -1228,14 +1228,14 @@ namespace Arenda
             ap.Clear();
             ap.Add(id);
             ap.Add(id_Agreements);
-            ap.Add(Date);            
+            ap.Add(Date);
 
             return executeProcedure("[Arenda].[CheckAfterPayments]",
                 new string[] { "@id", "@id_Agreements", "@Date" },
                 new DbType[] { DbType.Int32, DbType.Int32, DbType.DateTime }, ap);
-        }        
+        }
 
-        public DataTable AddEditPayment(int id, int id_Agreements, DateTime Date, decimal Summa, int id_PayType,DateTime PlaneDate,bool isRealMoney,bool isSendMoney,int? id_Fine,string Description)
+        public DataTable AddEditPayment(int id, int id_Agreements, DateTime Date, decimal Summa, int id_PayType, DateTime PlaneDate, bool isRealMoney, bool isSendMoney, int? id_Fine, string Description)
         {
             ap.Clear();
             ap.Add(id);
@@ -1277,7 +1277,7 @@ namespace Arenda
             return executeProcedure("[Arenda].[GetPaymentsLastMonth]",
                 new string[] { "@id_Agreements", "@Month" },
                 new DbType[] { DbType.Int32, DbType.DateTime }, ap);
-        }        
+        }
 
         public DataTable DelPayment(int id)
         {
@@ -1289,20 +1289,20 @@ namespace Arenda
                 new DbType[] { DbType.Int32 }, ap);
         }
 
-				public DataTable CheckAnotherTaxes(int id, int id_Agreements, DateTime Date, int id_АddPayment)
+        public DataTable CheckAnotherTaxes(int id, int id_Agreements, DateTime Date, int id_АddPayment)
         {
             ap.Clear();
             ap.Add(id);
             ap.Add(id_Agreements);
             ap.Add(Date);
-						ap.Add(id_АddPayment);            
+            ap.Add(id_АddPayment);
 
             return executeProcedure("[Arenda].[CheckAnotherTaxes]",
-								new string[] { "@id", "@id_Agreements", "@Date", "@id_АddPayment" },
+                                new string[] { "@id", "@id_Agreements", "@Date", "@id_АddPayment" },
                 new DbType[] { DbType.Int32, DbType.Int32, DbType.DateTime, DbType.Int32 }, ap);
         }
 
-        public int AddEditTaxes(int id, int id_Agreements, DateTime Date, decimal Summa, string Comment, int id_АddPayment,DateTime datePlane, decimal? meters)
+        public int AddEditTaxes(int id, int id_Agreements, DateTime Date, decimal Summa, string Comment, int id_АddPayment, DateTime datePlane, decimal? meters)
         {
             ap.Clear();
             ap.Add(id);
@@ -1381,7 +1381,7 @@ namespace Arenda
         public int AddTaxPayments(int id_Tax, DateTime Date, decimal Summa)
         {
             ap.Clear();
-            ap.Add(id_Tax);            
+            ap.Add(id_Tax);
             ap.Add(Date);
             ap.Add(Summa);
             ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
@@ -1412,7 +1412,7 @@ namespace Arenda
 
         public DataTable GetYears()
         {
-            ap.Clear();            
+            ap.Clear();
 
             return executeProcedure("[Arenda].[GetYears]",
                 new string[] { },
@@ -1459,7 +1459,7 @@ namespace Arenda
         {
             ap.Clear();
             ap.Add(id_agr);
-            ap.Add(id_type);            
+            ap.Add(id_type);
 
             return executeProcedure("[Arenda].[GetDopDocuments]",
                 new string[] { "@id_agr", "@id_type" },
@@ -1483,7 +1483,7 @@ namespace Arenda
                 res = (int.Parse(dt.Rows[0][0].ToString()) == 1) ? true : false;
             }
 
-            return res;            
+            return res;
         }
 
         public DataTable GetSecInfo(int id)
@@ -1515,7 +1515,7 @@ namespace Arenda
             ap.Add(idAgreements);
 
             DataTable dt = new DataTable();
-            dt =  executeProcedure("[Arenda].[CheckCanPrintAPPZAct]",
+            dt = executeProcedure("[Arenda].[CheckCanPrintAPPZAct]",
                 new string[] { "@id" },
                 new DbType[] { DbType.Int32 }, ap);
 
@@ -1558,7 +1558,7 @@ namespace Arenda
                 new string[] { "@id", "@cname" },
                 new DbType[] { DbType.Int32, DbType.String }, ap);
 
-            if ((dt!= null) && (dt.Rows.Count>0))
+            if ((dt != null) && (dt.Rows.Count > 0))
             {
                 id = int.Parse(dt.Rows[0][0].ToString());
             }
@@ -1575,7 +1575,7 @@ namespace Arenda
 
             DataTable dt = new DataTable();
 
-            dt =  executeProcedure("[Arenda].[AnotherPaymentsIsUsed]",
+            dt = executeProcedure("[Arenda].[AnotherPaymentsIsUsed]",
                 new string[] { "@id" },
                 new DbType[] { DbType.Int32 }, ap);
 
@@ -1600,13 +1600,13 @@ namespace Arenda
 
         public DataTable CheckAddPaymentName(int id, string name)
         {
-          ap.Clear();
-          ap.Add(id);
-          ap.Add(name);
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(name);
 
-          return executeProcedure("Arenda.CheckAddPaymentName",
-            new string[] { "@id", "@cName" },
-            new DbType[] { DbType.Int32, DbType.String }, ap);
+            return executeProcedure("Arenda.CheckAddPaymentName",
+              new string[] { "@id", "@cName" },
+              new DbType[] { DbType.Int32, DbType.String }, ap);
         }
 
         public decimal GetSettings(string id_value, decimal defaultval)
@@ -1618,14 +1618,14 @@ namespace Arenda
             DataTable dt = new DataTable();
 
             dt = executeProcedure("[Arenda].[GetSettings]",
-                new string[] { "@id_prog", "@id_value" }, 
-                new DbType[] { DbType.Int32, DbType.String  }, ap);
+                new string[] { "@id_prog", "@id_value" },
+                new DbType[] { DbType.Int32, DbType.String }, ap);
 
             if ((dt != null) && (dt.Rows.Count > 0))
             {
-                string val = dt.Rows[0]["value"].ToString().Replace('.',NumericSeparator());
+                string val = dt.Rows[0]["value"].ToString().Replace('.', NumericSeparator());
 
-                decimal.TryParse(val, out res);                
+                decimal.TryParse(val, out res);
             }
 
             return res;
@@ -1692,7 +1692,7 @@ namespace Arenda
         public DataTable GetNotPayedReport()
         {
             ap.Clear();
-            
+
             return executeProcedure("Arenda.GetNotPayedReport",
                 new string[] { },
                 new DbType[] { }, ap);
@@ -1712,7 +1712,7 @@ namespace Arenda
         public DataTable GetTenantContracts(int id_Tenant)
         {
             ap.Clear();
-            ap.Add(id_Tenant);            
+            ap.Add(id_Tenant);
 
             return executeProcedure("Arenda.GetTenantContracts",
                 new string[] { "@id_Tenant" },
@@ -1758,7 +1758,7 @@ namespace Arenda
 
             DataTable dt = new DataTable();
             dt = executeProcedure("Arenda.AddPaymentDetails",
-                new string[] { "@id_PaymentContract", "@Summa", "@Delay", 
+                new string[] { "@id_PaymentContract", "@Summa", "@Delay",
                                 "@Peni", "@Month", "@Phone" },
                 new DbType[] { DbType.Int32, DbType.Decimal, DbType.Int32,
                                 DbType.Decimal, DbType.Date, DbType.Decimal }, ap);
@@ -1777,12 +1777,12 @@ namespace Arenda
         {
             ap.Clear();
             ap.Add(id);
-            return executeProcedure("Arenda.GetAddDocs", 
-                new string[1] { "@id" }, 
+            return executeProcedure("Arenda.GetAddDocs",
+                new string[1] { "@id" },
                 new DbType[1] { DbType.Int32 }, ap);
         }
 
-        public DataTable GetTempTableForPenni(int K, DateTime StartDate, DateTime DateEnd, decimal TS, 
+        public DataTable GetTempTableForPenni(int K, DateTime StartDate, DateTime DateEnd, decimal TS,
                                     decimal OST, decimal L, bool inDiapazon)
         {
             ap.Clear();
@@ -1795,9 +1795,9 @@ namespace Arenda
             ap.Add(inDiapazon);
 
             return executeProcedure("Arenda.GetTempTableForPenni",
-                new string[] { "@K", "@StartDate", "@DateEnd", "@TS", 
+                new string[] { "@K", "@StartDate", "@DateEnd", "@TS",
                                 "@OST", "@L", "@inDiapazon" },
-                new DbType[] { DbType.Int32, DbType.DateTime, DbType.DateTime, DbType.Decimal, 
+                new DbType[] { DbType.Int32, DbType.DateTime, DbType.DateTime, DbType.Decimal,
                                 DbType.Decimal, DbType.Decimal, DbType.Boolean }, ap);
         }
 
@@ -1816,7 +1816,7 @@ namespace Arenda
             dt = executeProcedure("Arenda.GetSopl",
                 new string[1] { "@id_Agreements" },
                 new DbType[1] { DbType.Int32 }, ap);
-            
+
             if ((dt != null) && (dt.Rows.Count > 0))
             {
                 result = decimal.Parse(dt.Rows[0][0].ToString());
@@ -1830,7 +1830,7 @@ namespace Arenda
             decimal result = 0;
             ap.Clear();
             ap.Add(id);
-            ap.Add(date);            
+            ap.Add(date);
 
             DataTable dt = new DataTable();
             dt = executeProcedure("Arenda.GetPhone",
@@ -1848,7 +1848,7 @@ namespace Arenda
         public DataTable CheckSameDocTypeAndDateExists(int id_agr, int id, DateTime date)
         {
             ap.Clear();
-            ap.Add(id_agr);            
+            ap.Add(id_agr);
             ap.Add(id);
             ap.Add(date);
 
@@ -1867,7 +1867,7 @@ namespace Arenda
                 new string[] { "@id_agreement", "@date" },
                 new DbType[] { DbType.Int32, DbType.DateTime }, ap);
         }
-        
+
         public DataTable GetPaymentDetails(int id)
         {
             ap.Clear();
@@ -1882,14 +1882,14 @@ namespace Arenda
             int result = -1;
 
             ap.Clear();
-            ap.Add(id);            
+            ap.Add(id);
 
             DataTable dt = new DataTable();
             dt = executeProcedure("Arenda.CheckBeforeDelDopDocs",
                 new string[] { "@id" },
                 new DbType[] { DbType.Int32 }, ap);
 
-            if((dt!=null) && (dt.Rows.Count>0))
+            if ((dt != null) && (dt.Rows.Count > 0))
             {
                 result = int.Parse(dt.Rows[0][0].ToString());
             }
@@ -1902,7 +1902,7 @@ namespace Arenda
             ap.Clear();
             ap.Add(id);
             ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
-           
+
             return executeProcedure("Arenda.DelTD",
                 new string[] { "@id", "@id_user" },
                 new DbType[] { DbType.Int32, DbType.Int32 }, ap);
@@ -1955,18 +1955,18 @@ namespace Arenda
             ap.AddRange(new object[] { id, used });
             executeProcedure("Arenda.DeleteDevice", new string[] { "@id", "@used" }, new DbType[] { DbType.Int32, DbType.Boolean }, ap);
         }
-      
-      public void RestoreDevice(int id, bool isActive, bool Used)
-      {
-        ap.Clear();
-        //ap.AddRange(new object[] { id });
-        ap.Add(id);
-        ap.Add(isActive);
-        ap.Add(Used);
-        executeProcedure("Arenda.RestoreDevice",
-          new string[] { "@id", "@IsActive", "@Used" },
-          new DbType[] { DbType.Int32, DbType.Boolean, DbType.Boolean }, ap);
-      }
+
+        public void RestoreDevice(int id, bool isActive, bool Used)
+        {
+            ap.Clear();
+            //ap.AddRange(new object[] { id });
+            ap.Add(id);
+            ap.Add(isActive);
+            ap.Add(Used);
+            executeProcedure("Arenda.RestoreDevice",
+              new string[] { "@id", "@IsActive", "@Used" },
+              new DbType[] { DbType.Int32, DbType.Boolean, DbType.Boolean }, ap);
+        }
 
         public DataTable GetSectionDevices(int id_section)
         {
@@ -2057,103 +2057,103 @@ namespace Arenda
         public DataTable setScan(int id_Doc, string nameFile, string Extension, int id_DocType,
           DateTime DateDocument, string path)
         {
-          ap.Clear();
-          ap.Add(id_Doc);
-          ap.Add(nameFile);
-          ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
-          ap.Add(Extension);
-          ap.Add(id_DocType);
-          ap.Add(DateDocument);
-          ap.Add(path);
+            ap.Clear();
+            ap.Add(id_Doc);
+            ap.Add(nameFile);
+            ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
+            ap.Add(Extension);
+            ap.Add(id_DocType);
+            ap.Add(DateDocument);
+            ap.Add(path);
 
-          return executeProcedure("[Arenda].[setScan]",
-            new string[] { "@id_Doc", "@nameFile", "@idUser", "@Extension", "@id_DocType", "@DateDocument", "@Path"},
-            new DbType[] { DbType.Int32, DbType.String, DbType.Int32, DbType.String, DbType.Int32,
+            return executeProcedure("[Arenda].[setScan]",
+              new string[] { "@id_Doc", "@nameFile", "@idUser", "@Extension", "@id_DocType", "@DateDocument", "@Path" },
+              new DbType[] { DbType.Int32, DbType.String, DbType.Int32, DbType.String, DbType.Int32,
               DbType.DateTime, DbType.String}, ap);
         }
 
         public DataTable getScan(int id_Doc, int id)
         {
-          ap.Clear();
-          ap.Add(id_Doc);
-          ap.Add(id);
+            ap.Clear();
+            ap.Add(id_Doc);
+            ap.Add(id);
 
-          return executeProcedure("[Arenda].[getScan]",
-            new string[] { "@id_Doc", "@id" },
-            new DbType[] { DbType.Int32, DbType.Int32 }, ap);
+            return executeProcedure("[Arenda].[getScan]",
+              new string[] { "@id_Doc", "@id" },
+              new DbType[] { DbType.Int32, DbType.Int32 }, ap);
         }
 
         public DataTable updateScanName(int id, string nameFile)
         {
-          ap.Clear();
-          ap.Add(id);
-          ap.Add(nameFile);
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(nameFile);
 
-          return executeProcedure("[Arenda].[updateScanName]",
-            new string[] { "@id", "@nameFile" },
-            new DbType[] { DbType.Int32, DbType.String }, ap);
+            return executeProcedure("[Arenda].[updateScanName]",
+              new string[] { "@id", "@nameFile" },
+              new DbType[] { DbType.Int32, DbType.String }, ap);
         }
 
         public DataTable delScan(int id)
         {
-          ap.Clear();
-          ap.Add(id);
+            ap.Clear();
+            ap.Add(id);
 
-          return executeProcedure("[Arenda].[delScan]",
-            new string[] { "@id" },
-            new DbType[] { DbType.Int32 }, ap);
+            return executeProcedure("[Arenda].[delScan]",
+              new string[] { "@id" },
+              new DbType[] { DbType.Int32 }, ap);
         }
 
         #endregion
         public DataTable GetDocTypes()
         {
-          ap.Clear();
+            ap.Clear();
 
-          return executeProcedure("Arenda.getDocTypes",
-                  new string[] { },
-                  new DbType[] { }, ap);
+            return executeProcedure("Arenda.getDocTypes",
+                    new string[] { },
+                    new DbType[] { }, ap);
         }
 
         public DataTable CheckDocTypeAndDate(int id_Doc, int id_DocType, DateTime DateDocument)
         {
-          ap.Clear();
-          ap.Add(id_Doc);
-          ap.Add(id_DocType);
-          ap.Add(DateDocument);
+            ap.Clear();
+            ap.Add(id_Doc);
+            ap.Add(id_DocType);
+            ap.Add(DateDocument);
 
-          return executeProcedure("Arenda.CheckDocTypeAndDate",
-            new string[] { "@id_Doc", "@id_DocType", "@DateDocument" },
-            new DbType[] { DbType.Int32, DbType.Int32, DbType.DateTime }, ap);
+            return executeProcedure("Arenda.CheckDocTypeAndDate",
+              new string[] { "@id_Doc", "@id_DocType", "@DateDocument" },
+              new DbType[] { DbType.Int32, DbType.Int32, DbType.DateTime }, ap);
         }
-      
-      public DataTable GetObjects()
-      {
-        ap.Clear();
 
-        return executeProcedure("Arenda.GetObjects", new string[] { }, new DbType[] { }, ap);
-      }
+        public DataTable GetObjects()
+        {
+            ap.Clear();
 
-      public void ChangeObjectActiveStatus(int id, bool active, bool used, string com)
-      {
-        ap.Clear();
-        ap.AddRange(new object[] { id, active, used,
+            return executeProcedure("Arenda.GetObjects", new string[] { }, new DbType[] { }, ap);
+        }
+
+        public void ChangeObjectActiveStatus(int id, bool active, bool used, string com)
+        {
+            ap.Clear();
+            ap.AddRange(new object[] { id, active, used,
           Nwuram.Framework.Settings.User.UserSettings.User.Id, com });
-        executeProcedure("Arenda.ChangeObjectActiveStatus",
-          new string[] { "@id", "@IsActive", "@Used", "@id_User", "@Comment" },
-          new DbType[] { DbType.Int32, DbType.Boolean, DbType.Boolean, DbType.Int32, DbType.String },
-          ap);
-      }
+            executeProcedure("Arenda.ChangeObjectActiveStatus",
+              new string[] { "@id", "@IsActive", "@Used", "@id_User", "@Comment" },
+              new DbType[] { DbType.Int32, DbType.Boolean, DbType.Boolean, DbType.Int32, DbType.String },
+              ap);
+        }
 
-      public DataTable CheckObjectName(int id, string name)
-      {
-        ap.Clear();
-        ap.Add(id);
-        ap.Add(name);
+        public DataTable CheckObjectName(int id, string name)
+        {
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(name);
 
-        return executeProcedure("Arenda.CheckObjectName",
-          new string[] { "@id", "@cName" },
-          new DbType[] { DbType.Int32, DbType.String }, ap);
-      }
+            return executeProcedure("Arenda.CheckObjectName",
+              new string[] { "@id", "@cName" },
+              new DbType[] { DbType.Int32, DbType.String }, ap);
+        }
 
         public DataTable SaveObject(int id, string name, string com, string CadastralNumber)
         {
@@ -2170,64 +2170,64 @@ namespace Arenda
               ap);
         }
 
-      public DataTable CheckObjectIsNotDel(int id)
-      {
-        ap.Clear();
-        ap.Add(id);
+        public DataTable CheckObjectIsNotDel(int id)
+        {
+            ap.Clear();
+            ap.Add(id);
 
-        return executeProcedure("Arenda.CheckObjectIsNotDel", new string[] { "@id" },
-          new DbType[] { DbType.Int32 }, ap);
-      }
+            return executeProcedure("Arenda.CheckObjectIsNotDel", new string[] { "@id" },
+              new DbType[] { DbType.Int32 }, ap);
+        }
 
-      public DataTable CheckObjectIsUsed(int id)
-      {
-        ap.Clear();
-        ap.Add(id);
+        public DataTable CheckObjectIsUsed(int id)
+        {
+            ap.Clear();
+            ap.Add(id);
 
-        return executeProcedure("Arenda.CheckObjectIsUsed", new string[] { "@id" },
-          new DbType[] { DbType.Int32 }, ap);
-      }
+            return executeProcedure("Arenda.CheckObjectIsUsed", new string[] { "@id" },
+              new DbType[] { DbType.Int32 }, ap);
+        }
 
-      public DataTable GetContractTypes()
-      {
-        ap.Clear();
+        public DataTable GetContractTypes()
+        {
+            ap.Clear();
 
-        return executeProcedure("Arenda.GetContractTypes", new string[] { }, new DbType[] { }, ap);
-      }
+            return executeProcedure("Arenda.GetContractTypes", new string[] { }, new DbType[] { }, ap);
+        }
 
-      public DataTable GetParentChildTenant(int id, int mode)
-      {
-        ap.Clear();
-        ap.Add(id);
-        ap.Add(mode);
+        public DataTable GetParentChildTenant(int id, int mode)
+        {
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(mode);
 
-        return executeProcedure("Arenda.GetParentChildTenant",
-          new string[2] { "@id", "@mode" },
-          new DbType[2] { DbType.Int32, DbType.Int32 }, ap);
-      }
+            return executeProcedure("Arenda.GetParentChildTenant",
+              new string[2] { "@id", "@mode" },
+              new DbType[2] { DbType.Int32, DbType.Int32 }, ap);
+        }
 
-      public DataTable CheckParentChildTenant(int id, int mode)
-      {
-        ap.Clear();
-        ap.Add(id);
-        ap.Add(mode);
+        public DataTable CheckParentChildTenant(int id, int mode)
+        {
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(mode);
 
-        return executeProcedure("Arenda.CheckParentChildTenant",
-          new string[2] { "@id", "@mode" },
-          new DbType[2] { DbType.Int32, DbType.Int32}, ap);
-      }
+            return executeProcedure("Arenda.CheckParentChildTenant",
+              new string[2] { "@id", "@mode" },
+              new DbType[2] { DbType.Int32, DbType.Int32 }, ap);
+        }
 
-      public DataTable SetParentChildTenant(int idp, int idc)
-      {
-        ap.Clear();
-        ap.Add(idp);
-        ap.Add(idc);
-        ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
+        public DataTable SetParentChildTenant(int idp, int idc)
+        {
+            ap.Clear();
+            ap.Add(idp);
+            ap.Add(idc);
+            ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
 
-        return executeProcedure("Arenda.SetParentChildTenant",
-          new string[3] { "@id_parent", "@id_child", "@id_creator" },
-          new DbType[3] { DbType.Int32, DbType.Int32, DbType.Int32 }, ap);
-      }
+            return executeProcedure("Arenda.SetParentChildTenant",
+              new string[3] { "@id_parent", "@id_child", "@id_creator" },
+              new DbType[3] { DbType.Int32, DbType.Int32, DbType.Int32 }, ap);
+        }
 
         //NEW
         public DataTable getSavePayment()
@@ -2246,11 +2246,11 @@ namespace Arenda
 
 
             return executeProcedure("Arenda.spg_getSealSections",
-              new string[1] {"@id_agreements" },
-              new DbType[1] {DbType.Int32 }, ap);
+              new string[1] { "@id_agreements" },
+              new DbType[1] { DbType.Int32 }, ap);
         }
 
-        public DataTable setSealSections(int id_agreements,DateTime date, int type)
+        public DataTable setSealSections(int id_agreements, DateTime date, int type)
         {
             ap.Clear();
             ap.Add(id_agreements);
@@ -2264,7 +2264,7 @@ namespace Arenda
               new DbType[4] { DbType.Int32, DbType.Date, DbType.Int32, DbType.Int32 }, ap);
         }
 
-        public DataTable setConfirm(int id_agreements,bool isConfirm)
+        public DataTable setConfirm(int id_agreements, bool isConfirm)
         {
             ap.Clear();
             ap.Add(id_agreements);
@@ -2297,7 +2297,7 @@ namespace Arenda
               new DbType[1] { DbType.Int32 }, ap);
         }
 
-        public DataTable getInfoUsedSection(int id,DateTime dateStart,DateTime dateEnd,int id_section,int id_TypeContract)
+        public DataTable getInfoUsedSection(int id, DateTime dateStart, DateTime dateEnd, int id_section, int id_TypeContract)
         {
             ap.Clear();
             ap.Add(id);
@@ -2308,11 +2308,11 @@ namespace Arenda
 
             return executeProcedure("Arenda.spg_getInfoUsedSection",
               new string[5] { "@id", "@dateStart", "@dateEnd", "@id_section", "@id_TypeContract" },
-              new DbType[5] { DbType.Int32,DbType.Date,DbType.Date,DbType.Int32,DbType.Int32 }, ap);
+              new DbType[5] { DbType.Int32, DbType.Date, DbType.Date, DbType.Int32, DbType.Int32 }, ap);
         }
 
         public DataTable getPayType(bool withAllDeps = false)
-        { 
+        {
             ap.Clear();
 
             DataTable dtResult = executeProcedure("[Arenda].[spg_getPayType]",
@@ -2354,7 +2354,7 @@ namespace Arenda
             return dtResult;
         }
 
-        public DataTable getFineConfirmed(int id_Agreements,DateTime dateStart, DateTime dateEnd)
+        public DataTable getFineConfirmed(int id_Agreements, DateTime dateStart, DateTime dateEnd)
         {
             ap.Clear();
             ap.Add(id_Agreements);
@@ -2363,7 +2363,7 @@ namespace Arenda
 
             return executeProcedure("Arenda.spg_getFineConfirmed",
               new string[3] { "@id_Agreements", "@dateStart", "@dateEnd" },
-              new DbType[3] { DbType.Int32,DbType.Date,DbType.Date }, ap);
+              new DbType[3] { DbType.Int32, DbType.Date, DbType.Date }, ap);
         }
 
         public DataTable GetListTaxesForKnt(DateTime DatePlane)
@@ -2423,7 +2423,7 @@ namespace Arenda
             return dtResult;
         }
 
-        public DataTable setTDiscount(int id,int id_Agreements,DateTime dateStart, DateTime? dateEnd,int id_TypeDiscount,int id_StatusDiscount,decimal discount,int result = 0, bool isDel = false)
+        public DataTable setTDiscount(int id, int id_Agreements, DateTime dateStart, DateTime? dateEnd, int id_TypeDiscount, int id_StatusDiscount, decimal discount, int result = 0, bool isDel = false)
         {
             ap.Clear();
             ap.Add(id);
@@ -2450,7 +2450,7 @@ namespace Arenda
 
             return executeProcedure("Arenda.spg_getTDiscount",
               new string[1] { "@id_Agreements" },
-              new DbType[1] { DbType.Int32}, ap);
+              new DbType[1] { DbType.Int32 }, ap);
         }
 
         public DataTable getDataNullRequestOut(int id_Agreements)
@@ -2489,7 +2489,7 @@ namespace Arenda
                     row["id"] = 0;
                     row["isMain"] = 0;
                     dtResult.Rows.Add(row);
-                    dtResult.AcceptChanges();                    
+                    dtResult.AcceptChanges();
                     dtResult.DefaultView.Sort = "isMain asc, cName asc";
                     dtResult = dtResult.DefaultView.ToTable().Copy();
                 }
@@ -2576,7 +2576,80 @@ namespace Arenda
                 new DbType[] { DbType.Int32, DbType.Decimal, DbType.Int32, DbType.Int32, DbType.Int32, DbType.DateTime, DbType.Int32, DbType.Int32 }, ap);
 
         }
-    }    
+
+
+        public DataTable GetReportPayAgreement(DateTime dateStart,DateTime dateEnd)
+        {
+            ap.Clear();
+            ap.Add(dateStart);
+            ap.Add(dateEnd);
+
+            return executeProcedure("Arenda.GetReportPayAgreement",
+              new string[2] { "@dateStart", "@dateEnd" },
+              new DbType[2] { DbType.Date, DbType.Date }, ap);
+        }
+
+        public DataTable LibGetObjects()
+        {
+            ap.Clear();
+
+            return executeProcedure("Arenda.LibGetObjects",
+              new string[0] { },
+              new DbType[0] { }, ap);
+        }
+
+        public DataTable GetReportFinesPay(DateTime date)
+        {
+            ap.Clear();
+            ap.Add(date);
+
+            return executeProcedure("Arenda.GetReportFinesPay",
+              new string[1] { "@date" },
+              new DbType[1] { DbType.Date }, ap);
+        }
+
+        public DataTable GetAddPayment(bool withAllDeps = false)
+        {
+            ap.Clear();
+
+            DataTable dtResult = executeProcedure("[Arenda].[GetAddPayment]",
+                 new string[0] { },
+                 new DbType[0] { }, ap);
+
+            if (withAllDeps)
+            {
+                if (dtResult != null)
+                {
+                    if (!dtResult.Columns.Contains("isMain"))
+                    {
+                        DataColumn col = new DataColumn("isMain", typeof(int));
+                        col.DefaultValue = 1;
+                        dtResult.Columns.Add(col);
+                        dtResult.AcceptChanges();
+                    }
+
+                    DataRow row = dtResult.NewRow();
+
+                    row["cName"] = "Все Типы";
+                    row["id"] = 0;
+                    row["isMain"] = 0;
+                    dtResult.Rows.Add(row);
+                    dtResult.AcceptChanges();
+                    dtResult.DefaultView.Sort = "isMain asc, cName asc";
+                    dtResult = dtResult.DefaultView.ToTable().Copy();
+                }
+            }
+            else
+            {
+                dtResult.DefaultView.Sort = "isActive";
+                dtResult.DefaultView.Sort = "cName asc";
+                dtResult = dtResult.DefaultView.ToTable().Copy();
+            }
+
+            return dtResult;
+        }
+
+    }
 }
 
 

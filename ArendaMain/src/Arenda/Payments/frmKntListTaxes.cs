@@ -14,6 +14,8 @@ namespace Arenda.Payments
     public partial class frmKntListTaxes : Form
     {
         readonly Procedures _proc = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
+
+       
         private DataTable dtData;
 
         public frmKntListTaxes()
@@ -42,6 +44,18 @@ namespace Arenda.Payments
             cmbPlaneDate.DataSource = dtPlaneDate;
             cmbPlaneDate.DisplayMember = "Date";
             cmbPlaneDate.ValueMember = "valueDate";
+
+
+            DataTable dtObjects = _proc.LibGetObjects();
+            cmbObject.DataSource = dtObjects;
+            cmbObject.ValueMember = "id";
+            cmbObject.DisplayMember = "cName";
+
+            DataTable dtTypeAddPayment = _proc.GetAddPayment(true);
+            cmbTypeAddPayment.DataSource = dtTypeAddPayment;
+            cmbTypeAddPayment.ValueMember = "id";
+            cmbTypeAddPayment.DisplayMember = "cName";
+
 
             getData();
         }
@@ -147,12 +161,62 @@ namespace Arenda.Payments
                 if (!chbIsConfirmed.Checked)
                     filter += $"isConfirmed = 0";
 
+                if (tbTenant.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"nameTenant like '%{tbTenant.Text.Trim()}%'";
+
+                if (tbAgreements.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"Agreement like '%{tbAgreements.Text.Trim()}%'";
+
+                if ((int)cmbObject.SelectedValue != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_ObjectLease = {cmbObject.SelectedValue}";
+
+                if ((int)cmbTypeAddPayment.SelectedValue != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_АddPayment = {cmbTypeAddPayment.SelectedValue}";
+
                 dtData.DefaultView.RowFilter = filter;
             }
             catch
             {
                 dtData.DefaultView.RowFilter = "id = -9999";
             };
+        }
+
+        private void dgvData_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+            int width = 0;
+            foreach (DataGridViewColumn col in dgvData.Columns)
+            {
+                if (!col.Visible) continue;
+
+                if (col.Name.Equals(cTenant.Name))
+                {
+                    tbTenant.Location = new Point(dgvData.Location.X + 1 + width, tbTenant.Location.Y);
+                    tbTenant.Size = new Size(cTenant.Width, tbTenant.Size.Height);
+                }
+
+                if (col.Name.Equals(cNumAgreements.Name))
+                {
+                    tbAgreements.Location = new Point(dgvData.Location.X + 1 + width, tbTenant.Location.Y);
+                    tbAgreements.Size = new Size(cNumAgreements.Width, tbTenant.Size.Height);
+                }
+
+                width += col.Width;
+            }
+        }
+
+        private void tbTenant_TextChanged(object sender, EventArgs e)
+        {
+            setFilter();
+        }
+
+        private void cmbObject_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            setFilter();
+        }
+
+        private void btPrint_Click(object sender, EventArgs e)
+        {
+            new Reports.frmReportFinesPay() { }.ShowDialog();
         }
     }
 }

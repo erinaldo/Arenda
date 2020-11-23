@@ -232,12 +232,14 @@ namespace Arenda
         }
 
         private void mForm_Load(object sender, EventArgs e)
-        {
+        {           
             //this.Text ="Аренда " + username;
             this.Text = progname + " " /*+ codeuser*/ + " " + username;
             TempData.Rezhim = Nwuram.Framework.Settings.User.UserSettings.User.StatusCode;
             dgLordland.AllowUserToResizeColumns = true;
             UserAccessAndElements();
+
+            tsmiReport.Visible = new List<string> { "СОА", "РКВ", "КНТ", "СБ6", "Д" }.Contains(TempData.Rezhim);
 
 
             //if (TempData.Rezhim == "МН")
@@ -1252,13 +1254,14 @@ namespace Arenda
 
         private void lockSimbols(KeyPressEventArgs e)
         {
+            /*
             Regex pat = new Regex(@"[\b]|[\w]|[\s]");
             bool b = pat.IsMatch(e.KeyChar.ToString());
             if (b == false)
             {
                 e.Handled = true;
             }
-
+            */
         }
 
         private void sName_KeyPress(object sender, KeyPressEventArgs e)
@@ -2518,6 +2521,11 @@ namespace Arenda
         private void chbCancelDoc_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void tsmiReportPayTypeDates_Click(object sender, EventArgs e)
+        {
+            new Reports.frmRepotPayTypeDates() { Text = tsmiReportPayTypeDates.Text }.ShowDialog();
         }
 
         private void sPhone_KeyPress(object sender, KeyPressEventArgs e)
