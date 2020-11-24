@@ -235,6 +235,12 @@
     <Compile Include="Banks.Designer.cs">
       <DependentUpon>Banks.cs</DependentUpon>
     </Compile>
+    <Compile Include="Bank\frmAddBank.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bank\frmAddBank.Designer.cs">
+      <DependentUpon>frmAddBank.cs</DependentUpon>
+    </Compile>
     <Compile Include="Basement.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -538,6 +544,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Banks.resx">
       <DependentUpon>Banks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bank\frmAddBank.resx">
+      <DependentUpon>frmAddBank.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Basement.resx">
       <DependentUpon>Basement.cs</DependentUpon>

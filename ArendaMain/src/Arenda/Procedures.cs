@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Nwuram.Framework.Logging;
 using Nwuram.Framework;
 using Nwuram.Framework.Settings.Connection;
+using Nwuram.Framework.Settings.User;
 
 namespace Arenda
 {
@@ -2649,6 +2650,46 @@ namespace Arenda
             return dtResult;
         }
 
+
+        public DataTable GetLandlordTenantBank(int id_LandLord)
+        {
+            ap.Clear();
+            ap.Add(id_LandLord);
+
+            return executeProcedure("Arenda.GetLandlordTenantBank",
+              new string[1] {"@id_LandLord" },
+              new DbType[1] { DbType.Int32}, ap);
+        }
+
+        public DataTable ValidateLandlordTenantBank(int id,int id_bank, string PaymentAccount)
+        {
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(id_bank);
+            ap.Add(PaymentAccount);
+
+            return executeProcedure("Arenda.ValidateLandlordTenantBank",
+              new string[3] { "@id", "@id_bank", "@PaymentAccount" },
+              new DbType[3] { DbType.Int32, DbType.Int32, DbType.String }, ap);
+        }
+
+        public DataTable AddLandlordTenantBank(int id, int id_bank, string PaymentAccount,int id_LandlordTenant,bool isActive,bool isDel)
+        {
+            ap.Clear();
+            ap.Add(id);
+            ap.Add(id_bank);
+            ap.Add(PaymentAccount);
+
+            ap.Add(id_LandlordTenant);
+            ap.Add(isActive);
+            ap.Add(UserSettings.User.Id);
+            ap.Add(isDel);
+
+
+            return executeProcedure("Arenda.AddLandlordTenantBank",
+              new string[7] { "@id", "@id_bank", "@PaymentAccount", "@id_LandlordTenant", "@isActive", "@id_User", "@isDel" },
+              new DbType[7] { DbType.Int32, DbType.Int32, DbType.String, DbType.Int32, DbType.Boolean, DbType.Int32, DbType.Boolean }, ap);
+        }
     }
 }
 

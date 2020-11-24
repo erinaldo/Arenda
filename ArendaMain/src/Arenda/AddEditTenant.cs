@@ -395,6 +395,8 @@ namespace Arenda
             btDelCon.Visible = false;
             groupBox9.Enabled = true;
             dgCon.Enabled = true;
+
+            btAddBank.Visible = btDelBank.Visible = btEditBank.Visible = false;
         }
 
         private void FillCb()
@@ -592,8 +594,8 @@ namespace Arenda
         private void SaveAddInfo(int new_id)
         {
             _proc.SaveTenantAddInfo(new_id, txtLastName.Text, txtName.Text, txtSecondName.Text, txtDepartment.Text, dtpDateIssue.Value.Date, txtPassport.Text, txtIssued.Text, txtAddress.Text, rbW.Checked, tenant ? txtORGNIP.Text : tbOGRN.Text);
-            MessageBox.Show("Данные сохранены!");
-            this.DialogResult = DialogResult.OK;
+            //MessageBox.Show("Данные сохранены!");
+            //this.DialogResult = DialogResult.OK;
         }
 
         private void SaveCon(int new_id)
@@ -852,6 +854,8 @@ namespace Arenda
                              tbFactAdress.Text.Trim(),
                              tenant);
 
+
+            SaveBanks(new_id);
 
             if (id == 0)
             {
@@ -1437,6 +1441,16 @@ namespace Arenda
             shown = true;
         }
 
+        private void btAddBank_Click(object sender, EventArgs e)
+        {
+            new Bank.frmAddBank() { Owner = this, isEdit = false,Text = "Добавить банк" }.ShowDialog();
+            }
+
+        private void btEditBank_Click(object sender, EventArgs e)
+        {
+            new Bank.frmAddBank() { Owner = this,isEdit = true,Text = "Редактировать банк" }.ShowDialog();
+            }
+
         private void dgdoc_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
             if (DateTime.Parse(DocById.DefaultView[e.RowIndex]["Конец"].ToString()) < CurDate)
@@ -1461,7 +1475,11 @@ namespace Arenda
             chbShowInReport.Text = "Выводить "
                 + (tenant ? "арендатора" : "арендодателя")
                 + " в отчет по оплатам";
-            
+
+            dgvBank.AutoGenerateColumns = false;
+            dtBanks = _proc.GetLandlordTenantBank(id);
+            dgvBank.DataSource = dtBanks;
+
         }
 
         private void btnView_Click(object sender, EventArgs e)
@@ -1498,6 +1516,16 @@ namespace Arenda
             }
             tbScanD.Text = fd.DirectoryPath.Trim();
           }
+        }
+
+        private void btDelBank_Click(object sender, EventArgs e)
+        {
+            DataRowView row = dtBanks.DefaultView[dgvBank.CurrentRow.Index];
+            if ((int)row["id"] < 0) return;
+
+            _proc.AddLandlordTenantBank((int)row["id"], (int)row["id_Bank"], (string)row["PaymentAccount"], id, true, true);
+            row.Delete();
+            dtBanks.AcceptChanges();
         }
 
         private void tbNumber_TextChanged(object sender, EventArgs e)
@@ -1708,6 +1736,93 @@ namespace Arenda
           {
             e.Handled = true;
           }
+        }
+
+
+        private DataTable dtBanks;
+
+        public bool validateBankRow(int id,int idBank, string RS,bool withTable=false)
+        {
+
+            DataTable dtResult = _proc.ValidateLandlordTenantBank(id, idBank, RS);
+
+            if (dtResult == null) return false;
+            if(dtResult.Rows.Count>0) return false;
+
+            if (withTable)
+            {
+                EnumerableRowCollection<DataRow> rowCollect = dtBanks.AsEnumerable().Where(r => r.Field<int>("id_Bank") == idBank && r.Field<string>("PaymentAccount").Equals(RS) && r.Field<int>("id") != id);
+                if (rowCollect.Count() > 0) return false;
+            }
+
+
+            return true;
+        }
+
+        public void addRowBank(int idBank, string name, string BIK, string KS, string RS)
+        {
+            object tmpMin = dtBanks.Compute("MIN(id)", "");
+            if (tmpMin == null || tmpMin == DBNull.Value) tmpMin = -1;
+            else if ((int)tmpMin > 0) tmpMin = -1; else tmpMin = (int)tmpMin - 1;
+
+
+            DataRow row = dtBanks.NewRow();
+            row["id"] = (int)tmpMin;
+            row["id_Bank"] = idBank;
+            row["PaymentAccount"] = RS;
+            row["cName"] = name;
+            row["BIC"] = BIK;
+            row["CorrespondentAccount"] = KS;
+            row["isActive"] = true;
+
+            dtBanks.Rows.Add(row);
+        }
+
+        public void updateRowBank(int idBank, string name, string BIK, string KS, string RS)
+        {
+            DataRowView row = dtBanks.DefaultView[dgvBank.CurrentRow.Index];
+            
+            row["id_Bank"] = idBank;
+            row["PaymentAccount"] = RS;
+            row["cName"] = name;
+            row["BIC"] = BIK;
+            row["CorrespondentAccount"] = KS;
+
+            dtBanks.AcceptChanges();
+        }
+
+        public DataRowView GetBankRow()
+        {
+            return dtBanks.DefaultView[dgvBank.CurrentRow.Index];
+        }
+
+        private bool ValidateBanks()
+        {
+            if (dtBanks.Rows.Count == 0)
+            {
+                MessageBox.Show(TempData.centralText("Нет банков, необходимы банки\n"), "Проверка на дубли", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            foreach (DataRow row in dtBanks.Rows)
+            {
+                if (!validateBankRow((int)row["id"], (int)row["id_Bank"], (string)row["PaymentAccount"]))
+                {
+                    MessageBox.Show(TempData.centralText("В справочнике уже присутствует\nзапись с введёнными реквизитами.\n"), "Проверка на дубли", MessageBoxButtons.OK, MessageBoxIcon.Warning);         
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void SaveBanks(int id_LandLord)
+        {
+
+            foreach (DataRow row in dtBanks.Rows)
+            {
+                _proc.AddLandlordTenantBank((int)row["id"], (int)row["id_Bank"], (string)row["PaymentAccount"], id_LandLord, true, false);
+            }
         }
     }
 }

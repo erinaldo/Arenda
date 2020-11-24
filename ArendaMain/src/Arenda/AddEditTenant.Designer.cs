@@ -30,8 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditTenant));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -126,6 +127,29 @@
             this.label12 = new System.Windows.Forms.Label();
             this.tbBank = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tbpAddInfo = new System.Windows.Forms.TabPage();
+            this.dtpDateIssue = new System.Windows.Forms.DateTimePicker();
+            this.label43 = new System.Windows.Forms.Label();
+            this.rbW = new System.Windows.Forms.RadioButton();
+            this.rbM = new System.Windows.Forms.RadioButton();
+            this.label42 = new System.Windows.Forms.Label();
+            this.txtIssued = new System.Windows.Forms.TextBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.txtAddress = new System.Windows.Forms.TextBox();
+            this.txtORGNIP = new System.Windows.Forms.TextBox();
+            this.txtPassport = new System.Windows.Forms.TextBox();
+            this.txtDepartment = new System.Windows.Forms.TextBox();
+            this.txtSecondName = new System.Windows.Forms.TextBox();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.txtLastName = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tbPlace = new System.Windows.Forms.TextBox();
             this.tbNumber = new System.Windows.Forms.TextBox();
@@ -155,33 +179,21 @@
             this.tel = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id_tenant = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.id_lanlord = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tbpAddInfo = new System.Windows.Forms.TabPage();
-            this.dtpDateIssue = new System.Windows.Forms.DateTimePicker();
-            this.label43 = new System.Windows.Forms.Label();
-            this.rbW = new System.Windows.Forms.RadioButton();
-            this.rbM = new System.Windows.Forms.RadioButton();
-            this.label42 = new System.Windows.Forms.Label();
-            this.txtIssued = new System.Windows.Forms.TextBox();
-            this.label41 = new System.Windows.Forms.Label();
-            this.label40 = new System.Windows.Forms.Label();
-            this.label39 = new System.Windows.Forms.Label();
-            this.label38 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
-            this.label36 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
-            this.txtAddress = new System.Windows.Forms.TextBox();
-            this.txtORGNIP = new System.Windows.Forms.TextBox();
-            this.txtPassport = new System.Windows.Forms.TextBox();
-            this.txtDepartment = new System.Windows.Forms.TextBox();
-            this.txtSecondName = new System.Windows.Forms.TextBox();
-            this.txtName = new System.Windows.Forms.TextBox();
-            this.label34 = new System.Windows.Forms.Label();
-            this.txtLastName = new System.Windows.Forms.TextBox();
-            this.label33 = new System.Windows.Forms.Label();
+            this.tpBank = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.cbBankNotActive = new System.Windows.Forms.CheckBox();
+            this.btDelBank = new System.Windows.Forms.Button();
+            this.btEditBank = new System.Windows.Forms.Button();
+            this.btAddBank = new System.Windows.Forms.Button();
+            this.dgvBank = new System.Windows.Forms.DataGridView();
             this.btExit = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.dbs = new System.Windows.Forms.BindingSource(this.components);
+            this.cBankName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cBankBik = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cBankKS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cBankRS = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox10.SuspendLayout();
@@ -196,11 +208,13 @@
             this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.tbpAddInfo.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picConEnded)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgdoc)).BeginInit();
-            this.tbpAddInfo.SuspendLayout();
+            this.tpBank.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBank)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbs)).BeginInit();
             this.SuspendLayout();
             // 
@@ -210,6 +224,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tbpAddInfo);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tpBank);
             this.tabControl1.ItemSize = new System.Drawing.Size(135, 18);
             this.tabControl1.Location = new System.Drawing.Point(2, 0);
             this.tabControl1.Name = "tabControl1";
@@ -1182,332 +1197,6 @@
             this.textBox1.Size = new System.Drawing.Size(309, 20);
             this.textBox1.TabIndex = 0;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage3.Controls.Add(this.tbPlace);
-            this.tabPage3.Controls.Add(this.tbNumber);
-            this.tabPage3.Controls.Add(this.btnView);
-            this.tabPage3.Controls.Add(this.label32);
-            this.tabPage3.Controls.Add(this.picConEnding);
-            this.tabPage3.Controls.Add(this.label31);
-            this.tabPage3.Controls.Add(this.picConEnded);
-            this.tabPage3.Controls.Add(this.btPrint);
-            this.tabPage3.Controls.Add(this.button4);
-            this.tabPage3.Controls.Add(this.button3);
-            this.tabPage3.Controls.Add(this.button2);
-            this.tabPage3.Controls.Add(this.tbLord);
-            this.tabPage3.Controls.Add(this.dgdoc);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(722, 456);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Документы";
-            // 
-            // tbPlace
-            // 
-            this.tbPlace.Location = new System.Drawing.Point(475, 6);
-            this.tbPlace.Name = "tbPlace";
-            this.tbPlace.Size = new System.Drawing.Size(100, 20);
-            this.tbPlace.TabIndex = 53;
-            this.tbPlace.TextChanged += new System.EventHandler(this.tbPlace_TextChanged);
-            this.tbPlace.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPlace_KeyPress);
-            // 
-            // tbNumber
-            // 
-            this.tbNumber.Location = new System.Drawing.Point(388, 6);
-            this.tbNumber.Name = "tbNumber";
-            this.tbNumber.Size = new System.Drawing.Size(77, 20);
-            this.tbNumber.TabIndex = 52;
-            this.tbNumber.TextChanged += new System.EventHandler(this.tbNumber_TextChanged);
-            this.tbNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumber_KeyPress);
-            // 
-            // btnView
-            // 
-            this.btnView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnView.Image = global::Arenda.Properties.Resources.glaz;
-            this.btnView.Location = new System.Drawing.Point(486, 408);
-            this.btnView.Name = "btnView";
-            this.btnView.Size = new System.Drawing.Size(32, 32);
-            this.btnView.TabIndex = 51;
-            this.toolTip1.SetToolTip(this.btnView, "Просмотр документа");
-            this.btnView.UseVisualStyleBackColor = true;
-            this.btnView.Visible = false;
-            this.btnView.Click += new System.EventHandler(this.btnView_Click);
-            // 
-            // label32
-            // 
-            this.label32.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(31, 429);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(102, 13);
-            this.label32.TabIndex = 41;
-            this.label32.Text = "Заканчивающиеся";
-            // 
-            // picConEnding
-            // 
-            this.picConEnding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.picConEnding.BackColor = System.Drawing.Color.Tomato;
-            this.picConEnding.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picConEnding.Location = new System.Drawing.Point(13, 428);
-            this.picConEnding.Name = "picConEnding";
-            this.picConEnding.Size = new System.Drawing.Size(12, 12);
-            this.picConEnding.TabIndex = 40;
-            this.picConEnding.TabStop = false;
-            // 
-            // label31
-            // 
-            this.label31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(31, 410);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(87, 13);
-            this.label31.TabIndex = 39;
-            this.label31.Text = "Закончившиеся";
-            // 
-            // picConEnded
-            // 
-            this.picConEnded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.picConEnded.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.picConEnded.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picConEnded.Location = new System.Drawing.Point(13, 410);
-            this.picConEnded.Name = "picConEnded";
-            this.picConEnded.Size = new System.Drawing.Size(12, 12);
-            this.picConEnded.TabIndex = 38;
-            this.picConEnded.TabStop = false;
-            // 
-            // btPrint
-            // 
-            this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btPrint.Image = ((System.Drawing.Image)(resources.GetObject("btPrint.Image")));
-            this.btPrint.Location = new System.Drawing.Point(573, 408);
-            this.btPrint.Name = "btPrint";
-            this.btPrint.Size = new System.Drawing.Size(32, 32);
-            this.btPrint.TabIndex = 34;
-            this.toolTip1.SetToolTip(this.btPrint, "Печать");
-            this.btPrint.UseVisualStyleBackColor = true;
-            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
-            // 
-            // button4
-            // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Image = global::Arenda.Properties.Resources.DeleteHS;
-            this.button4.Location = new System.Drawing.Point(684, 408);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(32, 32);
-            this.button4.TabIndex = 9;
-            this.toolTip1.SetToolTip(this.button4, "Удалить");
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Image = global::Arenda.Properties.Resources.DocumentHS;
-            this.button3.Location = new System.Drawing.Point(611, 408);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(31, 32);
-            this.button3.TabIndex = 8;
-            this.toolTip1.SetToolTip(this.button3, "Добавить");
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Image = global::Arenda.Properties.Resources.EditTableHS;
-            this.button2.Location = new System.Drawing.Point(648, 408);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(30, 32);
-            this.button2.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.button2, "Редактировать");
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // tbLord
-            // 
-            this.tbLord.Location = new System.Drawing.Point(240, 6);
-            this.tbLord.Name = "tbLord";
-            this.tbLord.Size = new System.Drawing.Size(101, 20);
-            this.tbLord.TabIndex = 5;
-            this.tbLord.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
-            this.tbLord.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbLord_KeyPress);
-            // 
-            // dgdoc
-            // 
-            this.dgdoc.AllowDrop = true;
-            this.dgdoc.AllowUserToAddRows = false;
-            this.dgdoc.AllowUserToDeleteRows = false;
-            this.dgdoc.AllowUserToOrderColumns = true;
-            this.dgdoc.AllowUserToResizeRows = false;
-            this.dgdoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgdoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgdoc.ColumnHeadersHeight = 20;
-            this.dgdoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.iddoc,
-            this.cObj,
-            this.cId_Type,
-            this.cType,
-            this.date,
-            this.aren,
-            this.number,
-            this.begin,
-            this.end,
-            this.place,
-            this.area,
-            this.arend,
-            this.tel,
-            this.id_tenant,
-            this.id_lanlord});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgdoc.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgdoc.Location = new System.Drawing.Point(9, 32);
-            this.dgdoc.MultiSelect = false;
-            this.dgdoc.Name = "dgdoc";
-            this.dgdoc.ReadOnly = true;
-            this.dgdoc.RowHeadersVisible = false;
-            this.dgdoc.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgdoc.Size = new System.Drawing.Size(707, 370);
-            this.dgdoc.TabIndex = 0;
-            this.dgdoc.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgdoc_RowPrePaint);
-            this.dgdoc.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgdoc_RowStateChanged);
-            this.dgdoc.Paint += new System.Windows.Forms.PaintEventHandler(this.dgdoc_Paint);
-            // 
-            // iddoc
-            // 
-            this.iddoc.DataPropertyName = "id";
-            this.iddoc.HeaderText = "id";
-            this.iddoc.Name = "iddoc";
-            this.iddoc.ReadOnly = true;
-            this.iddoc.Visible = false;
-            // 
-            // cObj
-            // 
-            this.cObj.DataPropertyName = "Obj";
-            this.cObj.FillWeight = 45F;
-            this.cObj.HeaderText = "Объект";
-            this.cObj.Name = "cObj";
-            this.cObj.ReadOnly = true;
-            // 
-            // cId_Type
-            // 
-            this.cId_Type.DataPropertyName = "id_TypeContract";
-            this.cId_Type.HeaderText = "id_TypeDog";
-            this.cId_Type.Name = "cId_Type";
-            this.cId_Type.ReadOnly = true;
-            this.cId_Type.Visible = false;
-            // 
-            // cType
-            // 
-            this.cType.DataPropertyName = "TypeContract";
-            this.cType.FillWeight = 90F;
-            this.cType.HeaderText = "Тип договора";
-            this.cType.Name = "cType";
-            this.cType.ReadOnly = true;
-            // 
-            // date
-            // 
-            this.date.DataPropertyName = "Дата";
-            this.date.FillWeight = 60F;
-            this.date.HeaderText = "Дата";
-            this.date.Name = "date";
-            this.date.ReadOnly = true;
-            // 
-            // aren
-            // 
-            this.aren.DataPropertyName = "id_lord";
-            this.aren.FillWeight = 80F;
-            this.aren.HeaderText = "Арендодатель";
-            this.aren.Name = "aren";
-            this.aren.ReadOnly = true;
-            // 
-            // number
-            // 
-            this.number.DataPropertyName = "№";
-            this.number.FillWeight = 45F;
-            this.number.HeaderText = "№ дог.";
-            this.number.Name = "number";
-            this.number.ReadOnly = true;
-            // 
-            // begin
-            // 
-            this.begin.DataPropertyName = "Начало";
-            this.begin.FillWeight = 60F;
-            this.begin.HeaderText = "Начало";
-            this.begin.Name = "begin";
-            this.begin.ReadOnly = true;
-            // 
-            // end
-            // 
-            this.end.DataPropertyName = "Конец";
-            this.end.FillWeight = 60F;
-            this.end.HeaderText = "Конец";
-            this.end.Name = "end";
-            this.end.ReadOnly = true;
-            // 
-            // place
-            // 
-            this.place.DataPropertyName = "Место";
-            this.place.FillWeight = 80F;
-            this.place.HeaderText = "Место";
-            this.place.Name = "place";
-            this.place.ReadOnly = true;
-            // 
-            // area
-            // 
-            this.area.DataPropertyName = "S";
-            this.area.FillWeight = 40F;
-            this.area.HeaderText = "S";
-            this.area.Name = "area";
-            this.area.ReadOnly = true;
-            // 
-            // arend
-            // 
-            this.arend.DataPropertyName = "Аренда";
-            this.arend.FillWeight = 50F;
-            this.arend.HeaderText = "Арнд.";
-            this.arend.Name = "arend";
-            this.arend.ReadOnly = true;
-            // 
-            // tel
-            // 
-            this.tel.DataPropertyName = "Тел";
-            this.tel.FillWeight = 40F;
-            this.tel.HeaderText = "Тел.";
-            this.tel.Name = "tel";
-            this.tel.ReadOnly = true;
-            // 
-            // id_tenant
-            // 
-            this.id_tenant.DataPropertyName = "id_Tenant";
-            this.id_tenant.HeaderText = "id_tenant";
-            this.id_tenant.Name = "id_tenant";
-            this.id_tenant.ReadOnly = true;
-            this.id_tenant.Visible = false;
-            // 
-            // id_lanlord
-            // 
-            this.id_lanlord.DataPropertyName = "id_Landlord";
-            this.id_lanlord.HeaderText = "id_landlord";
-            this.id_lanlord.Name = "id_lanlord";
-            this.id_lanlord.ReadOnly = true;
-            this.id_lanlord.Visible = false;
-            // 
             // tbpAddInfo
             // 
             this.tbpAddInfo.Controls.Add(this.dtpDateIssue);
@@ -1727,6 +1416,426 @@
             this.label33.TabIndex = 0;
             this.label33.Text = "Паспортные данные";
             // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.tbPlace);
+            this.tabPage3.Controls.Add(this.tbNumber);
+            this.tabPage3.Controls.Add(this.btnView);
+            this.tabPage3.Controls.Add(this.label32);
+            this.tabPage3.Controls.Add(this.picConEnding);
+            this.tabPage3.Controls.Add(this.label31);
+            this.tabPage3.Controls.Add(this.picConEnded);
+            this.tabPage3.Controls.Add(this.btPrint);
+            this.tabPage3.Controls.Add(this.button4);
+            this.tabPage3.Controls.Add(this.button3);
+            this.tabPage3.Controls.Add(this.button2);
+            this.tabPage3.Controls.Add(this.tbLord);
+            this.tabPage3.Controls.Add(this.dgdoc);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(722, 456);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Документы";
+            // 
+            // tbPlace
+            // 
+            this.tbPlace.Location = new System.Drawing.Point(475, 6);
+            this.tbPlace.Name = "tbPlace";
+            this.tbPlace.Size = new System.Drawing.Size(100, 20);
+            this.tbPlace.TabIndex = 53;
+            this.tbPlace.TextChanged += new System.EventHandler(this.tbPlace_TextChanged);
+            this.tbPlace.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbPlace_KeyPress);
+            // 
+            // tbNumber
+            // 
+            this.tbNumber.Location = new System.Drawing.Point(388, 6);
+            this.tbNumber.Name = "tbNumber";
+            this.tbNumber.Size = new System.Drawing.Size(77, 20);
+            this.tbNumber.TabIndex = 52;
+            this.tbNumber.TextChanged += new System.EventHandler(this.tbNumber_TextChanged);
+            this.tbNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumber_KeyPress);
+            // 
+            // btnView
+            // 
+            this.btnView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnView.Image = global::Arenda.Properties.Resources.glaz;
+            this.btnView.Location = new System.Drawing.Point(486, 408);
+            this.btnView.Name = "btnView";
+            this.btnView.Size = new System.Drawing.Size(32, 32);
+            this.btnView.TabIndex = 51;
+            this.toolTip1.SetToolTip(this.btnView, "Просмотр документа");
+            this.btnView.UseVisualStyleBackColor = true;
+            this.btnView.Visible = false;
+            this.btnView.Click += new System.EventHandler(this.btnView_Click);
+            // 
+            // label32
+            // 
+            this.label32.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(31, 429);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(102, 13);
+            this.label32.TabIndex = 41;
+            this.label32.Text = "Заканчивающиеся";
+            // 
+            // picConEnding
+            // 
+            this.picConEnding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picConEnding.BackColor = System.Drawing.Color.Tomato;
+            this.picConEnding.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picConEnding.Location = new System.Drawing.Point(13, 428);
+            this.picConEnding.Name = "picConEnding";
+            this.picConEnding.Size = new System.Drawing.Size(12, 12);
+            this.picConEnding.TabIndex = 40;
+            this.picConEnding.TabStop = false;
+            // 
+            // label31
+            // 
+            this.label31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(31, 410);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(87, 13);
+            this.label31.TabIndex = 39;
+            this.label31.Text = "Закончившиеся";
+            // 
+            // picConEnded
+            // 
+            this.picConEnded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picConEnded.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.picConEnded.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picConEnded.Location = new System.Drawing.Point(13, 410);
+            this.picConEnded.Name = "picConEnded";
+            this.picConEnded.Size = new System.Drawing.Size(12, 12);
+            this.picConEnded.TabIndex = 38;
+            this.picConEnded.TabStop = false;
+            // 
+            // btPrint
+            // 
+            this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btPrint.Image = ((System.Drawing.Image)(resources.GetObject("btPrint.Image")));
+            this.btPrint.Location = new System.Drawing.Point(573, 408);
+            this.btPrint.Name = "btPrint";
+            this.btPrint.Size = new System.Drawing.Size(32, 32);
+            this.btPrint.TabIndex = 34;
+            this.toolTip1.SetToolTip(this.btPrint, "Печать");
+            this.btPrint.UseVisualStyleBackColor = true;
+            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Image = global::Arenda.Properties.Resources.DeleteHS;
+            this.button4.Location = new System.Drawing.Point(684, 408);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(32, 32);
+            this.button4.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.button4, "Удалить");
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Image = global::Arenda.Properties.Resources.DocumentHS;
+            this.button3.Location = new System.Drawing.Point(611, 408);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(31, 32);
+            this.button3.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.button3, "Добавить");
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Image = global::Arenda.Properties.Resources.EditTableHS;
+            this.button2.Location = new System.Drawing.Point(648, 408);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(30, 32);
+            this.button2.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.button2, "Редактировать");
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // tbLord
+            // 
+            this.tbLord.Location = new System.Drawing.Point(240, 6);
+            this.tbLord.Name = "tbLord";
+            this.tbLord.Size = new System.Drawing.Size(101, 20);
+            this.tbLord.TabIndex = 5;
+            this.tbLord.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.tbLord.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbLord_KeyPress);
+            // 
+            // dgdoc
+            // 
+            this.dgdoc.AllowDrop = true;
+            this.dgdoc.AllowUserToAddRows = false;
+            this.dgdoc.AllowUserToDeleteRows = false;
+            this.dgdoc.AllowUserToOrderColumns = true;
+            this.dgdoc.AllowUserToResizeRows = false;
+            this.dgdoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgdoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgdoc.ColumnHeadersHeight = 20;
+            this.dgdoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.iddoc,
+            this.cObj,
+            this.cId_Type,
+            this.cType,
+            this.date,
+            this.aren,
+            this.number,
+            this.begin,
+            this.end,
+            this.place,
+            this.area,
+            this.arend,
+            this.tel,
+            this.id_tenant,
+            this.id_lanlord});
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgdoc.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dgdoc.Location = new System.Drawing.Point(9, 32);
+            this.dgdoc.MultiSelect = false;
+            this.dgdoc.Name = "dgdoc";
+            this.dgdoc.ReadOnly = true;
+            this.dgdoc.RowHeadersVisible = false;
+            this.dgdoc.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgdoc.Size = new System.Drawing.Size(707, 370);
+            this.dgdoc.TabIndex = 0;
+            this.dgdoc.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgdoc_RowPrePaint);
+            this.dgdoc.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgdoc_RowStateChanged);
+            this.dgdoc.Paint += new System.Windows.Forms.PaintEventHandler(this.dgdoc_Paint);
+            // 
+            // iddoc
+            // 
+            this.iddoc.DataPropertyName = "id";
+            this.iddoc.HeaderText = "id";
+            this.iddoc.Name = "iddoc";
+            this.iddoc.ReadOnly = true;
+            this.iddoc.Visible = false;
+            // 
+            // cObj
+            // 
+            this.cObj.DataPropertyName = "Obj";
+            this.cObj.FillWeight = 45F;
+            this.cObj.HeaderText = "Объект";
+            this.cObj.Name = "cObj";
+            this.cObj.ReadOnly = true;
+            // 
+            // cId_Type
+            // 
+            this.cId_Type.DataPropertyName = "id_TypeContract";
+            this.cId_Type.HeaderText = "id_TypeDog";
+            this.cId_Type.Name = "cId_Type";
+            this.cId_Type.ReadOnly = true;
+            this.cId_Type.Visible = false;
+            // 
+            // cType
+            // 
+            this.cType.DataPropertyName = "TypeContract";
+            this.cType.FillWeight = 90F;
+            this.cType.HeaderText = "Тип договора";
+            this.cType.Name = "cType";
+            this.cType.ReadOnly = true;
+            // 
+            // date
+            // 
+            this.date.DataPropertyName = "Дата";
+            this.date.FillWeight = 60F;
+            this.date.HeaderText = "Дата";
+            this.date.Name = "date";
+            this.date.ReadOnly = true;
+            // 
+            // aren
+            // 
+            this.aren.DataPropertyName = "id_lord";
+            this.aren.FillWeight = 80F;
+            this.aren.HeaderText = "Арендодатель";
+            this.aren.Name = "aren";
+            this.aren.ReadOnly = true;
+            // 
+            // number
+            // 
+            this.number.DataPropertyName = "№";
+            this.number.FillWeight = 45F;
+            this.number.HeaderText = "№ дог.";
+            this.number.Name = "number";
+            this.number.ReadOnly = true;
+            // 
+            // begin
+            // 
+            this.begin.DataPropertyName = "Начало";
+            this.begin.FillWeight = 60F;
+            this.begin.HeaderText = "Начало";
+            this.begin.Name = "begin";
+            this.begin.ReadOnly = true;
+            // 
+            // end
+            // 
+            this.end.DataPropertyName = "Конец";
+            this.end.FillWeight = 60F;
+            this.end.HeaderText = "Конец";
+            this.end.Name = "end";
+            this.end.ReadOnly = true;
+            // 
+            // place
+            // 
+            this.place.DataPropertyName = "Место";
+            this.place.FillWeight = 80F;
+            this.place.HeaderText = "Место";
+            this.place.Name = "place";
+            this.place.ReadOnly = true;
+            // 
+            // area
+            // 
+            this.area.DataPropertyName = "S";
+            this.area.FillWeight = 40F;
+            this.area.HeaderText = "S";
+            this.area.Name = "area";
+            this.area.ReadOnly = true;
+            // 
+            // arend
+            // 
+            this.arend.DataPropertyName = "Аренда";
+            this.arend.FillWeight = 50F;
+            this.arend.HeaderText = "Арнд.";
+            this.arend.Name = "arend";
+            this.arend.ReadOnly = true;
+            // 
+            // tel
+            // 
+            this.tel.DataPropertyName = "Тел";
+            this.tel.FillWeight = 40F;
+            this.tel.HeaderText = "Тел.";
+            this.tel.Name = "tel";
+            this.tel.ReadOnly = true;
+            // 
+            // id_tenant
+            // 
+            this.id_tenant.DataPropertyName = "id_Tenant";
+            this.id_tenant.HeaderText = "id_tenant";
+            this.id_tenant.Name = "id_tenant";
+            this.id_tenant.ReadOnly = true;
+            this.id_tenant.Visible = false;
+            // 
+            // id_lanlord
+            // 
+            this.id_lanlord.DataPropertyName = "id_Landlord";
+            this.id_lanlord.HeaderText = "id_landlord";
+            this.id_lanlord.Name = "id_lanlord";
+            this.id_lanlord.ReadOnly = true;
+            this.id_lanlord.Visible = false;
+            // 
+            // tpBank
+            // 
+            this.tpBank.Controls.Add(this.panel1);
+            this.tpBank.Controls.Add(this.cbBankNotActive);
+            this.tpBank.Controls.Add(this.btDelBank);
+            this.tpBank.Controls.Add(this.btEditBank);
+            this.tpBank.Controls.Add(this.btAddBank);
+            this.tpBank.Controls.Add(this.dgvBank);
+            this.tpBank.Location = new System.Drawing.Point(4, 22);
+            this.tpBank.Name = "tpBank";
+            this.tpBank.Padding = new System.Windows.Forms.Padding(3);
+            this.tpBank.Size = new System.Drawing.Size(722, 456);
+            this.tpBank.TabIndex = 4;
+            this.tpBank.Text = "Банки";
+            this.tpBank.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
+            this.panel1.Location = new System.Drawing.Point(10, 424);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(19, 19);
+            this.panel1.TabIndex = 38;
+            // 
+            // cbBankNotActive
+            // 
+            this.cbBankNotActive.AutoSize = true;
+            this.cbBankNotActive.Location = new System.Drawing.Point(35, 425);
+            this.cbBankNotActive.Name = "cbBankNotActive";
+            this.cbBankNotActive.Size = new System.Drawing.Size(107, 17);
+            this.cbBankNotActive.TabIndex = 37;
+            this.cbBankNotActive.Text = "недействующие";
+            this.cbBankNotActive.UseVisualStyleBackColor = true;
+            // 
+            // btDelBank
+            // 
+            this.btDelBank.Image = global::Arenda.Properties.Resources.pict_delete;
+            this.btDelBank.Location = new System.Drawing.Point(681, 415);
+            this.btDelBank.Name = "btDelBank";
+            this.btDelBank.Size = new System.Drawing.Size(35, 35);
+            this.btDelBank.TabIndex = 36;
+            this.btDelBank.UseVisualStyleBackColor = true;
+            this.btDelBank.Click += new System.EventHandler(this.btDelBank_Click);
+            // 
+            // btEditBank
+            // 
+            this.btEditBank.Image = global::Arenda.Properties.Resources.pict_edit;
+            this.btEditBank.Location = new System.Drawing.Point(640, 415);
+            this.btEditBank.Name = "btEditBank";
+            this.btEditBank.Size = new System.Drawing.Size(35, 35);
+            this.btEditBank.TabIndex = 36;
+            this.btEditBank.UseVisualStyleBackColor = true;
+            this.btEditBank.Click += new System.EventHandler(this.btEditBank_Click);
+            // 
+            // btAddBank
+            // 
+            this.btAddBank.Image = global::Arenda.Properties.Resources.DocumentHS;
+            this.btAddBank.Location = new System.Drawing.Point(599, 415);
+            this.btAddBank.Name = "btAddBank";
+            this.btAddBank.Size = new System.Drawing.Size(35, 35);
+            this.btAddBank.TabIndex = 36;
+            this.toolTip1.SetToolTip(this.btAddBank, "Добавить");
+            this.btAddBank.UseVisualStyleBackColor = true;
+            this.btAddBank.Click += new System.EventHandler(this.btAddBank_Click);
+            // 
+            // dgvBank
+            // 
+            this.dgvBank.AllowUserToAddRows = false;
+            this.dgvBank.AllowUserToDeleteRows = false;
+            this.dgvBank.AllowUserToResizeRows = false;
+            this.dgvBank.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvBank.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvBank.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvBank.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.cBankName,
+            this.cBankBik,
+            this.cBankKS,
+            this.cBankRS});
+            this.dgvBank.Location = new System.Drawing.Point(6, 6);
+            this.dgvBank.MultiSelect = false;
+            this.dgvBank.Name = "dgvBank";
+            this.dgvBank.ReadOnly = true;
+            this.dgvBank.RowHeadersVisible = false;
+            this.dgvBank.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvBank.Size = new System.Drawing.Size(710, 403);
+            this.dgvBank.TabIndex = 0;
+            // 
             // btExit
             // 
             this.btExit.Image = ((System.Drawing.Image)(resources.GetObject("btExit.Image")));
@@ -1752,6 +1861,34 @@
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
+            // 
+            // cBankName
+            // 
+            this.cBankName.DataPropertyName = "cName";
+            this.cBankName.HeaderText = "Банк";
+            this.cBankName.Name = "cBankName";
+            this.cBankName.ReadOnly = true;
+            // 
+            // cBankBik
+            // 
+            this.cBankBik.DataPropertyName = "BIC";
+            this.cBankBik.HeaderText = "БИК";
+            this.cBankBik.Name = "cBankBik";
+            this.cBankBik.ReadOnly = true;
+            // 
+            // cBankKS
+            // 
+            this.cBankKS.DataPropertyName = "CorrespondentAccount";
+            this.cBankKS.HeaderText = "К/С";
+            this.cBankKS.Name = "cBankKS";
+            this.cBankKS.ReadOnly = true;
+            // 
+            // cBankRS
+            // 
+            this.cBankRS.DataPropertyName = "PaymentAccount";
+            this.cBankRS.HeaderText = "Р/С";
+            this.cBankRS.Name = "cBankRS";
+            this.cBankRS.ReadOnly = true;
             // 
             // AddEditTenant
             // 
@@ -1796,13 +1933,16 @@
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.tbpAddInfo.ResumeLayout(false);
+            this.tbpAddInfo.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picConEnded)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgdoc)).EndInit();
-            this.tbpAddInfo.ResumeLayout(false);
-            this.tbpAddInfo.PerformLayout();
+            this.tpBank.ResumeLayout(false);
+            this.tpBank.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBank)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbs)).EndInit();
             this.ResumeLayout(false);
 
@@ -1960,5 +2100,16 @@
         private System.Windows.Forms.TextBox tbOGRN;
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.TextBox tbFactAdress;
+        private System.Windows.Forms.TabPage tpBank;
+        private System.Windows.Forms.DataGridView dgvBank;
+        private System.Windows.Forms.Button btDelBank;
+        private System.Windows.Forms.Button btEditBank;
+        private System.Windows.Forms.Button btAddBank;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox cbBankNotActive;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cBankName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cBankBik;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cBankKS;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cBankRS;
     }
 }

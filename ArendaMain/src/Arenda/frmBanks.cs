@@ -428,7 +428,7 @@ namespace Arenda
             dataBank.cName = dgBanks.SelectedRows[0].Cells[1].Value.ToString();
             dataBank.cA = dgBanks.SelectedRows[0].Cells[2].Value.ToString();
             dataBank.BIK = dgBanks.SelectedRows[0].Cells[3].Value.ToString();
-            DialogResult = DialogResult.Cancel;
+            DialogResult = DialogResult.OK;
         }
     }
 }
