@@ -16,6 +16,8 @@ namespace Arenda
         readonly Procedures _proc = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
         DataTable Lookten;
 
+        public bool isGetBanks { set; private get; }
+
         int tenant, idcp;
         public Looktenant(int p, int id_cp)
         {
@@ -24,19 +26,19 @@ namespace Arenda
             tenant = p;
             idcp = id_cp;
 
-            if (tenant == 1) 
+            if (tenant == 1)
             {
-              this.Text = "Список арендаторов";
-              aren.HeaderText = "Арендатор";
-              Address_trade_premises.Visible = false;
+                this.Text = "Список арендаторов";
+                aren.HeaderText = "Арендатор";
+                Address_trade_premises.Visible = false;
             }
-            else 
+            else
             {
-              this.Text = "Список арендодателей";
-              aren.HeaderText = "Арендодатель";
-              Address_trade_premises.Visible = true; 
-            } 
-            
+                this.Text = "Список арендодателей";
+                aren.HeaderText = "Арендодатель";
+                Address_trade_premises.Visible = true;
+            }
+
             ini();
         }
 
@@ -47,20 +49,20 @@ namespace Arenda
         }
 
         private void ini()
-        {            
+        {
             Lookten = _proc.FillCbTen(tenant);
             if (Lookten.Rows.Count != 0)
             {
                 foreach (DataRow dr in Lookten.Rows)
                 {
-                    dr["Contact_Lastname"] = dr["Contact_Lastname"].ToString()  
-                        + ((dr["Contact_Firstname"].ToString().Length !=0) ? " " + dr["Contact_Firstname"].ToString().Substring(0, 1) + "." : " -.")
+                    dr["Contact_Lastname"] = dr["Contact_Lastname"].ToString()
+                        + ((dr["Contact_Firstname"].ToString().Length != 0) ? " " + dr["Contact_Firstname"].ToString().Substring(0, 1) + "." : " -.")
                         + ((dr["Contact_Middlename"].ToString().Length != 0) ? " " + dr["Contact_Middlename"].ToString().Substring(0, 1) + "." : " -.");
                 }
             }
 
             bds.DataSource = Lookten;
-            
+
             dglookten.DataSource = bds;
             id.DataPropertyName = "id";
             aren.DataPropertyName = "aren";
@@ -70,7 +72,7 @@ namespace Arenda
             inn.DataPropertyName = "INN";
 
             if (Lookten == null || Lookten.Rows.Count == 0)
-              tbFIO.Enabled = tbINN.Enabled = tbTenant.Enabled = false;
+                tbFIO.Enabled = tbINN.Enabled = tbTenant.Enabled = false;
         }
 
         private void btChoose_Click(object sender, EventArgs e)
@@ -117,7 +119,14 @@ namespace Arenda
 
                 dataTen.CadastralNumber = dglookten.SelectedRows[0].Cells["CadastralNumber"].Value.ToString();
 
-                DialogResult = DialogResult.Cancel;
+                if (new Bank.frmSelectBanks() { id_TanLord = dataTen.id, Owner = this.Owner }.ShowDialog() == DialogResult.Cancel)
+                {
+                    DialogResult = DialogResult.Cancel;
+                    return;
+                }
+
+
+                DialogResult = DialogResult.OK;
             }
         }
 
@@ -135,78 +144,78 @@ namespace Arenda
             { Choose(); }
         }
 
-      private void Filter()
-      {
-        if(Lookten != null && Lookten.Rows.Count > 0)
+        private void Filter()
         {
-          string filter = "";
-          if (tbINN.Text.Length > 0)
-            filter += "INN like '%" + tbINN.Text + "%'";
-          if (tbTenant.Text.Length > 0)
-            filter += (filter.Length > 0 ? " and " : "") + "aren like '%"
-              + tbTenant.Text + "%'";
-          if (tbFIO.Text.Length > 0)
-            filter += (filter.Length > 0 ? " and " : "") + "Contact_Lastname like '%"
-              + tbFIO.Text + "%'";
-          if (idcp != 0)
-            filter += (filter.Length > 0 ? " and " : "")
-              + "id_TenantParent is null and id_TenantChild is null and id <> "
-              + idcp.ToString();
-          Lookten.DefaultView.RowFilter = filter;
+            if (Lookten != null && Lookten.Rows.Count > 0)
+            {
+                string filter = "";
+                if (tbINN.Text.Length > 0)
+                    filter += "INN like '%" + tbINN.Text + "%'";
+                if (tbTenant.Text.Length > 0)
+                    filter += (filter.Length > 0 ? " and " : "") + "aren like '%"
+                      + tbTenant.Text + "%'";
+                if (tbFIO.Text.Length > 0)
+                    filter += (filter.Length > 0 ? " and " : "") + "Contact_Lastname like '%"
+                      + tbFIO.Text + "%'";
+                if (idcp != 0)
+                    filter += (filter.Length > 0 ? " and " : "")
+                      + "id_TenantParent is null and id_TenantChild is null and id <> "
+                      + idcp.ToString();
+                Lookten.DefaultView.RowFilter = filter;
+            }
         }
-      }
 
-      private void tbINN_TextChanged(object sender, EventArgs e)
-      {
-        Filter();
-      }
-
-      private void tbTenant_TextChanged(object sender, EventArgs e)
-      {
-        Filter();
-      }
-
-      private void tbFIO_TextChanged(object sender, EventArgs e)
-      {
-        Filter();
-      }
-
-      private void Looktenant_Load(object sender, EventArgs e)
-      {
-        Filter();
-      }
-
-      private void dglookten_Paint(object sender, PaintEventArgs e)
-      {
-        int X = dglookten.Location.X;
-        tbINN.Location = new Point(X, tbINN.Location.Y);
-        tbINN.Width = dglookten.Columns["inn"].Width;
-        X += tbINN.Width;
-        tbTenant.Location = new Point(X, tbTenant.Location.Y);
-        tbTenant.Width = dglookten.Columns["aren"].Width;
-        X += tbTenant.Width;
-        tbFIO.Location = new Point(X, tbFIO.Location.Y);
-        tbFIO.Width = dglookten.Columns["fam"].Width;
-      }
-
-      private void tb_KeyPress(object sender, KeyPressEventArgs e)
-      {
-        Regex pat = new Regex(@"[\b]|[0-9]");
-        bool b = pat.IsMatch(e.KeyChar.ToString());
-        if (b == false)
+        private void tbINN_TextChanged(object sender, EventArgs e)
         {
-          e.Handled = true;
+            Filter();
         }
-      }
 
-      private void tb_KeyPress2(object sender, KeyPressEventArgs e)
-      {
-        Regex pat = new Regex(@"[\b]|[0-9]|[A-Za-z]|[А-Яа-я]");
-        bool b = pat.IsMatch(e.KeyChar.ToString());
-        if (b == false)
+        private void tbTenant_TextChanged(object sender, EventArgs e)
         {
-          e.Handled = true;
+            Filter();
         }
-      }
+
+        private void tbFIO_TextChanged(object sender, EventArgs e)
+        {
+            Filter();
+        }
+
+        private void Looktenant_Load(object sender, EventArgs e)
+        {
+            Filter();
+        }
+
+        private void dglookten_Paint(object sender, PaintEventArgs e)
+        {
+            int X = dglookten.Location.X;
+            tbINN.Location = new Point(X, tbINN.Location.Y);
+            tbINN.Width = dglookten.Columns["inn"].Width;
+            X += tbINN.Width;
+            tbTenant.Location = new Point(X, tbTenant.Location.Y);
+            tbTenant.Width = dglookten.Columns["aren"].Width;
+            X += tbTenant.Width;
+            tbFIO.Location = new Point(X, tbFIO.Location.Y);
+            tbFIO.Width = dglookten.Columns["fam"].Width;
+        }
+
+        private void tb_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Regex pat = new Regex(@"[\b]|[0-9]");
+            bool b = pat.IsMatch(e.KeyChar.ToString());
+            if (b == false)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void tb_KeyPress2(object sender, KeyPressEventArgs e)
+        {
+            Regex pat = new Regex(@"[\b]|[0-9]|[A-Za-z]|[А-Яа-я]");
+            bool b = pat.IsMatch(e.KeyChar.ToString());
+            if (b == false)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

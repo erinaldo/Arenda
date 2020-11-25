@@ -228,6 +228,17 @@ namespace Arenda
         private void EditLoad(int id)
         {
             Rec = _proc.GetLD(id);
+
+            if (Rec != null && Rec.Rows.Count > 0 && Rec.Columns.Contains("id_LandlordTenantBank"))
+            {
+                if (Rec.Rows[0]["id_LandlordTenantBank"] != DBNull.Value)
+                {
+                    id_LandlordTenantBank = (int)Rec.Rows[0]["id_LandlordTenantBank"];
+                }
+
+
+            }
+
             _id = id;
             Fillcb();
 
@@ -451,6 +462,7 @@ namespace Arenda
                 btAddDoc.Enabled = true;
                 groupBox5.Enabled = true;                
                 button3.Visible = button4.Visible = isConfirmed;
+                btChangeBank.Visible = false;
             }
 
             FormatSumms();
@@ -818,8 +830,10 @@ namespace Arenda
         private void button2_Click(object sender, EventArgs e)
         {
             var lookten = new Looktenant(0, 0);
-            lookten.ShowDialog();
-            if ((dataTen.aren != "") && (dataTen.id != 0))
+            lookten.isGetBanks = true;
+            lookten.Owner = this;
+            if (DialogResult.OK == lookten.ShowDialog())
+            //if ((dataTen.aren != "") && (dataTen.id != 0))
             {
                 tbLord.Text = dataTen.aren.Substring(0, dataTen.aren.IndexOf('/'));
                 id_lord = dataTen.id;
@@ -850,6 +864,14 @@ namespace Arenda
                 MessageBox.Show(TempData.centralText($"Не выбран:\n{label6.Text.Replace(":", "")}.\nСохранение невозможно.\n"),
                   "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 cmbTypeActivities.Focus();
+                return;
+            }
+
+            if (this.id_LandlordTenantBank == 0)
+            {
+                MessageBox.Show(TempData.centralText($"Банк обязателен для сохранения.\nСохранение невозможно.\n"),
+                      "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 return;
             }
 
@@ -966,6 +988,13 @@ namespace Arenda
                         MessageBox.Show("Ошибка сохранения");
                         return;
                     }
+
+
+                    //this._id
+                    //this.id_LandlordTenantBank
+                    //[AddAgreementsBank]
+                    _proc.AddAgreementsBank(this._id, this.id_LandlordTenantBank);
+
 
                     if (rezhim != "add")
                     {
@@ -2011,6 +2040,11 @@ namespace Arenda
             numTextBox.KeyPress(tbS, e, false, false);
         }
 
+        private void btChangeBank_Click(object sender, EventArgs e)
+        {
+            new Bank.frmSelectBanks() {id_TanLord = id_lord,Owner = this }.ShowDialog();
+        }
+
         private void tbSt_KeyPress(object sender, KeyPressEventArgs e)
         {
             numTextBox.KeyPress(tbSt, e, false, false);
@@ -2513,5 +2547,18 @@ namespace Arenda
                 btAccept.Enabled = btunAccept.Enabled = btDelDiscount.Enabled = dtDiscount.Rows.Count > 0;
             }
         }
+
+        private int id_LandlordTenantBank;
+        public void addRowBank(int id_LandlordTenantBank, int idBank, string name, string BIK, string KS, string RS)
+        {
+            //id = (int)row["id"];
+            //idBank = (int)row["id_Bank"];
+            this.id_LandlordTenantBank = id_LandlordTenantBank;
+            tbRS.Text = RS;
+            tbName.Text = name;
+            tbBik.Text = BIK;
+            tbKS.Text = KS;
+        }
+
     }
 }

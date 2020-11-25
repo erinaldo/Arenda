@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddeditDoc));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
             this.cmbTypeDog = new System.Windows.Forms.ComboBox();
@@ -90,12 +90,6 @@
             this.tbremark = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btDelDiscount = new System.Windows.Forms.Button();
-            this.btAddDoc = new System.Windows.Forms.Button();
-            this.btExit = new System.Windows.Forms.Button();
-            this.btAdd = new System.Windows.Forms.Button();
-            this.btAccept = new System.Windows.Forms.Button();
-            this.btunAccept = new System.Windows.Forms.Button();
             this.did = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.numberDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -118,7 +112,6 @@
             this.cmbTypeActivities = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.btAddDiscount = new System.Windows.Forms.Button();
             this.dgvData = new System.Windows.Forms.DataGridView();
             this.cStartDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cStopDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -129,8 +122,6 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.lblDopS = new System.Windows.Forms.Label();
             this.tbDopS = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.dgAddDoc = new System.Windows.Forms.DataGridView();
             this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.td = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -146,10 +137,29 @@
             this.id_TypeDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total_Area = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Date_of_Departure = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bds = new System.Windows.Forms.BindingSource(this.components);
             this.cmsDiscount = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.подтвердитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отклонитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btunAccept = new System.Windows.Forms.Button();
+            this.btAccept = new System.Windows.Forms.Button();
+            this.btAddDiscount = new System.Windows.Forms.Button();
+            this.btDelDiscount = new System.Windows.Forms.Button();
+            this.btAddDoc = new System.Windows.Forms.Button();
+            this.btExit = new System.Windows.Forms.Button();
+            this.btAdd = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.bds = new System.Windows.Forms.BindingSource(this.components);
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.tbRS = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tbBik = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.tbKS = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.tbName = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.btChangeBank = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -163,8 +173,9 @@
             this.tabPage2.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgAddDoc)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bds)).BeginInit();
             this.cmsDiscount.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bds)).BeginInit();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -350,7 +361,7 @@
             this.groupBox2.Controls.Add(this.cbTp);
             this.groupBox2.Controls.Add(this.cbFloor);
             this.groupBox2.Controls.Add(this.cbZdan);
-            this.groupBox2.Location = new System.Drawing.Point(6, 187);
+            this.groupBox2.Location = new System.Drawing.Point(299, 6);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(287, 151);
             this.groupBox2.TabIndex = 1;
@@ -507,7 +518,7 @@
             this.groupBox3.Controls.Add(this.tbSt);
             this.groupBox3.Controls.Add(this.tbS);
             this.groupBox3.Controls.Add(this.lblReklSize);
-            this.groupBox3.Location = new System.Drawing.Point(6, 344);
+            this.groupBox3.Location = new System.Drawing.Point(299, 180);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(287, 126);
             this.groupBox3.TabIndex = 2;
@@ -622,7 +633,7 @@
             this.groupBox4.Controls.Add(this.tbcbm);
             this.groupBox4.Controls.Add(this.tbphone);
             this.groupBox4.Controls.Add(this.tbAr);
-            this.groupBox4.Location = new System.Drawing.Point(316, 6);
+            this.groupBox4.Location = new System.Drawing.Point(602, 8);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(383, 91);
             this.groupBox4.TabIndex = 3;
@@ -758,7 +769,7 @@
             // 
             // tbremark
             // 
-            this.tbremark.Location = new System.Drawing.Point(316, 370);
+            this.tbremark.Location = new System.Drawing.Point(602, 372);
             this.tbremark.MaxLength = 300;
             this.tbremark.Multiline = true;
             this.tbremark.Name = "tbremark";
@@ -769,7 +780,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(313, 354);
+            this.label18.Location = new System.Drawing.Point(599, 356);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(70, 13);
             this.label18.TabIndex = 4;
@@ -778,76 +789,6 @@
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
-            // 
-            // btDelDiscount
-            // 
-            this.btDelDiscount.Image = global::Arenda.Properties.Resources.document_delete;
-            this.btDelDiscount.Location = new System.Drawing.Point(345, 127);
-            this.btDelDiscount.Name = "btDelDiscount";
-            this.btDelDiscount.Size = new System.Drawing.Size(32, 32);
-            this.btDelDiscount.TabIndex = 45;
-            this.toolTip1.SetToolTip(this.btDelDiscount, "Сохранить");
-            this.btDelDiscount.UseVisualStyleBackColor = true;
-            this.btDelDiscount.Visible = false;
-            this.btDelDiscount.Click += new System.EventHandler(this.btDelDiscount_Click);
-            // 
-            // btAddDoc
-            // 
-            this.btAddDoc.Image = ((System.Drawing.Image)(resources.GetObject("btAddDoc.Image")));
-            this.btAddDoc.Location = new System.Drawing.Point(547, 540);
-            this.btAddDoc.Name = "btAddDoc";
-            this.btAddDoc.Size = new System.Drawing.Size(32, 32);
-            this.btAddDoc.TabIndex = 42;
-            this.btAddDoc.TabStop = false;
-            this.toolTip1.SetToolTip(this.btAddDoc, "Работа с документами");
-            this.btAddDoc.UseVisualStyleBackColor = true;
-            this.btAddDoc.Click += new System.EventHandler(this.btAddDoc_Click);
-            // 
-            // btExit
-            // 
-            this.btExit.Image = ((System.Drawing.Image)(resources.GetObject("btExit.Image")));
-            this.btExit.Location = new System.Drawing.Point(667, 540);
-            this.btExit.Name = "btExit";
-            this.btExit.Size = new System.Drawing.Size(32, 32);
-            this.btExit.TabIndex = 19;
-            this.toolTip1.SetToolTip(this.btExit, "Выйти");
-            this.btExit.UseVisualStyleBackColor = true;
-            this.btExit.Click += new System.EventHandler(this.btExit_Click);
-            // 
-            // btAdd
-            // 
-            this.btAdd.Image = ((System.Drawing.Image)(resources.GetObject("btAdd.Image")));
-            this.btAdd.Location = new System.Drawing.Point(610, 540);
-            this.btAdd.Name = "btAdd";
-            this.btAdd.Size = new System.Drawing.Size(32, 32);
-            this.btAdd.TabIndex = 18;
-            this.toolTip1.SetToolTip(this.btAdd, "Сохранить");
-            this.btAdd.UseVisualStyleBackColor = true;
-            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
-            // 
-            // btAccept
-            // 
-            this.btAccept.Image = global::Arenda.Properties.Resources.pict_ok;
-            this.btAccept.Location = new System.Drawing.Point(64, 127);
-            this.btAccept.Name = "btAccept";
-            this.btAccept.Size = new System.Drawing.Size(32, 32);
-            this.btAccept.TabIndex = 46;
-            this.toolTip1.SetToolTip(this.btAccept, "Подтвердить");
-            this.btAccept.UseVisualStyleBackColor = true;
-            this.btAccept.Visible = false;
-            this.btAccept.Click += new System.EventHandler(this.btAccept_Click);
-            // 
-            // btunAccept
-            // 
-            this.btunAccept.Image = global::Arenda.Properties.Resources.DeleteHS;
-            this.btunAccept.Location = new System.Drawing.Point(102, 127);
-            this.btunAccept.Name = "btunAccept";
-            this.btunAccept.Size = new System.Drawing.Size(32, 32);
-            this.btunAccept.TabIndex = 46;
-            this.toolTip1.SetToolTip(this.btunAccept, "Отклонить");
-            this.btunAccept.UseVisualStyleBackColor = true;
-            this.btunAccept.Visible = false;
-            this.btunAccept.Click += new System.EventHandler(this.btunAccept_Click);
             // 
             // did
             // 
@@ -881,7 +822,7 @@
             // 
             // tbFailComment
             // 
-            this.tbFailComment.Location = new System.Drawing.Point(316, 291);
+            this.tbFailComment.Location = new System.Drawing.Point(602, 293);
             this.tbFailComment.MaxLength = 170;
             this.tbFailComment.Multiline = true;
             this.tbFailComment.Name = "tbFailComment";
@@ -892,7 +833,7 @@
             // lFailComment
             // 
             this.lFailComment.AutoSize = true;
-            this.lFailComment.Location = new System.Drawing.Point(313, 275);
+            this.lFailComment.Location = new System.Drawing.Point(599, 277);
             this.lFailComment.Name = "lFailComment";
             this.lFailComment.Size = new System.Drawing.Size(131, 13);
             this.lFailComment.TabIndex = 4;
@@ -906,7 +847,7 @@
             this.groupBox6.Controls.Add(this.telhome);
             this.groupBox6.Controls.Add(this.label12);
             this.groupBox6.Controls.Add(this.telrab);
-            this.groupBox6.Location = new System.Drawing.Point(6, 476);
+            this.groupBox6.Location = new System.Drawing.Point(299, 332);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(287, 100);
             this.groupBox6.TabIndex = 20;
@@ -924,7 +865,7 @@
             // 
             // telsot
             // 
-            this.telsot.Location = new System.Drawing.Point(97, 71);
+            this.telsot.Location = new System.Drawing.Point(91, 71);
             this.telsot.MaxLength = 20;
             this.telsot.Name = "telsot";
             this.telsot.ReadOnly = true;
@@ -970,7 +911,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(347, 446);
+            this.label13.Location = new System.Drawing.Point(633, 448);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(113, 13);
             this.label13.TabIndex = 4;
@@ -978,7 +919,7 @@
             // 
             // tbRentalVacation
             // 
-            this.tbRentalVacation.Location = new System.Drawing.Point(464, 443);
+            this.tbRentalVacation.Location = new System.Drawing.Point(750, 445);
             this.tbRentalVacation.MaxLength = 12;
             this.tbRentalVacation.Name = "tbRentalVacation";
             this.tbRentalVacation.Size = new System.Drawing.Size(235, 20);
@@ -993,7 +934,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(318, 472);
+            this.label17.Location = new System.Drawing.Point(604, 474);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(142, 13);
             this.label17.TabIndex = 4;
@@ -1003,7 +944,7 @@
             // 
             this.cmbSavePayment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSavePayment.FormattingEnabled = true;
-            this.cmbSavePayment.Location = new System.Drawing.Point(464, 469);
+            this.cmbSavePayment.Location = new System.Drawing.Point(750, 471);
             this.cmbSavePayment.Name = "cmbSavePayment";
             this.cmbSavePayment.Size = new System.Drawing.Size(235, 21);
             this.cmbSavePayment.TabIndex = 43;
@@ -1017,11 +958,12 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(733, 614);
+            this.tabControl1.Size = new System.Drawing.Size(1006, 614);
             this.tabControl1.TabIndex = 44;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox8);
             this.tabPage1.Controls.Add(this.cmbTypeActivities);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.groupBox7);
@@ -1044,7 +986,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(725, 588);
+            this.tabPage1.Size = new System.Drawing.Size(998, 588);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основная";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1053,7 +995,7 @@
             // 
             this.cmbTypeActivities.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTypeActivities.FormattingEnabled = true;
-            this.cmbTypeActivities.Location = new System.Drawing.Point(464, 498);
+            this.cmbTypeActivities.Location = new System.Drawing.Point(750, 500);
             this.cmbTypeActivities.Name = "cmbTypeActivities";
             this.cmbTypeActivities.Size = new System.Drawing.Size(235, 21);
             this.cmbTypeActivities.TabIndex = 46;
@@ -1061,7 +1003,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(358, 501);
+            this.label6.Location = new System.Drawing.Point(644, 503);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(102, 13);
             this.label6.TabIndex = 45;
@@ -1074,23 +1016,12 @@
             this.groupBox7.Controls.Add(this.btAddDiscount);
             this.groupBox7.Controls.Add(this.btDelDiscount);
             this.groupBox7.Controls.Add(this.dgvData);
-            this.groupBox7.Location = new System.Drawing.Point(316, 105);
+            this.groupBox7.Location = new System.Drawing.Point(602, 107);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(383, 167);
             this.groupBox7.TabIndex = 44;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Скидки";
-            // 
-            // btAddDiscount
-            // 
-            this.btAddDiscount.Image = global::Arenda.Properties.Resources.document_add;
-            this.btAddDiscount.Location = new System.Drawing.Point(307, 127);
-            this.btAddDiscount.Name = "btAddDiscount";
-            this.btAddDiscount.Size = new System.Drawing.Size(32, 32);
-            this.btAddDiscount.TabIndex = 45;
-            this.btAddDiscount.UseVisualStyleBackColor = true;
-            this.btAddDiscount.Visible = false;
-            this.btAddDiscount.Click += new System.EventHandler(this.btAddDiscount_Click);
             // 
             // dgvData
             // 
@@ -1101,14 +1032,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cStartDiscount,
@@ -1170,7 +1101,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(725, 588);
+            this.tabPage2.Size = new System.Drawing.Size(998, 588);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Доп. Документы";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1210,30 +1141,6 @@
             this.tbDopS.TabIndex = 14;
             this.tbDopS.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(665, 230);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(32, 32);
-            this.button3.TabIndex = 41;
-            this.button3.TabStop = false;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
-            this.button4.Location = new System.Drawing.Point(613, 230);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(32, 32);
-            this.button4.TabIndex = 40;
-            this.button4.TabStop = false;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
             // dgAddDoc
             // 
             this.dgAddDoc.AllowUserToAddRows = false;
@@ -1243,14 +1150,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgAddDoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgAddDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgAddDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgAddDoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgAddDoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.number,
@@ -1351,9 +1258,9 @@
             // 
             this.DateCreate.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.DateCreate.DataPropertyName = "DateCreate";
-            dataGridViewCellStyle3.Format = "d";
-            dataGridViewCellStyle3.NullValue = null;
-            this.DateCreate.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Format = "d";
+            dataGridViewCellStyle6.NullValue = null;
+            this.DateCreate.DefaultCellStyle = dataGridViewCellStyle6;
             this.DateCreate.FillWeight = 188.8325F;
             this.DateCreate.HeaderText = "Дата создания";
             this.DateCreate.MinimumWidth = 120;
@@ -1424,11 +1331,214 @@
             this.отклонитьToolStripMenuItem.Text = "Отклонить";
             this.отклонитьToolStripMenuItem.Click += new System.EventHandler(this.отклонитьToolStripMenuItem_Click);
             // 
+            // btunAccept
+            // 
+            this.btunAccept.Image = global::Arenda.Properties.Resources.DeleteHS;
+            this.btunAccept.Location = new System.Drawing.Point(102, 127);
+            this.btunAccept.Name = "btunAccept";
+            this.btunAccept.Size = new System.Drawing.Size(32, 32);
+            this.btunAccept.TabIndex = 46;
+            this.toolTip1.SetToolTip(this.btunAccept, "Отклонить");
+            this.btunAccept.UseVisualStyleBackColor = true;
+            this.btunAccept.Visible = false;
+            this.btunAccept.Click += new System.EventHandler(this.btunAccept_Click);
+            // 
+            // btAccept
+            // 
+            this.btAccept.Image = global::Arenda.Properties.Resources.pict_ok;
+            this.btAccept.Location = new System.Drawing.Point(64, 127);
+            this.btAccept.Name = "btAccept";
+            this.btAccept.Size = new System.Drawing.Size(32, 32);
+            this.btAccept.TabIndex = 46;
+            this.toolTip1.SetToolTip(this.btAccept, "Подтвердить");
+            this.btAccept.UseVisualStyleBackColor = true;
+            this.btAccept.Visible = false;
+            this.btAccept.Click += new System.EventHandler(this.btAccept_Click);
+            // 
+            // btAddDiscount
+            // 
+            this.btAddDiscount.Image = global::Arenda.Properties.Resources.document_add;
+            this.btAddDiscount.Location = new System.Drawing.Point(307, 127);
+            this.btAddDiscount.Name = "btAddDiscount";
+            this.btAddDiscount.Size = new System.Drawing.Size(32, 32);
+            this.btAddDiscount.TabIndex = 45;
+            this.btAddDiscount.UseVisualStyleBackColor = true;
+            this.btAddDiscount.Visible = false;
+            this.btAddDiscount.Click += new System.EventHandler(this.btAddDiscount_Click);
+            // 
+            // btDelDiscount
+            // 
+            this.btDelDiscount.Image = global::Arenda.Properties.Resources.document_delete;
+            this.btDelDiscount.Location = new System.Drawing.Point(345, 127);
+            this.btDelDiscount.Name = "btDelDiscount";
+            this.btDelDiscount.Size = new System.Drawing.Size(32, 32);
+            this.btDelDiscount.TabIndex = 45;
+            this.toolTip1.SetToolTip(this.btDelDiscount, "Сохранить");
+            this.btDelDiscount.UseVisualStyleBackColor = true;
+            this.btDelDiscount.Visible = false;
+            this.btDelDiscount.Click += new System.EventHandler(this.btDelDiscount_Click);
+            // 
+            // btAddDoc
+            // 
+            this.btAddDoc.Image = ((System.Drawing.Image)(resources.GetObject("btAddDoc.Image")));
+            this.btAddDoc.Location = new System.Drawing.Point(833, 542);
+            this.btAddDoc.Name = "btAddDoc";
+            this.btAddDoc.Size = new System.Drawing.Size(32, 32);
+            this.btAddDoc.TabIndex = 42;
+            this.btAddDoc.TabStop = false;
+            this.toolTip1.SetToolTip(this.btAddDoc, "Работа с документами");
+            this.btAddDoc.UseVisualStyleBackColor = true;
+            this.btAddDoc.Click += new System.EventHandler(this.btAddDoc_Click);
+            // 
+            // btExit
+            // 
+            this.btExit.Image = ((System.Drawing.Image)(resources.GetObject("btExit.Image")));
+            this.btExit.Location = new System.Drawing.Point(953, 542);
+            this.btExit.Name = "btExit";
+            this.btExit.Size = new System.Drawing.Size(32, 32);
+            this.btExit.TabIndex = 19;
+            this.toolTip1.SetToolTip(this.btExit, "Выйти");
+            this.btExit.UseVisualStyleBackColor = true;
+            this.btExit.Click += new System.EventHandler(this.btExit_Click);
+            // 
+            // btAdd
+            // 
+            this.btAdd.Image = ((System.Drawing.Image)(resources.GetObject("btAdd.Image")));
+            this.btAdd.Location = new System.Drawing.Point(896, 542);
+            this.btAdd.Name = "btAdd";
+            this.btAdd.Size = new System.Drawing.Size(32, 32);
+            this.btAdd.TabIndex = 18;
+            this.toolTip1.SetToolTip(this.btAdd, "Сохранить");
+            this.btAdd.UseVisualStyleBackColor = true;
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
+            this.button3.Location = new System.Drawing.Point(665, 230);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(32, 32);
+            this.button3.TabIndex = 41;
+            this.button3.TabStop = false;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Image = ((System.Drawing.Image)(resources.GetObject("button4.Image")));
+            this.button4.Location = new System.Drawing.Point(613, 230);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(32, 32);
+            this.button4.TabIndex = 40;
+            this.button4.TabStop = false;
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.btChangeBank);
+            this.groupBox8.Controls.Add(this.tbRS);
+            this.groupBox8.Controls.Add(this.tbBik);
+            this.groupBox8.Controls.Add(this.label8);
+            this.groupBox8.Controls.Add(this.label22);
+            this.groupBox8.Controls.Add(this.tbName);
+            this.groupBox8.Controls.Add(this.label20);
+            this.groupBox8.Controls.Add(this.label21);
+            this.groupBox8.Controls.Add(this.tbKS);
+            this.groupBox8.Location = new System.Drawing.Point(6, 190);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(287, 242);
+            this.groupBox8.TabIndex = 47;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Банковские реквизиты арендодателя";
+            // 
+            // tbRS
+            // 
+            this.tbRS.Location = new System.Drawing.Point(44, 148);
+            this.tbRS.MaxLength = 20;
+            this.tbRS.Name = "tbRS";
+            this.tbRS.ReadOnly = true;
+            this.tbRS.Size = new System.Drawing.Size(237, 20);
+            this.tbRS.TabIndex = 52;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(8, 151);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(25, 13);
+            this.label8.TabIndex = 48;
+            this.label8.Text = "Р/с";
+            // 
+            // tbBik
+            // 
+            this.tbBik.Location = new System.Drawing.Point(44, 122);
+            this.tbBik.Name = "tbBik";
+            this.tbBik.ReadOnly = true;
+            this.tbBik.Size = new System.Drawing.Size(237, 20);
+            this.tbBik.TabIndex = 53;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(8, 125);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(29, 13);
+            this.label20.TabIndex = 49;
+            this.label20.Text = "БИК";
+            // 
+            // tbKS
+            // 
+            this.tbKS.Location = new System.Drawing.Point(44, 96);
+            this.tbKS.Name = "tbKS";
+            this.tbKS.ReadOnly = true;
+            this.tbKS.Size = new System.Drawing.Size(237, 20);
+            this.tbKS.TabIndex = 54;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(8, 99);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(25, 13);
+            this.label21.TabIndex = 50;
+            this.label21.Text = "К/с";
+            // 
+            // tbName
+            // 
+            this.tbName.Location = new System.Drawing.Point(11, 38);
+            this.tbName.Multiline = true;
+            this.tbName.Name = "tbName";
+            this.tbName.ReadOnly = true;
+            this.tbName.Size = new System.Drawing.Size(270, 50);
+            this.tbName.TabIndex = 55;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(8, 16);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(116, 13);
+            this.label22.TabIndex = 51;
+            this.label22.Text = "Наименование банка";
+            // 
+            // btChangeBank
+            // 
+            this.btChangeBank.Location = new System.Drawing.Point(152, 210);
+            this.btChangeBank.Name = "btChangeBank";
+            this.btChangeBank.Size = new System.Drawing.Size(129, 23);
+            this.btChangeBank.TabIndex = 18;
+            this.btChangeBank.Text = "Сменить банк";
+            this.btChangeBank.UseVisualStyleBackColor = true;
+            this.btChangeBank.Click += new System.EventHandler(this.btChangeBank_Click);
+            // 
             // AddeditDoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(733, 614);
+            this.ClientSize = new System.Drawing.Size(1006, 614);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1457,8 +1567,10 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgAddDoc)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bds)).EndInit();
             this.cmsDiscount.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.bds)).EndInit();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1582,5 +1694,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn id_TypeDoc;
         private System.Windows.Forms.DataGridViewTextBoxColumn Total_Area;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date_of_Departure;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.TextBox tbRS;
+        private System.Windows.Forms.TextBox tbBik;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox tbName;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox tbKS;
+        private System.Windows.Forms.Button btChangeBank;
     }
 }

@@ -2650,7 +2650,6 @@ namespace Arenda
             return dtResult;
         }
 
-
         public DataTable GetLandlordTenantBank(int id_LandLord)
         {
             ap.Clear();
@@ -2689,6 +2688,17 @@ namespace Arenda
             return executeProcedure("Arenda.AddLandlordTenantBank",
               new string[7] { "@id", "@id_bank", "@PaymentAccount", "@id_LandlordTenant", "@isActive", "@id_User", "@isDel" },
               new DbType[7] { DbType.Int32, DbType.Int32, DbType.String, DbType.Int32, DbType.Boolean, DbType.Int32, DbType.Boolean }, ap);
+        }
+
+        public DataTable AddAgreementsBank(int id_Agreements,int id_LandlordTenantBank)
+        {
+            ap.Clear();
+            ap.Add(id_Agreements);
+            ap.Add(id_LandlordTenantBank);
+
+            return executeProcedure("Arenda.AddAgreementsBank",
+              new string[2] { "@id_Agreements", "@id_LandlordTenantBank" },
+              new DbType[2] { DbType.Int32, DbType.Int32 }, ap);
         }
     }
 }

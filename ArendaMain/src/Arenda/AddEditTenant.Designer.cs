@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditTenant));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -186,14 +186,14 @@
             this.btEditBank = new System.Windows.Forms.Button();
             this.btAddBank = new System.Windows.Forms.Button();
             this.dgvBank = new System.Windows.Forms.DataGridView();
-            this.btExit = new System.Windows.Forms.Button();
-            this.btAdd = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.dbs = new System.Windows.Forms.BindingSource(this.components);
             this.cBankName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cBankBik = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cBankKS = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cBankRS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btExit = new System.Windows.Forms.Button();
+            this.btAdd = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.dbs = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox10.SuspendLayout();
@@ -762,16 +762,25 @@
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage2.Controls.Add(this.label30);
             this.tabPage2.Controls.Add(this.label29);
+            this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Controls.Add(this.dtbase);
             this.tabPage2.Controls.Add(this.tbnumbas);
             this.tabPage2.Controls.Add(this.groupBox7);
             this.tabPage2.Controls.Add(this.groupBox6);
             this.tabPage2.Controls.Add(this.label19);
+            this.tabPage2.Controls.Add(this.label15);
             this.tabPage2.Controls.Add(this.cbBasment);
+            this.tabPage2.Controls.Add(this.tbAc);
             this.tabPage2.Controls.Add(this.label18);
+            this.tabPage2.Controls.Add(this.label14);
             this.tabPage2.Controls.Add(this.tbInn);
+            this.tabPage2.Controls.Add(this.tbRk);
             this.tabPage2.Controls.Add(this.groupBox5);
+            this.tabPage2.Controls.Add(this.label13);
             this.tabPage2.Controls.Add(this.textBox1);
+            this.tabPage2.Controls.Add(this.tbBIK);
+            this.tabPage2.Controls.Add(this.label12);
+            this.tabPage2.Controls.Add(this.tbBank);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -782,7 +791,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(297, 349);
+            this.label30.Location = new System.Drawing.Point(198, 203);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(18, 13);
             this.label30.TabIndex = 21;
@@ -791,7 +800,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(36, 350);
+            this.label29.Location = new System.Drawing.Point(36, 203);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(18, 13);
             this.label29.TabIndex = 20;
@@ -800,17 +809,17 @@
             // dtbase
             // 
             this.dtbase.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtbase.Location = new System.Drawing.Point(321, 345);
+            this.dtbase.Location = new System.Drawing.Point(222, 199);
             this.dtbase.Name = "dtbase";
             this.dtbase.Size = new System.Drawing.Size(86, 20);
             this.dtbase.TabIndex = 19;
             // 
             // tbnumbas
             // 
-            this.tbnumbas.Location = new System.Drawing.Point(83, 347);
+            this.tbnumbas.Location = new System.Drawing.Point(83, 199);
             this.tbnumbas.MaxLength = 25;
             this.tbnumbas.Name = "tbnumbas";
-            this.tbnumbas.Size = new System.Drawing.Size(208, 20);
+            this.tbnumbas.Size = new System.Drawing.Size(110, 20);
             this.tbnumbas.TabIndex = 18;
             this.tbnumbas.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbnumbas_KeyPress);
             // 
@@ -997,7 +1006,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(21, 323);
+            this.label19.Location = new System.Drawing.Point(21, 175);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(42, 13);
             this.label19.TabIndex = 15;
@@ -1007,7 +1016,7 @@
             // 
             this.cbBasment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbBasment.FormattingEnabled = true;
-            this.cbBasment.Location = new System.Drawing.Point(83, 320);
+            this.cbBasment.Location = new System.Drawing.Point(83, 172);
             this.cbBasment.Name = "cbBasment";
             this.cbBasment.Size = new System.Drawing.Size(225, 21);
             this.cbBasment.TabIndex = 14;
@@ -1016,7 +1025,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(21, 288);
+            this.label18.Location = new System.Drawing.Point(21, 151);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(31, 13);
             this.label18.TabIndex = 13;
@@ -1024,7 +1033,7 @@
             // 
             // tbInn
             // 
-            this.tbInn.Location = new System.Drawing.Point(83, 285);
+            this.tbInn.Location = new System.Drawing.Point(83, 148);
             this.tbInn.MaxLength = 12;
             this.tbInn.Name = "tbInn";
             this.tbInn.Size = new System.Drawing.Size(110, 20);
@@ -1035,22 +1044,13 @@
             // 
             this.groupBox5.Controls.Add(this.label28);
             this.groupBox5.Controls.Add(this.tbOGRN);
-            this.groupBox5.Controls.Add(this.button1);
             this.groupBox5.Controls.Add(this.label17);
             this.groupBox5.Controls.Add(this.tbKpp);
             this.groupBox5.Controls.Add(this.label16);
             this.groupBox5.Controls.Add(this.tborpo);
-            this.groupBox5.Controls.Add(this.label15);
-            this.groupBox5.Controls.Add(this.tbAc);
-            this.groupBox5.Controls.Add(this.label14);
-            this.groupBox5.Controls.Add(this.tbRk);
-            this.groupBox5.Controls.Add(this.label13);
-            this.groupBox5.Controls.Add(this.tbBIK);
-            this.groupBox5.Controls.Add(this.label12);
-            this.groupBox5.Controls.Add(this.tbBank);
             this.groupBox5.Location = new System.Drawing.Point(6, 32);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(309, 240);
+            this.groupBox5.Size = new System.Drawing.Size(309, 110);
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Банковские реквизиты";
@@ -1058,7 +1058,7 @@
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(15, 216);
+            this.label28.Location = new System.Drawing.Point(15, 80);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(36, 13);
             this.label28.TabIndex = 14;
@@ -1066,7 +1066,7 @@
             // 
             // tbOGRN
             // 
-            this.tbOGRN.Location = new System.Drawing.Point(77, 213);
+            this.tbOGRN.Location = new System.Drawing.Point(77, 77);
             this.tbOGRN.MaxLength = 15;
             this.tbOGRN.Name = "tbOGRN";
             this.tbOGRN.Size = new System.Drawing.Size(126, 20);
@@ -1075,18 +1075,19 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(77, 106);
+            this.button1.Location = new System.Drawing.Point(83, 362);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(142, 23);
             this.button1.TabIndex = 12;
             this.button1.Text = "Выбрать банк";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(15, 190);
+            this.label17.Location = new System.Drawing.Point(15, 54);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(30, 13);
             this.label17.TabIndex = 11;
@@ -1094,7 +1095,7 @@
             // 
             // tbKpp
             // 
-            this.tbKpp.Location = new System.Drawing.Point(77, 187);
+            this.tbKpp.Location = new System.Drawing.Point(77, 51);
             this.tbKpp.MaxLength = 9;
             this.tbKpp.Name = "tbKpp";
             this.tbKpp.Size = new System.Drawing.Size(110, 20);
@@ -1104,7 +1105,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(15, 164);
+            this.label16.Location = new System.Drawing.Point(15, 28);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(38, 13);
             this.label16.TabIndex = 9;
@@ -1112,7 +1113,7 @@
             // 
             // tborpo
             // 
-            this.tborpo.Location = new System.Drawing.Point(77, 161);
+            this.tborpo.Location = new System.Drawing.Point(77, 25);
             this.tborpo.MaxLength = 10;
             this.tborpo.Name = "tborpo";
             this.tborpo.Size = new System.Drawing.Size(126, 20);
@@ -1122,72 +1123,80 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(15, 57);
+            this.label15.Location = new System.Drawing.Point(21, 313);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(25, 13);
             this.label15.TabIndex = 7;
             this.label15.Text = "К/с";
+            this.label15.Visible = false;
             // 
             // tbAc
             // 
             this.tbAc.Enabled = false;
-            this.tbAc.Location = new System.Drawing.Point(77, 54);
+            this.tbAc.Location = new System.Drawing.Point(83, 309);
             this.tbAc.Name = "tbAc";
             this.tbAc.Size = new System.Drawing.Size(171, 20);
             this.tbAc.TabIndex = 6;
+            this.tbAc.Visible = false;
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(15, 83);
+            this.label14.Location = new System.Drawing.Point(21, 339);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(29, 13);
             this.label14.TabIndex = 5;
             this.label14.Text = "БИК";
+            this.label14.Visible = false;
             // 
             // tbRk
             // 
-            this.tbRk.Location = new System.Drawing.Point(77, 135);
+            this.tbRk.Location = new System.Drawing.Point(83, 391);
             this.tbRk.MaxLength = 20;
             this.tbRk.Name = "tbRk";
             this.tbRk.Size = new System.Drawing.Size(110, 20);
             this.tbRk.TabIndex = 2;
+            this.tbRk.Visible = false;
             this.tbRk.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbRk_KeyPress);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(15, 138);
+            this.label13.Location = new System.Drawing.Point(21, 395);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(25, 13);
             this.label13.TabIndex = 3;
             this.label13.Text = "Р/с";
+            this.label13.Visible = false;
             // 
             // tbBIK
             // 
             this.tbBIK.Enabled = false;
-            this.tbBIK.Location = new System.Drawing.Point(77, 80);
+            this.tbBIK.Location = new System.Drawing.Point(83, 335);
             this.tbBIK.Name = "tbBIK";
             this.tbBIK.Size = new System.Drawing.Size(171, 20);
             this.tbBIK.TabIndex = 4;
+            this.tbBIK.Visible = false;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(15, 25);
+            this.label12.Location = new System.Drawing.Point(21, 281);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(32, 13);
             this.label12.TabIndex = 1;
             this.label12.Text = "Банк";
+            this.label12.Visible = false;
             // 
             // tbBank
             // 
             this.tbBank.Enabled = false;
-            this.tbBank.Location = new System.Drawing.Point(77, 25);
+            this.tbBank.Location = new System.Drawing.Point(83, 276);
             this.tbBank.Multiline = true;
             this.tbBank.Name = "tbBank";
             this.tbBank.Size = new System.Drawing.Size(225, 23);
             this.tbBank.TabIndex = 0;
+            this.tbBank.Visible = false;
             // 
             // textBox1
             // 
@@ -1577,14 +1586,14 @@
             this.dgdoc.AllowUserToOrderColumns = true;
             this.dgdoc.AllowUserToResizeRows = false;
             this.dgdoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgdoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgdoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgdoc.ColumnHeadersHeight = 20;
             this.dgdoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.iddoc,
@@ -1602,14 +1611,14 @@
             this.tel,
             this.id_tenant,
             this.id_lanlord});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgdoc.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgdoc.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgdoc.Location = new System.Drawing.Point(9, 32);
             this.dgdoc.MultiSelect = false;
             this.dgdoc.Name = "dgdoc";
@@ -1775,6 +1784,7 @@
             this.cbBankNotActive.TabIndex = 37;
             this.cbBankNotActive.Text = "недействующие";
             this.cbBankNotActive.UseVisualStyleBackColor = true;
+            this.cbBankNotActive.Click += new System.EventHandler(this.cbBankNotActive_Click);
             // 
             // btDelBank
             // 
@@ -1813,14 +1823,14 @@
             this.dgvBank.AllowUserToDeleteRows = false;
             this.dgvBank.AllowUserToResizeRows = false;
             this.dgvBank.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvBank.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvBank.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvBank.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBank.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cBankName,
@@ -1835,32 +1845,9 @@
             this.dgvBank.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvBank.Size = new System.Drawing.Size(710, 403);
             this.dgvBank.TabIndex = 0;
-            // 
-            // btExit
-            // 
-            this.btExit.Image = ((System.Drawing.Image)(resources.GetObject("btExit.Image")));
-            this.btExit.Location = new System.Drawing.Point(690, 488);
-            this.btExit.Name = "btExit";
-            this.btExit.Size = new System.Drawing.Size(32, 32);
-            this.btExit.TabIndex = 35;
-            this.toolTip1.SetToolTip(this.btExit, "Выйти");
-            this.btExit.UseVisualStyleBackColor = true;
-            this.btExit.Click += new System.EventHandler(this.btExit_Click);
-            // 
-            // btAdd
-            // 
-            this.btAdd.Image = global::Arenda.Properties.Resources.saveHS;
-            this.btAdd.Location = new System.Drawing.Point(649, 488);
-            this.btAdd.Name = "btAdd";
-            this.btAdd.Size = new System.Drawing.Size(32, 32);
-            this.btAdd.TabIndex = 34;
-            this.toolTip1.SetToolTip(this.btAdd, "Сохранить");
-            this.btAdd.UseVisualStyleBackColor = true;
-            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.IsBalloon = true;
+            this.dgvBank.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvBank_RowPostPaint);
+            this.dgvBank.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvBank_RowPrePaint);
+            this.dgvBank.SelectionChanged += new System.EventHandler(this.dgvBank_SelectionChanged);
             // 
             // cBankName
             // 
@@ -1889,6 +1876,32 @@
             this.cBankRS.HeaderText = "Р/С";
             this.cBankRS.Name = "cBankRS";
             this.cBankRS.ReadOnly = true;
+            // 
+            // btExit
+            // 
+            this.btExit.Image = ((System.Drawing.Image)(resources.GetObject("btExit.Image")));
+            this.btExit.Location = new System.Drawing.Point(690, 488);
+            this.btExit.Name = "btExit";
+            this.btExit.Size = new System.Drawing.Size(32, 32);
+            this.btExit.TabIndex = 35;
+            this.toolTip1.SetToolTip(this.btExit, "Выйти");
+            this.btExit.UseVisualStyleBackColor = true;
+            this.btExit.Click += new System.EventHandler(this.btExit_Click);
+            // 
+            // btAdd
+            // 
+            this.btAdd.Image = global::Arenda.Properties.Resources.saveHS;
+            this.btAdd.Location = new System.Drawing.Point(649, 488);
+            this.btAdd.Name = "btAdd";
+            this.btAdd.Size = new System.Drawing.Size(32, 32);
+            this.btAdd.TabIndex = 34;
+            this.toolTip1.SetToolTip(this.btAdd, "Сохранить");
+            this.btAdd.UseVisualStyleBackColor = true;
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
             // 
             // AddEditTenant
             // 

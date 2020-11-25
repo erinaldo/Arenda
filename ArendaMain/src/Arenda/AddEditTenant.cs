@@ -481,69 +481,71 @@ namespace Arenda
             //else
             //{
 
-          if(tenant)
-          {
-            if (cpTen != null && cpTen.Rows.Count > 0)
-            {
-              DataTable dtp = _proc.CheckParentChildTenant(Convert.ToInt32(cpTen.Rows[0]["id"].ToString()),
-                1);
-              if (dtp != null && dtp.Rows.Count > 0)
-              {
-                MessageBox.Show("Арендатор " + dtp.Rows[0]["CurrentTenant"].ToString() + " уже имеет связь в\nкачестве ребенка с арендатором " + dtp.Rows[0]["ConTenant"].ToString() + ".\n                         Добавление арендатора для связи\n                                   невозможно.",
-                  "Добавление связи арендаторов", MessageBoxButtons.OK,
-                  MessageBoxIcon.Error);
-                return;
-              }
-              DataTable dtc = _proc.CheckParentChildTenant(Convert.ToInt32(cpTen.Rows[0]["id"].ToString()),
-                0);
-              if (dtc != null && dtc.Rows.Count > 0)
-              {
-                MessageBox.Show("Арендатор " + dtc.Rows[0]["CurrentTenant"].ToString() + " уже имеет связь в\nкачестве родителя с арендатором " + dtc.Rows[0]["ConTenant"].ToString() + ".\n                         Добавление арендатора для связи\n                                   невозможно.",
-                  "Добавление связи арендаторов", MessageBoxButtons.OK,
-                  MessageBoxIcon.Error);
-                return;
-              }
-            }
-          }
+            if (!ValidateBanks()) return;
 
-          if (tbScanD.Text.Trim().Length > 0 && !tenant)
-          {
-            if (!Directory.Exists(tbScanD.Text))
+            if (tenant)
             {
-              MessageBox.Show("Введенный путь к шаблонам\n  документов арендодателя\n    недоступен для чтения.\n  Сохранение невозможно.",
-                "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-              tbScanD.Focus();
-              return;
-            }
-            else
-            {
-              DirectoryInfo di = new DirectoryInfo(tbScanD.Text);
-              DirectorySecurity ds = di.GetAccessControl();
-              var rules = ds.GetAccessRules(true, true, typeof(System.Security.Principal.SecurityIdentifier));
-              foreach (FileSystemAccessRule rule in rules)
-              {
-                if (rule.FileSystemRights == FileSystemRights.Read && rule.AccessControlType == AccessControlType.Deny)
+                if (cpTen != null && cpTen.Rows.Count > 0)
                 {
-                  MessageBox.Show("Введенный путь к шаблонам\n  документов арендодателя\n    недоступен для чтения.\n  Сохранение невозможно.",
-                    "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                  tbScanD.Focus();
-                  return;
+                    DataTable dtp = _proc.CheckParentChildTenant(Convert.ToInt32(cpTen.Rows[0]["id"].ToString()),
+                      1);
+                    if (dtp != null && dtp.Rows.Count > 0)
+                    {
+                        MessageBox.Show("Арендатор " + dtp.Rows[0]["CurrentTenant"].ToString() + " уже имеет связь в\nкачестве ребенка с арендатором " + dtp.Rows[0]["ConTenant"].ToString() + ".\n                         Добавление арендатора для связи\n                                   невозможно.",
+                          "Добавление связи арендаторов", MessageBoxButtons.OK,
+                          MessageBoxIcon.Error);
+                        return;
+                    }
+                    DataTable dtc = _proc.CheckParentChildTenant(Convert.ToInt32(cpTen.Rows[0]["id"].ToString()),
+                      0);
+                    if (dtc != null && dtc.Rows.Count > 0)
+                    {
+                        MessageBox.Show("Арендатор " + dtc.Rows[0]["CurrentTenant"].ToString() + " уже имеет связь в\nкачестве родителя с арендатором " + dtc.Rows[0]["ConTenant"].ToString() + ".\n                         Добавление арендатора для связи\n                                   невозможно.",
+                          "Добавление связи арендаторов", MessageBoxButtons.OK,
+                          MessageBoxIcon.Error);
+                        return;
+                    }
                 }
-              }
             }
-          }
 
-          if (tbOGRN.Text.Length > 0 && tbOGRN.Text.Length != 13 && tbOGRN.Text.Length != 15)
-          {
-            MessageBox.Show("Длина ОГРН должна быть 13 или 15 символов!",
-                    "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return;
-          }
+            if (tbScanD.Text.Trim().Length > 0 && !tenant)
+            {
+                if (!Directory.Exists(tbScanD.Text))
+                {
+                    MessageBox.Show("Введенный путь к шаблонам\n  документов арендодателя\n    недоступен для чтения.\n  Сохранение невозможно.",
+                      "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    tbScanD.Focus();
+                    return;
+                }
+                else
+                {
+                    DirectoryInfo di = new DirectoryInfo(tbScanD.Text);
+                    DirectorySecurity ds = di.GetAccessControl();
+                    var rules = ds.GetAccessRules(true, true, typeof(System.Security.Principal.SecurityIdentifier));
+                    foreach (FileSystemAccessRule rule in rules)
+                    {
+                        if (rule.FileSystemRights == FileSystemRights.Read && rule.AccessControlType == AccessControlType.Deny)
+                        {
+                            MessageBox.Show("Введенный путь к шаблонам\n  документов арендодателя\n    недоступен для чтения.\n  Сохранение невозможно.",
+                              "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            tbScanD.Focus();
+                            return;
+                        }
+                    }
+                }
+            }
+
+            if (tbOGRN.Text.Length > 0 && tbOGRN.Text.Length != 13 && tbOGRN.Text.Length != 15)
+            {
+                MessageBox.Show("Длина ОГРН должна быть 13 или 15 символов!",
+                        "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             if (txtORGNIP.Text.Length > 0 && txtORGNIP.Text.Length != 13 && txtORGNIP.Text.Length != 15)
             {
-              MessageBox.Show("Длина ОГРНИП должна быть 13 или 15 символов!",
-                  "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Длина ОГРНИП должна быть 13 или 15 символов!",
+                    "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -551,43 +553,43 @@ namespace Arenda
 
             if (tbEmail.Text.Length > 0)
             {
-              if (!rEMail.IsMatch(tbEmail.Text))
-              {
-                MessageBox.Show("Введенный адрес электронной почты\n\r          не соответствует шаблону.\n\r           Сохранение невозможно.",
-                  "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!rEMail.IsMatch(tbEmail.Text))
+                {
+                    MessageBox.Show("Введенный адрес электронной почты\n\r          не соответствует шаблону.\n\r           Сохранение невозможно.",
+                      "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                //tbEmail.SelectAll();
-                return;
-              }
+                    //tbEmail.SelectAll();
+                    return;
+                }
             }
 
-                string msg = "";
+            string msg = "";
 
-                msg += (cbTypeOrg.Text.Trim().Length == 0 ? "Тип\n" : "")
-                        + (orgName.Text.Trim().Length == 0 ? "Название\n" : "")
-                        + (adress.Text.Trim().Length == 0 ? "Адрес\n" : "")
-                        + (tbInn.Text.Trim().Length == 0 ? "ИНН\n" : "")
-                  //+ (PredPost.Text.Trim().Length == 0 ? "Должность представителя\n" : "")
-                    + (!tenant && cmbObject.SelectedIndex == -1 ? "Объект\n" : "")
-                        + (PredPost.SelectedIndex == -1 ? "Должность представителя\n" : "")
-                        + (FamR.Text.Trim().Length == 0 ? "Фамилия представителя в род. п." : "");
+            msg += (cbTypeOrg.Text.Trim().Length == 0 ? "Тип\n" : "")
+                    + (orgName.Text.Trim().Length == 0 ? "Название\n" : "")
+                    + (adress.Text.Trim().Length == 0 ? "Адрес\n" : "")
+                    + (tbInn.Text.Trim().Length == 0 ? "ИНН\n" : "")
+                //+ (PredPost.Text.Trim().Length == 0 ? "Должность представителя\n" : "")
+                + (!tenant && cmbObject.SelectedIndex == -1 ? "Объект\n" : "")
+                    + (PredPost.SelectedIndex == -1 ? "Должность представителя\n" : "")
+                    + (FamR.Text.Trim().Length == 0 ? "Фамилия представителя в род. п." : "");
 
-                if (msg.Trim().Length != 0)
+            if (msg.Trim().Length != 0)
+            {
+                MessageBox.Show("Для сохранения необходимо заполнить следующие поля:\n" + msg, "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                if ((tbInn.Text.Trim().Length == 10)
+                    || (tbInn.Text.Trim().Length == 12))
                 {
-                    MessageBox.Show("Для сохранения необходимо заполнить следующие поля:\n" + msg, "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    add();
                 }
                 else
                 {
-                    if ((tbInn.Text.Trim().Length == 10)
-                        || (tbInn.Text.Trim().Length == 12))
-                    {
-                        add();
-                    }
-                    else
-                    {
-                        MessageBox.Show("ИНН должен быть 10 или 12 символов.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
+                    MessageBox.Show("ИНН должен быть 10 или 12 символов.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
+            }
             //}
         }
 
@@ -825,8 +827,8 @@ namespace Arenda
                              telhome.Text,
                              telsot.Text,
                              adress.Text,
-                             bankevich,
-                             tbRk.Text,
+                             0,//bankevich,
+                             "",//tbRk.Text,
                              tborpo.Text,
                              tbKpp.Text,
                              tbInn.Text,
@@ -1443,13 +1445,16 @@ namespace Arenda
 
         private void btAddBank_Click(object sender, EventArgs e)
         {
-            new Bank.frmAddBank() { Owner = this, isEdit = false,Text = "Добавить банк" }.ShowDialog();
-            }
+            new Bank.frmAddBank() { Owner = this, isEdit = false, Text = "Добавить банк" }.ShowDialog();
+        }
 
         private void btEditBank_Click(object sender, EventArgs e)
         {
-            new Bank.frmAddBank() { Owner = this,isEdit = true,Text = "Редактировать банк" }.ShowDialog();
+            if (dgvBank.CurrentRow != null && dgvBank.CurrentRow.Index != -1 && dtBanks != null && dtBanks.DefaultView.Count != 0)
+            {
+                new Bank.frmAddBank() { Owner = this, isEdit = true, Text = "Редактировать банк" }.ShowDialog();
             }
+        }
 
         private void dgdoc_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
@@ -1476,9 +1481,7 @@ namespace Arenda
                 + (tenant ? "арендатора" : "арендодателя")
                 + " в отчет по оплатам";
 
-            dgvBank.AutoGenerateColumns = false;
-            dtBanks = _proc.GetLandlordTenantBank(id);
-            dgvBank.DataSource = dtBanks;
+            GetBanks();
 
         }
 
@@ -1520,12 +1523,57 @@ namespace Arenda
 
         private void btDelBank_Click(object sender, EventArgs e)
         {
-            DataRowView row = dtBanks.DefaultView[dgvBank.CurrentRow.Index];
-            if ((int)row["id"] < 0) return;
+            if (dgvBank.CurrentRow != null && dgvBank.CurrentRow.Index != -1 && dtBanks != null && dtBanks.DefaultView.Count != 0)
+            {
+                DataRowView row = dtBanks.DefaultView[dgvBank.CurrentRow.Index];
+                if (!(bool)row["isActive"])
+                {
+                    if (DialogResult.Yes == MessageBox.Show("Сделать выбранную запись действующей?", "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                    {
+                        DataTable dtResult = _proc.AddLandlordTenantBank((int)row["id"], (int)row["id_Bank"], (string)row["PaymentAccount"], id, true, false);
+                        if (dtResult != null && dtResult.Rows.Count > 0 && (int)dtResult.Rows[0]["id"] > 0)
+                        {
+                            row["isActive"] = true;
+                            dtBanks.AcceptChanges();
+                        }
+                    }
+                }
+                else
+                {
+                    if (DialogResult.Yes == MessageBox.Show("Удалить выбранную запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                    {
+                        if ((int)row["id"] < 0)
+                        {
+                            row.Delete();
+                            dtBanks.AcceptChanges();
+                            return;
+                        }
 
-            _proc.AddLandlordTenantBank((int)row["id"], (int)row["id_Bank"], (string)row["PaymentAccount"], id, true, true);
-            row.Delete();
-            dtBanks.AcceptChanges();
+
+                        DataTable dtResult = _proc.AddLandlordTenantBank((int)row["id"], (int)row["id_Bank"], (string)row["PaymentAccount"], id, true, true);
+
+                        if (dtResult == null || dtResult.Rows.Count == 0) return;
+
+                        if ((int)dtResult.Rows[0]["id"] == -1)
+                        {
+                            if (DialogResult.Yes == MessageBox.Show(TempData.centralText("Выбранная для удаления запись используется в программе.\nСделать запись недействующей?\n"), "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                            {
+                                dtResult = _proc.AddLandlordTenantBank((int)row["id"], (int)row["id_Bank"], (string)row["PaymentAccount"], id, false, false);
+                                if (dtResult != null && dtResult.Rows.Count > 0 && (int)dtResult.Rows[0]["id"] > 0)
+                                {
+                                    row["isActive"] = false;
+                                    dtBanks.AcceptChanges();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            row.Delete();
+                            dtBanks.AcceptChanges();
+                        }
+                    }
+                }
+            }
         }
 
         private void tbNumber_TextChanged(object sender, EventArgs e)
@@ -1536,6 +1584,96 @@ namespace Arenda
         private void tbPlace_TextChanged(object sender, EventArgs e)
         {
           FilterDataView();
+        }
+
+        private void dgvBank_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            if (e.RowIndex != -1 && dtBanks != null && dtBanks.DefaultView.Count != 0)
+            {
+                Color rColor = Color.White;
+                if (!(bool)dtBanks.DefaultView[e.RowIndex]["isActive"])
+                    rColor = panel1.BackColor;
+                dgvBank.Rows[e.RowIndex].DefaultCellStyle.BackColor = rColor;
+                dgvBank.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = rColor;
+                dgvBank.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black;
+
+            }
+        }
+
+        private void dgvBank_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            DataGridView dgv = sender as DataGridView;
+            //Рисуем рамку для выделеной строки
+            if (dgv.Rows[e.RowIndex].Selected)
+            {
+                int width = dgv.Width;
+                Rectangle r = dgv.GetRowDisplayRectangle(e.RowIndex, false);
+                Rectangle rect = new Rectangle(r.X, r.Y, width - 1, r.Height - 1);
+
+                ControlPaint.DrawBorder(e.Graphics, rect,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid);
+            }
+        }
+
+        private void dgvBank_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvBank.CurrentRow == null || dgvBank.CurrentRow.Index == -1 || dtBanks == null || dtBanks.DefaultView.Count == 0 || dgvBank.CurrentRow.Index >= dtBanks.DefaultView.Count)
+            {
+                btDelBank.Enabled = false;
+                btEditBank.Enabled = false;
+                return;
+            }
+
+            btDelBank.Enabled = true;
+            btEditBank.Enabled = (bool)dtBanks.DefaultView[dgvBank.CurrentRow.Index]["isActive"];
+        }
+
+        private void GetBanks()
+        {
+            dgvBank.AutoGenerateColumns = false;
+            dtBanks = _proc.GetLandlordTenantBank(id);
+            setFilter();
+            dgvBank.DataSource = dtBanks;
+        }
+
+        private void setFilter()
+        {
+            if (dtBanks == null || dtBanks.Rows.Count == 0)
+            {
+                btEditBank.Enabled = btDelBank.Enabled = false;
+                return;
+            }
+
+            try
+            {
+                string filter = "";
+
+                if (tbNumber.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"cName like '%{tbNumber.Text.Trim()}%'";
+
+                if (!cbBankNotActive.Checked)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"isActive = 1";
+
+                dtBanks.DefaultView.RowFilter = filter;
+            }
+            catch
+            {
+                dtBanks.DefaultView.RowFilter = "id = -9999999999999";
+            }
+            finally
+            {
+                btEditBank.Enabled = btDelBank.Enabled =
+               dtBanks.DefaultView.Count != 0;
+                dgvBank_SelectionChanged(null, null);
+            }
+        }
+
+        private void cbBankNotActive_Click(object sender, EventArgs e)
+        {
+            setFilter();
         }
 
         private void btAddCon_Click(object sender, EventArgs e)
@@ -1797,11 +1935,19 @@ namespace Arenda
         }
 
         private bool ValidateBanks()
-        {
+        {           
             if (dtBanks.Rows.Count == 0)
             {
                 MessageBox.Show(TempData.centralText("Нет банков, необходимы банки\n"), "Проверка на дубли", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
+            }
+
+            if (tenant) {
+                if (dtBanks.Rows.Count >1)
+                {
+                    MessageBox.Show(TempData.centralText("Банк должен быть только 1!\n"), "Проверка на дубли", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
             }
 
             foreach (DataRow row in dtBanks.Rows)
@@ -1818,10 +1964,9 @@ namespace Arenda
 
         private void SaveBanks(int id_LandLord)
         {
-
             foreach (DataRow row in dtBanks.Rows)
             {
-                _proc.AddLandlordTenantBank((int)row["id"], (int)row["id_Bank"], (string)row["PaymentAccount"], id_LandLord, true, false);
+                _proc.AddLandlordTenantBank((int)row["id"], (int)row["id_Bank"], (string)row["PaymentAccount"], id_LandLord, (bool)row["isActive"], false);
             }
         }
     }

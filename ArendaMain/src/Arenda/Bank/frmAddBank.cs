@@ -14,6 +14,9 @@ namespace Arenda.Bank
     {
         private int? idBank = null;
         private int id;
+        private bool isEditData = false;
+
+
         public bool isEdit { set; private get; }
 
         public frmAddBank()
@@ -30,6 +33,7 @@ namespace Arenda.Bank
                 tbName.Text = dataBank.cName;
                 tbKS.Text = dataBank.cA;
                 tbBik.Text = dataBank.BIK;
+                isEditData = true;
             }
         }
 
@@ -64,6 +68,7 @@ namespace Arenda.Bank
             else
                 ((AddEditTenant)this.Owner).addRowBank((int)idBank, tbName.Text, tbBik.Text, tbKS.Text, tbRS.Text);
 
+            isEditData = false;
             this.DialogResult = DialogResult.OK;
         }
 
@@ -84,6 +89,17 @@ namespace Arenda.Bank
                 tbBik.Text = row["BIC"].ToString();
                 tbKS.Text =  row["CorrespondentAccount"].ToString();
             }
+            isEditData = false;
+        }
+
+        private void frmAddBank_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = isEditData && DialogResult.No == MessageBox.Show("На форме есть не сохранённые данные.\nЗакрыть форму без сохранения данных?\n", "Закрытие формы", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+        }
+
+        private void tbRS_TextChanged(object sender, EventArgs e)
+        {
+            isEditData = true;
         }
     }
 }

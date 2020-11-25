@@ -45,6 +45,7 @@ IF EXISTS (select TOP(1) id from Arenda.s_LandlordTenantBank where id = @id)
 					id_Bank = @id_bank,
 					id_LandlordTenant =@id_LandlordTenant,
 					PaymentAccount = @PaymentAccount,
+					isActive = @isActive,
 					id_Editor = @id_User,
 					DateEdit = GETDATE()
 				WHERE

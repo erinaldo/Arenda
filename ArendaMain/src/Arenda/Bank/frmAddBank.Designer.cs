@@ -142,13 +142,14 @@
             this.tbRS.Name = "tbRS";
             this.tbRS.Size = new System.Drawing.Size(237, 20);
             this.tbRS.TabIndex = 40;
+            this.tbRS.TextChanged += new System.EventHandler(this.tbRS_TextChanged);
             this.tbRS.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbRS_KeyPress);
             // 
             // frmAddBank
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(397, 227);
+            this.ClientSize = new System.Drawing.Size(393, 223);
             this.ControlBox = false;
             this.Controls.Add(this.tbRS);
             this.Controls.Add(this.label4);
@@ -169,6 +170,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmAddBank";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmAddBank_FormClosing);
             this.Load += new System.EventHandler(this.frmAddBank_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
