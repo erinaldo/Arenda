@@ -119,11 +119,12 @@ namespace Arenda
 
                 dataTen.CadastralNumber = dglookten.SelectedRows[0].Cells["CadastralNumber"].Value.ToString();
 
-                if (new Bank.frmSelectBanks() { id_TanLord = dataTen.id, Owner = this.Owner }.ShowDialog() == DialogResult.Cancel)
-                {
-                    DialogResult = DialogResult.Cancel;
-                    return;
-                }
+                if (isGetBanks)
+                    if (new Bank.frmSelectBanks() { id_TanLord = dataTen.id, Owner = this.Owner }.ShowDialog() == DialogResult.Cancel)
+                    {
+                        DialogResult = DialogResult.Cancel;
+                        return;
+                    }
 
 
                 DialogResult = DialogResult.OK;

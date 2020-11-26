@@ -233,8 +233,13 @@ namespace Arenda
             {
                 if (Rec.Rows[0]["id_LandlordTenantBank"] != DBNull.Value)
                 {
-                    id_LandlordTenantBank = (int)Rec.Rows[0]["id_LandlordTenantBank"];
+                    this.id_LandlordTenantBank = (int)Rec.Rows[0]["id_LandlordTenantBank"];
                 }
+
+                tbRS.Text = Rec.Rows[0]["PaymentAccount"].ToString();
+                tbName.Text = Rec.Rows[0]["NameBank"].ToString();
+                tbBik.Text = Rec.Rows[0]["BIC"].ToString();
+                tbKS.Text = Rec.Rows[0]["CorrespondentAccount"].ToString();
 
 
             }
