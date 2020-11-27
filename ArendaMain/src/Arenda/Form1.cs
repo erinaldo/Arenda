@@ -1306,6 +1306,7 @@ namespace Arenda
             {
                 dt = new DataTable();
                 dt = _proc.getLT(Convert.ToInt32(dgLordland.SelectedRows[0].Cells["id_landlord"].Value));
+
                 if (dt.Rows.Count == 0)
                 {
                     MessageBox.Show("Редактирование арендодателя невозможно. Арендодатель удален.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1354,7 +1355,7 @@ namespace Arenda
         {
             if (nullPrint())
             {
-                if (!pListDoc.Visible)
+                if (!pListDoc.Visible && !pLordland.Visible)
                 {
                     var fd = new SaveFileDialog { Filter = @"Файлы Excel|*.xls" };
                     fd.ShowDialog();
@@ -1364,6 +1365,8 @@ namespace Arenda
                     }
                     _fileName = fd.FileName.Trim();
                 }
+
+
                 if (pListDoc.Visible == true)
                 {
 
@@ -1384,18 +1387,52 @@ namespace Arenda
                 }
                 if (pLordland.Visible == true)
                 {
-                    Logging.StartFirstLevel(472);
-                    Logging.Comment("Выгрузка отчета со списком арендадателей в Excel файл");
 
-                    Logging.Comment("Файл: " + _fileName);
+                    MyMessageBox.MyMessageBox mMSG = new MyMessageBox.MyMessageBox("Выберите тип выгружаемого отчёта", "Выгрузить в Excel", MyMessageBox.MessageBoxButtons.YesNoCancel, new List<string>(new string[] { "Список аренд", "Реквизиты аренд", "Отмена" }));
+                    
+                    DialogResult dResult = mMSG.ShowDialog();
 
-                    Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
-                    + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
-                    Logging.StopFirstLevel();
+                    if (dResult == DialogResult.Cancel)return;
 
-                    prbExcel.Visible = true;
-                    this.Enabled = false;
-                    bgwExcel.RunWorkerAsync(new object[] { "Landlord" });
+                    if (dResult == DialogResult.Yes)
+                    {
+                        var fd = new SaveFileDialog { Filter = @"Файлы Excel|*.xls" };
+                        fd.ShowDialog();
+                        if (fd.FileName.Trim().Length == 0)
+                        {
+                            return;
+                        }
+                        _fileName = fd.FileName.Trim();
+
+                        Logging.StartFirstLevel(472);
+                        Logging.Comment("Выгрузка отчета со списком арендадателей в Excel файл");
+
+                        Logging.Comment("Файл: " + _fileName);
+
+                        Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
+                        + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                        Logging.StopFirstLevel();
+
+                        prbExcel.Visible = true;
+                        this.Enabled = false;
+                        bgwExcel.RunWorkerAsync(new object[] { "Landlord" });
+                    }
+
+                    if (DialogResult.No == dResult)
+                    {
+                        dt = new DataTable();
+                        dt = _proc.getLT(Convert.ToInt32(dgLordland.SelectedRows[0].Cells["id_landlord"].Value));
+
+                        if (dt.Rows.Count == 0)
+                        {
+                            MessageBox.Show("Арендодатель удален.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            iniLandLord();
+                            return;
+                        }
+
+                        Reports.print.printUpd(dt, Convert.ToInt32(dgLordland.SelectedRows[0].Cells["id_landlord"].Value));
+                        return;
+                    }
                 }
                 if (pTenant.Visible == true)
                 {

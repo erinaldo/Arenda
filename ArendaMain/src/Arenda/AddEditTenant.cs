@@ -217,6 +217,7 @@ namespace Arenda
             telrab.Text = Ten.Rows[0]["Work_phone"].ToString();
             telhome.Text = Ten.Rows[0]["Home_phone"].ToString();
             telsot.Text = Ten.Rows[0]["Mobile_phone"].ToString();
+
             adress.Text = Ten.Rows[0]["Address"].ToString();
             tbFactAdress.Text = Ten.Rows[0]["FactAdress"].ToString();
             remark.Text = Ten.Rows[0]["Remark"].ToString();
@@ -234,9 +235,11 @@ namespace Arenda
             tbNreg.Text = Ten.Rows[0]["RegistrationNumber"].ToString();
             tbNsvid.Text = Ten.Rows[0]["Number_of_Certificate"].ToString();
             tbSer.Text = Ten.Rows[0]["Series_od_Certificate"].ToString();
+
             tbPny.Text = Ten.Rows[0]["Who_put_on_Account"].ToString();
             tbNchet.Text = Ten.Rows[0]["Number_Accounting"].ToString();
             tbSerP.Text = Ten.Rows[0]["Series_of_Accounting"].ToString();
+
             tbnumbas.Text = Ten.Rows[0]["Number_basement"].ToString();
             try
             {

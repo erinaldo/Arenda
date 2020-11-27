@@ -125,6 +125,10 @@
       <HintPath>..\..\..\dllJournalBorrower\src\JournalBorrower\bin\Debug\JournalBorrower.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+    <Reference Include="MyMessageBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\договор 2710\dllInventoryScaners\MyMessageBox.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
@@ -370,6 +374,7 @@
     <Compile Include="Reports\frmRepotPayTypeDates.Designer.cs">
       <DependentUpon>frmRepotPayTypeDates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\print.cs" />
     <Compile Include="Section.cs" />
     <Compile Include="Equipment.cs">
       <SubType>Form</SubType>
