@@ -410,6 +410,7 @@
             this.MinimizeBox = false;
             this.Name = "frmMain";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Журнал должников";
             this.Load += new System.EventHandler(this.frmMain_Load);

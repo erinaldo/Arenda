@@ -365,7 +365,7 @@
             // 
             this.btnQuit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnQuit.Image = ((System.Drawing.Image)(resources.GetObject("btnQuit.Image")));
-            this.btnQuit.Location = new System.Drawing.Point(397, 360);
+            this.btnQuit.Location = new System.Drawing.Point(427, 370);
             this.btnQuit.Name = "btnQuit";
             this.btnQuit.Size = new System.Drawing.Size(30, 30);
             this.btnQuit.TabIndex = 6;
@@ -415,7 +415,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(431, 394);
+            this.ClientSize = new System.Drawing.Size(469, 412);
             this.ControlBox = false;
             this.Controls.Add(this.lblAnotherPay);
             this.Controls.Add(this.cboAnotherPay);

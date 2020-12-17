@@ -409,6 +409,8 @@ namespace dllJournalReport
         private void chkHideDocColumnts_Click(object sender, EventArgs e)
         {
             cBuild.Visible = cFloor.Visible = cSection.Visible = cSquart.Visible = Cost_of_Meter.Visible = !chkHideDocColumnts.Checked;
+
+            tbBuild.Visible = tbFloor.Visible = tbSection.Visible = !chkHideDocColumnts.Checked;
         }
 
         private void btExit_Click(object sender, EventArgs e)

@@ -22,6 +22,9 @@ namespace Arenda.Bank
         public frmSelectBanks()
         {
             InitializeComponent();
+            ToolTip tp = new ToolTip();
+            tp.SetToolTip(btExit, "Выход");
+            tp.SetToolTip(btSelect, "Выбрать");
         }
 
         private void frmSelectBanks_Load(object sender, EventArgs e)

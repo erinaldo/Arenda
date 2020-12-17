@@ -18,7 +18,11 @@ namespace Arenda
         DataTable _Floor = null;
         public Floors()
         {
+            
             InitializeComponent();
+
+            bgFloor.AutoGenerateColumns = false;
+
             if (bgFloor.Rows.Count == 0)
             {
                 button2.Enabled = false;

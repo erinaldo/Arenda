@@ -151,7 +151,7 @@ namespace Arenda.Reports
 
                     #region "Обеспечительный платёж"
                     if (i == 1) {                                               
-                        maxColumns = 7;                    
+                        maxColumns = 8;                    
                         setWidthColumn(indexRow, 5, 14, report);
                         setWidthColumn(indexRow, 6, 17, report);
                         setWidthColumn(indexRow, 7, 20, report);
@@ -159,6 +159,8 @@ namespace Arenda.Reports
                         report.AddSingleValue("Дата оплаты", indexRow, 5);
                         report.AddSingleValue("Сумма оплаты", indexRow, 6);
                         report.AddSingleValue("Тип обеспечительного платежа", indexRow, 7);
+                        report.AddSingleValue("Тип операции", indexRow, 8);
+
 
                         report.SetFontBold(indexRow, 1, indexRow, maxColumns);
                         report.SetBorders(indexRow, 1, indexRow, maxColumns);
@@ -191,6 +193,8 @@ namespace Arenda.Reports
                                 addDataToCell(row["Date"], indexRow, 5, report);
                                 addDataToCell(row["Summa"], indexRow, 6, report);
                                 addDataToCell(row["nameSavePayment"], indexRow, 7, report);
+                                addDataToCell(row["nameToTenant"], indexRow, 8, report);
+
 
                                 report.SetBorders(indexRow, 1, indexRow, maxColumns);
                                 report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
@@ -223,6 +227,7 @@ namespace Arenda.Reports
                                 addDataToCell(row["Date"], indexRow, 5, report);
                                 addDataToCell(row["Summa"], indexRow, 6, report);
                                 addDataToCell(row["nameSavePayment"], indexRow, 7, report);
+                                addDataToCell(row["nameToTenant"], indexRow, 8, report);
 
                                 report.SetBorders(indexRow, 1, indexRow, maxColumns);
                                 report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);

@@ -1976,12 +1976,12 @@ namespace Arenda
 
         private void tbNumber_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Regex pat = new Regex(@"[\b]|[0-9]|[a-z]|[A-Z]|[а-я]|[А-Я]|[\\]");
-            bool b = pat.IsMatch(e.KeyChar.ToString());
-            if (b == false)
-            {
-                e.Handled = true;
-            }
+            //Regex pat = new Regex(@"[\b]|[0-9]|[a-z]|[A-Z]|[а-я]|[А-Я]|[\\]");
+            //bool b = pat.IsMatch(e.KeyChar.ToString());
+            //if (b == false)
+            //{
+            //    e.Handled = true;
+            //}
         }
 
         private void tbNumber_TextChanged(object sender, EventArgs e)

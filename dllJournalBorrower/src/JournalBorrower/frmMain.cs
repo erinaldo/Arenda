@@ -185,6 +185,34 @@ namespace JournalBorrower
             indexRow++;
             #endregion
 
+
+            indexRow++;
+            var ResultGroup = dtData.DefaultView.ToTable().AsEnumerable().GroupBy(r => r.Field<int>("id_Tenant"));
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"Общее кол-во должников: {ResultGroup.Count()}", indexRow, 1);
+            indexRow++;
+
+
+            EnumerableRowCollection<DataRow> RowCollect = dtData.DefaultView.ToTable().AsEnumerable().Where(r => r.Field<decimal>(rbPayDoc.Checked ? "PrcPenny_1" : "PrcPenny_2") >= 100);
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"Кол-во должников с долгом от 100% и выше: {RowCollect.Count()}", indexRow, 1);
+            indexRow++;
+
+            RowCollect = dtData.DefaultView.ToTable().AsEnumerable().Where(r => r.Field<decimal>(rbPayDoc.Checked ? "PrcPenny_1" : "PrcPenny_2") >= 50 && r.Field<decimal>(rbPayDoc.Checked ? "PrcPenny_1" : "PrcPenny_2") <= 99);
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"Кол-во должников с долгом от 50 до 99%: {RowCollect.Count()}", indexRow, 1);
+            indexRow++;
+
+
+            RowCollect = dtData.DefaultView.ToTable().AsEnumerable().Where(r => r.Field<decimal>(rbPayDoc.Checked ? "PrcPenny_1" : "PrcPenny_2") >= 0 && r.Field<decimal>(rbPayDoc.Checked ? "PrcPenny_1" : "PrcPenny_2") <= 49);
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"Кол-во должников с долгом от 0 до 49%: {RowCollect.Count()}", indexRow, 1);
+            indexRow++;
+            indexRow++;
+
+
+
+
             int indexCol = 0;
             foreach (DataGridViewColumn col in dgvData.Columns)
                 if (col.Visible)
@@ -246,7 +274,7 @@ namespace JournalBorrower
             report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
             indexRow++;
 
-
+            /*
             indexRow++;
             var ResultGroup = dtData.DefaultView.ToTable().AsEnumerable().GroupBy(r => r.Field<int>("id_Tenant"));
             report.Merge(indexRow, 1, indexRow, maxColumns);
@@ -269,7 +297,7 @@ namespace JournalBorrower
             report.Merge(indexRow, 1, indexRow, maxColumns);
             report.AddSingleValue($"Кол-во должников с долгом от 0 до 49%: {RowCollect.Count()}", indexRow, 1);
             indexRow++;
-
+            */
             #endregion
 
 
@@ -655,7 +683,10 @@ namespace JournalBorrower
                                         rowMainCollect.First()["SummaPaymentFine_1"] = gItog.sumOwe;
                                         rowMainCollect.First()["SummaFine_1"] = gItog.sumPay;
                                         rowMainCollect.First()["SummaPenny_1"] = (gItog.sumOwe - gItog.sumPay);
-                                        rowMainCollect.First()["PrcPenny_1"] = Math.Round(((gItog.sumOwe - gItog.sumPay) * 100 / gItog.sumOwe), 0);
+                                        //rowMainCollect.First()["PrcPenny_1"] = Math.Round(((gItog.sumOwe - gItog.sumPay) * 100 / gItog.sumOwe), 0);
+                                        rowMainCollect.First()["PrcPenny_1"] = Math.Round(((gItog.sumOwe - gItog.sumPay) * 100 / Total_Sum), 0);
+                                        
+
                                         rowMainCollect.First()["SummaPaymentFine_1_filter"] = gItog.sumOwe;
                                     }
                                 }

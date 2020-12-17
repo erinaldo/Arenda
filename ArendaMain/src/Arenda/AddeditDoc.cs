@@ -340,7 +340,7 @@ namespace Arenda
               2, 0, 9999999999, false, defaultVal, format);
 
             cbm = tbcbm.Text = numTextBox.CheckAndChange(Rec.Rows[0]["Cost_of_Meter"].ToString(),
-              2, 0, 9999999999, false, defaultVal, format);
+              4, 0, 9999999999, false, defaultVal, format4);
 
             rekl = txtReklamma.Text = numTextBox.CheckAndChange(Rec.Rows[0]["Reklama"].ToString(),
               2, 0, 9999999999, false, defaultVal, format);

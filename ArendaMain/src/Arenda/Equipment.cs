@@ -19,6 +19,8 @@ namespace Arenda
         public Equipment()
         {
             InitializeComponent();
+            bgEquipment.AutoGenerateColumns = false;
+
             if (bgEquipment.Rows.Count == 0)
             {
                 button2.Enabled = false;

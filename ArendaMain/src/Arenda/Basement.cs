@@ -17,6 +17,7 @@ namespace Arenda
         public Basement()
         {
             InitializeComponent();
+            bgBase.AutoGenerateColumns = false;
 
             if (Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.ToLower().Equals("пр"))
             {

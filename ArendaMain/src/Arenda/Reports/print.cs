@@ -15,7 +15,7 @@ namespace Arenda.Reports
         readonly static Procedures _proc = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
 
 
-        #region "Печать УПД"
+        #region "Печать реквизитов по арендодателю"
         private static string pathTemplateFile = "";
         private static string pathUnloadTemplateFile = "";
         private static string pathUnloadTemplateFile_tmp = "";
@@ -25,8 +25,20 @@ namespace Arenda.Reports
             DataTable dt = _proc.GetTenantAddInfo(id);
 
             pathTemplateFile = Application.StartupPath + @"\Report\TemplateTenant";// + ".xls";
-            pathUnloadTemplateFile_tmp = Application.StartupPath + @"\NewReport_tmp";// + ".xls";
-            pathUnloadTemplateFile = Application.StartupPath + @"\NewReport";// + ".xls";
+            pathUnloadTemplateFile_tmp = Application.StartupPath + @"\ReportFinish\NewReport_tmp";// + ".xls";
+            pathUnloadTemplateFile = Application.StartupPath + @"\ReportFinish\NewReport";// + ".xls";
+
+
+            if (!File.Exists(pathTemplateFile + ".xls"))
+            {
+                MessageBox.Show("Нет шаблона для выгрузки реквизитов", "Информирование", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if(!Directory.Exists(Application.StartupPath + @"\ReportFinish\"))
+            {
+                Directory.CreateDirectory(Application.StartupPath + @"\ReportFinish\");
+            }
 
             Nwuram.Framework.ToExcel.Report reportTemplate = new Nwuram.Framework.ToExcel.Report();
 

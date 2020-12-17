@@ -18,6 +18,7 @@ namespace Arenda
         public frmDevices()
         {
             InitializeComponent();
+            dgvDevices.AutoGenerateColumns = false;
 
             if (Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.ToLower().Equals("пр"))
             {

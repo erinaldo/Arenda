@@ -27,6 +27,7 @@ namespace Arenda
             num = _num;
             pName = _pName;
             InitializeComponent();
+            grdPayments.AutoGenerateColumns = false;
         }
 
         private void frmTaxPayments_Load(object sender, EventArgs e)

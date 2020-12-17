@@ -18,7 +18,7 @@ namespace Arenda
         public Type_o_o()
         {
             InitializeComponent();
-
+            
             if (Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.ToLower().Equals("пр"))
             {
                 Logging.StartFirstLevel(1394);

@@ -362,6 +362,12 @@
       <DependentUpon>frmSelectFines.cs</DependentUpon>
     </Compile>
     <Compile Include="Penni.cs" />
+    <Compile Include="Reports\frmDelete Files.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\frmDelete Files.Designer.cs">
+      <DependentUpon>frmDelete Files.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reports\frmReportFinesPay.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -684,6 +690,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\frmDelete Files.resx">
+      <DependentUpon>frmDelete Files.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\frmReportFinesPay.resx">
       <DependentUpon>frmReportFinesPay.cs</DependentUpon>

@@ -57,9 +57,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(471, 450);
+            this.ControlBox = false;
             this.Controls.Add(this.btExit);
             this.Controls.Add(this.dataGridView1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmView";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "frmView";
             this.Load += new System.EventHandler(this.frmView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

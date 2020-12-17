@@ -29,6 +29,11 @@ namespace Arenda
         public Sections()
         {
             InitializeComponent(); 
+            dgvDevices.AutoGenerateColumns = false;
+            dgEqVsSec.AutoGenerateColumns = false;
+            tbSections1.AutoGenerateColumns = false;
+
+
         }
 
         private void Sections_Load(object sender, EventArgs e)

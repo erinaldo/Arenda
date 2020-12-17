@@ -164,6 +164,7 @@ namespace Arenda
             }
 
             else { TypePrem = _proc.GetTypePr(1); }
+            bgTypePrem.AutoGenerateColumns = false;
             bds.DataSource = TypePrem;
             bgTypePrem.DataSource = bds;
             if (bgTypePrem.Rows.Count == 0)

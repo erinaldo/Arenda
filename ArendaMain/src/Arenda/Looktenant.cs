@@ -22,7 +22,7 @@ namespace Arenda
         public Looktenant(int p, int id_cp)
         {
             InitializeComponent();
-
+            dglookten.AutoGenerateColumns = false;
             tenant = p;
             idcp = id_cp;
 

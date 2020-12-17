@@ -44,7 +44,8 @@ select
 	ol.cName as nameObject,	
 	--tc.TypeContract,	
 	a.id_TypeContract,
-	b.Abbreviation as Build,
+	--b.Abbreviation as Build,
+	isnull(b.Abbreviation,isnull(bp.Abbreviation,'')) as Build,
 	f.Abbreviation as [Floor],
 	case 
 		when a.id_TypeContract = 1 then s.cName
@@ -92,7 +93,7 @@ from
 
 		left join Arenda.s_ObjectLease ol on ol.id = a.id_ObjectLease
 
-		left join Arenda.s_Building b on b.id = a.id_Buildings and a.id_TypeContract = 1
+		left join Arenda.s_Building b on b.id = a.id_Buildings --and a.id_TypeContract = 1
 		left join Arenda.s_Floors f on f.id = a.id_Floor
 		left join Arenda.s_Sections s on s.id = a.id_Section
 

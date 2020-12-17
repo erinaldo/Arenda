@@ -10,7 +10,7 @@ GO
 -- Create date: 23-11-2020
 -- Description:	Получение списка доп оплат за период
 -- =============================================
-CREATE PROCEDURE [Arenda].[GetReportFinesPay]	
+ALTER PROCEDURE [Arenda].[GetReportFinesPay]	
 	@date date	
 AS
 BEGIN
@@ -28,7 +28,8 @@ BEGIN
 	jf.Summa - isnull(pf.Summa,0.00)  as resultSum
 from 
 	[Arenda].j_Fines jf
-		left join Arenda.j_PaymentFines pf on pf.id_Fines = jf.id
+		--left join Arenda.j_PaymentFines pf on pf.id_Fines = jf.id
+		left join Arenda.j_PaymentContract pf on pf.id_Fines = jf.id
 		left join [Arenda].s_AddPayment sad on jf.id_АddPayment = sad.id 
 		left join Arenda.j_Agreements a on a.id = jf.id_Agreements
 		left join Arenda.s_ObjectLease ob on ob.id = a.id_ObjectLease

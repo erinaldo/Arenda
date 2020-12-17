@@ -66,7 +66,7 @@
             this.dgvBank.ReadOnly = true;
             this.dgvBank.RowHeadersVisible = false;
             this.dgvBank.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvBank.Size = new System.Drawing.Size(710, 403);
+            this.dgvBank.Size = new System.Drawing.Size(707, 418);
             this.dgvBank.TabIndex = 1;
             this.dgvBank.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvBank_CellMouseDoubleClick);
             // 
@@ -101,7 +101,7 @@
             // btExit
             // 
             this.btExit.Image = ((System.Drawing.Image)(resources.GetObject("btExit.Image")));
-            this.btExit.Location = new System.Drawing.Point(691, 436);
+            this.btExit.Location = new System.Drawing.Point(687, 436);
             this.btExit.Name = "btExit";
             this.btExit.Size = new System.Drawing.Size(32, 32);
             this.btExit.TabIndex = 36;
@@ -111,7 +111,7 @@
             // btSelect
             // 
             this.btSelect.Image = global::Arenda.Properties.Resources.pict_ok;
-            this.btSelect.Location = new System.Drawing.Point(628, 436);
+            this.btSelect.Location = new System.Drawing.Point(649, 436);
             this.btSelect.Name = "btSelect";
             this.btSelect.Size = new System.Drawing.Size(32, 32);
             this.btSelect.TabIndex = 36;
@@ -122,7 +122,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(735, 480);
+            this.ClientSize = new System.Drawing.Size(731, 476);
             this.ControlBox = false;
             this.Controls.Add(this.btSelect);
             this.Controls.Add(this.btExit);

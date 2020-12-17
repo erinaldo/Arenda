@@ -18,6 +18,7 @@ namespace Arenda
         public frmObjects()
         {
             InitializeComponent();
+            dgvObjects.AutoGenerateColumns = false;
         }
 
         private void frmObjects_Load(object sender, EventArgs e)

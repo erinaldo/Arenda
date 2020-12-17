@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditTenant));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
@@ -86,6 +86,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label30 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.dtbase = new System.Windows.Forms.DateTimePicker();
             this.tbnumbas = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -107,26 +108,25 @@
             this.label20 = new System.Windows.Forms.Label();
             this.tbKem = new System.Windows.Forms.TextBox();
             this.label19 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.cbBasment = new System.Windows.Forms.ComboBox();
+            this.tbAc = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.tbInn = new System.Windows.Forms.TextBox();
+            this.tbRk = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label28 = new System.Windows.Forms.Label();
             this.tbOGRN = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
             this.tbKpp = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.tborpo = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.tbAc = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.tbRk = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tbBIK = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.tbBank = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tbpAddInfo = new System.Windows.Forms.TabPage();
             this.dtpDateIssue = new System.Windows.Forms.DateTimePicker();
             this.label43 = new System.Windows.Forms.Label();
@@ -806,6 +806,17 @@
             this.label29.TabIndex = 20;
             this.label29.Text = "№";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(83, 362);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(142, 23);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Выбрать банк";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // dtbase
             // 
             this.dtbase.Format = System.Windows.Forms.DateTimePickerFormat.Short;
@@ -1012,6 +1023,16 @@
             this.label19.TabIndex = 15;
             this.label19.Text = "Основ.";
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(21, 313);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(25, 13);
+            this.label15.TabIndex = 7;
+            this.label15.Text = "К/с";
+            this.label15.Visible = false;
+            // 
             // cbBasment
             // 
             this.cbBasment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1022,6 +1043,15 @@
             this.cbBasment.TabIndex = 14;
             this.cbBasment.SelectedIndexChanged += new System.EventHandler(this.cbBasment_SelectedIndexChanged);
             // 
+            // tbAc
+            // 
+            this.tbAc.Enabled = false;
+            this.tbAc.Location = new System.Drawing.Point(83, 309);
+            this.tbAc.Name = "tbAc";
+            this.tbAc.Size = new System.Drawing.Size(171, 20);
+            this.tbAc.TabIndex = 6;
+            this.tbAc.Visible = false;
+            // 
             // label18
             // 
             this.label18.AutoSize = true;
@@ -1031,6 +1061,16 @@
             this.label18.TabIndex = 13;
             this.label18.Text = "ИНН";
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(21, 339);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(29, 13);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "БИК";
+            this.label14.Visible = false;
+            // 
             // tbInn
             // 
             this.tbInn.Location = new System.Drawing.Point(83, 148);
@@ -1039,6 +1079,16 @@
             this.tbInn.Size = new System.Drawing.Size(110, 20);
             this.tbInn.TabIndex = 12;
             this.tbInn.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbInn_KeyPress);
+            // 
+            // tbRk
+            // 
+            this.tbRk.Location = new System.Drawing.Point(83, 391);
+            this.tbRk.MaxLength = 20;
+            this.tbRk.Name = "tbRk";
+            this.tbRk.Size = new System.Drawing.Size(110, 20);
+            this.tbRk.TabIndex = 2;
+            this.tbRk.Visible = false;
+            this.tbRk.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbRk_KeyPress);
             // 
             // groupBox5
             // 
@@ -1072,17 +1122,6 @@
             this.tbOGRN.Size = new System.Drawing.Size(126, 20);
             this.tbOGRN.TabIndex = 13;
             this.tbOGRN.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbOGRN_KeyPress);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(83, 362);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(142, 23);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Выбрать банк";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label17
             // 
@@ -1120,45 +1159,6 @@
             this.tborpo.TabIndex = 8;
             this.tborpo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tborpo_KeyPress);
             // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(21, 313);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(25, 13);
-            this.label15.TabIndex = 7;
-            this.label15.Text = "К/с";
-            this.label15.Visible = false;
-            // 
-            // tbAc
-            // 
-            this.tbAc.Enabled = false;
-            this.tbAc.Location = new System.Drawing.Point(83, 309);
-            this.tbAc.Name = "tbAc";
-            this.tbAc.Size = new System.Drawing.Size(171, 20);
-            this.tbAc.TabIndex = 6;
-            this.tbAc.Visible = false;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(21, 339);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(29, 13);
-            this.label14.TabIndex = 5;
-            this.label14.Text = "БИК";
-            this.label14.Visible = false;
-            // 
-            // tbRk
-            // 
-            this.tbRk.Location = new System.Drawing.Point(83, 391);
-            this.tbRk.MaxLength = 20;
-            this.tbRk.Name = "tbRk";
-            this.tbRk.Size = new System.Drawing.Size(110, 20);
-            this.tbRk.TabIndex = 2;
-            this.tbRk.Visible = false;
-            this.tbRk.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbRk_KeyPress);
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -1168,6 +1168,14 @@
             this.label13.TabIndex = 3;
             this.label13.Text = "Р/с";
             this.label13.Visible = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(6, 6);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(309, 20);
+            this.textBox1.TabIndex = 0;
             // 
             // tbBIK
             // 
@@ -1197,14 +1205,6 @@
             this.tbBank.Size = new System.Drawing.Size(225, 23);
             this.tbBank.TabIndex = 0;
             this.tbBank.Visible = false;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(6, 6);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(309, 20);
-            this.textBox1.TabIndex = 0;
             // 
             // tbpAddInfo
             // 
@@ -1586,14 +1586,14 @@
             this.dgdoc.AllowUserToOrderColumns = true;
             this.dgdoc.AllowUserToResizeRows = false;
             this.dgdoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgdoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgdoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgdoc.ColumnHeadersHeight = 20;
             this.dgdoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.iddoc,
@@ -1611,14 +1611,14 @@
             this.tel,
             this.id_tenant,
             this.id_lanlord});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgdoc.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgdoc.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgdoc.Location = new System.Drawing.Point(9, 32);
             this.dgdoc.MultiSelect = false;
             this.dgdoc.Name = "dgdoc";
@@ -1793,6 +1793,7 @@
             this.btDelBank.Name = "btDelBank";
             this.btDelBank.Size = new System.Drawing.Size(35, 35);
             this.btDelBank.TabIndex = 36;
+            this.toolTip1.SetToolTip(this.btDelBank, "Удалить");
             this.btDelBank.UseVisualStyleBackColor = true;
             this.btDelBank.Click += new System.EventHandler(this.btDelBank_Click);
             // 
@@ -1803,6 +1804,7 @@
             this.btEditBank.Name = "btEditBank";
             this.btEditBank.Size = new System.Drawing.Size(35, 35);
             this.btEditBank.TabIndex = 36;
+            this.toolTip1.SetToolTip(this.btEditBank, "Редактировать");
             this.btEditBank.UseVisualStyleBackColor = true;
             this.btEditBank.Click += new System.EventHandler(this.btEditBank_Click);
             // 
@@ -1823,14 +1825,14 @@
             this.dgvBank.AllowUserToDeleteRows = false;
             this.dgvBank.AllowUserToResizeRows = false;
             this.dgvBank.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvBank.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvBank.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvBank.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBank.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cBankName,

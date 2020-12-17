@@ -24,6 +24,7 @@ namespace Arenda
         public frmBanks(int choose)
         {
             InitializeComponent();
+            dgBanks.AutoGenerateColumns = false;
 
             if (Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.ToLower().Equals("пр"))
             {

@@ -76,7 +76,7 @@ namespace Arenda
             }
             PredPostRefresh();
             PredPost.SelectedValue = -1;
-            GetTab();            
+            GetTab();                        
         }
 
         public AddEditTenant(int _id, bool _tenant, bool prosmotr)
@@ -225,7 +225,7 @@ namespace Arenda
 
             checkBox1.Checked = bool.Parse(Ten.Rows[0]["Vat_Nds"].ToString());
 
-            tbRk.Text = Ten.Rows[0]["PaymentAccount"].ToString();
+            //tbRk.Text = Ten.Rows[0]["PaymentAccount"].ToString();
             tborpo.Text = Ten.Rows[0]["OKPO"].ToString();
             tbKpp.Text = Ten.Rows[0]["KPP"].ToString();
             tbInn.Text = Ten.Rows[0]["INN"].ToString();
@@ -260,8 +260,8 @@ namespace Arenda
             //lEmail.Visible = tbEmail.Visible = tenant;
             groupBox9.Visible = tenant;
 
-            bankevich = Convert.ToInt32(Ten.Rows[0]["id_Bank"].ToString());
-
+            //bankevich = Convert.ToInt32(Ten.Rows[0]["id_Bank"].ToString());
+            /*
             try
             {
                 _Bank = _proc.getBank();
@@ -277,6 +277,7 @@ namespace Arenda
             {
                 //MessageBox.Show("Использован удаленный банк."); 
             }
+            */
 
             ini(id);
 
@@ -420,7 +421,7 @@ namespace Arenda
             cbBasment.DisplayMember = "cName";
             cbBasment.ValueMember = "id";
             if (rezhim=="add")
-                cbBasment.SelectedValue = -1;
+                cbBasment.SelectedIndex = -1;
             else
                 cbBasment.SelectedIndex = 0;
             if (!tenant)
@@ -1418,8 +1419,7 @@ namespace Arenda
             try
             {
 
-                if ((basList.Rows[cbBasment.SelectedIndex]["needDate"].ToString() == "False")
-                    || (cbBasment.SelectedIndex==0))
+                if (cbBasment.SelectedIndex ==-1 || cbBasment.SelectedIndex == 0 || (basList.Rows[cbBasment.SelectedIndex]["needDate"].ToString() == "False"))
                 {
                     tbnumbas.Enabled = false;
                     dtbase.Enabled = false;

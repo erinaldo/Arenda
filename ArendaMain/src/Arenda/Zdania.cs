@@ -19,6 +19,7 @@ namespace Arenda
         public Zdania()
         {
             InitializeComponent();
+            bgZdania.AutoGenerateColumns = false;
             if (bgZdania.Rows.Count == 0)
             {
                 button2.Enabled = false;
