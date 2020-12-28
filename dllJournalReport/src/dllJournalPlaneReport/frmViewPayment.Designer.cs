@@ -35,18 +35,18 @@
             this.btPrint = new System.Windows.Forms.Button();
             this.btExit = new System.Windows.Forms.Button();
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.tbObject = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.tbAgreements = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.tbDate = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.cDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cTypePayDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cSumma = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cDatePay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cSummPay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cTypePay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbObject = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbAgreements = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbDate = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +54,7 @@
             // 
             this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btPrint.Image = global::dllJournalPlaneReport.Properties.Resources.klpq_2511;
-            this.btPrint.Location = new System.Drawing.Point(1065, 572);
+            this.btPrint.Location = new System.Drawing.Point(1093, 588);
             this.btPrint.Name = "btPrint";
             this.btPrint.Size = new System.Drawing.Size(32, 32);
             this.btPrint.TabIndex = 14;
@@ -65,7 +65,7 @@
             // 
             this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btExit.Image = global::dllJournalPlaneReport.Properties.Resources.exit_8633;
-            this.btExit.Location = new System.Drawing.Point(1103, 572);
+            this.btExit.Location = new System.Drawing.Point(1131, 588);
             this.btExit.Name = "btExit";
             this.btExit.Size = new System.Drawing.Size(32, 32);
             this.btExit.TabIndex = 15;
@@ -111,8 +111,56 @@
             this.dgvData.ReadOnly = true;
             this.dgvData.RowHeadersVisible = false;
             this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvData.Size = new System.Drawing.Size(1123, 478);
+            this.dgvData.Size = new System.Drawing.Size(1151, 490);
             this.dgvData.TabIndex = 20;
+            // 
+            // cDate
+            // 
+            this.cDate.DataPropertyName = "DateFines";
+            this.cDate.HeaderText = "Дата";
+            this.cDate.Name = "cDate";
+            this.cDate.ReadOnly = true;
+            // 
+            // cTypePayDoc
+            // 
+            this.cTypePayDoc.DataPropertyName = "namePayment";
+            this.cTypePayDoc.HeaderText = "Тип доп. оплаты";
+            this.cTypePayDoc.Name = "cTypePayDoc";
+            this.cTypePayDoc.ReadOnly = true;
+            // 
+            // cSumma
+            // 
+            this.cSumma.DataPropertyName = "summaFines";
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.cSumma.DefaultCellStyle = dataGridViewCellStyle2;
+            this.cSumma.HeaderText = "Сумма";
+            this.cSumma.Name = "cSumma";
+            this.cSumma.ReadOnly = true;
+            // 
+            // cDatePay
+            // 
+            this.cDatePay.DataPropertyName = "Date";
+            this.cDatePay.HeaderText = "Дата оплаты";
+            this.cDatePay.Name = "cDatePay";
+            this.cDatePay.ReadOnly = true;
+            // 
+            // cSummPay
+            // 
+            this.cSummPay.DataPropertyName = "summaPayments";
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.cSummPay.DefaultCellStyle = dataGridViewCellStyle3;
+            this.cSummPay.HeaderText = "Сумма оплаты";
+            this.cSummPay.Name = "cSummPay";
+            this.cSummPay.ReadOnly = true;
+            // 
+            // cTypePay
+            // 
+            this.cTypePay.DataPropertyName = "typeCash";
+            this.cTypePay.HeaderText = "Тип оплаты";
+            this.cTypePay.Name = "cTypePay";
+            this.cTypePay.ReadOnly = true;
             // 
             // tbObject
             // 
@@ -165,59 +213,11 @@
             this.label3.TabIndex = 22;
             this.label3.Text = "Период план-отчёта:";
             // 
-            // cDate
-            // 
-            this.cDate.DataPropertyName = "DateFines";
-            this.cDate.HeaderText = "Дата";
-            this.cDate.Name = "cDate";
-            this.cDate.ReadOnly = true;
-            // 
-            // cTypePayDoc
-            // 
-            this.cTypePayDoc.DataPropertyName = "namePayment";
-            this.cTypePayDoc.HeaderText = "Тип доп. оплаты";
-            this.cTypePayDoc.Name = "cTypePayDoc";
-            this.cTypePayDoc.ReadOnly = true;
-            // 
-            // cSumma
-            // 
-            this.cSumma.DataPropertyName = "summaFines";
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.cSumma.DefaultCellStyle = dataGridViewCellStyle2;
-            this.cSumma.HeaderText = "Сумма";
-            this.cSumma.Name = "cSumma";
-            this.cSumma.ReadOnly = true;
-            // 
-            // cDatePay
-            // 
-            this.cDatePay.DataPropertyName = "Date";
-            this.cDatePay.HeaderText = "Дата оплаты";
-            this.cDatePay.Name = "cDatePay";
-            this.cDatePay.ReadOnly = true;
-            // 
-            // cSummPay
-            // 
-            this.cSummPay.DataPropertyName = "summaPayments";
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.cSummPay.DefaultCellStyle = dataGridViewCellStyle3;
-            this.cSummPay.HeaderText = "Сумма оплаты";
-            this.cSummPay.Name = "cSummPay";
-            this.cSummPay.ReadOnly = true;
-            // 
-            // cTypePay
-            // 
-            this.cTypePay.DataPropertyName = "typeCash";
-            this.cTypePay.HeaderText = "Тип оплаты";
-            this.cTypePay.Name = "cTypePay";
-            this.cTypePay.ReadOnly = true;
-            // 
             // frmViewPayment
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1139, 608);
+            this.ClientSize = new System.Drawing.Size(1175, 632);
             this.ControlBox = false;
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);

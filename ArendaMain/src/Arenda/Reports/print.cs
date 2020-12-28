@@ -19,6 +19,7 @@ namespace Arenda.Reports
         private static string pathTemplateFile = "";
         private static string pathUnloadTemplateFile = "";
         private static string pathUnloadTemplateFile_tmp = "";
+        private static Nwuram.Framework.ToExcel.Report reportTemplate;
         public static void printUpd(DataTable dtHead, int id)
         {            
             DataTable dtBanks = _proc.GetLandlordTenantBank(id);
@@ -40,58 +41,58 @@ namespace Arenda.Reports
                 Directory.CreateDirectory(Application.StartupPath + @"\ReportFinish\");
             }
 
-            Nwuram.Framework.ToExcel.Report reportTemplate = new Nwuram.Framework.ToExcel.Report();
+            reportTemplate = new Nwuram.Framework.ToExcel.Report();
 
             #region "Шапка"
 
-            reportTemplate.AddSingleValue("@FIOUnLoader", Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
-            reportTemplate.AddSingleValue("@dateUnLoad", $"{DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}");
+            AddSingleValue("@FIOUnLoader", Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+            AddSingleValue("@dateUnLoad", $"{DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}");
 
-            reportTemplate.AddSingleValue("@NameTenant", $"{ dtHead.Rows[0]["cName"]}");
-            reportTemplate.AddSingleValue("@abbTypeOrg", $"{ dtHead.Rows[0]["type_abb"]}");
-
-
-            reportTemplate.AddSingleValue("@INN", $"{dtHead.Rows[0]["INN"]}");
-            reportTemplate.AddSingleValue("@base_name", $"{dtHead.Rows[0]["base_name"]}");            
-            reportTemplate.AddSingleValue("@orgnip", $"{dt.Rows[0]["orgnip"]}");
-            reportTemplate.AddSingleValue("@Number_basement", $"{ dtHead.Rows[0]["Number_basement"]}");
-            reportTemplate.AddSingleValue("@Date_basement", $"{ dtHead.Rows[0]["Date_basement"]}");
-
-            reportTemplate.AddSingleValue("@namePost", $"{ dtHead.Rows[0]["namePost"]}");
-            reportTemplate.AddSingleValue("@Contact_Firstname", $"{ dtHead.Rows[0]["Contact_Firstname"]}");
-            reportTemplate.AddSingleValue("@Contact_Lastname_Par", $"{ dtHead.Rows[0]["Contact_Lastname_Par"]}");
-            reportTemplate.AddSingleValue("@Contact_Lastname", $"{ dtHead.Rows[0]["Contact_Lastname"]}");
-            reportTemplate.AddSingleValue("@Contact_Middlename", $"{ dtHead.Rows[0]["Contact_Middlename"]}");
-            reportTemplate.AddSingleValue("@Sex", $"{ ((bool)dtHead.Rows[0]["Sex"] ? "М" : "Ж")}");
+            AddSingleValue("@NameTenant", $"{ dtHead.Rows[0]["cName"]}");
+            AddSingleValue("@abbTypeOrg", $"{ dtHead.Rows[0]["type_abb"]}");
 
 
-            reportTemplate.AddSingleValue("@Work_phone", $"{ dtHead.Rows[0]["Work_phone"]}");
-            reportTemplate.AddSingleValue("@Home_phone", $"{ dtHead.Rows[0]["Home_phone"]}");
-            reportTemplate.AddSingleValue("@Mobile_phone", $"{ dtHead.Rows[0]["Mobile_phone"]}");
+            AddSingleValue("@INN", $"{dtHead.Rows[0]["INN"]}");
+            AddSingleValue("@base_name", $"{dtHead.Rows[0]["base_name"]}");
+            if (dt == null || dt.Rows.Count == 0) AddSingleValue("@orgnip", "."); else AddSingleValue("@orgnip", $"{dt.Rows[0]["orgnip"]}");
+            AddSingleValue("@Number_basement", $"{ dtHead.Rows[0]["Number_basement"]}");
+            AddSingleValue("@Date_basement", $"{ dtHead.Rows[0]["Date_basement"]}");
+
+            AddSingleValue("@namePost", $"{ dtHead.Rows[0]["namePost"]}");
+            AddSingleValue("@Contact_Firstname", $"{ dtHead.Rows[0]["Contact_Firstname"]}");
+            AddSingleValue("@Contact_Lastname_Par", $"{ dtHead.Rows[0]["Contact_Lastname_Par"]}");
+            AddSingleValue("@Contact_Lastname", $"{ dtHead.Rows[0]["Contact_Lastname"]}");
+            AddSingleValue("@Contact_Middlename", $"{ dtHead.Rows[0]["Contact_Middlename"]}");
+            AddSingleValue("@Sex", $"{ ((bool)dtHead.Rows[0]["Sex"] ? "М" : "Ж")}");
 
 
-            reportTemplate.AddSingleValue("@Who_is_Registered", $"{ dtHead.Rows[0]["Who_is_Registered"]}");
-            reportTemplate.AddSingleValue("@DateRegistration", $"{ dtHead.Rows[0]["DateRegistration"]}");
-            reportTemplate.AddSingleValue("@RegistrationNumber", $"{ dtHead.Rows[0]["RegistrationNumber"]}");
-            reportTemplate.AddSingleValue("@Number_of_Certificate", $"{ dtHead.Rows[0]["Number_of_Certificate"]}");
-            reportTemplate.AddSingleValue("@Series_od_Certificate", $"{ dtHead.Rows[0]["Series_od_Certificate"]}");
+            AddSingleValue("@Work_phone", $"{ dtHead.Rows[0]["Work_phone"]}");
+            AddSingleValue("@Home_phone", $"{ dtHead.Rows[0]["Home_phone"]}");
+            AddSingleValue("@Mobile_phone", $"{ dtHead.Rows[0]["Mobile_phone"]}");
 
 
-            reportTemplate.AddSingleValue("@Who_put_on_Account", $"{ dtHead.Rows[0]["Who_put_on_Account"]}");
-            reportTemplate.AddSingleValue("@Number_Accounting", $"{ dtHead.Rows[0]["Number_Accounting"]}");
-            reportTemplate.AddSingleValue("@Series_of_Accounting", $"{ dtHead.Rows[0]["Series_of_Accounting"]}");
+            AddSingleValue("@Who_is_Registered", $"{ dtHead.Rows[0]["Who_is_Registered"]}");
+            AddSingleValue("@DateRegistration", $"{ dtHead.Rows[0]["DateRegistration"]}");
+            AddSingleValue("@RegistrationNumber", $"{ dtHead.Rows[0]["RegistrationNumber"]}");
+            AddSingleValue("@Number_of_Certificate", $"{ dtHead.Rows[0]["Number_of_Certificate"]}");
+            AddSingleValue("@Series_od_Certificate", $"{ dtHead.Rows[0]["Series_od_Certificate"]}");
 
 
-            reportTemplate.AddSingleValue("@nameObjectLease", $"{ dtHead.Rows[0]["nameObjectLease"]}");
-            reportTemplate.AddSingleValue("@Address_trade_premises", $"{ dtHead.Rows[0]["Address_trade_premises"]}");
+            AddSingleValue("@Who_put_on_Account", $"{ dtHead.Rows[0]["Who_put_on_Account"]}");
+            AddSingleValue("@Number_Accounting", $"{ dtHead.Rows[0]["Number_Accounting"]}");
+            AddSingleValue("@Series_of_Accounting", $"{ dtHead.Rows[0]["Series_of_Accounting"]}");
 
 
-            reportTemplate.AddSingleValue("@Address", $"{ dtHead.Rows[0]["Address"]}");
-            reportTemplate.AddSingleValue("@Remark", $"{ dtHead.Rows[0]["Remark"]}");
+            AddSingleValue("@nameObjectLease", $"{ dtHead.Rows[0]["nameObjectLease"]}");
+            AddSingleValue("@Address_trade_premises", $"{ dtHead.Rows[0]["Address_trade_premises"]}");
 
-            reportTemplate.AddSingleValue("@outReport", $"{ ((bool)dtHead.Rows[0]["outReport"] ? "Да" : "Нет")}");
-            reportTemplate.AddSingleValue("@Vat_Nds", $"{ ((bool)dtHead.Rows[0]["Vat_Nds"] ? "Да" : "Нет")}");
-            reportTemplate.AddSingleValue("@Path", $"{ dtHead.Rows[0]["Path"]}");
+
+            AddSingleValue("@Address", $"{ dtHead.Rows[0]["Address"]}");
+            AddSingleValue("@Remark", $"{ dtHead.Rows[0]["Remark"]}");
+
+            AddSingleValue("@outReport", $"{ ((bool)dtHead.Rows[0]["outReport"] ? "Да" : "Нет")}");
+            AddSingleValue("@Vat_Nds", $"{ ((bool)dtHead.Rows[0]["Vat_Nds"] ? "Да" : "Нет")}");
+            AddSingleValue("@Path", $"{ dtHead.Rows[0]["Path"]}");
 
             //reportTemplate.AddSingleValue("@", $"{ dtHead.Rows[0][""]}");
             //reportTemplate.AddSingleValue("", $"{ dtHead.Rows[0][""]}");
@@ -105,7 +106,14 @@ namespace Arenda.Reports
                 dtBanks.Columns.Remove("id_Bank");
                 dtBanks.Columns.Remove("isActive");
 
-
+                reportTemplate.AddMultiValues(dtBanks, "_");
+            }
+            else if (dtBanks != null)
+            {
+                dtBanks.Columns.Remove("id");
+                dtBanks.Columns.Remove("id_Bank");
+                dtBanks.Columns.Remove("isActive");
+                dtBanks.Rows.Add(".", ".", ".", ".");
                 reportTemplate.AddMultiValues(dtBanks, "_");
             }
             #endregion
@@ -127,6 +135,14 @@ namespace Arenda.Reports
             }
 
             try { File.Delete(pathUnloadTemplateFile_tmp + ".xls"); } catch { }
+        }
+
+        private static void AddSingleValue(string field, object value)
+        {
+            if (value == null || value == DBNull.Value || value.ToString().Trim().Length==0)
+                reportTemplate.AddSingleValue(field, $".");
+            else
+                reportTemplate.AddSingleValue(field, $"{value}");
         }
         #endregion
 

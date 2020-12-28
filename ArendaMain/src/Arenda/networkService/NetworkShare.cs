@@ -10,6 +10,8 @@ using System.Diagnostics;
 public class NetworkShare : IDisposable
 {
     readonly Procedures _proc = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
+
+    private string prefix = "";
     public NetworkShare()
     {
 
@@ -18,7 +20,7 @@ public class NetworkShare : IDisposable
     /// Создание эксемпляра с инициализацией
     /// </summary>
     /// <param name="init">Need data</param>
-    public NetworkShare(bool init)
+    public NetworkShare(bool init,bool isLandLord)
     {
         if (init)
         {
@@ -30,6 +32,9 @@ public class NetworkShare : IDisposable
             this.login = dt.AsEnumerable().Where(r => r.Field<string>("id_value") == "pslg").CopyToDataTable().Rows[0]["value"].ToString();
             this.password = dt.AsEnumerable().Where(r => r.Field<string>("id_value") == "pspw").CopyToDataTable().Rows[0]["value"].ToString();
         }
+
+        if (isLandLord)
+            prefix = "\\sign";
     }
     public string server;
     public string password;
@@ -76,20 +81,6 @@ public class NetworkShare : IDisposable
         }
     }
 
-    private string Disconnect531()
-    {
-        try
-        {
-            int ret = WNetCancelConnection("\\\\172.16.5.31\\аренда", true);
-        }
-        catch 
-        {
-
-        }
-        return null;
-    }
-   
-
     /// <summary>
     /// Remove the share from cache.
     /// </summary>
@@ -117,10 +108,14 @@ public class NetworkShare : IDisposable
         try
         {
             ConnectToShare();
-        //if (!Directory.Exists(filepath))
-        //   Directory.CreateDirectory(filepath);
-        byte[] file = File.ReadAllBytes($"{server}\\{id_doc}\\{shortname}{ext}");
-        File.WriteAllBytes(filepath, file);
+            //if (!Directory.Exists(filepath))
+            //   Directory.CreateDirectory(filepath);
+            string PathFile = $"{server}{prefix}\\{id_doc}\\{shortname}{ext}";
+            if (File.Exists(PathFile))
+            {
+                byte[] file = File.ReadAllBytes(PathFile);
+                File.WriteAllBytes(filepath, file);
+            }
           //  File.Copy($"{server}\\{id_doc}\\{shortname}{ext}", $"{filepath}");
             DisconnectFromShare(false);
         }
@@ -151,12 +146,17 @@ public class NetworkShare : IDisposable
     {
         try
         {
-                ConnectToShare();
-                if (!Directory.Exists(server + "\\" + id_doc))
-                    Directory.CreateDirectory(server + "\\" + id_doc);
-                File.WriteAllBytes(server + "\\" + id_doc + "\\" + namefile, bytes);
-                DisconnectFromShare(false);
-                return true;
+            ConnectToShare();
+            
+            string folder = $"{server} {prefix}\\{id_doc}";
+
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+            
+            File.WriteAllBytes($"{folder}\\{namefile}", bytes);
+            
+            DisconnectFromShare(false);
+            return true;
         }
         catch
         {
@@ -199,12 +199,53 @@ public class NetworkShare : IDisposable
 
     public byte[] GetFileBytes(string id_doc, string nameFile, string ext)
     {
-        byte[] file;
+        byte[] file = null;
         ConnectToShare();
-        string path = server + "\\" + id_doc + "\\" + nameFile + ext;
-        file = File.ReadAllBytes(path);
+
+        string path = server + prefix + "\\" + id_doc + "\\" + nameFile + ext;
+        if (File.Exists(path))
+            file = File.ReadAllBytes(path);
+
         DisconnectFromShare(false);
         return file;
+    }
+
+    public DataTable GetFileToFolde(int id_doc)
+    {
+        DataTable dtScan = _proc.getScan(0, -1);
+        DataTable dtToSend = dtScan.Clone();
+        try
+        {         
+            ConnectToShare();
+
+            string folder = $"{server} {prefix}\\{id_doc}";
+
+            string[] listFile = Directory.GetFiles(folder);
+            
+            foreach (string file in listFile)
+            {
+                FileInfo infoFile = new FileInfo(file);
+                DataRow newRow = dtToSend.NewRow();
+                newRow["id"] = -1;
+                newRow["id_Doc"] = id_doc;
+                newRow["cName"] = Path.GetFileNameWithoutExtension(file);
+                newRow["Scan"] = null;
+                newRow["Extension"] = Path.GetExtension(file);
+                newRow["id_DocType"] = 11;
+                newRow["DateDocument"] = DateTime.Now;
+                newRow["Path"] = Path.GetDirectoryName(file);
+                dtToSend.Rows.Add(newRow);
+
+            }
+            
+            DisconnectFromShare(false);
+
+            return dtToSend;
+        }
+        catch
+        {
+            return dtScan.Clone();
+        }
     }
 
     #region P/Invoke Stuff

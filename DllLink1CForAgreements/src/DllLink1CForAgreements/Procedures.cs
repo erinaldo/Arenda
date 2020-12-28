@@ -8,7 +8,7 @@ using Nwuram.Framework.Settings.User;
 using System.Threading.Tasks;
 using System.Threading;
 
-namespace JournalBorrower
+namespace DllLink1CForAgreements
 {
     class Procedures : SqlProvider
     {
@@ -18,12 +18,14 @@ namespace JournalBorrower
         }
         ArrayList ap = new ArrayList();
 
+        #region ""
+
         /// <summary>
         /// Получение списка объектов
         /// </summary>
         /// <param name=""></param>
         /// <returns>Таблица с данными</returns>        
-        public async Task<DataTable> getObjectLease(bool withAllDeps = false)
+        public DataTable getObjectLease(bool withAllDeps = false)
         {
             ap.Clear();
 
@@ -72,7 +74,7 @@ namespace JournalBorrower
         /// </summary>
         /// <param name=""></param>
         /// <returns>Таблица с данными</returns>        
-        public async Task<DataTable> getTypeContract(bool withAllDeps = false)
+        public DataTable getTypeContract(bool withAllDeps = false)
         {
             ap.Clear();
 
@@ -115,74 +117,11 @@ namespace JournalBorrower
             return dtResult;
         }
 
-
-        /// <summary>
-        /// Получение списка должников
-        /// </summary>
-        /// <param name=""></param>
-        /// <returns>Таблица с данными</returns>        
-        public async Task<DataTable> GetListOwe(int id_object)
-        {
-            ap.Clear();
-            ap.Add(id_object);
-
-            return executeProcedure("[Arenda].[spg_GetListOwe]",
-                 new string[1] { "@id_object" },
-                 new DbType[1] { DbType.Int32 }, ap);
-        }
-
-        /// <summary>
-        /// Получение дополнительной информации для должников
-        /// </summary>
-        /// <param name=""></param>
-        /// <returns>Таблица с данными</returns>        
-        public async Task<DataTable> GetListOweAdditionalData(int typeData,int id_object)
-        {
-            ap.Clear();
-            ap.Add(typeData);
-            ap.Add(id_object);
-
-            return executeProcedure("[Arenda].[spg_GetListOweAdditionalData]",
-                 new string[2] { "@typeData","@id_object" },
-                 new DbType[2] { DbType.Int32, DbType.Int32 }, ap);
-        }
-
-
-        /// <summary>
-        /// Получение списка оплат по договору
-        /// </summary>
-        /// <param name=""></param>
-        /// <returns>Таблица с данными</returns>        
-        public async Task<DataTable> GetPaymentsForAgreemetns(int id_Agreements)
-        {
-            ap.Clear();
-            ap.Add(id_Agreements);
-
-            return executeProcedure("[Arenda].[spg_GetPaymentsForAgreemetns]",
-                 new string[1] { "@id_Agreements" },
-                 new DbType[1] { DbType.Int32 }, ap);
-        }
-
-        /// <summary>
-        /// Получение списка оплат по договору
-        /// </summary>
-        /// <param name=""></param>
-        /// <returns>Таблица с данными</returns>        
-        public async Task<DataTable> GetListPaymentContractForAgreements(int id_Agreements)
-        {
-            ap.Clear();
-            ap.Add(id_Agreements);
-
-            return executeProcedure("[Arenda].[GetListPaymentContractForAgreements]",
-                 new string[1] { "@id_Agreements" },
-                 new DbType[1] { DbType.Int32 }, ap);
-        }
-
-        public async Task<DataTable> GetAddPayment(bool withAllDeps = false)
+        public DataTable GetListLandlord(bool withAllDeps = false)
         {
             ap.Clear();
 
-            DataTable dtResult = executeProcedure("[Arenda].[GetAddPayment]",
+            DataTable dtResult = executeProcedure("[Arenda].[GetListLandlord]",
                  new string[0] { },
                  new DbType[0] { }, ap);
 
@@ -200,7 +139,7 @@ namespace JournalBorrower
 
                     DataRow row = dtResult.NewRow();
 
-                    row["cName"] = "Все типы";
+                    row["cName"] = "Все арендодатели";
                     row["id"] = 0;
                     row["isMain"] = 0;
                     row["isActive"] = 1;
@@ -220,5 +159,18 @@ namespace JournalBorrower
 
             return dtResult;
         }
+
+        public DataTable GetListAgreementTo1C(int id_object)
+        {
+            ap.Clear();
+            ap.Add(id_object);
+
+            return executeProcedure("Arenda.GetListAgreementTo1C",
+              new string[1] { "@id_object" },
+              new DbType[1] { DbType.Int32 }, ap);
+        }
+
+        #endregion
+
     }
 }

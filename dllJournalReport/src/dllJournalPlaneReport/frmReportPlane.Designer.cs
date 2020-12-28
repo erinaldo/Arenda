@@ -383,6 +383,7 @@
             this.MinimizeBox = false;
             this.Name = "frmReportPlane";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Журнал План-Отчётов";
             this.Load += new System.EventHandler(this.frmReportMonth_Load);

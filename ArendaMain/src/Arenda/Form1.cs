@@ -184,6 +184,7 @@ namespace Arenda
             btAcceptDoc.Visible = new List<string> { "СОА", "РКВ", "КНТ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
             btCopyDoc.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
             btKntListTaxes.Visible = new List<string> { "КНТ", "РКВ", "Д" }.Contains(TempData.Rezhim) && pListDoc.Visible;
+            btAddDocFile.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim) && pLordland.Visible;
         }
 
         private void арендаторыToolStripMenuItem_Click(object sender, EventArgs e)
@@ -273,7 +274,8 @@ namespace Arenda
             справочникВидаДейтельностиToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim);
             справочникСкидокToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ", "Д" }.Contains(TempData.Rezhim);
             //справочникиToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim);
-            выгрузкаДокументовToolStripMenuItem.Visible = new List<string> { "РКВ" }.Contains(TempData.Rezhim);
+            //выгрузкаДокументовToolStripMenuItem.Visible = new List<string> { "РКВ" }.Contains(TempData.Rezhim);
+            tsmiLoad1C.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim);
 
             журналДолжниковToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д" }.Contains(TempData.Rezhim);
             журналСъездовToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д", "МНД" }.Contains(TempData.Rezhim);
@@ -639,7 +641,7 @@ namespace Arenda
                 btEdit.Visible = false;
 
                 btnView.Visible = true;
-                btnView.Location = btEdit.Location;
+                btnView.Location = btEdit.Location;              
             }
 
             btAdd.Enabled = true;
@@ -1069,12 +1071,14 @@ namespace Arenda
                     btEdit.Enabled = false;
                     btnView.Enabled = false;
                     btnReport.Enabled = false;
+                    btAddDocFile.Enabled = false;
                 }
                 else
                 {
                     btDel.Enabled = true;
                     btEdit.Enabled = true;
                     btnView.Enabled = true;
+                    btAddDocFile.Enabled = true;
 
                     if ((dgLordland.SelectedRows != null) && (dgLordland.SelectedRows.Count > 0))
                     {
@@ -2563,6 +2567,12 @@ namespace Arenda
         private void tsmiReportPayTypeDates_Click(object sender, EventArgs e)
         {
             new Reports.frmRepotPayTypeDates() { Text = tsmiReportPayTypeDates.Text }.ShowDialog();
+        }
+
+        private void btAddDocFile_Click(object sender, EventArgs e)
+        {
+            int id_LandLord = Convert.ToInt32(dgLordland.SelectedRows[0].Cells["id_landlord"].Value);
+            new AddNewDocToFolder.frmAddDoc() { id_Doc = id_LandLord,isLandLoard=true }.ShowDialog();
         }
 
         private void sPhone_KeyPress(object sender, KeyPressEventArgs e)

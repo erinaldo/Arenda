@@ -492,7 +492,7 @@ namespace Arenda
                 if (cpTen != null && cpTen.Rows.Count > 0)
                 {
                     DataTable dtp = _proc.CheckParentChildTenant(Convert.ToInt32(cpTen.Rows[0]["id"].ToString()),
-                      1);
+                      1,id);
                     if (dtp != null && dtp.Rows.Count > 0)
                     {
                         MessageBox.Show("Арендатор " + dtp.Rows[0]["CurrentTenant"].ToString() + " уже имеет связь в\nкачестве ребенка с арендатором " + dtp.Rows[0]["ConTenant"].ToString() + ".\n                         Добавление арендатора для связи\n                                   невозможно.",
@@ -1044,6 +1044,7 @@ namespace Arenda
               SaveCon(new_id);
 
             MessageBox.Show("Внесены изменения");
+            isEditTableBank = false;
             DialogResult = DialogResult.Cancel;
         }
 
@@ -1101,7 +1102,8 @@ namespace Arenda
                 || (_tbPassport != txtPassport.Text)
                 || (_tbIssued != txtIssued.Text)
                 || (_sex != rbW.Checked)
-                || (_tbOrgnip != txtORGNIP.Text)
+                || (_tbOrgnip != txtORGNIP.Text
+                || isEditTableBank)
                 )
             {
                 return false;
@@ -1538,6 +1540,7 @@ namespace Arenda
                         {
                             row["isActive"] = true;
                             dtBanks.AcceptChanges();
+                            //isEditTableBank = true;
                         }
                     }
                 }
@@ -1881,6 +1884,7 @@ namespace Arenda
 
 
         private DataTable dtBanks;
+        private bool isEditTableBank = false;
 
         public bool validateBankRow(int id,int idBank, string RS,bool withTable=false)
         {
@@ -1917,6 +1921,7 @@ namespace Arenda
             row["isActive"] = true;
 
             dtBanks.Rows.Add(row);
+            isEditTableBank = true;
         }
 
         public void updateRowBank(int idBank, string name, string BIK, string KS, string RS)
@@ -1930,6 +1935,7 @@ namespace Arenda
             row["CorrespondentAccount"] = KS;
 
             dtBanks.AcceptChanges();
+            isEditTableBank = true;
         }
 
         public DataRowView GetBankRow()

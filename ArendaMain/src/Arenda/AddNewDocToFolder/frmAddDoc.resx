@@ -117,49 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="nameTenant.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
   </metadata>
-  <metadata name="cAgreements.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cObject.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cPlace.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cNameBuild.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cFloor.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cSection.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cSumMeter.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cSumDoc.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cSumPay.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cSumItogSum.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cSumOwe.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cPrcOwe.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cDateCloseSection.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="cNameAddPayment.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btDel.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+</value>
+  </data>
 </root>

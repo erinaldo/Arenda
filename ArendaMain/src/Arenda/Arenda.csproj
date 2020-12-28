@@ -118,7 +118,7 @@
     </Reference>
     <Reference Include="Framework, Version=3.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\frameWork_mew\Framework\bin\Debug\Framework.dll</HintPath>
+      <HintPath>..\..\..\..\dll\Framework.dll</HintPath>
     </Reference>
     <Reference Include="Interop.Excel, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="JournalBorrower">
@@ -220,6 +220,18 @@
     </Compile>
     <Compile Include="AdditionalDoc.Designer.cs">
       <DependentUpon>AdditionalDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddNewDocToFolder\frmAddDoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddNewDocToFolder\frmAddDoc.Designer.cs">
+      <DependentUpon>frmAddDoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddNewDocToFolder\frmSelectAgreementsTo1C.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddNewDocToFolder\frmSelectAgreementsTo1C.Designer.cs">
+      <DependentUpon>frmSelectAgreementsTo1C.cs</DependentUpon>
     </Compile>
     <Compile Include="AddSec.cs">
       <SubType>Form</SubType>
@@ -553,6 +565,12 @@
     <EmbeddedResource Include="AdditionalDoc.resx">
       <DependentUpon>AdditionalDoc.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AddNewDocToFolder\frmAddDoc.resx">
+      <DependentUpon>frmAddDoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddNewDocToFolder\frmSelectAgreementsTo1C.resx">
+      <DependentUpon>frmSelectAgreementsTo1C.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddSec.resx">
       <DependentUpon>AddSec.cs</DependentUpon>
     </EmbeddedResource>
@@ -881,6 +899,7 @@
     <None Include="Resources\document_add.png" />
     <None Include="Resources\document_delete.png" />
     <None Include="Resources\btnDiscountsAdd.png" />
+    <None Include="Resources\document-library.png" />
     <Content Include="Resources\pict_edit.BMP" />
     <Content Include="Resources\pict_save.BMP" />
   </ItemGroup>

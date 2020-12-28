@@ -103,7 +103,9 @@ namespace Arenda.Reports
                 //for (int i = 1; i <= 3; i++)
                 foreach(int i in numbers)
                 {
-                    EnumerableRowCollection<DataRow> rowCollect = dtReport.AsEnumerable().Where(r => r.Field<int>("id_PayType") == i);
+                    EnumerableRowCollection<DataRow> rowCollect = dtReport.AsEnumerable()
+                    .Where(r => r.Field<int>("id_PayType") == i)
+                    .OrderBy(r=>r.Field<DateTime>("Date"));
                     if (rowCollect.Count() == 0) continue;
 
 
@@ -145,7 +147,7 @@ namespace Arenda.Reports
                     report.AddSingleValue("Арендатор", indexRow, 2);
                     report.AddSingleValue("Номер договора", indexRow, 3);
                     report.AddSingleValue("Местоположение по договору", indexRow, 4);
-
+                    report.SetPrintRepeatHead(indexRow, indexRow);
 
 
 

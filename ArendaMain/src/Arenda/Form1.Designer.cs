@@ -63,13 +63,19 @@
             this.арендодателиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.выгрузкаДокументовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiReport = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiReportPayTypeDates = new System.Windows.Forms.ToolStripMenuItem();
             this.pTenant = new System.Windows.Forms.Panel();
             this.sPhone = new System.Windows.Forms.TextBox();
             this.sEmail = new System.Windows.Forms.TextBox();
             this.sPlace = new System.Windows.Forms.TextBox();
+            this.picConEnding = new System.Windows.Forms.PictureBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.picConEnded = new System.Windows.Forms.PictureBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.picUnContract = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.picUnactive = new System.Windows.Forms.PictureBox();
             this.sName = new System.Windows.Forms.TextBox();
             this.cbTenant = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -92,8 +98,10 @@
             this.pLordland = new System.Windows.Forms.Panel();
             this.label12 = new System.Windows.Forms.Label();
             this.cmbObject = new System.Windows.Forms.ComboBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.label10 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.chbLandlord = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tbLandpred = new System.Windows.Forms.TextBox();
@@ -158,52 +166,46 @@
             this.label5 = new System.Windows.Forms.Label();
             this.bgwExcel = new System.ComponentModel.BackgroundWorker();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.prbExcel = new System.Windows.Forms.ProgressBar();
-            this.tsmiReport = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiReportPayTypeDates = new System.Windows.Forms.ToolStripMenuItem();
+            this.btAddDocFile = new System.Windows.Forms.Button();
             this.btnMassDiscounts = new System.Windows.Forms.Button();
             this.btDicDiscount = new System.Windows.Forms.Button();
             this.btReportTenant = new System.Windows.Forms.Button();
             this.btKntListTaxes = new System.Windows.Forms.Button();
             this.btCopyDoc = new System.Windows.Forms.Button();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.btAcceptDoc = new System.Windows.Forms.Button();
             this.btJournalSealSections = new System.Windows.Forms.Button();
-            this.btnReport = new System.Windows.Forms.Button();
             this.btnView = new System.Windows.Forms.Button();
             this.btnListTaxes = new System.Windows.Forms.Button();
             this.btnListPayment = new System.Windows.Forms.Button();
-            this.btPrint = new System.Windows.Forms.Button();
             this.btExel = new System.Windows.Forms.Button();
             this.btExit = new System.Windows.Forms.Button();
             this.btDel = new System.Windows.Forms.Button();
             this.btEdit = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
-            this.picConEnding = new System.Windows.Forms.PictureBox();
-            this.picConEnded = new System.Windows.Forms.PictureBox();
-            this.picUnContract = new System.Windows.Forms.PictureBox();
-            this.picUnactive = new System.Windows.Forms.PictureBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.prbExcel = new System.Windows.Forms.ProgressBar();
+            this.btAcceptDoc = new System.Windows.Forms.Button();
+            this.btnReport = new System.Windows.Forms.Button();
+            this.btPrint = new System.Windows.Forms.Button();
             this.bds = new System.Windows.Forms.BindingSource(this.components);
             this.bds1 = new System.Windows.Forms.BindingSource(this.components);
             this.dbs2 = new System.Windows.Forms.BindingSource(this.components);
+            this.tsmiLoad1C = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.pTenant.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgTenant)).BeginInit();
-            this.pLordland.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgLordland)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgListDoc)).BeginInit();
-            this.pListDoc.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picConEnded)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picUnContract)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picUnactive)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgTenant)).BeginInit();
+            this.pLordland.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgLordland)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgListDoc)).BeginInit();
+            this.pListDoc.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bds1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbs2)).BeginInit();
@@ -219,7 +221,8 @@
             this.арендодателиToolStripMenuItem,
             this.настройкиToolStripMenuItem,
             this.выгрузкаДокументовToolStripMenuItem,
-            this.tsmiReport});
+            this.tsmiReport,
+            this.tsmiLoad1C});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(767, 24);
@@ -460,7 +463,23 @@
             this.выгрузкаДокументовToolStripMenuItem.Name = "выгрузкаДокументовToolStripMenuItem";
             this.выгрузкаДокументовToolStripMenuItem.Size = new System.Drawing.Size(131, 20);
             this.выгрузкаДокументовToolStripMenuItem.Text = "Выгрузка документов";
+            this.выгрузкаДокументовToolStripMenuItem.Visible = false;
             this.выгрузкаДокументовToolStripMenuItem.Click += new System.EventHandler(this.выгрузкаДокументовToolStripMenuItem_Click);
+            // 
+            // tsmiReport
+            // 
+            this.tsmiReport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiReportPayTypeDates});
+            this.tsmiReport.Name = "tsmiReport";
+            this.tsmiReport.Size = new System.Drawing.Size(59, 20);
+            this.tsmiReport.Text = "Отчёты";
+            // 
+            // tsmiReportPayTypeDates
+            // 
+            this.tsmiReportPayTypeDates.Name = "tsmiReportPayTypeDates";
+            this.tsmiReportPayTypeDates.Size = new System.Drawing.Size(292, 22);
+            this.tsmiReportPayTypeDates.Text = "Отчёт по добавленным оплатам за период";
+            this.tsmiReportPayTypeDates.Click += new System.EventHandler(this.tsmiReportPayTypeDates_Click);
             // 
             // pTenant
             // 
@@ -516,6 +535,18 @@
             this.sPlace.TextChanged += new System.EventHandler(this.sPlace_TextChanged);
             this.sPlace.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.sPlace_KeyPress);
             // 
+            // picConEnding
+            // 
+            this.picConEnding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picConEnding.BackColor = System.Drawing.Color.Tomato;
+            this.picConEnding.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picConEnding.Location = new System.Drawing.Point(168, 382);
+            this.picConEnding.Name = "picConEnding";
+            this.picConEnding.Size = new System.Drawing.Size(12, 12);
+            this.picConEnding.TabIndex = 39;
+            this.picConEnding.TabStop = false;
+            this.picConEnding.Visible = false;
+            // 
             // label11
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -526,6 +557,18 @@
             this.label11.TabIndex = 38;
             this.label11.Text = "Заканчивающиеся договора";
             this.label11.Visible = false;
+            // 
+            // picConEnded
+            // 
+            this.picConEnded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picConEnded.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.picConEnded.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picConEnded.Location = new System.Drawing.Point(168, 363);
+            this.picConEnded.Name = "picConEnded";
+            this.picConEnded.Size = new System.Drawing.Size(12, 12);
+            this.picConEnded.TabIndex = 37;
+            this.picConEnded.TabStop = false;
+            this.picConEnded.Visible = false;
             // 
             // label9
             // 
@@ -538,6 +581,17 @@
             this.label9.Text = "Закончившиеся договора";
             this.label9.Visible = false;
             // 
+            // picUnContract
+            // 
+            this.picUnContract.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picUnContract.BackColor = System.Drawing.Color.SkyBlue;
+            this.picUnContract.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picUnContract.Location = new System.Drawing.Point(66, 381);
+            this.picUnContract.Name = "picUnContract";
+            this.picUnContract.Size = new System.Drawing.Size(12, 12);
+            this.picUnContract.TabIndex = 35;
+            this.picUnContract.TabStop = false;
+            // 
             // label8
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -547,6 +601,17 @@
             this.label8.Size = new System.Drawing.Size(82, 13);
             this.label8.TabIndex = 34;
             this.label8.Text = "Без договоров";
+            // 
+            // picUnactive
+            // 
+            this.picUnactive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picUnactive.BackColor = System.Drawing.Color.DarkGray;
+            this.picUnactive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picUnactive.Location = new System.Drawing.Point(66, 363);
+            this.picUnactive.Name = "picUnactive";
+            this.picUnactive.Size = new System.Drawing.Size(12, 12);
+            this.picUnactive.TabIndex = 33;
+            this.picUnactive.TabStop = false;
             // 
             // sName
             // 
@@ -781,6 +846,17 @@
             this.cmbObject.ValueMember = "id";
             this.cmbObject.SelectionChangeCommitted += new System.EventHandler(this.cmbObject_SelectionChangeCommitted);
             // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox5.BackColor = System.Drawing.Color.LightBlue;
+            this.pictureBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox5.Location = new System.Drawing.Point(125, 384);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(12, 12);
+            this.pictureBox5.TabIndex = 36;
+            this.pictureBox5.TabStop = false;
+            // 
             // label10
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -802,6 +878,17 @@
             this.checkBox1.Text = "Без договоров";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox1.BackColor = System.Drawing.Color.Coral;
+            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox1.Location = new System.Drawing.Point(125, 364);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(12, 12);
+            this.pictureBox1.TabIndex = 33;
+            this.pictureBox1.TabStop = false;
             // 
             // chbLandlord
             // 
@@ -1467,54 +1554,18 @@
             this.bgwExcel.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwExcel_DoWork);
             this.bgwExcel.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwExcel_RunWorkerCompleted);
             // 
-            // statusStrip1
+            // btAddDocFile
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel2,
-            this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 490);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(767, 22);
-            this.statusStrip1.SizingGrip = false;
-            this.statusStrip1.TabIndex = 32;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(109, 17);
-            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(109, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
-            // 
-            // prbExcel
-            // 
-            this.prbExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.prbExcel.Location = new System.Drawing.Point(432, 482);
-            this.prbExcel.Name = "prbExcel";
-            this.prbExcel.Size = new System.Drawing.Size(315, 16);
-            this.prbExcel.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.prbExcel.TabIndex = 47;
-            this.prbExcel.Visible = false;
-            // 
-            // tsmiReport
-            // 
-            this.tsmiReport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiReportPayTypeDates});
-            this.tsmiReport.Name = "tsmiReport";
-            this.tsmiReport.Size = new System.Drawing.Size(59, 20);
-            this.tsmiReport.Text = "Отчёты";
-            // 
-            // tsmiReportPayTypeDates
-            // 
-            this.tsmiReportPayTypeDates.Name = "tsmiReportPayTypeDates";
-            this.tsmiReportPayTypeDates.Size = new System.Drawing.Size(292, 22);
-            this.tsmiReportPayTypeDates.Text = "Отчёт по добавленным оплатам за период";
-            this.tsmiReportPayTypeDates.Click += new System.EventHandler(this.tsmiReportPayTypeDates_Click);
+            this.btAddDocFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btAddDocFile.Image = global::Arenda.Properties.Resources.document_library;
+            this.btAddDocFile.Location = new System.Drawing.Point(355, 435);
+            this.btAddDocFile.Name = "btAddDocFile";
+            this.btAddDocFile.Size = new System.Drawing.Size(32, 32);
+            this.btAddDocFile.TabIndex = 58;
+            this.toolTip1.SetToolTip(this.btAddDocFile, "Работа с документами");
+            this.btAddDocFile.UseVisualStyleBackColor = true;
+            this.btAddDocFile.Visible = false;
+            this.btAddDocFile.Click += new System.EventHandler(this.btAddDocFile_Click);
             // 
             // btnMassDiscounts
             // 
@@ -1533,7 +1584,7 @@
             // 
             this.btDicDiscount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btDicDiscount.Image = global::Arenda.Properties.Resources.скидки;
-            this.btDicDiscount.Location = new System.Drawing.Point(355, 435);
+            this.btDicDiscount.Location = new System.Drawing.Point(317, 435);
             this.btDicDiscount.Name = "btDicDiscount";
             this.btDicDiscount.Size = new System.Drawing.Size(32, 32);
             this.btDicDiscount.TabIndex = 56;
@@ -1546,7 +1597,7 @@
             // 
             this.btReportTenant.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btReportTenant.Image = global::Arenda.Properties.Resources.деятельность1;
-            this.btReportTenant.Location = new System.Drawing.Point(317, 435);
+            this.btReportTenant.Location = new System.Drawing.Point(279, 435);
             this.btReportTenant.Name = "btReportTenant";
             this.btReportTenant.Size = new System.Drawing.Size(32, 32);
             this.btReportTenant.TabIndex = 55;
@@ -1581,46 +1632,11 @@
             this.btCopyDoc.Visible = false;
             this.btCopyDoc.Click += new System.EventHandler(this.btCopyDoc_Click);
             // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox5.BackColor = System.Drawing.Color.LightBlue;
-            this.pictureBox5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox5.Location = new System.Drawing.Point(125, 384);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(12, 12);
-            this.pictureBox5.TabIndex = 36;
-            this.pictureBox5.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox1.BackColor = System.Drawing.Color.Coral;
-            this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBox1.Location = new System.Drawing.Point(125, 364);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(12, 12);
-            this.pictureBox1.TabIndex = 33;
-            this.pictureBox1.TabStop = false;
-            // 
-            // btAcceptDoc
-            // 
-            this.btAcceptDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btAcceptDoc.BackgroundImage = global::Arenda.Properties.Resources.DeleteHS;
-            this.btAcceptDoc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btAcceptDoc.Location = new System.Drawing.Point(133, 435);
-            this.btAcceptDoc.Name = "btAcceptDoc";
-            this.btAcceptDoc.Size = new System.Drawing.Size(32, 32);
-            this.btAcceptDoc.TabIndex = 53;
-            this.btAcceptDoc.UseVisualStyleBackColor = true;
-            this.btAcceptDoc.Visible = false;
-            this.btAcceptDoc.Click += new System.EventHandler(this.btAcceptDoc_Click);
-            // 
             // btJournalSealSections
             // 
             this.btJournalSealSections.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btJournalSealSections.Image = global::Arenda.Properties.Resources.upload;
-            this.btJournalSealSections.Location = new System.Drawing.Point(172, 435);
+            this.btJournalSealSections.Location = new System.Drawing.Point(151, 435);
             this.btJournalSealSections.Name = "btJournalSealSections";
             this.btJournalSealSections.Size = new System.Drawing.Size(32, 32);
             this.btJournalSealSections.TabIndex = 52;
@@ -1629,23 +1645,11 @@
             this.btJournalSealSections.Visible = false;
             this.btJournalSealSections.Click += new System.EventHandler(this.btJournalSealSections_Click);
             // 
-            // btnReport
-            // 
-            this.btnReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnReport.Image = global::Arenda.Properties.Resources.printer_6;
-            this.btnReport.Location = new System.Drawing.Point(270, 435);
-            this.btnReport.Name = "btnReport";
-            this.btnReport.Size = new System.Drawing.Size(32, 32);
-            this.btnReport.TabIndex = 51;
-            this.btnReport.UseVisualStyleBackColor = true;
-            this.btnReport.Visible = false;
-            this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
-            // 
             // btnView
             // 
             this.btnView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnView.Image = global::Arenda.Properties.Resources.glaz;
-            this.btnView.Location = new System.Drawing.Point(210, 435);
+            this.btnView.Location = new System.Drawing.Point(189, 435);
             this.btnView.Name = "btnView";
             this.btnView.Size = new System.Drawing.Size(32, 32);
             this.btnView.TabIndex = 50;
@@ -1677,17 +1681,6 @@
             this.toolTip1.SetToolTip(this.btnListPayment, "Список оплаты договора");
             this.btnListPayment.UseVisualStyleBackColor = true;
             this.btnListPayment.Click += new System.EventHandler(this.btnListPayment_Click);
-            // 
-            // btPrint
-            // 
-            this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btPrint.Image = ((System.Drawing.Image)(resources.GetObject("btPrint.Image")));
-            this.btPrint.Location = new System.Drawing.Point(525, 435);
-            this.btPrint.Name = "btPrint";
-            this.btPrint.Size = new System.Drawing.Size(32, 32);
-            this.btPrint.TabIndex = 33;
-            this.btPrint.UseVisualStyleBackColor = true;
-            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
             // 
             // btExel
             // 
@@ -1750,61 +1743,91 @@
             this.btAdd.UseVisualStyleBackColor = true;
             this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
-            // picConEnding
+            // statusStrip1
             // 
-            this.picConEnding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.picConEnding.BackColor = System.Drawing.Color.Tomato;
-            this.picConEnding.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picConEnding.Location = new System.Drawing.Point(168, 382);
-            this.picConEnding.Name = "picConEnding";
-            this.picConEnding.Size = new System.Drawing.Size(12, 12);
-            this.picConEnding.TabIndex = 39;
-            this.picConEnding.TabStop = false;
-            this.picConEnding.Visible = false;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel1});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 490);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(767, 22);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 32;
+            this.statusStrip1.Text = "statusStrip1";
             // 
-            // picConEnded
+            // toolStripStatusLabel2
             // 
-            this.picConEnded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.picConEnded.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.picConEnded.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picConEnded.Location = new System.Drawing.Point(168, 363);
-            this.picConEnded.Name = "picConEnded";
-            this.picConEnded.Size = new System.Drawing.Size(12, 12);
-            this.picConEnded.TabIndex = 37;
-            this.picConEnded.TabStop = false;
-            this.picConEnded.Visible = false;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(109, 17);
+            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
             // 
-            // picUnContract
+            // toolStripStatusLabel1
             // 
-            this.picUnContract.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.picUnContract.BackColor = System.Drawing.Color.SkyBlue;
-            this.picUnContract.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picUnContract.Location = new System.Drawing.Point(66, 381);
-            this.picUnContract.Name = "picUnContract";
-            this.picUnContract.Size = new System.Drawing.Size(12, 12);
-            this.picUnContract.TabIndex = 35;
-            this.picUnContract.TabStop = false;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(109, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
-            // picUnactive
+            // prbExcel
             // 
-            this.picUnactive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.picUnactive.BackColor = System.Drawing.Color.DarkGray;
-            this.picUnactive.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picUnactive.Location = new System.Drawing.Point(66, 363);
-            this.picUnactive.Name = "picUnactive";
-            this.picUnactive.Size = new System.Drawing.Size(12, 12);
-            this.picUnactive.TabIndex = 33;
-            this.picUnactive.TabStop = false;
+            this.prbExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.prbExcel.Location = new System.Drawing.Point(432, 482);
+            this.prbExcel.Name = "prbExcel";
+            this.prbExcel.Size = new System.Drawing.Size(315, 16);
+            this.prbExcel.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.prbExcel.TabIndex = 47;
+            this.prbExcel.Visible = false;
+            // 
+            // btAcceptDoc
+            // 
+            this.btAcceptDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btAcceptDoc.BackgroundImage = global::Arenda.Properties.Resources.DeleteHS;
+            this.btAcceptDoc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btAcceptDoc.Location = new System.Drawing.Point(112, 435);
+            this.btAcceptDoc.Name = "btAcceptDoc";
+            this.btAcceptDoc.Size = new System.Drawing.Size(32, 32);
+            this.btAcceptDoc.TabIndex = 53;
+            this.btAcceptDoc.UseVisualStyleBackColor = true;
+            this.btAcceptDoc.Visible = false;
+            this.btAcceptDoc.Click += new System.EventHandler(this.btAcceptDoc_Click);
+            // 
+            // btnReport
+            // 
+            this.btnReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReport.Image = global::Arenda.Properties.Resources.printer_6;
+            this.btnReport.Location = new System.Drawing.Point(241, 435);
+            this.btnReport.Name = "btnReport";
+            this.btnReport.Size = new System.Drawing.Size(32, 32);
+            this.btnReport.TabIndex = 51;
+            this.btnReport.UseVisualStyleBackColor = true;
+            this.btnReport.Visible = false;
+            this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
+            // 
+            // btPrint
+            // 
+            this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btPrint.Image = ((System.Drawing.Image)(resources.GetObject("btPrint.Image")));
+            this.btPrint.Location = new System.Drawing.Point(525, 435);
+            this.btPrint.Name = "btPrint";
+            this.btPrint.Size = new System.Drawing.Size(32, 32);
+            this.btPrint.TabIndex = 33;
+            this.btPrint.UseVisualStyleBackColor = true;
+            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
+            // 
+            // tsmiLoad1C
+            // 
+            this.tsmiLoad1C.Name = "tsmiLoad1C";
+            this.tsmiLoad1C.Size = new System.Drawing.Size(103, 20);
+            this.tsmiLoad1C.Text = "Загрузка счетов";
             // 
             // mForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(767, 512);
+            this.Controls.Add(this.btAddDocFile);
             this.Controls.Add(this.btnMassDiscounts);
             this.Controls.Add(this.btDicDiscount);
             this.Controls.Add(this.btReportTenant);
-            this.Controls.Add(this.pListDoc);
             this.Controls.Add(this.btKntListTaxes);
             this.Controls.Add(this.btCopyDoc);
             this.Controls.Add(this.pLordland);
@@ -1825,6 +1848,7 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.pTenant);
+            this.Controls.Add(this.pListDoc);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(775, 539);
@@ -1836,21 +1860,21 @@
             this.menuStrip1.PerformLayout();
             this.pTenant.ResumeLayout(false);
             this.pTenant.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConEnded)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picUnContract)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picUnactive)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgTenant)).EndInit();
             this.pLordland.ResumeLayout(false);
             this.pLordland.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgLordland)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgListDoc)).EndInit();
             this.pListDoc.ResumeLayout(false);
             this.pListDoc.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picConEnded)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picUnContract)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picUnactive)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bds)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bds1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbs2)).EndInit();
@@ -2019,6 +2043,8 @@
         private System.Windows.Forms.Button btnMassDiscounts;
         private System.Windows.Forms.ToolStripMenuItem tsmiReport;
         private System.Windows.Forms.ToolStripMenuItem tsmiReportPayTypeDates;
+        private System.Windows.Forms.Button btAddDocFile;
+        private System.Windows.Forms.ToolStripMenuItem tsmiLoad1C;
     }
 }
 

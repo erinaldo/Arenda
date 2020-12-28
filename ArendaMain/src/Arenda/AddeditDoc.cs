@@ -39,6 +39,7 @@ namespace Arenda
         DataTable conf;
         DataTable dtDiscount;
         string defaultVal = "0.00";
+        string defaultVal4 = "0.0000";
         string format = "{0:### ### ##0.00}";
         string format4 = "{0:### ### ##0.0000}";
         string defaultValInt = "0";
@@ -340,7 +341,7 @@ namespace Arenda
               2, 0, 9999999999, false, defaultVal, format);
 
             cbm = tbcbm.Text = numTextBox.CheckAndChange(Rec.Rows[0]["Cost_of_Meter"].ToString(),
-              4, 0, 9999999999, false, defaultVal, format4);
+              4, 0, 9999999999, false, defaultVal4, format4);
 
             rekl = txtReklamma.Text = numTextBox.CheckAndChange(Rec.Rows[0]["Reklama"].ToString(),
               2, 0, 9999999999, false, defaultVal, format);
@@ -1235,7 +1236,7 @@ namespace Arenda
             tbReklSize1.Text = numTextBox.CheckAndChange(tbReklSize1.Text, 2, 0, 9999999999, false, defaultVal, format);
             tbReklSize2.Text = numTextBox.CheckAndChange(tbReklSize2.Text, 2, 0, 9999999999, false, defaultVal, format);
             tbSt.Text = numTextBox.CheckAndChange(tbSt.Text, 2, 0, 9999999999, false, defaultVal, format);
-            tbcbm.Text = numTextBox.CheckAndChange(tbcbm.Text, 4, 0, 9999999999, false, defaultVal, format4);
+            tbcbm.Text = numTextBox.CheckAndChange(tbcbm.Text, 4, 0, 9999999999, false, defaultVal4, format4);
             tbphone.Text = numTextBox.CheckAndChange(tbphone.Text, 2, 0, 9999999999, false, defaultVal, format);
             tbReklNumber.Text = numTextBox.CheckAndChange(tbReklNumber.Text, 0, 0, 999999999, false, defaultValInt, formatInt);
             string arenda = tbAr.Text;
@@ -2263,7 +2264,7 @@ namespace Arenda
 
         private void tbcbm_Leave(object sender, EventArgs e)
         {
-            tbcbm.Text = numTextBox.CheckAndChange(tbcbm.Text, 4, 0, 9999999999, false, defaultVal, format4);
+            tbcbm.Text = numTextBox.CheckAndChange(tbcbm.Text, 4, 0, 9999999999, false, defaultVal4, format4);
             FormatSumms();
         }
 

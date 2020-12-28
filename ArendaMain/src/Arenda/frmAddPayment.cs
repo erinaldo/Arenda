@@ -204,12 +204,22 @@ namespace Arenda
                 return;
             }
 
-           /* DateTime AgrDate = DateTime.Parse(dtAgreement.Rows[0]["Date_of_Conclusion"].ToString()).Date;
-            if (dtpDate.Value.Date < AgrDate)
+            DataTable dt = new DataTable();
+            if ((int)cmbPayType.SelectedValue == 2)
             {
-                MessageBox.Show("Дата договора - " + AgrDate.ToShortDateString() + "\nДата оплаты не может быть меньше!");
-                return;
-            } */           
+                if (dtAgreement.Rows[0]["fullPayed"].ToString() == "True")
+                {
+                    MessageBox.Show("Договор полностью оплачен. \nДобавление оплаты невозможно!", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+
+            /* DateTime AgrDate = DateTime.Parse(dtAgreement.Rows[0]["Date_of_Conclusion"].ToString()).Date;
+             if (dtpDate.Value.Date < AgrDate)
+             {
+                 MessageBox.Show("Дата договора - " + AgrDate.ToShortDateString() + "\nДата оплаты не может быть меньше!");
+                 return;
+             } */
 
             //int curSign = 0;            
             //if (rbRek.Checked)
@@ -230,11 +240,11 @@ namespace Arenda
             //}                             
 
 
-            DataTable dt = new DataTable();
+            //DataTable dt = new DataTable();
             dt = _proc.CheckAnotherPayment(id,
                                  id_agreement,
                                  dtpDate.Value.Date,
-                                 decimal.Parse(numTextBox.ConvertToCompPunctuation(txtSum.Text))                                 
+                                 decimal.Parse(numTextBox.ConvertToCompPunctuation(txtSum.Text))
                                  );
 
             if ((dt != null) && (dt.Rows.Count > 0))
@@ -256,7 +266,7 @@ namespace Arenda
             {
                 //MessageBox.Show("Ошибка соединения с сервером");
                 return;
-            }       
+            }
         }
 
         private void save()

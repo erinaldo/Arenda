@@ -219,6 +219,10 @@ namespace dllJournalPlaneReport
 
                 sumMonth = Math.Round(sumMonth, 0);
 
+                //if ((int)row["id"] == 3155) { 
+                
+                //}
+
                 row["EndPlan"] = sumMonth;
                 decimal tmpResult = (decimal)row["EndPlan"] + (decimal)row["preCredit"] - (decimal)row["preOverPayment"] + (decimal)row["Penalty"] + (decimal)row["OtherPayments"];
                 decimal tmpResult_tmp = tmpResult;
@@ -226,7 +230,8 @@ namespace dllJournalPlaneReport
                 tmpResult = (decimal)row["ultraResult"] - (decimal)row["Included"];
                 row["Credit"] = tmpResult > 0 ? tmpResult : (decimal)0;
                 //row["OverPayment"] = tmpResult < 0 ? Math.Abs(tmpResult) : (decimal)0;
-                row["OverPayment"] = tmpResult_tmp < 0 ? Math.Abs(tmpResult_tmp) : ((decimal)row["ultraResult"] < 0 ? Math.Abs(tmpResult) : (decimal)0);
+                //row["OverPayment"] = tmpResult_tmp < 0 ? Math.Abs(tmpResult_tmp) : ((decimal)row["ultraResult"] < 0 ? Math.Abs(tmpResult) : (decimal)0);
+                row["OverPayment"] = tmpResult_tmp < 0 ? Math.Abs(tmpResult_tmp) + (decimal)row["Included"] : (tmpResult < 0 ? Math.Abs(tmpResult) : (decimal)0);
                 row["Discount"] = (decimal)row["Total_Sum"] - (decimal)row["EndPlan"];
                 row["timeLimit"] = $"{((DateTime)row["Start_Date"]).ToShortDateString()} - {((DateTime)row["Stop_Date"]).ToShortDateString()}";
             }

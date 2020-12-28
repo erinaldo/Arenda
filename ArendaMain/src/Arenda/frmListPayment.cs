@@ -111,11 +111,11 @@ namespace Arenda
             DataTable dt = _proc.GetLD(id);
             if ((dt != null) && (dt.Rows.Count > 0))
             {
-                if (dt.Rows[0]["fullPayed"].ToString() == "True")
-                {
-                    MessageBox.Show("Договор полностью оплачен. \nДобавление оплаты невозможно!", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
+                //if (dt.Rows[0]["fullPayed"].ToString() == "True")
+                //{
+                //    MessageBox.Show("Договор полностью оплачен. \nДобавление оплаты невозможно!", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
+                //else
                 {
                     int? id_savePayment = null;
                     if (dt.Rows[0]["id_SavePayment"] != DBNull.Value) id_savePayment = (int?)dt.Rows[0]["id_SavePayment"];

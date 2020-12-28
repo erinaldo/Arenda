@@ -44,6 +44,16 @@ namespace JournalBorrower
             cmbTypeDoc.ValueMember = "id";
             cmbTypeDoc.DataSource = dtTypeDoc;
 
+            task = Config.hCntMain.GetAddPayment(true);
+            task.Wait();
+            DataTable dtTypePayment = task.Result;
+
+            cmbTypePayment.DisplayMember = "cName";
+            cmbTypePayment.ValueMember = "id";
+            cmbTypePayment.DataSource = dtTypePayment;
+            
+
+
             rbPayDoc_Click(null, null);
             //getData();
         }
@@ -99,6 +109,11 @@ namespace JournalBorrower
         {
             cSumDoc.Visible = rbPayDoc.Checked;
             cDateCloseSection.Visible = rbPayDoc.Checked;
+            cNameAddPayment.Visible = !rbPayDoc.Checked;
+            
+            label2.Visible = cmbTypePayment.Visible = !rbPayDoc.Checked;
+
+
             if (rbPayDoc.Checked)
             {
                 cSumPay.DataPropertyName = "SummaPaymentFine_1";
@@ -113,6 +128,9 @@ namespace JournalBorrower
                 cPrcOwe.DataPropertyName = "PrcPenny_2";
             }
 
+            ChangeTableForType();
+
+            dgvData.DataSource = dtData;
             setFilter();
         }
 
@@ -134,6 +152,8 @@ namespace JournalBorrower
 
             int maxColumns = 0;
 
+            int indexSumPay = 9, indexSumItogSum = 10, indexSumOwe = 11;
+
             foreach (DataGridViewColumn col in dgvData.Columns)
                 if (col.Visible)
                 {
@@ -144,12 +164,25 @@ namespace JournalBorrower
                     if (col.Name.Equals("cPlace")) setWidthColumn(indexRow, maxColumns, 35, report);
                     if (col.Name.Equals("cSumMeter")) setWidthColumn(indexRow, maxColumns, 15, report);
                     if (col.Name.Equals("cSumDoc")) setWidthColumn(indexRow, maxColumns, 20, report);
-                    if (col.Name.Equals("cSumPay")) setWidthColumn(indexRow, maxColumns, 18, report);
-                    if (col.Name.Equals("cSumItogSum")) setWidthColumn(indexRow, maxColumns, 15, report);
-                    if (col.Name.Equals("cSumOwe")) setWidthColumn(indexRow, maxColumns, 15, report);
+                    if (col.Name.Equals("cSumPay"))
+                    {
+                        indexSumPay = maxColumns; setWidthColumn(indexRow, maxColumns, 18, report);
+                    }
+                    if (col.Name.Equals("cSumItogSum"))
+                    {
+                        indexSumItogSum = maxColumns;   
+                        setWidthColumn(indexRow, maxColumns, 15, report);
+                    }
+                    if (col.Name.Equals("cSumOwe"))
+                    {
+                        indexSumOwe = maxColumns;
+                        setWidthColumn(indexRow, maxColumns, 15, report);
+                    }
                     if (col.Name.Equals("cPrcOwe")) setWidthColumn(indexRow, maxColumns, 15, report);
                     if (col.Name.Equals("cDateCloseSection")) setWidthColumn(indexRow, maxColumns, 20, report);
+                    if(col.Name.Equals("cNameAddPayment")) setWidthColumn(indexRow, maxColumns, 23, report);
                     //Console.WriteLine(col.Name);
+                    
                 }
 
             #region "Head"
@@ -185,13 +218,16 @@ namespace JournalBorrower
             indexRow++;
             #endregion
 
-
+            #region "Блок для долгов"
             indexRow++;
             var ResultGroup = dtData.DefaultView.ToTable().AsEnumerable().GroupBy(r => r.Field<int>("id_Tenant"));
             report.Merge(indexRow, 1, indexRow, maxColumns);
             report.AddSingleValue($"Общее кол-во должников: {ResultGroup.Count()}", indexRow, 1);
             indexRow++;
 
+            report.Merge(indexRow, 1, indexRow, maxColumns);
+            report.AddSingleValue($"Кол-во секций с долгами: {dtData.DefaultView.Count}", indexRow, 1);
+            indexRow++;
 
             EnumerableRowCollection<DataRow> RowCollect = dtData.DefaultView.ToTable().AsEnumerable().Where(r => r.Field<decimal>(rbPayDoc.Checked ? "PrcPenny_1" : "PrcPenny_2") >= 100);
             report.Merge(indexRow, 1, indexRow, maxColumns);
@@ -209,7 +245,7 @@ namespace JournalBorrower
             report.AddSingleValue($"Кол-во должников с долгом от 0 до 49%: {RowCollect.Count()}", indexRow, 1);
             indexRow++;
             indexRow++;
-
+            #endregion
 
 
 
@@ -223,6 +259,7 @@ namespace JournalBorrower
             report.SetFontBold(indexRow, 1, indexRow, maxColumns);
             report.SetBorders(indexRow, 1, indexRow, maxColumns);
             report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+            report.SetPrintRepeatHead(indexRow, indexRow);
             indexRow++;
 
             foreach (DataRowView row in dtData.DefaultView)
@@ -258,18 +295,17 @@ namespace JournalBorrower
             #region "Bottom"
             report.AddSingleValue($"Итого", indexRow, 1);
             report.SetBorders(indexRow, 1, indexRow, 1);
-
-
+            
             object varSum = dtData.DefaultView.ToTable().Compute($"SUM({(rbPayDoc.Checked ? "SummaPaymentFine_1" : "SummaPaymentFine_2")})", "");
-            report.AddSingleValue($"{((decimal)varSum).ToString("0.00")}", indexRow, 9);
+            report.AddSingleValue($"{((decimal)varSum).ToString("0.00")}", indexRow, indexSumPay);
             
             varSum = dtData.DefaultView.ToTable().Compute($"SUM({(rbPayDoc.Checked ? "SummaFine_1" : "SummaFine_2")})", "");
-            report.AddSingleValue($"{((decimal)varSum).ToString("0.00")}", indexRow, 10);
+            report.AddSingleValue($"{((decimal)varSum).ToString("0.00")}", indexRow, indexSumItogSum);
             
             varSum = dtData.DefaultView.ToTable().Compute($"SUM({(rbPayDoc.Checked ? "SummaPenny_1" : "SummaPenny_2")})", "");
-            report.AddSingleValue($"{((decimal)varSum).ToString("0.00")}", indexRow, 11);
-            report.SetFormat(indexRow, 9, indexRow, 11, "0.00");
-            report.SetBorders(indexRow, 9, indexRow, 11);
+            report.AddSingleValue($"{((decimal)varSum).ToString("0.00")}", indexRow, indexSumOwe);
+            report.SetFormat(indexRow, indexSumPay, indexRow, indexSumOwe, "0.00");
+            report.SetBorders(indexRow, indexSumPay, indexRow, indexSumOwe);
             report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
             report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
             indexRow++;
@@ -392,6 +428,7 @@ namespace JournalBorrower
 
         Nwuram.Framework.UI.Service.EnableControlsServiceInProg fBlocker = new Nwuram.Framework.UI.Service.EnableControlsServiceInProg();
         Nwuram.Framework.UI.Forms.frmLoad fWait;
+        private DataTable DateTableType1, DateTableType2;
         private void getData()
         {
             int id_object = (int)cmbObject.SelectedValue;
@@ -407,6 +444,7 @@ namespace JournalBorrower
                     fWait.Owner = this;
                     fWait.TextWait = "Загружаю данные из базы!";
                     fWait.Show();
+                    dgvData.DataSource = null;
                 }, this);
 
 
@@ -441,27 +479,32 @@ namespace JournalBorrower
 
                 if (task.Result != null && task.Result.Rows.Count > 0)
                 {
-                    initDateType1(task.Result);
+                    initDateType1(task.Result);                    
                 }
+                DateTableType1 = dtData.Copy();
+                dtData.Clear();
+
 
                 task = Config.hCntMain.GetListOweAdditionalData(2, id_object);
                 task.Wait();
                 if (task.Result != null && task.Result.Rows.Count > 0)
                 {
-                    foreach (DataRow row in task.Result.Rows)
-                    {
-                        EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable().Where(r => r.Field<int>("id") == (int)row["id"]);
-                        if (rowCollect.Count() > 0)
-                        {
-                            rowCollect.First()["SummaPaymentFine_2"] = row["SummaPaymentFine"];
-                            rowCollect.First()["SummaFine_2"] = row["SummaFine"];
-                            rowCollect.First()["SummaPenny_2"] = row["SummaPenny"];
-                            rowCollect.First()["PrcPenny_2"] = Math.Round((decimal)row["PrcPenny"], 0);
-                        }
-                    }
+                    DateTableType2  = task.Result.AsEnumerable().Where(r => r.Field<decimal>("PrcPenny_2") > 0).CopyToDataTable();                   
+                    //foreach (DataRow row in task.Result.Rows)
+                    //{
+                    //    EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable().Where(r => r.Field<int>("id") == (int)row["id"]);
+                    //    if (rowCollect.Count() > 0)
+                    //    {
+                    //        rowCollect.First()["SummaPaymentFine_2"] = row["SummaPaymentFine"];
+                    //        rowCollect.First()["SummaFine_2"] = row["SummaFine"];
+                    //        rowCollect.First()["SummaPenny_2"] = row["SummaPenny"];
+                    //        rowCollect.First()["PrcPenny_2"] = Math.Round((decimal)row["PrcPenny"], 0);
+                    //    }
+                    //}
                 }
                 Config.DoOnUIThread(() =>
                 {
+                    ChangeTableForType();
                     fWait.Dispose();
                     fBlocker.RestoreControlEnabledState(this);
 
@@ -469,6 +512,24 @@ namespace JournalBorrower
                     dgvData.DataSource = dtData;
                 }, this);
             }).Start();
+        }
+
+        private void ChangeTableForType()
+        {
+            if (rbPayDoc.Checked)
+            {
+                if (DateTableType1 == null) dtData = null; else
+                 dtData = DateTableType1.Copy();
+            }
+            else
+            {
+                if (DateTableType2 == null) dtData = null;
+                else
+                    dtData = DateTableType2.Copy();
+            }
+
+            if (dtData != null)
+                dtData.AcceptChanges();
         }
 
         Dictionary<int, DataTable> dicPayMonth = new Dictionary<int, DataTable>();
@@ -786,6 +847,12 @@ namespace JournalBorrower
                 //if (!chbNotActive.Checked)
                 //    filter += (filter.Length == 0 ? "" : " and ") + $"isActive = 1";
 
+                if (rbPayDopDoc.Checked)
+                {
+                    if ((int)cmbTypePayment.SelectedValue != 0)
+                        filter += (filter.Length == 0 ? "" : " and ") + $"id_АddPayment = {cmbTypePayment.SelectedValue}";
+                }
+
                 if (rbPayDoc.Checked)
                     filter += (filter.Length == 0 ? "" : " and ") + $"SummaPaymentFine_1_filter <> 0"; 
                 else if(rbPayDopDoc.Checked)
@@ -875,6 +942,11 @@ namespace JournalBorrower
                 if (dicPayMonth.ContainsKey(id))
                     new frmView() { dt = dicPayMonth[id] }.ShowDialog();
             }
+        }
+
+        private void cmbTypePayment_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            setFilter();
         }
 
         private void dgvData_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)

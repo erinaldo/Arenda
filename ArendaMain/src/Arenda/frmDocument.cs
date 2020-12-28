@@ -24,23 +24,32 @@ namespace Arenda
         public int id_Doc { private get; set; }
         //public int _id_type_dog { private get; set; }
         private DataTable dtScan, dtScan_old;
-        private bool isView = false;
+        //private bool isView = false;
         public DateTime str { private get; set; }
         int doc_Type;
         DateTime date_doc;
-        string name = "";
-        NetworkShare net = new NetworkShare(true);
+        //string name = "";
+        NetworkShare net;
+
+        public bool isLandLoard { set; private get; }
+        int width = 600;
+        int height = 100;
+
         public frmDocument(bool isView)
         {
             InitializeComponent();
-            this.isView = isView;
+          //  this.isView = isView;
             dgvScan.AutoGenerateColumns = false;
-
             btDel.Visible = btEditName.Visible = btAddFile.Visible = btScan.Visible = btSave.Visible = !isView;
+            if (!isView)
+                GetSettings();
         }
+
+        
 
         private void frmDocument_Load(object sender, EventArgs e)
         {
+            net = new NetworkShare(true, isLandLoard);
             getData();
             dgvScan_CurrentCellChanged(null, null);
         }
@@ -66,7 +75,7 @@ namespace Arenda
             imagePanel1.Zoom = ZoomValue * 0.02f;
         }
 
-        private void Scan()
+        private void Scan(string name)
         {
             try
             {
@@ -77,10 +86,12 @@ namespace Arenda
                 this.TopMost = false;
                 if (img_array != null)
                 {
-                    /*frmNameFile frmNF = new frmNameFile();
-                    if (DialogResult.OK == frmNF.ShowDialog())
+                    if (isLandLoard)
                     {
-                      string fileName = frmNF.getComment;*/
+                        frmNameFile frmNF = new frmNameFile();
+                        if (DialogResult.OK != frmNF.ShowDialog()) return;
+                        name = frmNF.getComment;
+                    }
                     byte[] byteFile = img_array;
                     saveFileToDataBase(byteFile, name, ".jpg", doc_Type, date_doc);
                     //}
@@ -92,7 +103,7 @@ namespace Arenda
             }
         }
 
-        private void addFile()
+        private void addFile(string name)
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
             fileDialog.Filter = @"(All Image Files)|*.BMP;*.bmp;*.JPG;*.JPEG*.jpg;*.jpeg;*.PNG;*.png;*.GIF;*.gif;*.tif;*.tiff;*.ico;*.ICO" +
@@ -101,9 +112,13 @@ namespace Arenda
               "|(Portable Document Format)|*.pdf";
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                //string fileName = Path.GetFileNameWithoutExtension(fileDialog.FileName);
+                if (name == null)
+                    name = Path.GetFileNameWithoutExtension(fileDialog.FileName);
+
                 byte[] byteFile = File.ReadAllBytes(fileDialog.FileName);
                 string @Extension = Path.GetExtension(fileDialog.FileName);
+
+                Image db = Image.FromFile(fileDialog.FileName);
 
                 saveFileToDataBase(byteFile, name, @Extension, doc_Type, date_doc);
             }
@@ -111,23 +126,32 @@ namespace Arenda
 
         private void btScan_Click(object sender, EventArgs e)
         {
-            frmAddDoc frmAD = new frmAddDoc(id_Doc, str/*, _id_type_dog*/);
-            if (frmAD.ShowDialog() == DialogResult.OK)
+            if (isLandLoard)
             {
-                doc_Type = frmAD.id_DocType;
-                date_doc = frmAD.date_Doc;
-                name = frmAD.name;
-                int n = 0;
-                foreach (DataRow r in dtScan.Rows)
+                doc_Type = 11;
+                Scan(null);
+            }
+            else
+            {
+
+                frmAddDoc frmAD = new frmAddDoc(id_Doc, str/*, _id_type_dog*/);
+                if (frmAD.ShowDialog() == DialogResult.OK)
                 {
-                    if (r["cName"].ToString().StartsWith(name))
+                    doc_Type = frmAD.id_DocType;
+                    date_doc = frmAD.date_Doc;
+                    string name = frmAD.name;
+                    int n = 0;
+                    foreach (DataRow r in dtScan.Rows)
                     {
-                        n++;
+                        if (r["cName"].ToString().StartsWith(name))
+                        {
+                            n++;
+                        }
                     }
+                    if (n != 0)
+                        name += "_" + n.ToString();
+                    Scan(name);
                 }
-                if (n != 0)
-                    name += "_" + n.ToString();
-                Scan();
             }
         }
 
@@ -329,23 +353,31 @@ namespace Arenda
 
         private void btAddFile_Click(object sender, EventArgs e)
         {
-            frmAddDoc frmAD = new frmAddDoc(id_Doc, str/*, _id_type_dog*/);
-            if (frmAD.ShowDialog() == DialogResult.OK)
+            if (isLandLoard)
             {
-                doc_Type = frmAD.id_DocType;
-                date_doc = frmAD.date_Doc;
-                name = frmAD.name;
-                int n = 0;
-                foreach (DataRow r in dtScan.Rows)
+                doc_Type = 11;
+                addFile(null);
+            }
+            else
+            {
+                frmAddDoc frmAD = new frmAddDoc(id_Doc, str/*, _id_type_dog*/);
+                if (frmAD.ShowDialog() == DialogResult.OK)
                 {
-                    if (r["cName"].ToString().StartsWith(name))
+                    doc_Type = frmAD.id_DocType;
+                    date_doc = frmAD.date_Doc;
+                    string name = frmAD.name;
+                    int n = 0;
+                    foreach (DataRow r in dtScan.Rows)
                     {
-                        n++;
+                        if (r["cName"].ToString().StartsWith(name))
+                        {
+                            n++;
+                        }
                     }
+                    if (n != 0)
+                        name += "_" + n.ToString();
+                    addFile(name);
                 }
-                if (n != 0)
-                    name += "_" + n.ToString();
-                addFile();
             }
         }
 
@@ -363,12 +395,24 @@ namespace Arenda
                     int id = int.Parse(dtScan.DefaultView[ind]["id"].ToString());
                     if (dtScan.DefaultView[indexRow]["Path"] != DBNull.Value)
                     {
-                      File.Move(dtScan.DefaultView[indexRow]["Path"].ToString() + "\\"
+                        string oldName = dtScan.DefaultView[indexRow]["Path"].ToString() + "\\"
                         + dtScan.DefaultView[indexRow]["cName"].ToString() +
-                        dtScan.DefaultView[indexRow]["Extension"].ToString(),
-                        dtScan.DefaultView[indexRow]["Path"].ToString() + "\\"
+                        dtScan.DefaultView[indexRow]["Extension"].ToString();
+                        
+                        string newName = dtScan.DefaultView[indexRow]["Path"].ToString() + "\\"
                         + frmNF.getComment +
-                        dtScan.DefaultView[indexRow]["Extension"].ToString());
+                        dtScan.DefaultView[indexRow]["Extension"].ToString();
+
+                        if (File.Exists(oldName))
+                        {
+                            try
+                            {
+                                File.Move(oldName, newName);
+                            }
+                            catch (Exception ex){
+                                Console.WriteLine(ex.Message.ToString());
+                            }
+                        }
                     }
                     lRename.Add(id);
                 }
@@ -391,33 +435,12 @@ namespace Arenda
 
             if (!net.CopyBytes(byteFile, nameFile + Extension, id_Doc.ToString()))
                 MessageBox.Show("Ошибка копирования файла", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            row["Path"] = net.server + "\\" + id_Doc.ToString();
-            
-         /* DataRow[] tmp = _proc.EditGetConf(ConnectionSettings.GetIdProgram(), "", "").Select("id_value = \'psss\'");
+            string prefixPath = "";
+            if(isLandLoard)
+                prefixPath = "\\sign";
 
-          if (tmp.Length == 0)
-          {
-            row["Path"] = "\\\\192.168.5.31\\Scans\\" + id_Doc.ToString();
-            _proc.EditGetConf(ConnectionSettings.GetIdProgram(), "psss", "\\\\192.168.5.31\\Scans");
-          }
-          else
-          {
-            row["Path"] = tmp[0]["value"].ToString() + "\\" + id_Doc.ToString();
-          }
-
-          try
-          {
-            if (row["Path"] != null)
-            {
-              if (!Directory.Exists(row["Path"].ToString()))
-                Directory.CreateDirectory(row["Path"].ToString());
-              File.WriteAllBytes(row["Path"].ToString() + "\\" + row["cName"].ToString()
-                + row["Extension"].ToString(), byteFile);
-              row["Scan"] = null;
-            }
-          }
-          catch { }
-          */
+            row["Path"] = $"{net.server}{prefixPath}\\{id_Doc}";
+     
             dgvScan_CurrentCellChanged(null, null);
         }
 
@@ -457,11 +480,15 @@ namespace Arenda
                 string @Extension = (string)dtScan.DefaultView[indexRow]["Extension"];
                 try
                 {
-                    MemoryStream ms = new MemoryStream(img);
-                    Bitmap b = new Bitmap(ms);
-                    imagePanel1.Image = (Bitmap)b;
-                    ZoomValue = 10;
-                    imagePanel1.Zoom = ZoomValue * 0.02f;
+                    if (img != null)
+                    {
+                        MemoryStream ms = new MemoryStream(img);
+                        Bitmap b = new Bitmap(ms);
+                        imagePanel1.Image = (Bitmap)b;
+                        ZoomValue = 10;
+                        imagePanel1.Zoom = ZoomValue * 0.02f;
+                    }
+                    else imagePanel1.Image = null;
                 }
                 catch (Exception ex)
                 {
@@ -604,8 +631,8 @@ namespace Arenda
                 int id = int.Parse(dtScan.DefaultView[indexRow]["id"].ToString());
                 string name = dtScan.DefaultView[indexRow]["cName"].ToString();
                 string extension = dtScan.DefaultView[indexRow]["Extension"].ToString();
-                byte[] file = new byte[0];
-                DataTable dtFile = _proc.getScan(id_Doc, id);
+                //byte[] file = new byte[0];
+                //DataTable dtFile = _proc.getScan(id_Doc, id);
                 /*if (dtFile != null && dtFile.Rows.Count > 0 && dtFile.Rows[0]["Scan"] != DBNull.Value)
                     file = (byte[])dtFile.Rows[0]["Scan"];
                 else if (dtFile != null && dtFile.Rows.Count > 0 && dtFile.Rows[0]["Path"] != DBNull.Value
@@ -638,7 +665,7 @@ namespace Arenda
                 if (fileDialog.ShowDialog() == DialogResult.OK)
                 {
                     //File.WriteAllBytes(fileDialog.FileName, file);
-                    net.CopyFromServer(id_Doc.ToString(), name,extension , fileDialog.FileName);
+                    net.CopyFromServer(id_Doc.ToString(), name, extension, fileDialog.FileName);
 
                     Logging.StartFirstLevel(821);
                     Logging.Comment("Произведена выгрузка внешнего файла у доп.документа договора");
@@ -694,21 +721,21 @@ namespace Arenda
                     Logging.StopFirstLevel();
                 }
 
-              if(DelPath != null && DelPath.Count != 0)
-              {
-                foreach (string p in DelPath)
+                if (DelPath != null && DelPath.Count != 0)
                 {
-                  try
-                  {
-                    File.Delete(p);
-                  }
-                  catch (Exception ex)
-                  {
-                    MessageBox.Show("Не удалось удалить файл " + p.ToString()
-                      + "\nТекст ошибки:" + ex.Message);
-                  }
+                    foreach (string p in DelPath)
+                    {
+                        try
+                        {
+                            File.Delete(p);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Не удалось удалить файл " + p.ToString()
+                              + "\nТекст ошибки:" + ex.Message);
+                        }
+                    }
                 }
-              }
 
                 if (lRename != null && lRename.Count != 0)
                 {
@@ -724,7 +751,7 @@ namespace Arenda
                                 Logging.Comment("ID: " + rename);
                                 //Logging.Comment("№ документа: " + num);                            
                                 Logging.Comment("Тип документа ID: " + r["id_DocType"]);// + " ; Наименование: " + cbTypeDoc.Text);
-                               
+
 
                                 EnumerableRowCollection<DataRow> rowCollect = dtScan_old.AsEnumerable().Where(rq => rq.Field<int>("id") == rename);
                                 if (rowCollect.Count() == 0)
@@ -735,7 +762,7 @@ namespace Arenda
                                 {
                                     foreach (DataRow rCol in rowCollect)
                                     {
-                                        Logging.VariableChange("Наименование файла: " , r["cName"].ToString() , rCol["cName"].ToString());                                        
+                                        Logging.VariableChange("Наименование файла: ", r["cName"].ToString(), rCol["cName"].ToString());
                                     }
                                 }
                                 break;
@@ -758,11 +785,11 @@ namespace Arenda
                 {
                     if ((int)r["id"] == -1)
                     {
-                      /*if (r["Path"] == null || r["Path"].ToString() == "")
-                      {
-                        r["Path"] = "\\\\192.168.5.31\\Scans";
-                        _proc.EditGetConf(ConnectionSettings.GetIdProgram(), "psss", r["Path"].ToString());
-                      }*/
+                        /*if (r["Path"] == null || r["Path"].ToString() == "")
+                        {
+                          r["Path"] = "\\\\192.168.5.31\\Scans";
+                          _proc.EditGetConf(ConnectionSettings.GetIdProgram(), "psss", r["Path"].ToString());
+                        }*/
 
                         #region проверка в комменте
                         /*
@@ -817,29 +844,29 @@ namespace Arenda
                           (DateTime)r["DateDocument"], r["Path"].ToString());
                         if (r["Scan"] != DBNull.Value)
                         {
-                          try
-                          {
-                                if (!net.CopyBytesWithServer((byte[])r["Scan"],r["Path"].ToString(), r["cName"].ToString() + r["Extension"].ToString()))
+                            try
+                            {
+                                if (!net.CopyBytesWithServer((byte[])r["Scan"], r["Path"].ToString(), r["cName"].ToString() + r["Extension"].ToString()))
                                 {
                                     MessageBox.Show("Не удалось сохранить файл " + r["Path"].ToString() + "\\"
                               + r["cName"].ToString() + r["Extension"].ToString(), "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
-                                
 
-                           /* File.WriteAllBytes(r["Path"].ToString() + "\\"
-                              + r["cName"].ToString() + r["Extension"].ToString(),
-                              (byte[])r["Scan"]);*/
-                          }
-                          catch (Exception ex)
-                          {
-                            MessageBox.Show("Не удалось сохранить файл " + r["Path"].ToString() + "\\"
-                              + r["cName"].ToString() + r["Extension"].ToString() + "\nТекст ошибки: "
-                              + ex.Message);
-                          }
+
+                                /* File.WriteAllBytes(r["Path"].ToString() + "\\"
+                                   + r["cName"].ToString() + r["Extension"].ToString(),
+                                   (byte[])r["Scan"]);*/
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Не удалось сохранить файл " + r["Path"].ToString() + "\\"
+                                  + r["cName"].ToString() + r["Extension"].ToString() + "\nТекст ошибки: "
+                                  + ex.Message);
+                            }
                         }
                         //Logging.Comment("ID: " + id_DopDoc);
                         //Logging.Comment("№ документа: " + num);
-                        
+
                         Logging.Comment("Тип документа ID: " + r["id_DocType"]);// + " ; Наименование: " + cbTypeDoc.Text);
                         Logging.Comment("Наименование файла: " + r["cName"].ToString() + " ;Расширение: " + r["Extension"].ToString());
                         //Logging.Comment("Дата документа: " + dateadddoc.Value.ToShortDateString());
@@ -881,6 +908,26 @@ namespace Arenda
         {
           if (e.KeyChar == '%')
             e.Handled = true;
+        }
+
+        private void GetSettings()
+        {           
+            DataTable dt = _proc.EditGetConf(ConnectionSettings.GetIdProgram(), "", "");
+            if (dt != null && dt.Rows.Count > 0)
+            {               
+                try
+                {
+                    width = int.Parse(dt.AsEnumerable().Where(r => r.Field<string>("id_value") == "wsig").CopyToDataTable().Rows[0]["value"].ToString());
+                }
+                catch { }
+                
+                try
+                {
+                    height = int.Parse(dt.AsEnumerable().Where(r => r.Field<string>("id_value") == "hsig").CopyToDataTable().Rows[0]["value"].ToString());
+                }
+                catch { }
+            }
+
         }
     }
 }
