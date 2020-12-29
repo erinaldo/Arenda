@@ -227,12 +227,6 @@
     <Compile Include="AddNewDocToFolder\frmAddDoc.Designer.cs">
       <DependentUpon>frmAddDoc.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddNewDocToFolder\frmSelectAgreementsTo1C.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AddNewDocToFolder\frmSelectAgreementsTo1C.Designer.cs">
-      <DependentUpon>frmSelectAgreementsTo1C.cs</DependentUpon>
-    </Compile>
     <Compile Include="AddSec.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -567,9 +561,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddNewDocToFolder\frmAddDoc.resx">
       <DependentUpon>frmAddDoc.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AddNewDocToFolder\frmSelectAgreementsTo1C.resx">
-      <DependentUpon>frmSelectAgreementsTo1C.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddSec.resx">
       <DependentUpon>AddSec.cs</DependentUpon>

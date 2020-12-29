@@ -4,7 +4,7 @@ using Nwuram.Framework.Project;
 using Nwuram.Framework.Logging;
 using Nwuram.Framework.Settings.Connection;
 
-namespace DllLink1CForAgreements
+namespace dllJournalLoad1C
 {
     static class Program
     {
@@ -22,7 +22,7 @@ namespace DllLink1CForAgreements
                     Logging.Init(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
                     Config.hCntMain = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
 
-                    Application.Run(new frmLinkAgreementVs1C());
+                    Application.Run(new frmJournalLoad1C());
 
                     Project.clearBufferFiles();
                 }

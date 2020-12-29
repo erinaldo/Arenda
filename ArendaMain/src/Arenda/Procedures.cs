@@ -676,7 +676,8 @@ namespace Arenda
             int idObj,
             int RentalVacation,
             int? id_SavePayment,
-            int id_TypeActivities)
+            int id_TypeActivities,
+            string Agreement1C)
         {
             ap.Clear();
             ap.Add(id);
@@ -710,6 +711,7 @@ namespace Arenda
             ap.Add(id_SavePayment);
             ap.Add(id_TypeActivities);
             ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
+            ap.Add(Agreement1C);
 
 
             return executeProcedure("Arenda.AddEditLD",
@@ -744,7 +746,8 @@ namespace Arenda
                     "@RentalVacation",
                     "@id_SavePayment",
                     "@id_TypeActivities",
-                    "@id_user"},
+                    "@id_user",
+                    "@Agreement1C"},
                 new DbType[] {
                     DbType.Int32,
                     DbType.Int32,
@@ -776,7 +779,8 @@ namespace Arenda
                     DbType.Int32,
                     DbType.Int32,
                     DbType.Int32,
-                    DbType.Int32
+                    DbType.Int32,
+                    DbType.String
                 }, ap);
         }
 
@@ -2635,7 +2639,6 @@ namespace Arenda
 
         }
 
-
         public DataTable GetReportPayAgreement(DateTime dateStart, DateTime dateEnd)
         {
             ap.Clear();
@@ -2757,160 +2760,7 @@ namespace Arenda
               new string[2] { "@id_Agreements", "@id_LandlordTenantBank" },
               new DbType[2] { DbType.Int32, DbType.Int32 }, ap);
         }
-
-        #region ""
-
-        /// <summary>
-        /// Получение списка объектов
-        /// </summary>
-        /// <param name=""></param>
-        /// <returns>Таблица с данными</returns>        
-        public DataTable getObjectLease(bool withAllDeps = false)
-        {
-            ap.Clear();
-
-            DataTable dtResult = executeProcedure("[Arenda].[spg_getObjectLease]",
-                 new string[0] { },
-                 new DbType[0] { }, ap);
-
-            if (withAllDeps)
-            {
-                if (dtResult != null)
-                {
-                    if (!dtResult.Columns.Contains("isMain"))
-                    {
-                        DataColumn col = new DataColumn("isMain", typeof(int));
-                        col.DefaultValue = 1;
-                        dtResult.Columns.Add(col);
-                        dtResult.AcceptChanges();
-                    }
-
-                    DataRow row = dtResult.NewRow();
-
-                    row["cName"] = "Все Объекты";
-                    row["id"] = 0;
-                    row["isMain"] = 0;
-                    row["isActive"] = 1;
-                    dtResult.Rows.Add(row);
-                    dtResult.AcceptChanges();
-                    dtResult.DefaultView.RowFilter = "isActive = 1";
-                    dtResult.DefaultView.Sort = "isMain asc, cName asc";
-                    dtResult = dtResult.DefaultView.ToTable().Copy();
-                }
-            }
-            else
-            {
-                dtResult.DefaultView.RowFilter = "isActive = 1";
-                dtResult.DefaultView.Sort = "cName asc";
-                dtResult = dtResult.DefaultView.ToTable().Copy();
-            }
-
-            return dtResult;
-        }
-
-
-        /// <summary>
-        /// Получение списка объектов
-        /// </summary>
-        /// <param name=""></param>
-        /// <returns>Таблица с данными</returns>        
-        public DataTable getTypeContract(bool withAllDeps = false)
-        {
-            ap.Clear();
-
-            DataTable dtResult = executeProcedure("[Arenda].[spg_getTypeContract]",
-                 new string[0] { },
-                 new DbType[0] { }, ap);
-
-            if (withAllDeps)
-            {
-                if (dtResult != null)
-                {
-                    if (!dtResult.Columns.Contains("isMain"))
-                    {
-                        DataColumn col = new DataColumn("isMain", typeof(int));
-                        col.DefaultValue = 1;
-                        dtResult.Columns.Add(col);
-                        dtResult.AcceptChanges();
-                    }
-
-                    DataRow row = dtResult.NewRow();
-
-                    row["cName"] = "Все типы";
-                    row["id"] = 0;
-                    row["isMain"] = 0;
-                    row["isActive"] = 1;
-                    dtResult.Rows.Add(row);
-                    dtResult.AcceptChanges();
-                    dtResult.DefaultView.RowFilter = "isActive = 1";
-                    dtResult.DefaultView.Sort = "isMain asc, cName asc";
-                    dtResult = dtResult.DefaultView.ToTable().Copy();
-                }
-            }
-            else
-            {
-                dtResult.DefaultView.RowFilter = "isActive = 1";
-                dtResult.DefaultView.Sort = "cName asc";
-                dtResult = dtResult.DefaultView.ToTable().Copy();
-            }
-
-            return dtResult;
-        }
-
-        public DataTable GetListLandlord(bool withAllDeps = false)
-        {
-            ap.Clear();
-
-            DataTable dtResult = executeProcedure("[Arenda].[GetListLandlord]",
-                 new string[0] { },
-                 new DbType[0] { }, ap);
-
-            if (withAllDeps)
-            {
-                if (dtResult != null)
-                {
-                    if (!dtResult.Columns.Contains("isMain"))
-                    {
-                        DataColumn col = new DataColumn("isMain", typeof(int));
-                        col.DefaultValue = 1;
-                        dtResult.Columns.Add(col);
-                        dtResult.AcceptChanges();
-                    }
-
-                    DataRow row = dtResult.NewRow();
-
-                    row["cName"] = "Все арендодатели";
-                    row["id"] = 0;
-                    row["isMain"] = 0;
-                    row["isActive"] = 1;
-                    dtResult.Rows.Add(row);
-                    dtResult.AcceptChanges();
-                    dtResult.DefaultView.RowFilter = "isActive = 1";
-                    dtResult.DefaultView.Sort = "isMain asc, cName asc";
-                    dtResult = dtResult.DefaultView.ToTable().Copy();
-                }
-            }
-            else
-            {
-                dtResult.DefaultView.RowFilter = "isActive = 1";
-                dtResult.DefaultView.Sort = "cName asc";
-                dtResult = dtResult.DefaultView.ToTable().Copy();
-            }
-
-            return dtResult;
-        }
-
-        public DataTable GetListAgreementTo1C(int id_object)
-        {
-            ap.Clear();
-            ap.Add(id_object);
-
-            return executeProcedure("Arenda.GetListAgreementTo1C",
-              new string[1] { "@id_object" },
-              new DbType[1] { DbType.Int32 }, ap);
-        }
-
-        #endregion
+        
     }
 }
 

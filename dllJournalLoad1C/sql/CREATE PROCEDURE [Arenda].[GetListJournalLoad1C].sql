@@ -10,14 +10,17 @@ GO
 -- Create date: 2020-07-27
 -- Description:	Получение списка оплат по договору
 -- =============================================
-ALTER PROCEDURE [Arenda].[GetListAgreementTo1C]	
-	@id_object int = 0
+CREATE PROCEDURE [Arenda].[GetListJournalLoad1C]	
+	@id_object int = 0,
+	@dateStart date, 
+	@dateEnd date
 AS
 BEGIN
 
 
 select 
 	a.id,
+	lac.DateLoad,
 	ol.cName as nameObjectLease,	
 	too.Abbreviation + ' ' + lt.cName as nameTenant,
 	lloo.Abbreviation + ' ' + ll.cName as nameLandLord,
@@ -45,9 +48,13 @@ select
 		when a.id_TypeContract = 2 then isnull(rp.NumberPlace,'')
 		when a.id_TypeContract = 3 then isnull(lp.NumberPlot,'')
 	end,'') as sectionName,
-	a.id_Landlord
+	a.id_Landlord,
+	lac.NumberAccount,
+	lac.DateAccount,
+	lac.TypePayment
 from
-	Arenda.j_Agreements a 
+	[Arenda].[j_LoadAccount1C] lac
+		inner join Arenda.j_Agreements a on a.id = lac.id_Agreements
 		inner join Arenda.s_Landlord_Tenant lt on lt.id = a.id_Tenant
 		inner join Arenda.s_Type_of_Organization too on too.id = lt.id_Type_Of_Organization
 		inner join Arenda.s_ObjectLease ol on ol.id = a.id_ObjectLease
@@ -67,10 +74,8 @@ from
 
 		left join Arenda.s_LandPlot lp on lp.id = a.id_Section and a.id_TypeContract = 3
 where 
-	a.Agreement1C is null  
+	@dateStart<=lac.DateLoad and lac.DateLoad<=@dateEnd
 	and (@id_object = 0 or a.id_ObjectLease = @id_object)
-order by 
-	a.id_Tenant asc
 
 END
 

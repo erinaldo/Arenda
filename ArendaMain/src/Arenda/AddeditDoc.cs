@@ -137,7 +137,6 @@ namespace Arenda
             }
         }
 
-
         private void init_TypeActivitis()
         {
             DataTable dtSavePayment = _proc.getTypeActivities(false);
@@ -146,7 +145,6 @@ namespace Arenda
             cmbTypeActivities.ValueMember = "id";
             cmbTypeActivities.SelectedIndex = -1;
         }
-
 
         private void TypeToVisibleElement()
         {
@@ -241,8 +239,6 @@ namespace Arenda
                 tbName.Text = Rec.Rows[0]["NameBank"].ToString();
                 tbBik.Text = Rec.Rows[0]["BIC"].ToString();
                 tbKS.Text = Rec.Rows[0]["CorrespondentAccount"].ToString();
-
-
             }
 
             _id = id;
@@ -286,6 +282,9 @@ namespace Arenda
             
             if(Rec.Rows[0]["id_TypeActivities"]!=DBNull.Value)
                 cmbTypeActivities.SelectedValue = Rec.Rows[0]["id_TypeActivities"];
+
+            if (Rec.Rows[0]["Agreement1C"] != DBNull.Value)
+                tbNum1c.Text = Rec.Rows[0]["Agreement1C"].ToString();
 
             //
 
@@ -899,7 +898,7 @@ namespace Arenda
             if (AllDataFilled())
             {
                 try
-                {                                                                                                                                                                                                                                                                                 //(cbBasment.SelectedValue == null ? 0 : int.Parse(cbBasment.SelectedValue.ToString()))
+                {                                                                                                                                                                                                           //(cbBasment.SelectedValue == null ? 0 : int.Parse(cbBasment.SelectedValue.ToString()))
                     pay = (radioButton1.Checked) ? 1 : 0;
 
                     if (SquareChanged() && (int)cmbTypeDog.SelectedValue != 3)
@@ -982,7 +981,8 @@ namespace Arenda
                             _idObj,
                             RentalVacation,
                             id_SavePayment,
-                            (int)cmbTypeActivities.SelectedValue
+                            (int)cmbTypeActivities.SelectedValue,
+                            tbNum1c.Text
                             );
 
                     if ((SaveResult != null) && (SaveResult.Rows.Count > 0))
@@ -2090,6 +2090,7 @@ namespace Arenda
         {
             btAddDiscount.Visible = btDelDiscount.Visible = rezhim.Equals("edit") && new List<string> { "СОА", "РКВ", "МНД" }.Contains(TempData.Rezhim);
             btAccept.Visible = btunAccept.Visible = rezhim.Equals("view") && new List<string> { "Д" }.Contains(TempData.Rezhim);
+            tbNum1c.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim);
 
             groupBox7.Enabled = true;
             dgvData.Enabled = true;

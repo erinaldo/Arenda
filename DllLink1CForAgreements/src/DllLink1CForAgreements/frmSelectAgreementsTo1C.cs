@@ -12,6 +12,9 @@ namespace DllLink1CForAgreements
 {
     public partial class frmSelectAgreementsTo1C : Form
     {
+        public int IdAgreement { private set; get; }
+        public string Agreement { private set; get; }
+        
 
         private DataTable dtLandLord, dtData;
         public frmSelectAgreementsTo1C()
@@ -41,12 +44,30 @@ namespace DllLink1CForAgreements
 
         private void dgvData_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
-
+            Color rColor = Color.White;
+            //if (!(bool)dtData.DefaultView[e.RowIndex]["isActive"])
+            //  rColor = panel1.BackColor;
+            dgvData.Rows[e.RowIndex].DefaultCellStyle.BackColor = rColor;
+            dgvData.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = rColor;
+            dgvData.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black;
         }
 
         private void dgvData_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
+            DataGridView dgv = sender as DataGridView;
+            //Рисуем рамку для выделеной строки
+            if (dgv.Rows[e.RowIndex].Selected)
+            {
+                int width = dgv.Width;
+                Rectangle r = dgv.GetRowDisplayRectangle(e.RowIndex, false);
+                Rectangle rect = new Rectangle(r.X, r.Y, width - 1, r.Height - 1);
 
+                ControlPaint.DrawBorder(e.Graphics, rect,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid,
+                    SystemColors.Highlight, 2, ButtonBorderStyle.Solid);
+            }
         }
 
         private void dgvData_ColumnWidthChanged(object sender, DataGridViewColumnEventArgs e)
@@ -120,13 +141,86 @@ namespace DllLink1CForAgreements
 
         private void tbTenant_TextChanged(object sender, EventArgs e)
         {
+            setFilter();
+        }
 
+        private void setFilter()
+        {
+            if (dtData == null || dtData.Rows.Count == 0)
+            {
+                btSave.Enabled = false;
+                return;
+            }
+
+            try
+            {
+                string filter = "";
+
+                if (tbTenant.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"nameTenant like '%{tbTenant.Text.Trim()}%'";
+
+                if (tbAgreements.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"Agreement like '%{tbAgreements.Text.Trim()}%'";
+
+                if (tbPlace.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"namePlace like '%{tbPlace.Text.Trim()}%'";
+
+                if ((int)cmbLandLord.SelectedValue != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_Landlord = {cmbLandLord.SelectedValue}";
+
+                if ((int)cmbTypeDoc.SelectedValue != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"id_TypeContract = {cmbTypeDoc.SelectedValue}";
+
+                dtData.DefaultView.RowFilter = filter;
+            }
+            catch
+            {
+                dtData.DefaultView.RowFilter = "id = -1";
+            }
+            finally
+            {
+                btSave.Enabled = dtData.DefaultView.Count != 0;                
+            }
+        }
+
+        private void cmbLandLord_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            setFilter();
+        }
+
+        private void btUpdate_Click(object sender, EventArgs e)
+        {
+            GetData();
+        }
+
+        private void dgvData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1) return;
+            selectAgreement();
+        }
+
+        private void selectAgreement()
+        {
+            IdAgreement = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+            Agreement = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["Agreement"];
+            DialogResult = DialogResult.OK;
+        }
+
+        private void btSave_Click(object sender, EventArgs e)
+        {
+            selectAgreement();
+        }
+
+        private void btExit_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
         }
 
         private void GetData()
         {
             int id_Object = (int)cmbObject.SelectedValue;
             dtData = Config.hCntMain.GetListAgreementTo1C(id_Object);
+            setFilter();
             dgvData.DataSource = dtData;
         }
     }

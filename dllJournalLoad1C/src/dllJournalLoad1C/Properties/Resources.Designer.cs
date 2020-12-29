@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DllLink1CForAgreements.Properties {
+namespace dllJournalLoad1C.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace DllLink1CForAgreements.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DllLink1CForAgreements.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("dllJournalLoad1C.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -66,16 +66,6 @@ namespace DllLink1CForAgreements.Properties {
         internal static System.Drawing.Bitmap exit_8633 {
             get {
                 object obj = ResourceManager.GetObject("exit_8633", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap photo_2020_10_12_16_28_27 {
-            get {
-                object obj = ResourceManager.GetObject("photo_2020-10-12_16-28-27", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

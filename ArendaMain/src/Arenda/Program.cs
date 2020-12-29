@@ -27,8 +27,7 @@ namespace Arenda
                 Logging.StartFirstLevel(1);
                 Logging.Comment("Вход в программу");
                 Logging.StopFirstLevel();
-
-                new AddNewDocToFolder.frmSelectAgreementsTo1C().ShowDialog();
+                
                 //new Reports.frmDelete_Files().ShowDialog();
 
                 if (!new List<string>() { "СОА", "РКВ", "МНД", "ПР", "КНТ", "СБ6", "Д" }.Contains(Nwuram.Framework.Settings.User.UserSettings.User.StatusCode)) { return; }
