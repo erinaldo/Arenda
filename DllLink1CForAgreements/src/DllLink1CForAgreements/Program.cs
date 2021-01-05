@@ -22,7 +22,7 @@ namespace DllLink1CForAgreements
                     Logging.Init(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
                     Config.hCntMain = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
 
-                    Application.Run(new frmLinkAgreementVs1C());
+                    Application.Run(new frmLoaderFile1C());
 
                     Project.clearBufferFiles();
                 }

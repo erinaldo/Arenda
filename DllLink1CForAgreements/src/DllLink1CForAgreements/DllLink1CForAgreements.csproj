@@ -55,6 +55,12 @@
     <Compile Include="frmLinkAgreementVs1C.Designer.cs">
       <DependentUpon>frmLinkAgreementVs1C.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmLoaderFile1C.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLoaderFile1C.Designer.cs">
+      <DependentUpon>frmLoaderFile1C.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSelectAgreementsTo1C.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +72,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmLinkAgreementVs1C.resx">
       <DependentUpon>frmLinkAgreementVs1C.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLoaderFile1C.resx">
+      <DependentUpon>frmLoaderFile1C.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSelectAgreementsTo1C.resx">
       <DependentUpon>frmSelectAgreementsTo1C.cs</DependentUpon>

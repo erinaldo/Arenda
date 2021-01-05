@@ -29,29 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbObject = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cmbTypeDoc = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.tbPlace = new System.Windows.Forms.TextBox();
-            this.tbAgreements = new System.Windows.Forms.TextBox();
-            this.tbTenant = new System.Windows.Forms.TextBox();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btSave = new System.Windows.Forms.Button();
-            this.btExit = new System.Windows.Forms.Button();
-            this.btUpdate = new System.Windows.Forms.Button();
-            this.dtpStart = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.dtpEnd = new System.Windows.Forms.DateTimePicker();
-            this.label5 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tbTypePay = new System.Windows.Forms.TextBox();
-            this.tbAgreement1C = new System.Windows.Forms.TextBox();
-            this.tbLandLord = new System.Windows.Forms.TextBox();
             this.cDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cLandLord = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,7 +46,24 @@
             this.cAgreement1C = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cDate1C = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cTypePay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbPlace = new System.Windows.Forms.TextBox();
+            this.tbAgreements = new System.Windows.Forms.TextBox();
+            this.tbTenant = new System.Windows.Forms.TextBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btExcel = new System.Windows.Forms.Button();
+            this.btExit = new System.Windows.Forms.Button();
+            this.btUpdate = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.dtpStart = new System.Windows.Forms.DateTimePicker();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.dtpEnd = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.tbTypePay = new System.Windows.Forms.TextBox();
+            this.tbAgreement1C = new System.Windows.Forms.TextBox();
+            this.tbLandLord = new System.Windows.Forms.TextBox();
+            this.btSendMail = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,14 +114,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cDate,
@@ -133,14 +134,14 @@
             this.cAgreement1C,
             this.cDate1C,
             this.cTypePay});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvData.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvData.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvData.Location = new System.Drawing.Point(12, 98);
             this.dgvData.MultiSelect = false;
             this.dgvData.Name = "dgvData";
@@ -152,6 +153,76 @@
             this.dgvData.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvData_ColumnWidthChanged);
             this.dgvData.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvData_RowPostPaint);
             this.dgvData.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
+            // 
+            // cDate
+            // 
+            this.cDate.DataPropertyName = "DateLoad";
+            this.cDate.HeaderText = "Дата загрузки счета";
+            this.cDate.Name = "cDate";
+            this.cDate.ReadOnly = true;
+            // 
+            // cObject
+            // 
+            this.cObject.DataPropertyName = "nameObjectLease";
+            this.cObject.HeaderText = "Объект";
+            this.cObject.Name = "cObject";
+            this.cObject.ReadOnly = true;
+            // 
+            // cLandLord
+            // 
+            this.cLandLord.DataPropertyName = "nameLandLord";
+            this.cLandLord.HeaderText = "Арендодатель";
+            this.cLandLord.Name = "cLandLord";
+            this.cLandLord.ReadOnly = true;
+            // 
+            // nameTenant
+            // 
+            this.nameTenant.DataPropertyName = "nameTenant";
+            this.nameTenant.HeaderText = "Арендатор";
+            this.nameTenant.Name = "nameTenant";
+            this.nameTenant.ReadOnly = true;
+            // 
+            // cAgreements
+            // 
+            this.cAgreements.DataPropertyName = "Agreement";
+            this.cAgreements.HeaderText = "№ договора";
+            this.cAgreements.Name = "cAgreements";
+            this.cAgreements.ReadOnly = true;
+            // 
+            // cTypeContract
+            // 
+            this.cTypeContract.DataPropertyName = "TypeContract";
+            this.cTypeContract.HeaderText = "Тип договора";
+            this.cTypeContract.Name = "cTypeContract";
+            this.cTypeContract.ReadOnly = true;
+            // 
+            // cPlace
+            // 
+            this.cPlace.DataPropertyName = "namePlace";
+            this.cPlace.HeaderText = "Местоположение";
+            this.cPlace.Name = "cPlace";
+            this.cPlace.ReadOnly = true;
+            // 
+            // cAgreement1C
+            // 
+            this.cAgreement1C.DataPropertyName = "NumberAccount";
+            this.cAgreement1C.HeaderText = "№ счета 1С";
+            this.cAgreement1C.Name = "cAgreement1C";
+            this.cAgreement1C.ReadOnly = true;
+            // 
+            // cDate1C
+            // 
+            this.cDate1C.DataPropertyName = "DateAccount";
+            this.cDate1C.HeaderText = "Дата счета 1С";
+            this.cDate1C.Name = "cDate1C";
+            this.cDate1C.ReadOnly = true;
+            // 
+            // cTypePay
+            // 
+            this.cTypePay.DataPropertyName = "TypePayment";
+            this.cTypePay.HeaderText = "Назначение платежа";
+            this.cTypePay.Name = "cTypePay";
+            this.cTypePay.ReadOnly = true;
             // 
             // tbPlace
             // 
@@ -180,17 +251,16 @@
             this.tbTenant.TabIndex = 37;
             this.tbTenant.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
             // 
-            // btSave
+            // btExcel
             // 
-            this.btSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btSave.Image = global::dllJournalLoad1C.Properties.Resources.save_edit;
-            this.btSave.Location = new System.Drawing.Point(1064, 528);
-            this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(32, 32);
-            this.btSave.TabIndex = 33;
-            this.toolTip1.SetToolTip(this.btSave, "Сохранить");
-            this.btSave.UseVisualStyleBackColor = true;
-            this.btSave.Click += new System.EventHandler(this.btSave_Click);
+            this.btExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btExcel.Location = new System.Drawing.Point(1064, 528);
+            this.btExcel.Name = "btExcel";
+            this.btExcel.Size = new System.Drawing.Size(32, 32);
+            this.btExcel.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.btExcel, "Сохранить");
+            this.btExcel.UseVisualStyleBackColor = true;
+            this.btExcel.Click += new System.EventHandler(this.btSave_Click);
             // 
             // btExit
             // 
@@ -215,6 +285,17 @@
             this.toolTip1.SetToolTip(this.btUpdate, "Обновить");
             this.btUpdate.UseVisualStyleBackColor = true;
             this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(541, 528);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(32, 32);
+            this.button1.TabIndex = 44;
+            this.toolTip1.SetToolTip(this.button1, "Сохранить");
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // dtpStart
             // 
@@ -295,86 +376,15 @@
             this.tbLandLord.Size = new System.Drawing.Size(100, 20);
             this.tbLandLord.TabIndex = 43;
             // 
-            // cDate
+            // btSendMail
             // 
-            this.cDate.DataPropertyName = "DateLoad";
-            this.cDate.HeaderText = "Дата загрузки счета";
-            this.cDate.Name = "cDate";
-            this.cDate.ReadOnly = true;
-            // 
-            // cObject
-            // 
-            this.cObject.DataPropertyName = "nameObjectLease";
-            this.cObject.HeaderText = "Объект";
-            this.cObject.Name = "cObject";
-            this.cObject.ReadOnly = true;
-            // 
-            // cLandLord
-            // 
-            this.cLandLord.DataPropertyName = "nameLandLord";
-            this.cLandLord.HeaderText = "Арендодатель";
-            this.cLandLord.Name = "cLandLord";
-            this.cLandLord.ReadOnly = true;
-            // 
-            // nameTenant
-            // 
-            this.nameTenant.DataPropertyName = "nameTenant";
-            this.nameTenant.HeaderText = "Арендатор";
-            this.nameTenant.Name = "nameTenant";
-            this.nameTenant.ReadOnly = true;
-            // 
-            // cAgreements
-            // 
-            this.cAgreements.DataPropertyName = "Agreement";
-            this.cAgreements.HeaderText = "№ договора";
-            this.cAgreements.Name = "cAgreements";
-            this.cAgreements.ReadOnly = true;
-            // 
-            // cTypeContract
-            // 
-            this.cTypeContract.DataPropertyName = "TypeContract";
-            this.cTypeContract.HeaderText = "Тип договора";
-            this.cTypeContract.Name = "cTypeContract";
-            this.cTypeContract.ReadOnly = true;
-            // 
-            // cPlace
-            // 
-            this.cPlace.DataPropertyName = "namePlace";
-            this.cPlace.HeaderText = "Местоположение";
-            this.cPlace.Name = "cPlace";
-            this.cPlace.ReadOnly = true;
-            // 
-            // cAgreement1C
-            // 
-            this.cAgreement1C.DataPropertyName = "NumberAccount";
-            this.cAgreement1C.HeaderText = "№ счета 1С";
-            this.cAgreement1C.Name = "cAgreement1C";
-            this.cAgreement1C.ReadOnly = true;
-            // 
-            // cDate1C
-            // 
-            this.cDate1C.DataPropertyName = "DateAccount";
-            this.cDate1C.HeaderText = "Дата счета 1С";
-            this.cDate1C.Name = "cDate1C";
-            this.cDate1C.ReadOnly = true;
-            // 
-            // cTypePay
-            // 
-            this.cTypePay.DataPropertyName = "TypePayment";
-            this.cTypePay.HeaderText = "Назначение платежа";
-            this.cTypePay.Name = "cTypePay";
-            this.cTypePay.ReadOnly = true;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(541, 528);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(32, 32);
-            this.button1.TabIndex = 44;
-            this.toolTip1.SetToolTip(this.button1, "Сохранить");
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btSendMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btSendMail.Location = new System.Drawing.Point(1026, 528);
+            this.btSendMail.Name = "btSendMail";
+            this.btSendMail.Size = new System.Drawing.Size(32, 32);
+            this.btSendMail.TabIndex = 33;
+            this.btSendMail.UseVisualStyleBackColor = true;
+            this.btSendMail.Click += new System.EventHandler(this.btSave_Click);
             // 
             // frmJournalLoad1C
             // 
@@ -392,7 +402,8 @@
             this.Controls.Add(this.tbPlace);
             this.Controls.Add(this.tbAgreements);
             this.Controls.Add(this.tbTenant);
-            this.Controls.Add(this.btSave);
+            this.Controls.Add(this.btSendMail);
+            this.Controls.Add(this.btExcel);
             this.Controls.Add(this.btExit);
             this.Controls.Add(this.dgvData);
             this.Controls.Add(this.btUpdate);
@@ -423,7 +434,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btUpdate;
         private System.Windows.Forms.DataGridView dgvData;
-        private System.Windows.Forms.Button btSave;
+        private System.Windows.Forms.Button btExcel;
         private System.Windows.Forms.Button btExit;
         private System.Windows.Forms.TextBox tbPlace;
         private System.Windows.Forms.TextBox tbAgreements;
@@ -449,6 +460,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cDate1C;
         private System.Windows.Forms.DataGridViewTextBoxColumn cTypePay;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btSendMail;
     }
 }
 

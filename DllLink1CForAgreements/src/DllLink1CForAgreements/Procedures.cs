@@ -172,5 +172,16 @@ namespace DllLink1CForAgreements
 
         #endregion
 
+        public DataTable EditGetConf(int id_prog, string id_value, string value)
+        {
+            ap.Clear();
+            ap.Add(id_prog);
+            ap.Add(id_value);
+            ap.Add(value);
+            return executeProcedure("[Arenda].[EditGetConf]",
+                new string[3] { "@id_prog", "@id_value", "@value" },
+                new DbType[3] { DbType.Int32, DbType.String, DbType.String }, ap);
+        }
+
     }
 }

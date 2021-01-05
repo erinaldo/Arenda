@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Net.Mime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -46,8 +47,8 @@ namespace dllJournalLoad1C
         private void dgvData_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
             Color rColor = Color.White;
-            //if (!(bool)dtData.DefaultView[e.RowIndex]["isActive"])
-            //  rColor = panel1.BackColor;
+            if (dtData.DefaultView[e.RowIndex]["DateSendMail"]!=DBNull.Value)
+              rColor = panel1.BackColor;
             dgvData.Rows[e.RowIndex].DefaultCellStyle.BackColor = rColor;
             dgvData.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = rColor;
             dgvData.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black;
@@ -131,7 +132,7 @@ namespace dllJournalLoad1C
         {
             if (dtData == null || dtData.Rows.Count == 0)
             {
-                btSave.Enabled = false;
+                btExcel.Enabled = false;
                 return;
             }
 
@@ -159,7 +160,7 @@ namespace dllJournalLoad1C
             }
             finally
             {
-                btSave.Enabled = dtData.DefaultView.Count != 0;
+                btExcel.Enabled = dtData.DefaultView.Count != 0;
             }
         }
 
@@ -210,50 +211,35 @@ namespace dllJournalLoad1C
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //try
-            //{
-            //    string attachFile = @"C:\Users\user\Downloads\5364ab4274a6f36b8d4340e42d7bfbed.jpg";
-            //    string from = "harelove@yandex.ru";
+            string user = "harelove@yandex.ru";
+            string pass = "xkrbtshtjivqlggu";
 
-            //    MailMessage mail = new MailMessage();
-            //    mail.From = new MailAddress(from);
-            //    mail.To.Add(new MailAddress("nonenane@gmail.com"));
-            //    mail.Subject = "head test";
-            //    mail.Body = "test";
-            //    if (!string.IsNullOrEmpty(attachFile))
-            //        mail.Attachments.Add(new Attachment(attachFile));
-            //    SmtpClient client = new SmtpClient();
-            //    client.Host = "smtp.yandex.ru";
-            //    client.Port = 465;
-            //    client.EnableSsl = true;
-            //    client.Credentials = new NetworkCredential(from.Split('@')[0], ".ktxrf");
-            //    client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            //    client.UseDefaultCredentials = false;
-            //    client.Send(mail);
-            //    mail.Dispose();
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception("Mail.Send: " + ex.Message);
-            //}
-            string attachFile = @"C:\Users\user\Downloads\5364ab4274a6f36b8d4340e42d7bfbed.jpg";
-            string from = "harelove@yandex.ru";
-            using (MailMessage mm = new MailMessage(from, "nonenane@yandex.ru"))
-            {
-                mm.Subject = "Mail Subject";
-                mm.Body = "Mail Body";
-                mm.IsBodyHtml = false;
-                //if (!string.IsNullOrEmpty(attachFile))
-                //    mm.Attachments.Add(new Attachment(attachFile));
-                using (SmtpClient sc = new SmtpClient("smtp.yandex.ru", 465))
-                {
-                    sc.EnableSsl = true;
-                    //sc.DeliveryMethod = SmtpDeliveryMethod.Network;
-                    //sc.UseDefaultCredentials = false;
-                    sc.Credentials = new NetworkCredential(from, "seibjzyxnztaewle");
-                    sc.Send(mm);
-                }
-            }
+
+            // отправитель - устанавливаем адрес и отображаемое в письме имя
+            MailAddress from = new MailAddress("nonenane@yandex.ru", "SGP");
+            // кому отправляем
+            MailAddress to = new MailAddress("nonenane@gmail.com");
+            // создаем объект сообщения
+            MailMessage m = new MailMessage(from, to);
+            // тема письма
+            m.Subject = "Тест";
+            // текст письма
+            m.Body = "<h2>Письмо-тест работы smtp-клиента</h2>";
+            // письмо представляет код html
+            m.IsBodyHtml = true;
+
+            Attachment data = new Attachment(
+                         @"D:\Disk E\Img\EjPg0vSUcAASql3.jpg",
+                         MediaTypeNames.Application.Octet);
+            // your path may look like Server.MapPath("~/file.ABC")
+            m.Attachments.Add(data);
+
+            // адрес smtp-сервера и порт, с которого будем отправлять письмо
+            SmtpClient smtp = new SmtpClient("smtp.yandex.ru", 587);
+            // логин и пароль
+            smtp.Credentials = new NetworkCredential(user, pass);
+            smtp.EnableSsl = true;
+            smtp.Send(m);
 
         }
 

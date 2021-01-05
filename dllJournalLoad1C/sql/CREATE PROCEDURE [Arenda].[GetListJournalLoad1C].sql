@@ -10,7 +10,7 @@ GO
 -- Create date: 2020-07-27
 -- Description:	Получение списка оплат по договору
 -- =============================================
-CREATE PROCEDURE [Arenda].[GetListJournalLoad1C]	
+ALTER PROCEDURE [Arenda].[GetListJournalLoad1C]	
 	@id_object int = 0,
 	@dateStart date, 
 	@dateEnd date
@@ -51,7 +51,10 @@ select
 	a.id_Landlord,
 	lac.NumberAccount,
 	lac.DateAccount,
-	lac.TypePayment
+	lac.TypePayment,
+	DateSendMail,
+	lt.email as emailSend,
+	ll.email as emailSender
 from
 	[Arenda].[j_LoadAccount1C] lac
 		inner join Arenda.j_Agreements a on a.id = lac.id_Agreements
