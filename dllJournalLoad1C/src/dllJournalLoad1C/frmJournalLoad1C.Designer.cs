@@ -50,9 +50,6 @@
             this.tbAgreements = new System.Windows.Forms.TextBox();
             this.tbTenant = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btExcel = new System.Windows.Forms.Button();
-            this.btExit = new System.Windows.Forms.Button();
-            this.btUpdate = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
@@ -64,6 +61,9 @@
             this.tbAgreement1C = new System.Windows.Forms.TextBox();
             this.tbLandLord = new System.Windows.Forms.TextBox();
             this.btSendMail = new System.Windows.Forms.Button();
+            this.btExcel = new System.Windows.Forms.Button();
+            this.btExit = new System.Windows.Forms.Button();
+            this.btUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -143,7 +143,6 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvData.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvData.Location = new System.Drawing.Point(12, 98);
-            this.dgvData.MultiSelect = false;
             this.dgvData.Name = "dgvData";
             this.dgvData.RowHeadersVisible = false;
             this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -251,41 +250,6 @@
             this.tbTenant.TabIndex = 37;
             this.tbTenant.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
             // 
-            // btExcel
-            // 
-            this.btExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btExcel.Location = new System.Drawing.Point(1064, 528);
-            this.btExcel.Name = "btExcel";
-            this.btExcel.Size = new System.Drawing.Size(32, 32);
-            this.btExcel.TabIndex = 33;
-            this.toolTip1.SetToolTip(this.btExcel, "Сохранить");
-            this.btExcel.UseVisualStyleBackColor = true;
-            this.btExcel.Click += new System.EventHandler(this.btSave_Click);
-            // 
-            // btExit
-            // 
-            this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btExit.Image = global::dllJournalLoad1C.Properties.Resources.exit_8633;
-            this.btExit.Location = new System.Drawing.Point(1102, 528);
-            this.btExit.Name = "btExit";
-            this.btExit.Size = new System.Drawing.Size(32, 32);
-            this.btExit.TabIndex = 34;
-            this.toolTip1.SetToolTip(this.btExit, "Выход");
-            this.btExit.UseVisualStyleBackColor = true;
-            this.btExit.Click += new System.EventHandler(this.btExit_Click);
-            // 
-            // btUpdate
-            // 
-            this.btUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btUpdate.Image = global::dllJournalLoad1C.Properties.Resources.reload_8055;
-            this.btUpdate.Location = new System.Drawing.Point(1086, 11);
-            this.btUpdate.Name = "btUpdate";
-            this.btUpdate.Size = new System.Drawing.Size(48, 48);
-            this.btUpdate.TabIndex = 31;
-            this.toolTip1.SetToolTip(this.btUpdate, "Обновить");
-            this.btUpdate.UseVisualStyleBackColor = true;
-            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
-            // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -359,6 +323,7 @@
             this.tbTypePay.Name = "tbTypePay";
             this.tbTypePay.Size = new System.Drawing.Size(100, 20);
             this.tbTypePay.TabIndex = 41;
+            this.tbTypePay.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
             // 
             // tbAgreement1C
             // 
@@ -367,6 +332,7 @@
             this.tbAgreement1C.Name = "tbAgreement1C";
             this.tbAgreement1C.Size = new System.Drawing.Size(100, 20);
             this.tbAgreement1C.TabIndex = 42;
+            this.tbAgreement1C.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
             // 
             // tbLandLord
             // 
@@ -375,6 +341,7 @@
             this.tbLandLord.Name = "tbLandLord";
             this.tbLandLord.Size = new System.Drawing.Size(100, 20);
             this.tbLandLord.TabIndex = 43;
+            this.tbLandLord.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
             // 
             // btSendMail
             // 
@@ -384,7 +351,43 @@
             this.btSendMail.Size = new System.Drawing.Size(32, 32);
             this.btSendMail.TabIndex = 33;
             this.btSendMail.UseVisualStyleBackColor = true;
-            this.btSendMail.Click += new System.EventHandler(this.btSave_Click);
+            this.btSendMail.Click += new System.EventHandler(this.btSendMail_Click);
+            // 
+            // btExcel
+            // 
+            this.btExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btExcel.Image = global::dllJournalLoad1C.Properties.Resources.klpq_2511;
+            this.btExcel.Location = new System.Drawing.Point(1064, 528);
+            this.btExcel.Name = "btExcel";
+            this.btExcel.Size = new System.Drawing.Size(32, 32);
+            this.btExcel.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.btExcel, "Сохранить");
+            this.btExcel.UseVisualStyleBackColor = true;
+            this.btExcel.Click += new System.EventHandler(this.btExcel_Click);
+            // 
+            // btExit
+            // 
+            this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btExit.Image = global::dllJournalLoad1C.Properties.Resources.exit_8633;
+            this.btExit.Location = new System.Drawing.Point(1102, 528);
+            this.btExit.Name = "btExit";
+            this.btExit.Size = new System.Drawing.Size(32, 32);
+            this.btExit.TabIndex = 34;
+            this.toolTip1.SetToolTip(this.btExit, "Выход");
+            this.btExit.UseVisualStyleBackColor = true;
+            this.btExit.Click += new System.EventHandler(this.btExit_Click);
+            // 
+            // btUpdate
+            // 
+            this.btUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btUpdate.Image = global::dllJournalLoad1C.Properties.Resources.reload_8055;
+            this.btUpdate.Location = new System.Drawing.Point(1086, 11);
+            this.btUpdate.Name = "btUpdate";
+            this.btUpdate.Size = new System.Drawing.Size(48, 48);
+            this.btUpdate.TabIndex = 31;
+            this.toolTip1.SetToolTip(this.btUpdate, "Обновить");
+            this.btUpdate.UseVisualStyleBackColor = true;
+            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
             // 
             // frmJournalLoad1C
             // 

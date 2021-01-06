@@ -73,6 +73,16 @@ namespace dllJournalLoad1C.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap klpq_2511 {
+            get {
+                object obj = ResourceManager.GetObject("klpq_2511", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap reload_8055 {
             get {
                 object obj = ResourceManager.GetObject("reload_8055", resourceCulture);

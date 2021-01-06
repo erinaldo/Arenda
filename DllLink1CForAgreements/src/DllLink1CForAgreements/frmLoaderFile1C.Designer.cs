@@ -61,6 +61,7 @@ namespace DllLink1CForAgreements
             this.btSave.TabIndex = 0;
             this.toolTip1.SetToolTip(this.btSave, "Сохранить");
             this.btSave.UseVisualStyleBackColor = true;
+            this.btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // btSelectPath
             // 
@@ -80,6 +81,7 @@ namespace DllLink1CForAgreements
             this.tbPath.ReadOnly = true;
             this.tbPath.Size = new System.Drawing.Size(577, 20);
             this.tbPath.TabIndex = 2;
+            this.tbPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbPath_KeyDown);
             // 
             // frmLoaderFile1C
             // 

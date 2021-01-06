@@ -49,12 +49,14 @@ select
 		when a.id_TypeContract = 3 then isnull(lp.NumberPlot,'')
 	end,'') as sectionName,
 	a.id_Landlord,
+	a.id_Tenant,
 	lac.NumberAccount,
 	lac.DateAccount,
 	lac.TypePayment,
 	DateSendMail,
 	lt.email as emailSend,
-	ll.email as emailSender
+	ll.email as emailSender,
+	lac.id_Scan
 from
 	[Arenda].[j_LoadAccount1C] lac
 		inner join Arenda.j_Agreements a on a.id = lac.id_Agreements

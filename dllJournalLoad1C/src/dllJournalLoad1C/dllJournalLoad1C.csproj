@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\..\..\..\..\frameWork_mew\Framework\bin\Debug\EPPlus.dll</HintPath>
+    </Reference>
     <Reference Include="Framework">
       <HintPath>..\..\..\..\dll\Framework.dll</HintPath>
     </Reference>
@@ -55,6 +58,7 @@
     <Compile Include="frmJournalLoad1C.Designer.cs">
       <DependentUpon>frmJournalLoad1C.cs</DependentUpon>
     </Compile>
+    <Compile Include="NetworkShare.cs" />
     <Compile Include="Procedures.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -92,6 +96,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\save_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\klpq_2511.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

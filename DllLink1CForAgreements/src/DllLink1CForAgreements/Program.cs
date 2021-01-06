@@ -14,6 +14,8 @@ namespace DllLink1CForAgreements
         [STAThread]
         static void Main(string[] args)
         {
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             if (args.Length != 0)

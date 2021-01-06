@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -18,12 +19,13 @@ namespace dllJournalLoad1C
         public int IdAgreement { private set; get; }
         public string Agreement { private set; get; }
 
-
+        private NetworkShare net;
         private DataTable dtLandLord, dtData;
         public frmJournalLoad1C()
         {
             InitializeComponent();
             dgvData.AutoGenerateColumns = false;
+            net = new NetworkShare(true, false);
         }
 
         private void frmSelectAgreementsTo1C_Load(object sender, EventArgs e)
@@ -132,7 +134,7 @@ namespace dllJournalLoad1C
         {
             if (dtData == null || dtData.Rows.Count == 0)
             {
-                btExcel.Enabled = false;
+                btSendMail.Enabled =  btExcel.Enabled = false;
                 return;
             }
 
@@ -143,6 +145,9 @@ namespace dllJournalLoad1C
                 if (tbTenant.Text.Trim().Length != 0)
                     filter += (filter.Length == 0 ? "" : " and ") + $"nameTenant like '%{tbTenant.Text.Trim()}%'";
 
+                if (tbLandLord.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"nameLandLord like '%{tbLandLord.Text.Trim()}%'";
+
                 if (tbAgreements.Text.Trim().Length != 0)
                     filter += (filter.Length == 0 ? "" : " and ") + $"Agreement like '%{tbAgreements.Text.Trim()}%'";
 
@@ -152,6 +157,12 @@ namespace dllJournalLoad1C
                 if ((int)cmbTypeDoc.SelectedValue != 0)
                     filter += (filter.Length == 0 ? "" : " and ") + $"id_TypeContract = {cmbTypeDoc.SelectedValue}";
 
+                if (tbAgreement1C.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"NumberAccount = {tbAgreement1C.Text.Trim()}";
+
+                if (tbTypePay.Text.Trim().Length != 0)
+                    filter += (filter.Length == 0 ? "" : " and ") + $"TypePayment like '%{tbTypePay.Text.Trim()}%'";
+
                 dtData.DefaultView.RowFilter = filter;
             }
             catch
@@ -160,7 +171,7 @@ namespace dllJournalLoad1C
             }
             finally
             {
-                btExcel.Enabled = dtData.DefaultView.Count != 0;
+                btSendMail.Enabled = btExcel.Enabled = dtData.DefaultView.Count != 0;
             }
         }
 
@@ -241,6 +252,234 @@ namespace dllJournalLoad1C
             smtp.EnableSsl = true;
             smtp.Send(m);
 
+        }
+
+
+        private Nwuram.Framework.UI.Service.EnableControlsServiceInProg blockers = new Nwuram.Framework.UI.Service.EnableControlsServiceInProg();
+        private Nwuram.Framework.ToExcelNew.ExcelUnLoad report = null;
+
+        private void setWidthColumn(int indexRow, int indexCol, int width, Nwuram.Framework.ToExcelNew.ExcelUnLoad report)
+        {
+            report.SetColumnWidth(indexRow, indexCol, indexRow, indexCol, width);
+        }
+
+        private async void btExcel_Click(object sender, EventArgs e)
+        {
+            if (dtData == null || dtData.Rows.Count == 0 || dtData.DefaultView.Count == 0)
+            {
+                MessageBox.Show("Нет данных для формирования отчёта.","Печать",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                return;
+            }
+
+            report = new Nwuram.Framework.ToExcelNew.ExcelUnLoad();
+
+            int indexRow = 1;
+            int maxColumns = 0;
+            blockers.SaveControlsEnabledState(this);
+            blockers.SetControlsEnabled(this, false);
+            //progressBar1.Visible = true;
+            var result = await Task<bool>.Factory.StartNew(() =>
+            {
+
+                foreach (DataGridViewColumn col in dgvData.Columns)
+                    if (col.Visible)
+                    {
+                        maxColumns++;
+                        if (col.Name.Equals(cDate.Name)) setWidthColumn(indexRow, maxColumns, 14, report);
+                        if (col.Name.Equals(cObject.Name)) setWidthColumn(indexRow, maxColumns, 15, report);
+                        if (col.Name.Equals(cLandLord.Name)) setWidthColumn(indexRow, maxColumns, 20, report);
+                        if (col.Name.Equals(nameTenant.Name)) setWidthColumn(indexRow, maxColumns, 20, report);
+                        if (col.Name.Equals(cAgreements.Name)) setWidthColumn(indexRow, maxColumns, 16, report);
+                        if (col.Name.Equals(cTypeContract.Name)) setWidthColumn(indexRow, maxColumns, 20, report);
+                        if (col.Name.Equals(cPlace.Name)) setWidthColumn(indexRow, maxColumns, 22, report);
+                        if (col.Name.Equals(cAgreement1C.Name)) setWidthColumn(indexRow, maxColumns, 16, report);
+                        if (col.Name.Equals(cDate1C.Name)) setWidthColumn(indexRow, maxColumns, 16, report);
+                        if (col.Name.Equals(cTypePay.Name)) setWidthColumn(indexRow, maxColumns, 17, report);
+                    }
+
+
+                #region "Head"
+                report.Merge(indexRow, 1, indexRow, maxColumns);
+                report.AddSingleValue($"{this.Text}", indexRow, 1);
+                report.SetFontBold(indexRow, 1, indexRow, 1);
+                report.SetFontSize(indexRow, 1, indexRow, 1, 16);
+                report.SetCellAlignmentToCenter(indexRow, 1, indexRow, 1);
+                indexRow++;
+                indexRow++;
+
+                Config.DoOnUIThread(() =>
+                {
+                    report.Merge(indexRow, 1, indexRow, maxColumns);
+                    report.AddSingleValue($"Период с {dtpStart.Value.ToShortDateString()} по {dtpEnd.Value.ToShortDateString()} ", indexRow, 1);
+                    indexRow++;
+
+                    report.Merge(indexRow, 1, indexRow, maxColumns);
+                    report.AddSingleValue($"Объект: {cmbObject.Text}", indexRow, 1);
+                    indexRow++;
+
+                    report.Merge(indexRow, 1, indexRow, maxColumns);
+                    report.AddSingleValue($"Тип договора: {cmbTypeDoc.Text}", indexRow, 1);
+                    indexRow++;
+
+
+                    //if (tbEan.Text.Trim().Length != 0 || tbName.Text.Trim().Length != 0)
+                    //{
+                    //    report.Merge(indexRow, 1, indexRow, maxColumns);
+                    //    report.AddSingleValue($"Фильтр: {(tbEan.Text.Trim().Length != 0 ? $"EAN:{tbEan.Text.Trim()} | " : "")} {(tbName.Text.Trim().Length != 0 ? $"Наименование:{tbName.Text.Trim()}" : "")}", indexRow, 1);
+                    //    indexRow++;
+                    //}
+
+                }, this);
+
+                report.Merge(indexRow, 1, indexRow, maxColumns);
+                report.AddSingleValue("Выгрузил: " + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername, indexRow, 1);
+                indexRow++;
+
+                report.Merge(indexRow, 1, indexRow, maxColumns);
+                report.AddSingleValue("Дата выгрузки: " + DateTime.Now.ToString(), indexRow, 1);
+                indexRow++;
+                indexRow++;
+                #endregion
+
+                int indexCol = 0;
+                foreach (DataGridViewColumn col in dgvData.Columns)
+                    if (col.Visible)
+                    {
+                        indexCol++;
+                        report.AddSingleValue(col.HeaderText, indexRow, indexCol);
+                    }
+                report.SetFontBold(indexRow, 1, indexRow, maxColumns);
+                report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+                report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
+                report.SetWrapText(indexRow, 1, indexRow, maxColumns);
+                indexRow++;
+
+                foreach (DataRowView row in dtData.DefaultView)
+                {
+                    indexCol = 1;
+                    report.SetWrapText(indexRow, indexCol, indexRow, maxColumns);
+                    foreach (DataGridViewColumn col in dgvData.Columns)
+                    {
+                        if (col.Visible)
+                        {
+                            if (row[col.DataPropertyName] is DateTime)
+                                report.AddSingleValue(((DateTime)row[col.DataPropertyName]).ToShortDateString(), indexRow, indexCol);
+                            else
+                               if (row[col.DataPropertyName] is decimal || row[col.DataPropertyName] is double)
+                            {
+                                report.AddSingleValueObject(row[col.DataPropertyName], indexRow, indexCol);
+                                report.SetFormat(indexRow, indexCol, indexRow, indexCol, "0.00");
+                            }
+                            else
+                                report.AddSingleValue(row[col.DataPropertyName].ToString(), indexRow, indexCol);
+
+                            indexCol++;
+                        }
+                    }
+
+                    if (row["DateSendMail"] != DBNull.Value)
+                        report.SetCellColor(indexRow, 1, indexRow, maxColumns, panel1.BackColor);
+
+                    report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                    report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+                    report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
+
+                    indexRow++;
+                }
+
+                indexRow++;
+                report.SetCellColor(indexRow, 1, indexRow, 1, panel1.BackColor);
+                report.Merge(indexRow, 2, indexRow, maxColumns);
+                report.AddSingleValue($"{label5.Text}", indexRow, 2);
+
+                Config.DoOnUIThread(() =>
+                {
+                    blockers.RestoreControlEnabledState(this);
+                    //progressBar1.Visible = false;
+                }, this);
+
+                report.Show();
+                return true;
+            });
+        }
+
+        private async void btSendMail_Click(object sender, EventArgs e)
+        {
+            var result = await Task<bool>.Factory.StartNew(() =>
+            {
+                Config.DoOnUIThread(() =>
+                {
+
+                }, this);
+
+                foreach (DataGridViewRow gridRow in dgvData.SelectedRows)
+                {
+                    DataRowView viewRow = dtData.DefaultView[gridRow.Index];
+
+                    int id_Scan = (int)viewRow["id_Scan"];
+                    DataTable dtScanData = Config.hCntMain.getScan(0, id_Scan);
+
+                    if (dtScanData == null || dtScanData.Rows.Count == 0) continue;
+
+
+                    byte[] img;
+                    img = net.GetFileWithPathBytes(dtScanData.Rows[0]["id_Doc"].ToString(), dtScanData.Rows[0]["cName"].ToString(), dtScanData.Rows[0]["Extension"].ToString(), dtScanData.Rows[0]["Path"].ToString());
+
+                    if (img == null) continue;
+
+                    string fileName = dtScanData.Rows[0]["cName"].ToString() + dtScanData.Rows[0]["Extension"].ToString();
+                    string user = viewRow["emailSender"].ToString();
+                    string pass = "xkrbtshtjivqlggu";
+                    string ToEmail = viewRow["emailSend"].ToString();
+                    sendMail(user, "hey", pass, ToEmail, img, fileName);
+
+
+                }
+                return false;
+            });
+        }
+
+        private void sendMail(string user,string userTitle, string pass,string toEmail, byte[] file,string fileName)
+        {
+            //string user = "harelove@yandex.ru";
+            //string pass = "xkrbtshtjivqlggu";
+
+
+            // отправитель - устанавливаем адрес и отображаемое в письме имя
+            MailAddress from = new MailAddress(user, userTitle);
+            // кому отправляем
+            MailAddress to = new MailAddress(toEmail);
+            // создаем объект сообщения
+            MailMessage m = new MailMessage(from, to);
+            // тема письма
+            m.Subject = "";
+            // текст письма
+            m.Body = "";
+            // письмо представляет код html
+            m.IsBodyHtml = true;
+
+            Attachment data = new Attachment(
+                         new MemoryStream(file), fileName);
+            // your path may look like Server.MapPath("~/file.ABC")
+
+            //Attachment data = new Attachment(
+            //             @"D:\Disk E\Img\EjPg0vSUcAASql3.jpg",
+            //             MediaTypeNames.Application.Octet);
+            //// your path may look like Server.MapPath("~/file.ABC")
+            m.Attachments.Add(data);
+
+            // адрес smtp-сервера и порт, с которого будем отправлять письмо
+            SmtpClient smtp = new SmtpClient("smtp.yandex.ru", 587);
+            // логин и пароль
+            smtp.Credentials = new NetworkCredential(user, pass);
+            smtp.EnableSsl = true;
+            try
+            {
+                smtp.Send(m);
+            }
+            catch
+            { }
         }
 
         private void GetData()
