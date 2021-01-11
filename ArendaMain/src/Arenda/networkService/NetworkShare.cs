@@ -34,7 +34,15 @@ public class NetworkShare : IDisposable
         }
 
         if (isLandLord)
+        {
             prefix = "\\sign";
+            try
+            {
+                if (!Directory.Exists(this.server + prefix))
+                    Directory.CreateDirectory(this.server + prefix);
+            }
+            catch { }
+        }
     }
     public string server;
     public string password;

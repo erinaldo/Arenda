@@ -15,6 +15,7 @@ using System.Globalization;
 using Excel = Microsoft.Office.Interop.Excel;
 using Word = Microsoft.Office.Interop.Word;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace DllLink1CForAgreements
 {
@@ -49,6 +50,8 @@ namespace DllLink1CForAgreements
         {
             if (DialogResult.OK == folderBrowserDialog1.ShowDialog())
             {
+                if (!validateFileAndFolder(folderBrowserDialog1.SelectedPath)) return;
+
                 btSave.Enabled = true;
                 tbPath.Text = folderBrowserDialog1.SelectedPath;
 
@@ -356,10 +359,39 @@ namespace DllLink1CForAgreements
             {
                 if (Directory.Exists(Clipboard.GetText()))
                 {
+
+                    if (!validateFileAndFolder(Clipboard.GetText())) return;
+
+
                     tbPath.Text = Clipboard.GetText();
                     btSave.Enabled = true;
                 }
             }
+        }
+
+        private bool validateFileAndFolder(string path)
+        {
+            try
+            {
+                if (!File.Exists(path + "\\text.txt"))
+                    System.IO.File.WriteAllText(path + "\\text.txt", "текст");
+                Thread.Sleep(100);
+                if (File.Exists(path + "\\text.txt"))
+                    File.Delete(path + "\\text.txt");
+            }
+            catch
+            {
+                MessageBox.Show(Config.centralText("Программа не может получить доступ в указанный\nкаталог для чтения и записи файлов.\nОперация загрузки счетов 1С прервана.\nОбратитесь в ОЭЭС.\n"), "Проверка наличия файлов", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+
+            var listFile = Directory.GetFiles(path).Where(s => s.EndsWith(".xls") || s.EndsWith(".xlsx") || s.EndsWith(".doc") || s.EndsWith(".docx"));
+            if (listFile.Count() == 0)
+            {
+                MessageBox.Show(Config.centralText("В указаном каталоге отсутствуют файлы\n с допустимыми расширениями счетов 1С.\nОперация загрузки счетов 1С прервана.\nОбратитесь в ОЭЭС.\n"), "Проверка наличия файлов", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            return true;
         }
     }
 }

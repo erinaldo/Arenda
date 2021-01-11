@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -193,14 +194,26 @@ namespace dllJournalLoad1C
 
         private void selectAgreement()
         {
-            IdAgreement = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
-            Agreement = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["Agreement"];
-            DialogResult = DialogResult.OK;
-        }
+            DataRowView viewRow = dtData.DefaultView[dgvData.CurrentRow.Index];
+            IdAgreement = (int)viewRow["id"];
+            Agreement = (string)viewRow["Agreement"];
 
-        private void btSave_Click(object sender, EventArgs e)
-        {
-            selectAgreement();
+            int id_Scan = (int)viewRow["id_Scan"];
+            DataTable dtScanData = Config.hCntMain.getScan(0, id_Scan);
+
+            if (dtScanData == null || dtScanData.Rows.Count == 0) return;
+            
+            byte[] img;
+            img = net.GetFileWithPathBytes(dtScanData.Rows[0]["id_Doc"].ToString(), dtScanData.Rows[0]["cName"].ToString(), dtScanData.Rows[0]["Extension"].ToString(), dtScanData.Rows[0]["Path"].ToString());
+
+            if (img == null) return;
+
+            string fileName = dtScanData.Rows[0]["cName"].ToString() + dtScanData.Rows[0]["Extension"].ToString();
+            if (!Directory.Exists("tmp\\"))
+                Directory.CreateDirectory("tmp\\");
+            fileName = "tmp\\" + fileName;
+            File.WriteAllBytes(fileName, img);
+            Process.Start(fileName);
         }
 
         private void btExit_Click(object sender, EventArgs e)
@@ -431,12 +444,26 @@ namespace dllJournalLoad1C
                     string fileName = dtScanData.Rows[0]["cName"].ToString() + dtScanData.Rows[0]["Extension"].ToString();
                     string user = viewRow["emailSender"].ToString();
                     string pass = "xkrbtshtjivqlggu";
+                    string userName = (string)viewRow["nameLandLord"];
                     string ToEmail = viewRow["emailSend"].ToString();
-                    sendMail(user, "hey", pass, ToEmail, img, fileName);
+
+                    if (user == null || user.Trim().Length == 0)
+                    {
+                        MessageBox.Show(Config.centralText("У арендодателя отсутствует email.\nОтправка счёта невозможна.\n"),"Отправка счёта по email арендатору",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                        return false;
+                    }
+
+                    if (ToEmail == null || ToEmail.Trim().Length == 0)
+                    {
+                        MessageBox.Show(Config.centralText("У арендатора отсутствует email.\nОтправка счёта невозможна.\n"), "Отправка счёта по email арендатору", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+
+                    sendMail(user, userName, pass, ToEmail, img, fileName);
 
 
                 }
-                return false;
+                return true;
             });
         }
 
@@ -453,7 +480,7 @@ namespace dllJournalLoad1C
             // создаем объект сообщения
             MailMessage m = new MailMessage(from, to);
             // тема письма
-            m.Subject = "";
+            m.Subject = fileName;
             // текст письма
             m.Body = "";
             // письмо представляет код html
