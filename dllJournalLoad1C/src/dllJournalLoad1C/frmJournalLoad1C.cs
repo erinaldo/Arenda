@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmailValidation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,7 +31,7 @@ namespace dllJournalLoad1C
         }
 
         private void frmSelectAgreementsTo1C_Load(object sender, EventArgs e)
-        {
+        {           
             DataTable dtObjectLease = Config.hCntMain.getObjectLease(true);
 
             cmbObject.DisplayMember = "cName";
@@ -270,6 +271,7 @@ namespace dllJournalLoad1C
 
         private Nwuram.Framework.UI.Service.EnableControlsServiceInProg blockers = new Nwuram.Framework.UI.Service.EnableControlsServiceInProg();
         private Nwuram.Framework.ToExcelNew.ExcelUnLoad report = null;
+        private List<string> listError = new List<string>();
 
         private void setWidthColumn(int indexRow, int indexCol, int width, Nwuram.Framework.ToExcelNew.ExcelUnLoad report)
         {
@@ -418,60 +420,148 @@ namespace dllJournalLoad1C
         }
 
         private async void btSendMail_Click(object sender, EventArgs e)
-        {
+        {      
             var result = await Task<bool>.Factory.StartNew(() =>
             {
                 Config.DoOnUIThread(() =>
                 {
-
+                    this.Enabled = false;
                 }, this);
+
+                listError.Clear();
+                bool isShowLog = false;
+                bool isNowShow = dgvData.SelectedRows.Count == 1;
+                DataTable dtMailProperty = Config.hCntMain.GetMailProperty();
+
+                if (dtMailProperty == null || dtMailProperty.Rows.Count==0)
+                {
+                    MessageBox.Show(Config.centralText("Нет настроект для почтовых серверов.\nОтправка счёта невозможна.\n"), "Отправка счёта по email арендатору", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    this.Enabled = true;
+                    return false;
+                }
 
                 foreach (DataGridViewRow gridRow in dgvData.SelectedRows)
                 {
                     DataRowView viewRow = dtData.DefaultView[gridRow.Index];
+                  
+                    string user = viewRow["emailSender"].ToString();
+                    string pass = viewRow["EmailPassword"].ToString();
+                    string userName = (string)viewRow["nameLandLord"];
+                    string ToEmail = viewRow["emailSend"].ToString();
+                    string ToUserName = viewRow["nameTenant"].ToString();
 
                     int id_Scan = (int)viewRow["id_Scan"];
                     DataTable dtScanData = Config.hCntMain.getScan(0, id_Scan);
 
-                    if (dtScanData == null || dtScanData.Rows.Count == 0) continue;
-
-
-                    byte[] img;
-                    img = net.GetFileWithPathBytes(dtScanData.Rows[0]["id_Doc"].ToString(), dtScanData.Rows[0]["cName"].ToString(), dtScanData.Rows[0]["Extension"].ToString(), dtScanData.Rows[0]["Path"].ToString());
-
-                    if (img == null) continue;
+                    if (dtScanData == null || dtScanData.Rows.Count == 0)
+                    {
+                        listError.Add($"У арендатора \"{ToUserName}\" нет отсканированого документа") ;
+                        isShowLog = true;
+                        continue;
+                    }
 
                     string fileName = dtScanData.Rows[0]["cName"].ToString() + dtScanData.Rows[0]["Extension"].ToString();
-                    string user = viewRow["emailSender"].ToString();
-                    string pass = "xkrbtshtjivqlggu";
-                    string userName = (string)viewRow["nameLandLord"];
-                    string ToEmail = viewRow["emailSend"].ToString();
-
+                                                        
                     if (user == null || user.Trim().Length == 0)
                     {
-                        MessageBox.Show(Config.centralText("У арендодателя отсутствует email.\nОтправка счёта невозможна.\n"),"Отправка счёта по email арендатору",MessageBoxButtons.OK,MessageBoxIcon.Error);
-                        return false;
+                        if (isNowShow)
+                            MessageBox.Show(Config.centralText("У арендодателя отсутствует email.\nОтправка счёта невозможна.\n"),"Отправка счёта по email арендатору",MessageBoxButtons.OK,MessageBoxIcon.Error);
+
+                        listError.Add($"У арендодателя \"{userName}\" отсутствует email");
+                        isShowLog = true;
+
+                        continue;
+                    }
+
+                    if (pass == null || pass.Trim().Length == 0)
+                    {
+                        if (isNowShow)
+                            MessageBox.Show(Config.centralText("У арендодателя отсутствует пароль для email.\nОтправка счёта невозможна.\n"), "Отправка счёта по email арендатору", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        listError.Add($"У арендодателя \"{userName}\" отсутствует пароль для email");
+                        isShowLog = true;
+
+                        continue;
                     }
 
                     if (ToEmail == null || ToEmail.Trim().Length == 0)
                     {
-                        MessageBox.Show(Config.centralText("У арендатора отсутствует email.\nОтправка счёта невозможна.\n"), "Отправка счёта по email арендатору", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
+                        if (isNowShow)
+                            MessageBox.Show(Config.centralText("У арендатора отсутствует email.\nОтправка счёта невозможна.\n"), "Отправка счёта по email арендатору", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        listError.Add($"У арендатора \"{ToUserName}\" отсутствует email");
+                        isShowLog = true;
+                        continue;
                     }
 
-                    sendMail(user, userName, pass, ToEmail, img, fileName);
+                    if (!ValidateEmail(user))
+                    {
+                        if(isNowShow)
+                        MessageBox.Show(Config.centralText("У арендодателя некорректный email.\nОтправка счёта невозможна.\n"), "Отправка счёта по email арендатору", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                        listError.Add($"У арендодателя \"{userName}\" некорректный email");
+                        isShowLog = true;
 
+                        continue;
+                    }
+                                        
+                    if (!ValidateEmail(ToEmail))
+                    {
+                        if (isNowShow)
+                            MessageBox.Show(Config.centralText("У арендатора некорректный email.\nОтправка счёта невозможна.\n"), "Отправка счёта по email арендатору", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        listError.Add($"У арендатора \"{ToUserName}\" некорректный email");
+                        isShowLog = true;
+
+                        continue;
+                    }
+
+                    string mailProvider = user.Split('@')[1].ToLower();
+
+                    EnumerableRowCollection<DataRow> rowCollect = dtMailProperty.AsEnumerable().Where(r => r.Field<string>("cName").ToLower().Equals(mailProvider));
+                    if (rowCollect.Count() == 0)
+                    {
+                        if (isNowShow)
+                            MessageBox.Show(Config.centralText($"Нет настроект для почтового сервера: {mailProvider}.\nОтправка счёта невозможна.\n"), "Отправка счёта по email арендатору", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        listError.Add($" Нет настроект для почтового сервера: {mailProvider}");
+                        isShowLog = true;
+
+                        continue;
+                    }
+
+                    byte[] img;
+                    img = net.GetFileWithPathBytes(dtScanData.Rows[0]["id_Doc"].ToString(), dtScanData.Rows[0]["cName"].ToString(), dtScanData.Rows[0]["Extension"].ToString(), dtScanData.Rows[0]["Path"].ToString());
+
+                    if (img == null)
+                    {
+                        listError.Add($"У арендатора \"{ToUserName}\" нет отсканированого документа");
+                        isShowLog = true;
+                        continue;
+                    }
+
+                    sendMail(user, userName, pass, ToEmail, img, fileName, rowCollect);
                 }
+
+                if (isShowLog && !isNowShow)
+                {
+                    Config.DoOnUIThread(() =>
+                    {
+                        new frmLog() { listError = listError }.ShowDialog();
+                    }, this);
+                    this.Enabled = true;
+                }
+
                 return true;
             });
         }
 
-        private void sendMail(string user,string userTitle, string pass,string toEmail, byte[] file,string fileName)
+        private void sendMail(string user,string userTitle, string pass,string toEmail, byte[] file,string fileName,EnumerableRowCollection<DataRow> rowCollect)
         {
             //string user = "harelove@yandex.ru";
             //string pass = "xkrbtshtjivqlggu";
 
+            string host = rowCollect.First()["host"].ToString();
+            int port = (int)rowCollect.First()["port"];
 
             // отправитель - устанавливаем адрес и отображаемое в письме имя
             MailAddress from = new MailAddress(user, userTitle);
@@ -497,7 +587,7 @@ namespace dllJournalLoad1C
             m.Attachments.Add(data);
 
             // адрес smtp-сервера и порт, с которого будем отправлять письмо
-            SmtpClient smtp = new SmtpClient("smtp.yandex.ru", 587);
+            SmtpClient smtp = new SmtpClient(host, port);
             // логин и пароль
             smtp.Credentials = new NetworkCredential(user, pass);
             smtp.EnableSsl = true;
@@ -507,6 +597,45 @@ namespace dllJournalLoad1C
             }
             catch
             { }
+        }
+
+        private bool ValidateEmail(string email)
+        {
+            EmailValidator emailValidator = new EmailValidator();
+            EmailValidationResult result;
+
+            if (!emailValidator.Validate(email, out result))
+            {
+                Console.WriteLine("Unable to check email"); // no internet connection or mailserver is down / busy
+                return false;
+            }
+
+            bool isOK= false;
+
+            switch (result)
+            {
+                case EmailValidationResult.OK:
+                    Console.WriteLine("Mailbox exists");
+                    isOK = true;
+                    break;
+
+                case EmailValidationResult.MailboxUnavailable:
+                    Console.WriteLine("Email server replied there is no such mailbox");
+                    isOK = false;
+                    break;
+
+                case EmailValidationResult.MailboxStorageExceeded:
+                    Console.WriteLine("Mailbox overflow");
+                    isOK = false;
+                    break;
+
+                case EmailValidationResult.NoMailForDomain:
+                    Console.WriteLine("Emails are not configured for domain (no MX records)");
+                    isOK=  false;
+                    break;
+            }
+
+            return isOK;
         }
 
         private void GetData()

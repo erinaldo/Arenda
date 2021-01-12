@@ -222,6 +222,11 @@ namespace Arenda
             tbFactAdress.Text = Ten.Rows[0]["FactAdress"].ToString();
             remark.Text = Ten.Rows[0]["Remark"].ToString();
             tbEmail.Text = Ten.Rows[0]["email"].ToString();
+            tbPassWord.Text = Ten.Rows[0]["EmailPassword"].ToString();
+
+            lPassWord.Visible = tbPassWord.Visible = !tenant;
+            if (tenant)
+                tbEmail.Size = new Size(292, 20);
 
             checkBox1.Checked = bool.Parse(Ten.Rows[0]["Vat_Nds"].ToString());
 
@@ -817,6 +822,7 @@ namespace Arenda
                 Date_basement = Convert.ToDateTime(dtbase.Value);
             }
 
+            string EmailPassword = tbPassWord.Text.Trim();
 
 
             int new_id = _proc.addedintLT(id,
@@ -858,7 +864,8 @@ namespace Arenda
                              tbScanD.Text,
                              tbEmail.Text,
                              tbFactAdress.Text.Trim(),
-                             tenant);
+                             tenant,
+                             EmailPassword);
 
 
             SaveBanks(new_id);

@@ -56,7 +56,8 @@ select
 	DateSendMail,
 	lt.email as emailSend,
 	ll.email as emailSender,
-	lac.id_Scan
+	lac.id_Scan,
+	ll.EmailPassword
 from
 	[Arenda].[j_LoadAccount1C] lac
 		inner join Arenda.j_Agreements a on a.id = lac.id_Agreements

@@ -50,7 +50,6 @@
             this.tbAgreements = new System.Windows.Forms.TextBox();
             this.tbTenant = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -250,17 +249,6 @@
             this.tbTenant.TabIndex = 37;
             this.tbTenant.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
             // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(541, 528);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(32, 32);
-            this.button1.TabIndex = 44;
-            this.toolTip1.SetToolTip(this.button1, "Сохранить");
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // dtpStart
             // 
             this.dtpStart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
@@ -346,6 +334,7 @@
             // btSendMail
             // 
             this.btSendMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btSendMail.Image = global::dllJournalLoad1C.Properties.Resources.stamp1;
             this.btSendMail.Location = new System.Drawing.Point(1026, 528);
             this.btSendMail.Name = "btSendMail";
             this.btSendMail.Size = new System.Drawing.Size(32, 32);
@@ -394,7 +383,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1146, 572);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.tbLandLord);
             this.Controls.Add(this.tbAgreement1C);
             this.Controls.Add(this.tbTypePay);
@@ -462,7 +450,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cAgreement1C;
         private System.Windows.Forms.DataGridViewTextBoxColumn cDate1C;
         private System.Windows.Forms.DataGridViewTextBoxColumn cTypePay;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btSendMail;
     }
 }

@@ -27,3 +27,19 @@ PRIMARY KEY CLUSTERED
 GO
 
 
+
+CREATE TABLE [Arenda].[s_mail_property](
+	[id] [int] IDENTITY(1,1) NOT NULL,	
+	[cName] [varchar](max) NOT NULL,
+	[host] [varchar](max) NOT NULL,
+	[port]	int		not null,	
+PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+
+
+

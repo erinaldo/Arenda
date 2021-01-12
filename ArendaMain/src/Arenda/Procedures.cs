@@ -950,7 +950,7 @@ namespace Arenda
                 string regNum, string numCert, string serCer, string WPON, string numAcc,
                 string serAcc, bool nds, int slt, string remark,
                 int mode, string numbase, DateTime? datebas, int id_Posts, string Adress_trade,
-                bool outReport, int id_obj, string path, string email, string factAdress, bool tenant)
+                bool outReport, int id_obj, string path, string email, string factAdress, bool tenant,string password)
         {
             ap.Clear();
             ap.Add(id);
@@ -994,6 +994,7 @@ namespace Arenda
             ap.Add(factAdress);
             ap.Add(tenant);
             ap.Add(UserSettings.User.Id);
+            ap.Add(password);
 
             DataTable dt = executeProcedure("Arenda.AddEditTL",
                 new string[] { "@id", "@type", "@cName", "@name", "@otc",
@@ -1004,7 +1005,7 @@ namespace Arenda
                                "@serAcc", "@nds", "@slt", "@remark",
                                "@mode", "@numofbas", "@datebas", "@id_Posts", "@adress_trade",
                                "@outReport", "@id_obj", "@path", "@email","@factAdress"
-                                ,"@isTenant","@id_user"},
+                                ,"@isTenant","@id_user","@password"},
 
                 //  "@id",       "@type",      "@cName",      "@name",      "@otc",       
                 new DbType[] { DbType.Int32, DbType.String, DbType.String, DbType.String, DbType.String, 
@@ -1023,7 +1024,7 @@ namespace Arenda
                                  //"@outReport", "@id_obj"      "@path"         "@email"    "@factAdress"
                                  DbType.Boolean, DbType.Int32, DbType.String, DbType.String,DbType.String
                                  // "@isTenant"
-                                ,DbType.Boolean, DbType.Int32}, ap);
+                                ,DbType.Boolean, DbType.Int32,DbType.String}, ap);
             return dt != null && dt.Rows.Count > 0 ? Convert.ToInt32(dt.Rows[0]["id"]) : 0;
         }
         public DataTable CheakLT(string cName, string INN, string too, string area_trade)

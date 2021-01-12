@@ -68,7 +68,6 @@ namespace dllJournalLoad1C
             return dtResult;
         }
 
-
         /// <summary>
         /// Получение списка объектов
         /// </summary>
@@ -194,6 +193,15 @@ namespace dllJournalLoad1C
             return executeProcedure("[Arenda].[getScan]",
               new string[] { "@id_Doc", "@id" },
               new DbType[] { DbType.Int32, DbType.Int32 }, ap);
+        }
+
+        public DataTable GetMailProperty()
+        {
+            ap.Clear();
+
+            return executeProcedure("[Arenda].[GetMailProperty]",
+              new string[] { },
+              new DbType[] { }, ap);
         }
     }
 }

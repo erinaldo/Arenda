@@ -194,6 +194,8 @@
             this.btAdd = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.dbs = new System.Windows.Forms.BindingSource(this.components);
+            this.tbPassWord = new System.Windows.Forms.TextBox();
+            this.lPassWord = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox10.SuspendLayout();
@@ -237,6 +239,8 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage1.Controls.Add(this.lPassWord);
+            this.tabPage1.Controls.Add(this.tbPassWord);
             this.tabPage1.Controls.Add(this.groupBox10);
             this.tabPage1.Controls.Add(this.groupBox9);
             this.tabPage1.Controls.Add(this.lEmail);
@@ -358,7 +362,7 @@
             // lEmail
             // 
             this.lEmail.AutoSize = true;
-            this.lEmail.Location = new System.Drawing.Point(312, 73);
+            this.lEmail.Location = new System.Drawing.Point(312, 74);
             this.lEmail.Name = "lEmail";
             this.lEmail.Size = new System.Drawing.Size(107, 13);
             this.lEmail.TabIndex = 47;
@@ -366,9 +370,9 @@
             // 
             // tbEmail
             // 
-            this.tbEmail.Location = new System.Drawing.Point(424, 69);
+            this.tbEmail.Location = new System.Drawing.Point(424, 70);
             this.tbEmail.Name = "tbEmail";
-            this.tbEmail.Size = new System.Drawing.Size(291, 20);
+            this.tbEmail.Size = new System.Drawing.Size(148, 20);
             this.tbEmail.TabIndex = 46;
             this.tbEmail.Validating += new System.ComponentModel.CancelEventHandler(this.tbEmail_Validating);
             // 
@@ -1905,6 +1909,23 @@
             // 
             this.toolTip1.IsBalloon = true;
             // 
+            // tbPassWord
+            // 
+            this.tbPassWord.Location = new System.Drawing.Point(632, 70);
+            this.tbPassWord.Name = "tbPassWord";
+            this.tbPassWord.PasswordChar = '*';
+            this.tbPassWord.Size = new System.Drawing.Size(84, 20);
+            this.tbPassWord.TabIndex = 49;
+            // 
+            // lPassWord
+            // 
+            this.lPassWord.AutoSize = true;
+            this.lPassWord.Location = new System.Drawing.Point(578, 74);
+            this.lPassWord.Name = "lPassWord";
+            this.lPassWord.Size = new System.Drawing.Size(48, 13);
+            this.lPassWord.TabIndex = 50;
+            this.lPassWord.Text = "Пароль:";
+            // 
             // AddEditTenant
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2126,5 +2147,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cBankBik;
         private System.Windows.Forms.DataGridViewTextBoxColumn cBankKS;
         private System.Windows.Forms.DataGridViewTextBoxColumn cBankRS;
+        private System.Windows.Forms.Label lPassWord;
+        private System.Windows.Forms.TextBox tbPassWord;
     }
 }
