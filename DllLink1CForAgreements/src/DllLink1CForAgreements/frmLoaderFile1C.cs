@@ -21,6 +21,8 @@ namespace DllLink1CForAgreements
 {
     public partial class frmLoaderFile1C : Form
     {
+        private List<FileData> lFileData = new List<FileData>();
+
         public frmLoaderFile1C()
         {
             InitializeComponent();
@@ -68,8 +70,10 @@ namespace DllLink1CForAgreements
             Close();
         }
 
+
         private void btSave_Click(object sender, EventArgs e)
         {
+            lFileData.Clear();
             var listFileExcel = Directory.GetFiles(tbPath.Text).Where(s => s.EndsWith(".xls") || s.EndsWith(".xlsx"));
             var listFileWord = Directory.GetFiles(tbPath.Text).Where(s => s.EndsWith(".doc") || s.EndsWith(".docx"));
             var listFilePDF = Directory.GetFiles(tbPath.Text).Where(s => s.EndsWith(".pdf"));
@@ -142,7 +146,8 @@ namespace DllLink1CForAgreements
 
                     if (s1 != null && s2 != null && s3 != null)
                     {
-                        parserText(s1, s2, s3);
+                        parserText(s1, s2, s3, filePath);
+                        cnvXLSToPDF.ConvertData(filePath);
                     }
                 }
             }
@@ -155,108 +160,9 @@ namespace DllLink1CForAgreements
             }
         }
 
-        private void ParseExcelFileNew(string FileName)
-        {            
-            object rOnly = true;
-            object SaveChanges = false;
-            object MissingObj = System.Reflection.Missing.Value;
-
-            Excel.Application app = new Excel.Application();
-            Excel.Workbooks workbooks = null;
-            Excel.Workbook workbook = null;
-            Excel.Sheets sheets = null;
-            try
-            {
-                workbooks = app.Workbooks;
-                workbook = workbooks.Open(FileName, MissingObj, rOnly, MissingObj, MissingObj,
-                                            MissingObj, MissingObj, MissingObj, MissingObj, MissingObj,
-                                            MissingObj, MissingObj, MissingObj, MissingObj, MissingObj);
-
-                // Получение всех страниц докуента
-                sheets = workbook.Sheets;
-
-                foreach (Excel.Worksheet worksheet in sheets)
-                {
-                    // Получаем диапазон используемых на странице ячеек
-                    Excel.Range UsedRange = worksheet.UsedRange;
-                    // Получаем строки в используемом диапазоне
-                    Excel.Range urRows = UsedRange.Rows;
-                    // Получаем столбцы в используемом диапазоне
-                    Excel.Range urColums = UsedRange.Columns;
-
-
-                    //Excel.Range CellRange = UsedRange.Cells[10, 2];
-                    //// Получение текста ячейки
-                    //string CellText = (CellRange == null || CellRange.Value2 == null) ? null :
-                    //                    (CellRange as Excel.Range).Value2.ToString();
-
-                    //if (CellText != null)
-                    //{
-                    //    /* Обработка текста */
-                    //}
-
-                    //CellRange = UsedRange.Cells[20, 7];
-                    //CellText = (CellRange == null || CellRange.Value2 == null) ? null :
-                    //                    (CellRange as Excel.Range).Value2.ToString();
-
-                    //CellRange = UsedRange.Cells[23, 4];
-                    //CellText = (CellRange == null || CellRange.Value2 == null) ? null :
-                    //                    (CellRange as Excel.Range).Value2.ToString();
-
-                    // Количества строк и столбцов
-                    int RowsCount = urRows.Count;
-                    int ColumnsCount = urColums.Count;
-                    for (int i = 1; i <= RowsCount; i++)
-                    {
-                        for (int j = 1; j <= ColumnsCount; j++)
-                        {
-                            Excel.Range CellRange = UsedRange.Cells[i, j];
-                            // Получение текста ячейки
-                            string CellText = (CellRange == null || CellRange.Value2 == null) ? null :
-                                                (CellRange as Excel.Range).Value2.ToString();
-
-                            if (CellText != null)
-                            {
-                                /* Обработка текста */
-                                Console.WriteLine($"row:{i} col:{j} text:{CellText}");
-                            }
-                        }
-                    }
-                    // Очистка неуправляемых ресурсов на каждой итерации
-                    if (urRows != null) Marshal.ReleaseComObject(urRows);
-                    if (urColums != null) Marshal.ReleaseComObject(urColums);
-                    if (UsedRange != null) Marshal.ReleaseComObject(UsedRange);
-                    if (worksheet != null) Marshal.ReleaseComObject(worksheet);
-                }
-            }
-            catch (Exception ex)
-            {
-                /* Обработка исключений */
-            }
-            finally
-            {
-                /* Очистка оставшихся неуправляемых ресурсов */
-                if (sheets != null) Marshal.ReleaseComObject(sheets);
-                if (workbook != null)
-                {
-                    workbook.Close(SaveChanges);
-                    Marshal.ReleaseComObject(workbook);
-                    workbook = null;
-                }
-
-                if (workbooks != null)
-                {
-                    workbooks.Close();
-                    Marshal.ReleaseComObject(workbooks);
-                    workbooks = null;
-                }
-                if (app != null)
-                {
-                    app.Quit();                    
-                    Marshal.ReleaseComObject(app);
-                    app = null;
-                }
-            }
+        private void insertImage(string filePath,int id_agreement)
+        { 
+        
         }
 
         private void ParseWordFile(object FileName)
@@ -309,7 +215,9 @@ namespace DllLink1CForAgreements
                 }
                 if (s1 != null && s2 != null && s3 != null)
                 {
-                    parserText(s1, s2, s3);
+                    parserText(s1, s2, s3, FileName.ToString());
+                    cnvWordToPDF.ConvertData(FileName.ToString());
+
                 }
                 Console.WriteLine();               
             }
@@ -338,7 +246,7 @@ namespace DllLink1CForAgreements
             }
         }
 
-        private void parserText(string s1, string s2, string s3)
+        private void parserText(string s1, string s2, string s3, string file)
         {
             //string num = s1.Substring(s1.IndexOf("№") + 1, s1.IndexOf("от") - s1.IndexOf("№") - 1).Trim();
             string num = s1.Substring(s1.IndexOf("№") + 1).Trim();
@@ -349,8 +257,10 @@ namespace DllLink1CForAgreements
             string agreement = s2.Replace("Д",string.Empty).Replace("№", string.Empty).Trim();
             if (agreement.IndexOf(" ") != -1)
                 agreement = agreement.Substring(0, agreement.IndexOf(" ")).Trim();
-
-
+            
+            FileData fData = new FileData();
+            fData.setData(file, file, num, date, agreement, s3);
+            lFileData.Add(fData);
         }
 
         private void tbPath_KeyDown(object sender, KeyEventArgs e)
@@ -393,5 +303,8 @@ namespace DllLink1CForAgreements
             }
             return true;
         }
+
+
+     
     }
 }

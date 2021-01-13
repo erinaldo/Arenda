@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
+using Microsoft.Office.Interop.Excel;
+using System.IO;
+
 
 namespace DllLink1CForAgreements
 {
@@ -66,4 +69,29 @@ namespace DllLink1CForAgreements
             if (_this.InvokeRequired) { _this.Invoke(d); } else { d(); }
         }
     }
+
+    class FileData
+    { 
+        private string FileName;
+        private string Path;
+        private string Number;
+        private DateTime Date;
+        private string Agreement;
+        private string TypePay;
+
+        private int idAgreement;
+        private bool isOk;
+
+        public void setData(string FileName, string Path, string Number, DateTime Date, string Agreement, string TypePay)
+        {
+            this.FileName = FileName;
+            this.Path = Path;
+            this.Number = Number;
+            this.Date = Date;
+            this.Agreement = Agreement;
+            this.TypePay = TypePay;            
+        }
+    }
+
+    
 }
