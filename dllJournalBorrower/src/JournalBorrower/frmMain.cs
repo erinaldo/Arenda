@@ -489,7 +489,13 @@ namespace JournalBorrower
                 task.Wait();
                 if (task.Result != null && task.Result.Rows.Count > 0)
                 {
-                    DateTableType2  = task.Result.AsEnumerable().Where(r => r.Field<decimal>("PrcPenny_2") > 0).CopyToDataTable();                   
+                    EnumerableRowCollection<DataRow> rowsCOl = task.Result.AsEnumerable().Where(r => r.Field<decimal>("PrcPenny_2") > 0);
+                    if(rowsCOl.Count()>0)
+                        DateTableType2 = rowsCOl.CopyToDataTable();
+
+                    //DateTableType2  = task.Result.AsEnumerable().Where(r => r.Field<decimal>("PrcPenny_2") > 0).CopyToDataTable();                   
+
+
                     //foreach (DataRow row in task.Result.Rows)
                     //{
                     //    EnumerableRowCollection<DataRow> rowCollect = dtData.AsEnumerable().Where(r => r.Field<int>("id") == (int)row["id"]);
