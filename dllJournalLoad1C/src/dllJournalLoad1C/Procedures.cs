@@ -203,5 +203,15 @@ namespace dllJournalLoad1C
               new string[] { },
               new DbType[] { }, ap);
         }
+
+        public DataTable UpdateDateSendLoadAccount1C(int id)
+        {
+            ap.Clear();
+            ap.Add(id);
+
+            return executeProcedure("[Arenda].[UpdateDateSendLoadAccount1C]",
+              new string[1] { "@id" },
+              new DbType[1] { DbType.Int32 }, ap);
+        }
     }
 }

@@ -110,15 +110,18 @@
     <Reference Include="dllJournalCongress">
       <HintPath>..\..\..\dllJournalCongress\src\dllJournalCongress\bin\Debug\dllJournalCongress.dll</HintPath>
     </Reference>
+    <Reference Include="dllJournalLoad1C">
+      <HintPath>..\..\..\dllJournalLoad1C\src\dllJournalLoad1C\bin\Debug\dllJournalLoad1C.dll</HintPath>
+    </Reference>
     <Reference Include="dllJournalPlaneReport">
       <HintPath>..\..\..\dllJournalReport\src\dllJournalPlaneReport\bin\Debug\dllJournalPlaneReport.dll</HintPath>
     </Reference>
     <Reference Include="dllJournalReport">
       <HintPath>..\..\..\dllJournalReport\src\dllJournalReport\bin\Debug\dllJournalReport.dll</HintPath>
     </Reference>
-    <Reference Include="Framework, Version=3.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Framework, Version=3.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\dll\Framework.dll</HintPath>
+      <HintPath>bin\Debug\Framework.dll</HintPath>
     </Reference>
     <Reference Include="Interop.Excel, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="JournalBorrower">

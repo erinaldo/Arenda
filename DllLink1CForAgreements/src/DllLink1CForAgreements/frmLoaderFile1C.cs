@@ -16,6 +16,9 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Word = Microsoft.Office.Interop.Word;
 using System.Runtime.InteropServices;
 using System.Threading;
+using OfficeOpenXml;
+using Xceed.Words.NET;
+using Xceed.Document.NET;
 
 namespace DllLink1CForAgreements
 {
@@ -70,7 +73,6 @@ namespace DllLink1CForAgreements
             Close();
         }
 
-
         private void btSave_Click(object sender, EventArgs e)
         {
             lFileData.Clear();
@@ -92,7 +94,12 @@ namespace DllLink1CForAgreements
 
         private void ParseExcelFile(string filePath)
         {
-            OleDbConnection conn = null;
+            FileInfo newFile = new FileInfo(filePath);
+            if (newFile.Extension.Equals(".xlsx"))
+            {
+                reSaveFile(filePath);
+            }
+                OleDbConnection conn = null;
             try
             {
                 DataTable dtexcel = new DataTable();
@@ -147,17 +154,66 @@ namespace DllLink1CForAgreements
                     if (s1 != null && s2 != null && s3 != null)
                     {
                         parserText(s1, s2, s3, filePath);
+                        if (conn != null)
+                            conn.Close();
+                       
+
+                        if (newFile.Extension.Equals(".xls"))
+                        {
+                            string newFileName = newFile.DirectoryName + "\\" + Path.GetFileNameWithoutExtension(filePath) + ".xlsx";
+
+                            var app = new Microsoft.Office.Interop.Excel.Application();
+                            var wb = app.Workbooks.Open(filePath);
+                            wb.SaveAs(newFileName, FileFormat: Microsoft.Office.Interop.Excel.XlFileFormat.xlOpenXMLWorkbook);
+                            wb.Close();
+                            app.Quit();
+
+                            //File.Move(filePath, newFileName);
+                            filePath = newFileName;
+                            newFile = new FileInfo(filePath);
+                        }
+
+                        if (newFile.Extension.Equals(".xlsx"))
+                        {
+                            ExcelPackage epp = new ExcelPackage(newFile);
+
+                            System.Drawing.Bitmap image = new System.Drawing.Bitmap(@"D:\DownLoad\img\orig.jpg");
+                            OfficeOpenXml.Drawing.ExcelPicture excelImage = null;
+                            var worksheet = epp.Workbook.Worksheets[0];
+
+                            excelImage = worksheet.Drawings.AddPicture("image", image);
+
+                            // In .SetPosition, we are using 8th Column and 8th Row, with 0 Offset 
+                            //worksheet.SetValue(34, 0, "");
+                            excelImage.SetPosition(34, 0, 0, 0);
+                           
+                            //set size of image, 100= width, 100= height
+                            //excelImage.SetSize(100, 100);
+                            epp.Save();
+                        }
                         cnvXLSToPDF.ConvertData(filePath);
                     }
                 }
             }
-            catch
-            { }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{filePath}: {ex.Message}");
+            }
             finally
             {
                 if (conn != null)
                     conn.Close();
             }
+        }
+
+        private void reSaveFile(string filePath)
+        {
+            var app = new Microsoft.Office.Interop.Excel.Application();
+            var wb = app.Workbooks.Open(filePath);
+            app.DisplayAlerts = false;
+            wb.SaveAs(filePath, FileFormat: Microsoft.Office.Interop.Excel.XlFileFormat.xlOpenXMLWorkbook);
+            wb.Close();
+            app.Quit();
         }
 
         private void insertImage(string filePath,int id_agreement)
@@ -211,15 +267,49 @@ namespace DllLink1CForAgreements
                             Console.WriteLine(3);
                         }
                     }
-                    indexTable++;                   
+                    indexTable++;
                 }
+
+                if (doc != null)
+                {
+                    doc.Close(ref SaveChanges);
+                    doc = null;
+                }
+                if (range != null)
+                {
+                    Marshal.ReleaseComObject(range);
+                    range = null;
+                }
+                if (app != null)
+                {
+                    app.Quit();
+                    Marshal.ReleaseComObject(app);
+                    app = null;
+                }
+
+
                 if (s1 != null && s2 != null && s3 != null)
                 {
                     parserText(s1, s2, s3, FileName.ToString());
+
+                    using (DocX document = DocX.Load(FileName.ToString()))
+                    {
+                        Xceed.Document.NET.Image image = document.AddImage(@"D:\DownLoad\img\orig.jpg");
+                        
+                        Table table = document.Tables[3];
+                        table.Rows[7].Remove();
+                        table.Rows[8].Remove();                        
+                        table.Rows[7].MergeCells(0, table.Rows[7].Cells.Count);
+                        table.Rows[7].Cells[0].Paragraphs[0].AppendPicture(image.CreatePicture());
+                        table.Rows[7].Cells[0].Paragraphs[0].Alignment = Alignment.center;
+                        
+                        document.Save();
+                    }
+                 
                     cnvWordToPDF.ConvertData(FileName.ToString());
 
                 }
-                Console.WriteLine();               
+                Console.WriteLine();
             }
             catch (Exception ex)
             {

@@ -240,9 +240,7 @@ namespace Arenda
             dgLordland.AllowUserToResizeColumns = true;
             UserAccessAndElements();
 
-            tsmiReport.Visible = new List<string> { "СОА", "РКВ", "КНТ", "СБ6", "Д" }.Contains(TempData.Rezhim);
-
-
+          
             //if (TempData.Rezhim == "МН")
             //{
             //    справочникиToolStripMenuItem.Enabled = false;
@@ -276,6 +274,9 @@ namespace Arenda
             //справочникиToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim);
             //выгрузкаДокументовToolStripMenuItem.Visible = new List<string> { "РКВ" }.Contains(TempData.Rezhim);
             tsmiLoad1C.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim);
+            tsmiReport.Visible = new List<string> { "СОА", "РКВ", "КНТ", "СБ6", "Д" }.Contains(TempData.Rezhim);
+            tsmiJournalLoad1C.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim);
+
 
             журналДолжниковToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д" }.Contains(TempData.Rezhim);
             журналСъездовToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д", "МНД" }.Contains(TempData.Rezhim);
@@ -2573,6 +2574,11 @@ namespace Arenda
         {
             int id_LandLord = Convert.ToInt32(dgLordland.SelectedRows[0].Cells["id_landlord"].Value);
             new AddNewDocToFolder.frmAddDoc() { id_Doc = id_LandLord,isLandLoard=true }.ShowDialog();
+        }
+
+        private void tsmiJournalLoad1C_Click(object sender, EventArgs e)
+        {
+            new dllJournalLoad1C.frmJournalLoad1C().ShowDialog();
         }
 
         private void sPhone_KeyPress(object sender, KeyPressEventArgs e)

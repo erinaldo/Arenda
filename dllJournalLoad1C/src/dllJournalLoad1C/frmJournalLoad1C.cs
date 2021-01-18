@@ -1,4 +1,5 @@
 ﻿using EmailValidation;
+using Nwuram.Framework.Settings.Connection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,10 @@ namespace dllJournalLoad1C
         public frmJournalLoad1C()
         {
             InitializeComponent();
+            if(Config.hCntMain==null)
+                Config.hCntMain = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
+
+            
             dgvData.AutoGenerateColumns = false;
             net = new NetworkShare(true, false);
         }
@@ -521,7 +526,7 @@ namespace dllJournalLoad1C
                     if (rowCollect.Count() == 0)
                     {
                         if (isNowShow)
-                            MessageBox.Show(Config.centralText($"Нет настроект для почтового сервера: {mailProvider}.\nОтправка счёта невозможна.\n"), "Отправка счёта по email арендатору", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(Config.centralText($"Нет настроек для почтового сервера: {mailProvider}.\nОтправка счёта невозможна.\n"), "Отправка счёта по email арендатору", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                         listError.Add($" Нет настроект для почтового сервера: {mailProvider}");
                         isShowLog = true;
@@ -539,7 +544,11 @@ namespace dllJournalLoad1C
                         continue;
                     }
 
-                    sendMail(user, userName, pass, ToEmail, img, fileName, rowCollect);
+                    if (sendMail(user, userName, pass, ToEmail, img, fileName, rowCollect))
+                    {
+                        int IdLoadAccount1C = (int)viewRow["IdLoadAccount1C"];
+                        Config.hCntMain.UpdateDateSendLoadAccount1C(IdLoadAccount1C);
+                    }
                 }
 
                 if (isShowLog && !isNowShow)
@@ -548,14 +557,20 @@ namespace dllJournalLoad1C
                     {
                         new frmLog() { listError = listError }.ShowDialog();
                     }, this);
-                    this.Enabled = true;
                 }
+
+               
+                Config.DoOnUIThread(() =>
+                {
+                    MessageBox.Show("Завершение отправки писем", "Информирование", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    this.Enabled = true;
+                }, this);
 
                 return true;
             });
         }
 
-        private void sendMail(string user,string userTitle, string pass,string toEmail, byte[] file,string fileName,EnumerableRowCollection<DataRow> rowCollect)
+        private bool sendMail(string user,string userTitle, string pass,string toEmail, byte[] file,string fileName,EnumerableRowCollection<DataRow> rowCollect)
         {
             //string user = "harelove@yandex.ru";
             //string pass = "xkrbtshtjivqlggu";
@@ -596,7 +611,12 @@ namespace dllJournalLoad1C
                 smtp.Send(m);
             }
             catch
-            { }
+            {
+
+                return false;
+            }
+
+            return true;
         }
 
         private bool ValidateEmail(string email)
