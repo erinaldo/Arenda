@@ -6,17 +6,19 @@ namespace DllLink1CForAgreements
 {
     public class cnvWordToPDF
     {
-
-        public static void ConvertData(string files)
+        public static string ConvertData(string files)
         {
-            if (!Directory.Exists(System.Windows.Forms.Application.StartupPath + @"\Report\"))
-                Directory.CreateDirectory(System.Windows.Forms.Application.StartupPath + @"\Report\");
+            FileInfo newFile = new FileInfo(files);
+
+            //if (!Directory.Exists(System.Windows.Forms.Application.StartupPath + @"\Report\"))
+                //Directory.CreateDirectory(System.Windows.Forms.Application.StartupPath + @"\Report\");
 
             object paramSourceDocPath = files;//System.Windows.Forms.Application.StartupPath + @"\" + files;// @"D:\test.xls";
             object paramMissing = Type.Missing;
 
             string name = Path.GetFileNameWithoutExtension(files);
-            string paramExportFilePath = System.Windows.Forms.Application.StartupPath + @"\Report\" + name + ".pdf";
+            //string paramExportFilePath = System.Windows.Forms.Application.StartupPath + @"\Report\" + name + ".pdf";
+            string paramExportFilePath = newFile.DirectoryName + @"\\" + name + ".pdf";
             Word.WdExportFormat paramExportFormat = Word.WdExportFormat.wdExportFormatPDF;
 
             bool result;
@@ -71,8 +73,9 @@ namespace DllLink1CForAgreements
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
                 GC.Collect();
-                GC.WaitForPendingFinalizers();
+                GC.WaitForPendingFinalizers();               
             }
+            return paramExportFilePath;
         }
     }
 }

@@ -63,10 +63,10 @@
             this.договорыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.арендодателиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiLoad1C = new System.Windows.Forms.ToolStripMenuItem();
             this.выгрузкаДокументовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiReport = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiReportPayTypeDates = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmiLoad1C = new System.Windows.Forms.ToolStripMenuItem();
             this.pTenant = new System.Windows.Forms.Panel();
             this.sPhone = new System.Windows.Forms.TextBox();
             this.sEmail = new System.Windows.Forms.TextBox();
@@ -252,118 +252,118 @@
             this.отчетПоВидамДеятельностиToolStripMenuItem,
             this.отчетОЗанятостиСекцийToolStripMenuItem});
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
-            this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
+            this.справочникиToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.справочникиToolStripMenuItem.Text = "Справочники";
             // 
             // справочникЗданийToolStripMenuItem
             // 
             this.справочникЗданийToolStripMenuItem.Name = "справочникЗданийToolStripMenuItem";
-            this.справочникЗданийToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникЗданийToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникЗданийToolStripMenuItem.Text = "Справочник зданий";
             this.справочникЗданийToolStripMenuItem.Click += new System.EventHandler(this.справочникЗданийToolStripMenuItem_Click_1);
             // 
             // справочникЭтажейToolStripMenuItem
             // 
             this.справочникЭтажейToolStripMenuItem.Name = "справочникЭтажейToolStripMenuItem";
-            this.справочникЭтажейToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникЭтажейToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникЭтажейToolStripMenuItem.Text = "Справочник этажей";
             this.справочникЭтажейToolStripMenuItem.Click += new System.EventHandler(this.справочникЭтажейToolStripMenuItem_Click);
             // 
             // справочникТиповПомещенийToolStripMenuItem
             // 
             this.справочникТиповПомещенийToolStripMenuItem.Name = "справочникТиповПомещенийToolStripMenuItem";
-            this.справочникТиповПомещенийToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникТиповПомещенийToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникТиповПомещенийToolStripMenuItem.Text = "Справочник типов помещений";
             this.справочникТиповПомещенийToolStripMenuItem.Click += new System.EventHandler(this.справочникТиповПомещенийToolStripMenuItem_Click);
             // 
             // справочникОборудованияToolStripMenuItem
             // 
             this.справочникОборудованияToolStripMenuItem.Name = "справочникОборудованияToolStripMenuItem";
-            this.справочникОборудованияToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникОборудованияToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникОборудованияToolStripMenuItem.Text = "Справочник оборудования";
             this.справочникОборудованияToolStripMenuItem.Click += new System.EventHandler(this.справочникОборудованияToolStripMenuItem_Click);
             // 
             // справочникСекцииToolStripMenuItem
             // 
             this.справочникСекцииToolStripMenuItem.Name = "справочникСекцииToolStripMenuItem";
-            this.справочникСекцииToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникСекцииToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникСекцииToolStripMenuItem.Text = "Справочник секции";
             this.справочникСекцииToolStripMenuItem.Click += new System.EventHandler(this.справочникСекцииToolStripMenuItem_Click);
             // 
             // справочникТиповОрганизацийToolStripMenuItem
             // 
             this.справочникТиповОрганизацийToolStripMenuItem.Name = "справочникТиповОрганизацийToolStripMenuItem";
-            this.справочникТиповОрганизацийToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникТиповОрганизацийToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникТиповОрганизацийToolStripMenuItem.Text = "Справочник типов организаций";
             this.справочникТиповОрганизацийToolStripMenuItem.Click += new System.EventHandler(this.справочникТиповОрганизацийToolStripMenuItem_Click);
             // 
             // справочникОснованийЗаключенияДоговоровToolStripMenuItem
             // 
             this.справочникОснованийЗаключенияДоговоровToolStripMenuItem.Name = "справочникОснованийЗаключенияДоговоровToolStripMenuItem";
-            this.справочникОснованийЗаключенияДоговоровToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникОснованийЗаключенияДоговоровToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникОснованийЗаключенияДоговоровToolStripMenuItem.Text = "Справочник оснований заключения договоров";
             this.справочникОснованийЗаключенияДоговоровToolStripMenuItem.Click += new System.EventHandler(this.справочникОснованийЗаключенияДоговоровToolStripMenuItem_Click);
             // 
             // справочникБанковToolStripMenuItem
             // 
             this.справочникБанковToolStripMenuItem.Name = "справочникБанковToolStripMenuItem";
-            this.справочникБанковToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникБанковToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникБанковToolStripMenuItem.Text = "Справочник банков";
             this.справочникБанковToolStripMenuItem.Click += new System.EventHandler(this.справочникБанковToolStripMenuItem_Click);
             // 
             // справочникДолжностейToolStripMenuItem
             // 
             this.справочникДолжностейToolStripMenuItem.Name = "справочникДолжностейToolStripMenuItem";
-            this.справочникДолжностейToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникДолжностейToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникДолжностейToolStripMenuItem.Text = "Справочник должностей";
             this.справочникДолжностейToolStripMenuItem.Click += new System.EventHandler(this.справочникДолжностейToolStripMenuItem_Click);
             // 
             // справочникДопОплатToolStripMenuItem
             // 
             this.справочникДопОплатToolStripMenuItem.Name = "справочникДопОплатToolStripMenuItem";
-            this.справочникДопОплатToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникДопОплатToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникДопОплатToolStripMenuItem.Text = "Справочник дополнительных оплат";
             this.справочникДопОплатToolStripMenuItem.Click += new System.EventHandler(this.справочникДопОплатToolStripMenuItem_Click);
             // 
             // справочникПриборовToolStripMenuItem
             // 
             this.справочникПриборовToolStripMenuItem.Name = "справочникПриборовToolStripMenuItem";
-            this.справочникПриборовToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникПриборовToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникПриборовToolStripMenuItem.Text = "Справочник приборов";
             this.справочникПриборовToolStripMenuItem.Click += new System.EventHandler(this.справочникПриборовToolStripMenuItem_Click);
             // 
             // справочникОбъектовToolStripMenuItem
             // 
             this.справочникОбъектовToolStripMenuItem.Name = "справочникОбъектовToolStripMenuItem";
-            this.справочникОбъектовToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникОбъектовToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникОбъектовToolStripMenuItem.Text = "Справочник объектов аренды";
             this.справочникОбъектовToolStripMenuItem.Click += new System.EventHandler(this.справочникОбъектовToolStripMenuItem_Click);
             // 
             // справочникРекламныхМестToolStripMenuItem
             // 
             this.справочникРекламныхМестToolStripMenuItem.Name = "справочникРекламныхМестToolStripMenuItem";
-            this.справочникРекламныхМестToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникРекламныхМестToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникРекламныхМестToolStripMenuItem.Text = "Справочник рекламных мест";
             this.справочникРекламныхМестToolStripMenuItem.Click += new System.EventHandler(this.справочникРекламныхМестToolStripMenuItem_Click);
             // 
             // справочникЗемельныхУчастковToolStripMenuItem
             // 
             this.справочникЗемельныхУчастковToolStripMenuItem.Name = "справочникЗемельныхУчастковToolStripMenuItem";
-            this.справочникЗемельныхУчастковToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникЗемельныхУчастковToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникЗемельныхУчастковToolStripMenuItem.Text = "Справочник земельных участков";
             this.справочникЗемельныхУчастковToolStripMenuItem.Click += new System.EventHandler(this.справочникЗемельныхУчастковToolStripMenuItem_Click);
             // 
             // справочникВидаДейтельностиToolStripMenuItem
             // 
             this.справочникВидаДейтельностиToolStripMenuItem.Name = "справочникВидаДейтельностиToolStripMenuItem";
-            this.справочникВидаДейтельностиToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникВидаДейтельностиToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникВидаДейтельностиToolStripMenuItem.Text = "Справочник вида деятельности";
             this.справочникВидаДейтельностиToolStripMenuItem.Click += new System.EventHandler(this.справочникВидаДейтельностиToolStripMenuItem_Click);
             // 
             // справочникСкидокToolStripMenuItem
             // 
             this.справочникСкидокToolStripMenuItem.Name = "справочникСкидокToolStripMenuItem";
-            this.справочникСкидокToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.справочникСкидокToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.справочникСкидокToolStripMenuItem.Text = "Справочник скидок";
             this.справочникСкидокToolStripMenuItem.Visible = false;
             this.справочникСкидокToolStripMenuItem.Click += new System.EventHandler(this.справочникСкидокToolStripMenuItem_Click);
@@ -371,7 +371,7 @@
             // отчетПоВидамДеятельностиToolStripMenuItem
             // 
             this.отчетПоВидамДеятельностиToolStripMenuItem.Name = "отчетПоВидамДеятельностиToolStripMenuItem";
-            this.отчетПоВидамДеятельностиToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.отчетПоВидамДеятельностиToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.отчетПоВидамДеятельностиToolStripMenuItem.Text = "Отчет по видам деятельности";
             this.отчетПоВидамДеятельностиToolStripMenuItem.Visible = false;
             this.отчетПоВидамДеятельностиToolStripMenuItem.Click += new System.EventHandler(this.отчетПоВидамДеятельностиToolStripMenuItem_Click);
@@ -379,7 +379,7 @@
             // отчетОЗанятостиСекцийToolStripMenuItem
             // 
             this.отчетОЗанятостиСекцийToolStripMenuItem.Name = "отчетОЗанятостиСекцийToolStripMenuItem";
-            this.отчетОЗанятостиСекцийToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.отчетОЗанятостиСекцийToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
             this.отчетОЗанятостиСекцийToolStripMenuItem.Text = "Отчет о занятости секций";
             this.отчетОЗанятостиСекцийToolStripMenuItem.Visible = false;
             this.отчетОЗанятостиСекцийToolStripMenuItem.Click += new System.EventHandler(this.отчетОЗанятостиСекцийToolStripMenuItem_Click);
@@ -394,83 +394,90 @@
             this.журналДолжниковToolStripMenuItem,
             this.tsmiJournalLoad1C});
             this.журналыToolStripMenuItem.Name = "журналыToolStripMenuItem";
-            this.журналыToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
+            this.журналыToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.журналыToolStripMenuItem.Text = "Журналы";
             // 
             // журналНачисленияПениToolStripMenuItem
             // 
             this.журналНачисленияПениToolStripMenuItem.Name = "журналНачисленияПениToolStripMenuItem";
-            this.журналНачисленияПениToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.журналНачисленияПениToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.журналНачисленияПениToolStripMenuItem.Text = "Журнал начисления пени";
             this.журналНачисленияПениToolStripMenuItem.Click += new System.EventHandler(this.журналНачисленияПениToolStripMenuItem_Click);
             // 
             // журналПланОтчётовToolStripMenuItem
             // 
             this.журналПланОтчётовToolStripMenuItem.Name = "журналПланОтчётовToolStripMenuItem";
-            this.журналПланОтчётовToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.журналПланОтчётовToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.журналПланОтчётовToolStripMenuItem.Text = "Журнал План-Отчётов";
             this.журналПланОтчётовToolStripMenuItem.Click += new System.EventHandler(this.журналПланОтчётовToolStripMenuItem_Click);
             // 
             // журналСъездовToolStripMenuItem
             // 
             this.журналСъездовToolStripMenuItem.Name = "журналСъездовToolStripMenuItem";
-            this.журналСъездовToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.журналСъездовToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.журналСъездовToolStripMenuItem.Text = "Журнал съездов";
             this.журналСъездовToolStripMenuItem.Click += new System.EventHandler(this.журналСъездовToolStripMenuItem_Click);
             // 
             // журналЕжемесячныхПлановToolStripMenuItem
             // 
             this.журналЕжемесячныхПлановToolStripMenuItem.Name = "журналЕжемесячныхПлановToolStripMenuItem";
-            this.журналЕжемесячныхПлановToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.журналЕжемесячныхПлановToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.журналЕжемесячныхПлановToolStripMenuItem.Text = "Журнал ежемесячных планов";
             this.журналЕжемесячныхПлановToolStripMenuItem.Click += new System.EventHandler(this.журналЕжемесячныхПлановToolStripMenuItem_Click);
             // 
             // журналДолжниковToolStripMenuItem
             // 
             this.журналДолжниковToolStripMenuItem.Name = "журналДолжниковToolStripMenuItem";
-            this.журналДолжниковToolStripMenuItem.Size = new System.Drawing.Size(241, 22);
+            this.журналДолжниковToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
             this.журналДолжниковToolStripMenuItem.Text = "Журнал должников";
             this.журналДолжниковToolStripMenuItem.Click += new System.EventHandler(this.журналДолжниковToolStripMenuItem_Click);
             // 
             // tsmiJournalLoad1C
             // 
             this.tsmiJournalLoad1C.Name = "tsmiJournalLoad1C";
-            this.tsmiJournalLoad1C.Size = new System.Drawing.Size(241, 22);
+            this.tsmiJournalLoad1C.Size = new System.Drawing.Size(225, 22);
             this.tsmiJournalLoad1C.Text = "Журнал загрузки счетов 1С";
             this.tsmiJournalLoad1C.Click += new System.EventHandler(this.tsmiJournalLoad1C_Click);
             // 
             // арендаторыToolStripMenuItem
             // 
             this.арендаторыToolStripMenuItem.Name = "арендаторыToolStripMenuItem";
-            this.арендаторыToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
+            this.арендаторыToolStripMenuItem.Size = new System.Drawing.Size(83, 20);
             this.арендаторыToolStripMenuItem.Text = "Арендаторы";
             this.арендаторыToolStripMenuItem.Click += new System.EventHandler(this.арендаторыToolStripMenuItem_Click);
             // 
             // договорыToolStripMenuItem
             // 
             this.договорыToolStripMenuItem.Name = "договорыToolStripMenuItem";
-            this.договорыToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
+            this.договорыToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
             this.договорыToolStripMenuItem.Text = "Договоры";
             this.договорыToolStripMenuItem.Click += new System.EventHandler(this.договорыToolStripMenuItem_Click);
             // 
             // арендодателиToolStripMenuItem
             // 
             this.арендодателиToolStripMenuItem.Name = "арендодателиToolStripMenuItem";
-            this.арендодателиToolStripMenuItem.Size = new System.Drawing.Size(97, 20);
+            this.арендодателиToolStripMenuItem.Size = new System.Drawing.Size(94, 20);
             this.арендодателиToolStripMenuItem.Text = "Арендодатели";
             this.арендодателиToolStripMenuItem.Click += new System.EventHandler(this.арендодателиToolStripMenuItem_Click);
             // 
             // настройкиToolStripMenuItem
             // 
             this.настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.настройкиToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
             this.настройкиToolStripMenuItem.Text = "Настройки";
             this.настройкиToolStripMenuItem.Click += new System.EventHandler(this.настройкиToolStripMenuItem_Click);
+            // 
+            // tsmiLoad1C
+            // 
+            this.tsmiLoad1C.Name = "tsmiLoad1C";
+            this.tsmiLoad1C.Size = new System.Drawing.Size(103, 20);
+            this.tsmiLoad1C.Text = "Загрузка счетов";
+            this.tsmiLoad1C.Click += new System.EventHandler(this.tsmiLoad1C_Click);
             // 
             // выгрузкаДокументовToolStripMenuItem
             // 
             this.выгрузкаДокументовToolStripMenuItem.Name = "выгрузкаДокументовToolStripMenuItem";
-            this.выгрузкаДокументовToolStripMenuItem.Size = new System.Drawing.Size(138, 20);
+            this.выгрузкаДокументовToolStripMenuItem.Size = new System.Drawing.Size(131, 20);
             this.выгрузкаДокументовToolStripMenuItem.Text = "Выгрузка документов";
             this.выгрузкаДокументовToolStripMenuItem.Visible = false;
             this.выгрузкаДокументовToolStripMenuItem.Click += new System.EventHandler(this.выгрузкаДокументовToolStripMenuItem_Click);
@@ -480,21 +487,15 @@
             this.tsmiReport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiReportPayTypeDates});
             this.tsmiReport.Name = "tsmiReport";
-            this.tsmiReport.Size = new System.Drawing.Size(60, 20);
+            this.tsmiReport.Size = new System.Drawing.Size(59, 20);
             this.tsmiReport.Text = "Отчёты";
             // 
             // tsmiReportPayTypeDates
             // 
             this.tsmiReportPayTypeDates.Name = "tsmiReportPayTypeDates";
-            this.tsmiReportPayTypeDates.Size = new System.Drawing.Size(310, 22);
+            this.tsmiReportPayTypeDates.Size = new System.Drawing.Size(292, 22);
             this.tsmiReportPayTypeDates.Text = "Отчёт по добавленным оплатам за период";
             this.tsmiReportPayTypeDates.Click += new System.EventHandler(this.tsmiReportPayTypeDates_Click);
-            // 
-            // tsmiLoad1C
-            // 
-            this.tsmiLoad1C.Name = "tsmiLoad1C";
-            this.tsmiLoad1C.Size = new System.Drawing.Size(107, 20);
-            this.tsmiLoad1C.Text = "Загрузка счетов";
             // 
             // pTenant
             // 
@@ -1773,13 +1774,13 @@
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(109, 17);
             this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(118, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(109, 17);
             this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
             // prbExcel

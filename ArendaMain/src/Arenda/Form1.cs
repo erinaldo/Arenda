@@ -2581,6 +2581,11 @@ namespace Arenda
             new dllJournalLoad1C.frmJournalLoad1C().ShowDialog();
         }
 
+        private void tsmiLoad1C_Click(object sender, EventArgs e)
+        {
+            new DllLink1CForAgreements.frmLoaderFile1C().ShowDialog();
+        }
+
         private void sPhone_KeyPress(object sender, KeyPressEventArgs e)
         {
             Regex pat = new Regex(@"[\b]|[0-9]|[+-]");

@@ -183,5 +183,62 @@ namespace DllLink1CForAgreements
                 new DbType[3] { DbType.Int32, DbType.String, DbType.String }, ap);
         }
 
+        public DataTable FindAgreement1CForAgreement(string inAgreement)
+        {
+            ap.Clear();
+            ap.Add(inAgreement);
+
+            return executeProcedure("Arenda.FindAgreement1CForAgreement",
+              new string[1] { "@inAgreement" },
+              new DbType[1] { DbType.String }, ap);
+        }
+
+
+        public DataTable SetAgreement1CForAgreement(int id_Agreements,string NumberAccount,DateTime DateAccount,string NumberAgreement,string TypePayment,bool isAdd,int id_Scan)
+        {
+            ap.Clear();
+            ap.Add(id_Agreements);
+            ap.Add(NumberAccount);
+            ap.Add(DateAccount);
+            ap.Add(NumberAgreement);
+            ap.Add(TypePayment);
+            ap.Add(isAdd);
+            ap.Add(id_Scan);            
+            ap.Add(UserSettings.User.Id);
+
+            return executeProcedure("Arenda.SetAgreement1CForAgreement",
+              new string[8] { "@id_Agreements", "@NumberAccount", "@DateAccount", "@NumberAgreement", "@TypePayment", "@isAdd", "@id_Scan", "@id_user" },
+              new DbType[8] { DbType.Int32, DbType.String, DbType.DateTime, DbType.String, DbType.String, DbType.Boolean, DbType.Int32, DbType.Int32 }, ap);
+        }
+
+        public DataTable getScan(int id_Doc, int id)
+        {
+            ap.Clear();
+            ap.Add(id_Doc);
+            ap.Add(id);
+
+            return executeProcedure("[Arenda].[getScan]",
+              new string[] { "@id_Doc", "@id" },
+              new DbType[] { DbType.Int32, DbType.Int32 }, ap);
+        }
+
+        public DataTable setScan(int id_Doc, string nameFile, string Extension, int id_DocType,
+          DateTime DateDocument, string path)
+        {
+            ap.Clear();
+            ap.Add(id_Doc);
+            ap.Add(nameFile);
+            ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
+            ap.Add(Extension);
+            ap.Add(id_DocType);
+            ap.Add(DateDocument);
+            ap.Add(path);
+
+            return executeProcedure("[Arenda].[setScan]",
+              new string[] { "@id_Doc", "@nameFile", "@idUser", "@Extension", "@id_DocType", "@DateDocument", "@Path" },
+              new DbType[] { DbType.Int32, DbType.String, DbType.Int32, DbType.String, DbType.Int32,
+              DbType.DateTime, DbType.String}, ap);
+        }
+
     }
 }

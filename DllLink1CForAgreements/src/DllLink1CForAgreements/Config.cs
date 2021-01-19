@@ -70,28 +70,40 @@ namespace DllLink1CForAgreements
         }
     }
 
-    class FileData
-    { 
-        private string FileName;
+    public class FileData
+    {
+        public string FileName { private set; get; }
         private string Path;
-        private string Number;
-        private DateTime Date;
-        private string Agreement;
-        private string TypePay;
+        public string Number { private set; get; }
+        public DateTime Date { private set; get; }
+        public string Agreement { private set; get; }
+        public string TypePay { private set; get; }
+        public int idAgreement { set; get; }
+        public string nameLandLord { set; get; }
+        public typeFile tFile { private set; get; }
 
-        private int idAgreement;
-        private bool isOk;
+        public bool isAdd { set; get; }        
 
-        public void setData(string FileName, string Path, string Number, DateTime Date, string Agreement, string TypePay)
+        public void setData(string FileName, string Path, string Number, DateTime Date, string Agreement, string TypePay, int idAgreement, bool isAdd, string nameLandLord, typeFile tFile)
         {
             this.FileName = FileName;
             this.Path = Path;
             this.Number = Number;
             this.Date = Date;
             this.Agreement = Agreement;
-            this.TypePay = TypePay;            
+            this.TypePay = TypePay;
+            this.idAgreement = idAgreement;
+            this.isAdd = isAdd;
+            this.nameLandLord = nameLandLord;
+            this.tFile = tFile;
         }
     }
 
-    
+    public enum typeFile
+    {
+        excel = 1,
+        word = 2
+    }
+
+
 }

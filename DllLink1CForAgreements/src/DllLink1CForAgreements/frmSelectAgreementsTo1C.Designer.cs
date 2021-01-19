@@ -295,7 +295,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(932, 576);
+            this.ClientSize = new System.Drawing.Size(928, 572);
             this.ControlBox = false;
             this.Controls.Add(this.cmbLandLord);
             this.Controls.Add(this.label2);

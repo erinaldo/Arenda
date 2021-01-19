@@ -7,10 +7,11 @@ namespace DllLink1CForAgreements
     public class cnvXLSToPDF
     {
 
-        public static void ConvertData(string files)
+        public static string ConvertData(string files)
         {
-            if (!Directory.Exists(System.Windows.Forms.Application.StartupPath + @"\Report\"))
-                Directory.CreateDirectory(System.Windows.Forms.Application.StartupPath + @"\Report\");
+            FileInfo newFile = new FileInfo(files);
+            //if (!Directory.Exists(System.Windows.Forms.Application.StartupPath + @"\Report\"))
+                //Directory.CreateDirectory(System.Windows.Forms.Application.StartupPath + @"\Report\");
 
             ApplicationClass excelApplication = new ApplicationClass();
             Workbook excelWorkBook = null;
@@ -20,7 +21,9 @@ namespace DllLink1CForAgreements
 
             string name = Path.GetFileNameWithoutExtension(files);
 
-            string paramExportFilePath = System.Windows.Forms.Application.StartupPath + @"\Report\" + name + ".pdf";
+            //string paramExportFilePath = System.Windows.Forms.Application.StartupPath + @"\Report\" + name + ".pdf";
+            string paramExportFilePath = newFile.DirectoryName + @"\\" + name + ".pdf";
+
 
             //MessageBox.Show(paramExportFilePath);
 
@@ -81,6 +84,8 @@ namespace DllLink1CForAgreements
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
             }
+
+            return paramExportFilePath;
         }
     }
 }

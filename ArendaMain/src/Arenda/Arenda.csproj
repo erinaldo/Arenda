@@ -119,6 +119,9 @@
     <Reference Include="dllJournalReport">
       <HintPath>..\..\..\dllJournalReport\src\dllJournalReport\bin\Debug\dllJournalReport.dll</HintPath>
     </Reference>
+    <Reference Include="DllLink1CForAgreements">
+      <HintPath>..\..\..\DllLink1CForAgreements\src\DllLink1CForAgreements\bin\Debug\DllLink1CForAgreements.dll</HintPath>
+    </Reference>
     <Reference Include="Framework, Version=3.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\Framework.dll</HintPath>

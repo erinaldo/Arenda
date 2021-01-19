@@ -14,7 +14,9 @@ namespace DllLink1CForAgreements
     {
         public int IdAgreement { private set; get; }
         public string Agreement { private set; get; }
-        
+        public string nameLandLord { private set; get; }
+
+
 
         private DataTable dtLandLord, dtData;
         public frmSelectAgreementsTo1C()
@@ -203,6 +205,7 @@ namespace DllLink1CForAgreements
         {
             IdAgreement = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
             Agreement = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["Agreement"];
+            nameLandLord = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["nameLandLord"];
             DialogResult = DialogResult.OK;
         }
 
