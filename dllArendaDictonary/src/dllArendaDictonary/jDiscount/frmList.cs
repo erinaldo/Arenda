@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Nwuram.Framework.ToExcelNew;
 
 namespace dllArendaDictonary.jDiscount
 {
@@ -29,9 +30,9 @@ namespace dllArendaDictonary.jDiscount
             ToolTip tp = new ToolTip();
             tp.SetToolTip(btClose, "Выход");
             tp.SetToolTip(btConfirmD, "Подтвердить");
-            tp.SetToolTip(btConfirmD, "Отклонить");
-
-            btDeAcceptD.Visible = btConfirmD.Visible = Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.Equals("Д");
+            tp.SetToolTip(btDeAcceptD, "Отклонить");
+            tp.SetToolTip(btnBackInPast, "Возврат в неподтвержденные");
+            btDeAcceptD.Visible = btConfirmD.Visible = cV.Visible = btnBackInPast.Visible = Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.Equals("Д");
         }
 
         private void frmList_Load(object sender, EventArgs e)
@@ -134,9 +135,13 @@ namespace dllArendaDictonary.jDiscount
             {
                 btDeAcceptD.Enabled = false;
                 btConfirmD.Enabled = false;
+                btnBackInPast.Enabled = false;
                 return;
             }
-            btDeAcceptD.Enabled = btConfirmD.Enabled = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_StatusDiscount"] == 1;
+            btDeAcceptD.Enabled = btConfirmD.Enabled = dtData.AsEnumerable().Where(r => r.Field<bool>("selected")).Count() > 0;
+            //возврат в статус 1 кнопочка
+            btnBackInPast.Enabled = new string[] { "2", "3" }.Contains(dtData.DefaultView[dgvData.CurrentRow.Index]["id_StatusDiscount"].ToString());    
+                //(int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_StatusDiscount"] == 1;
         }
 
         private void dgvData_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -264,62 +269,86 @@ namespace dllArendaDictonary.jDiscount
 
         private void btConfirmD_Click(object sender, EventArgs e)
         {
-            if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
+            EnumerableRowCollection<DataRow> rowcoll = dtData.AsEnumerable().Where(r => r.Field<bool>("selected"));
+            if (rowcoll.Count() == 0)
+                return;
+            string id = "";
+            Logging.StartFirstLevel((int)logEnum.Подтверждение_скидки);
+            foreach (DataRow dr in rowcoll)
             {
-                //int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+                id += $"{dr["id"]},";
 
-                //DateTime dateStart = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
-                //DateTime? dateEnd = null;
-                //if (dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] != DBNull.Value)
-                //    dateEnd = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
-                //int id_TypeAgreements = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeAgreements"];
-                //int id_TypeDiscount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
-                //int id_TypeTenant = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeTenant"];
-                //int id_StatusDiscount = 2;
-
-                int id_discount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
-                int _id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_Agreements"];
-                DateTime dStart = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
-                DateTime? dEnd = null;
-                if (dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] != DBNull.Value) dEnd = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
-                int id_TypeDiscount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
-                decimal discount = (decimal)dtData.DefaultView[dgvData.CurrentRow.Index]["Discount"];
-                int id_Status = 2;
-
-                //DataTable dtResult = _proc.setTDiscount(id_discount, _id, dStart, dEnd, id_TypeDiscount, id_Status, discount);
-
-
-
-                if (DialogResult.No == MessageBox.Show("Подтвердить скидку?", "Подтверждение скидки", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) return;                        
-
-                //Task<DataTable> task = Config.hCntMain.setTDiscount(id, dateStart, dateEnd, id_TypeDiscount, id_TypeTenant, id_TypeAgreements, id_StatusDiscount, true, false, 0);
-                Task<DataTable> task = Config.hCntMain.setTDiscount(id_discount, _id, dStart, dEnd, id_TypeDiscount, id_Status, discount);
+                Logging.Comment($"ID:{dr["id"]}");
+                Logging.Comment($"Объект ID:{dr["id_ObjectLease"]}; Наименование:{dr["nameObjectLease"]}");
+                Logging.Comment($"Арендатор ID:{dr["id_Tenant"]}; Наименование:{dr["nameLandLord"]}");
+                Logging.Comment($"№ договора:{dr["Agreement"]}");
+                Logging.Comment($"Тип договора:{dr["TypeContract"]}");
+                Logging.Comment($"Дата начала:{dr["DateStart"]}");
+                Logging.Comment($"Дата окончания:{dr["DateEnd"]}");
+                Logging.Comment($"Тип скидки:{dr["nameTypeDiscount"]}");
+                Logging.Comment($"Скидка:{dr["Discount"]}");                
+            }
+            Logging.StopFirstLevel();
+            id = id.Substring(0, id.Length - 1);
+            if (dtData.AsEnumerable().Where(r=>r.Field<bool>("selected")).Count()>0)
+            {
+                Task<DataTable> task = Config.hCntMain.setTDiscountsAll(id, 2);
                 task.Wait();
-
-                DataTable dtResult = task.Result;
-
-                if (dtResult == null || dtResult.Rows.Count == 0)
+                if (task.Result == null)
                 {
-                    MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    MessageBox.Show("Ошибка обновления статуса скидок", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-
-                if ((int)dtResult.Rows[0]["id"] == -1)
+                else
                 {
-                    MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    MessageBox.Show("Скидки подтверждены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-
-                if ((int)dtResult.Rows[0]["id"] == -9999)
-                {
-                    MessageBox.Show("Произошла неведомая фигня.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
                 get_data();
             }
+
+            #region gosha
+            /* if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
+             {
+                 int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+
+                 DateTime dateStart = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
+                 DateTime? dateEnd = null;
+                 if (dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] != DBNull.Value)
+                     dateEnd = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
+                 int id_TypeAgreements = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeAgreements"];
+                 int id_TypeDiscount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
+                 int id_TypeTenant = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeTenant"];
+                 int id_StatusDiscount = 2;
+
+                 if (DialogResult.No == MessageBox.Show("Подтвердить скидку?", "Подтверждение скидки", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) return;                        
+
+                 Task<DataTable> task = Config.hCntMain.setTDiscount(id, dateStart, dateEnd, id_TypeDiscount, id_TypeTenant, id_TypeAgreements, id_StatusDiscount, true, false, 0);
+                 task.Wait();
+
+                 DataTable dtResult = task.Result;
+
+                 if (dtResult == null || dtResult.Rows.Count == 0)
+                 {
+                     MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                     return;
+                 }
+
+
+                 if ((int)dtResult.Rows[0]["id"] == -1)
+                 {
+                     MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                     return;
+                 }
+
+
+                 if ((int)dtResult.Rows[0]["id"] == -9999)
+                 {
+                     MessageBox.Show("Произошла неведомая фигня.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                     return;
+                 }
+
+                 get_data();
+             }*/
+            #endregion
         }
 
         private void dtpStart_ValueChanged(object sender, EventArgs e)
@@ -349,60 +378,87 @@ namespace dllArendaDictonary.jDiscount
 
         private void btDeAcceptD_Click(object sender, EventArgs e)
         {
-            if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
+            EnumerableRowCollection<DataRow> rowcoll = dtData.AsEnumerable().Where(r => r.Field<bool>("selected"));
+            if (rowcoll.Count() == 0)
+                return;
+            string id = "";
+            Logging.StartFirstLevel((int)logEnum.Отклонение_скидки);
+            foreach (DataRow dr in rowcoll)
             {
-                //int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+                id += $"{dr["id"]},";
 
-                //DateTime dateStart = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
-                //DateTime? dateEnd = null;
-                //if (dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] != DBNull.Value)
-                //    dateEnd = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
-                //int id_TypeAgreements = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeAgreements"];
-                //int id_TypeDiscount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
-                //int id_TypeTenant = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeTenant"];
-                //int id_StatusDiscount = 3;
+                Logging.Comment($"ID:{dr["id"]}");
+                Logging.Comment($"Объект ID:{dr["id_ObjectLease"]}; Наименование:{dr["nameObjectLease"]}");
+                Logging.Comment($"Арендатор ID:{dr["id_Tenant"]}; Наименование:{dr["nameLandLord"]}");
+                Logging.Comment($"№ договора:{dr["Agreement"]}");
+                Logging.Comment($"Тип договора:{dr["TypeContract"]}");
+                Logging.Comment($"Дата начала:{dr["DateStart"]}");
+                Logging.Comment($"Дата окончания:{dr["DateEnd"]}");
+                Logging.Comment($"Тип скидки:{dr["nameTypeDiscount"]}");
+                Logging.Comment($"Скидка:{dr["Discount"]}");
+            }
+            Logging.StopFirstLevel();
+            id = id.Substring(0, id.Length - 1);
+            if (dtData.AsEnumerable().Where(r => r.Field<bool>("selected")).Count() > 0)
+            {
 
 
-                int id_discount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
-                int _id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_Agreements"];
-                DateTime dStart = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
-                DateTime? dEnd = null;
-                if (dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] != DBNull.Value) dEnd = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
-                int id_TypeDiscount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
-                decimal discount = (decimal)dtData.DefaultView[dgvData.CurrentRow.Index]["Discount"];
-                int id_Status = 3;
-
-                if (DialogResult.No == MessageBox.Show("Отклонить скидку?", "Отклонение скидки", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) return;
-
-                //Task<DataTable> task = Config.hCntMain.setTDiscount(id, dateStart, dateEnd, id_TypeDiscount, id_TypeTenant, id_TypeAgreements, id_StatusDiscount, true, false, 0);
-                Task<DataTable> task = Config.hCntMain.setTDiscount(id_discount, _id, dStart, dEnd, id_TypeDiscount, id_Status, discount);
-
+                Task<DataTable> task = Config.hCntMain.setTDiscountsAll(id, 3);
                 task.Wait();
-
-                DataTable dtResult = task.Result;
-
-                if (dtResult == null || dtResult.Rows.Count == 0)
+                if (task.Result == null)
                 {
-                    MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    MessageBox.Show("Ошибка обновления статуса скидок", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-
-                if ((int)dtResult.Rows[0]["id"] == -1)
+                else
                 {
-                    MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    MessageBox.Show("Скидки отклонены", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-
-                if ((int)dtResult.Rows[0]["id"] == -9999)
-                {
-                    MessageBox.Show("Произошла неведомая фигня.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
                 get_data();
             }
+            #region gosha
+            /* if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
+             {
+                 int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+
+                 DateTime dateStart = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateStart"];
+                 DateTime? dateEnd = null;
+                 if (dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] != DBNull.Value)
+                     dateEnd = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["DateEnd"];
+                 int id_TypeAgreements = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeAgreements"];
+                 int id_TypeDiscount = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
+                 int id_TypeTenant = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_TypeTenant"];
+                 int id_StatusDiscount = 3;
+
+                 if (DialogResult.No == MessageBox.Show("Отклонить скидку?", "Отклонение скидки", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) return;
+
+                 Task<DataTable> task = Config.hCntMain.setTDiscount(id, dateStart, dateEnd, id_TypeDiscount, id_TypeTenant, id_TypeAgreements, id_StatusDiscount, true, false, 0);
+                 task.Wait();
+
+                 DataTable dtResult = task.Result;
+
+                 if (dtResult == null || dtResult.Rows.Count == 0)
+                 {
+                     MessageBox.Show("Не удалось сохранить данные", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                     return;
+                 }
+
+
+                 if ((int)dtResult.Rows[0]["id"] == -1)
+                 {
+                     MessageBox.Show("В справочнике уже присутствует должность с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                     return;
+                 }
+
+
+                 if ((int)dtResult.Rows[0]["id"] == -9999)
+                 {
+                     MessageBox.Show("Произошла неведомая фигня.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                     return;
+                 }
+
+                 get_data();
+             }*/
+            #endregion
         }
 
         private void cmbObject_SelectionChangeCommitted_1(object sender, EventArgs e)
@@ -418,6 +474,152 @@ namespace dllArendaDictonary.jDiscount
         private void dtpStart_Leave(object sender, EventArgs e)
         {
             setFilter();
+        }
+
+        private void dgvData_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1 && e.ColumnIndex == cV.Index)
+            {
+                if (dtData.DefaultView[e.RowIndex]["id_StatusDiscount"].ToString() != "1")
+                    return;
+                dtData.DefaultView[e.RowIndex]["selected"] = !(bool)dtData.DefaultView[e.RowIndex]["selected"];
+                if (dtData != null || dtData.Rows.Count > 0 || dtData.DefaultView.Count > 0)
+                    btConfirmD.Enabled = btDeAcceptD.Enabled = dtData.AsEnumerable().Where(r => r.Field<bool>("selected")).Count() > 0;
+            }
+        }
+
+        bool selected = true;
+        private void dgvData_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1 && e.ColumnIndex == cV.Index)
+            {
+                foreach (DataRowView dr in dtData.DefaultView)
+                {
+                    if ((int)dr["id_StatusDiscount"] == 1)
+                        dr["selected"] = selected;
+                }
+                dtData.AcceptChanges();
+                if (dtData != null || dtData.Rows.Count > 0 || dtData.DefaultView.Count >0 )
+                    btConfirmD.Enabled = btDeAcceptD.Enabled = dtData.AsEnumerable().Where(r => r.Field<bool>("selected")).Count() > 0;
+                selected = !selected;
+            }
+        }
+
+        private void btnReport_Click(object sender, EventArgs e)
+        {
+            if (dtData == null || dtData.Rows.Count == 0)
+                return;
+
+            Logging.StartFirstLevel(79);
+
+            Logging.Comment($"Объект ID:{cmbObject.SelectedValue}; Наименование:{cmbObject.Text}");
+            Logging.Comment($"Тип договора ID:{cmbTypeContract.SelectedValue}; Наименование:{cmbTypeContract.Text}");
+
+            Logging.Comment($"Договор:{tbAgreements.Text}");
+            Logging.Comment($"Арендатор:{tbLandLord.Text}");
+
+            Logging.Comment($"Подтвержденные скидки: {(chbIsAccept.Checked ? "Да" : "Нет")}");
+            Logging.Comment($"Отклоненные скидки: {(chbNotActive.Checked ? "Да" : "Нет")}");
+
+            Logging.Comment($"Дата начала:{dtpStart.Value.ToShortDateString()}");
+            Logging.Comment($"Дата окончания:{dtpEnd.Value.ToShortDateString()}");
+            Logging.Comment($"Отклоненные скидки: {(chbUnlimitedDiscount.Checked ? "Да" : "Нет")}");
+
+
+            Logging.StopFirstLevel();
+            
+            ExcelUnLoad rep = new ExcelUnLoad("Скидки");
+            int row = 1;
+            rep.AddSingleValue($"Отчет по скидкам с {dtpStart.Value.ToShortDateString()}" +(!chbIsAccept.Checked ? $" по {dtpEnd.Value.ToShortDateString()}":""), row, 1) ;
+            rep.SetFontBold(row, 1, row, 1);
+            row++;
+            rep.AddSingleValue($"Дата выгрузки: {DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}", row, 1);
+            row++;
+            rep.AddSingleValue($"Выгрузил: {UserSettings.User.FullUsername}", row, 1);
+            row += 2;
+            int startTable = row;
+            #region шапка
+            rep.AddSingleValue("Объект", row, 1);//nameObjectLease
+            rep.AddSingleValue("Арендатор", row, 2);//nameLandLord
+            rep.AddSingleValue("№ договора", row, 3);//Agreement
+            rep.AddSingleValue("Тип договора", row, 4);//TypeContract
+            rep.AddSingleValue("Дата начала", row, 5); //DateStart
+            rep.AddSingleValue("Дата окончания", row, 6);//DateEnd
+            rep.AddSingleValue("Тип скидки", row, 7);//nameTypeDiscount
+            rep.AddSingleValue("Скидка", row, 8);//Discount
+            rep.SetFontBold(row, 1, row, 8);
+            rep.SetWrapText(row, 1, row, 8);
+            rep.SetCellAlignmentToCenter(row, 1, row, 8);
+            rep.SetCellAlignmentToJustify(row, 1, row, 8);
+            #endregion
+            #region колонки
+            rep.SetColumnWidth(1, 1, 1, 1, 8);
+            rep.SetColumnWidth(2, 2, 2, 2, 23);
+            rep.SetColumnWidth(3, 3, 3, 3, 15);
+            rep.SetColumnWidth(4, 4, 4, 4, 20);
+            rep.SetColumnWidth(5, 5, 5, 5, 12);
+            rep.SetColumnWidth(6, 6, 6, 6, 12);
+            rep.SetColumnWidth(7, 7, 7, 7, 25);
+            rep.SetColumnWidth(8, 8, 8, 8, 15);
+            rep.SetPageOrientationToLandscape();
+            #endregion
+            row++;
+            rep.AddSingleValue("Неподтвержденные скидки", row, 1);
+            rep.Merge(row, 1, row, 8);
+            rep.SetCellAlignmentToCenter(row, 1, row, 1);
+            rep.SetFontBold(row, 1, row, 1);
+            row++;
+            addTable(ref rep, ref row, 1);
+            rep.AddSingleValue("Подтвержденные скидки", row, 1);
+            rep.Merge(row, 1, row, 8);
+            rep.SetCellAlignmentToCenter(row, 1, row, 1);
+            rep.SetFontBold(row, 1, row, 1);
+            row++;
+            addTable(ref rep, ref row, 2);
+            rep.AddSingleValue("Отклоненные скидки", row, 1);
+            rep.Merge(row, 1, row, 8);
+            rep.SetCellAlignmentToCenter(row, 1, row, 1);
+            rep.SetFontBold(row, 1, row, 1);
+            row++;
+            addTable(ref rep, ref row, 3);
+
+            rep.SetBorders(startTable, 1, row - 1, 8);
+            rep.Show();
+        }
+
+        private void addTable(ref ExcelUnLoad rep, ref int row, int status)
+        {
+            EnumerableRowCollection<DataRow> rowcoll = dtData.AsEnumerable().Where(r => r.Field<int>("id_StatusDiscount") == status);
+            foreach (DataRow dr in rowcoll)
+            {
+                rep.AddSingleValue(dr["nameObjectLease"].ToString(), row, 1);
+                rep.AddSingleValue(dr["nameLandLord"].ToString(), row, 2);
+                rep.AddSingleValue(dr["Agreement"].ToString(), row, 3);
+                rep.AddSingleValue(dr["TypeContract"].ToString(), row, 4);
+                rep.AddSingleValue(DateTime.Parse(dr["DateStart"].ToString()).ToShortDateString(), row, 5);
+                if (dr["DateEnd"]!=DBNull.Value)
+                    rep.AddSingleValue(DateTime.Parse(dr["DateEnd"].ToString()).ToShortDateString(), row, 6);
+                rep.AddSingleValue(dr["nameTypeDiscount"].ToString(), row, 7);
+                rep.AddSingleValue(dr["Discount"].ToString(), row, 8);
+                rep.SetWrapText(row, 1, row, 9);
+                row++;
+            }
+        }
+
+        private void btnBackInPast_Click(object sender, EventArgs e)
+        {
+            string id = dtData.DefaultView[dgvData.CurrentRow.Index]["id"].ToString();
+            Task<DataTable> task = Config.hCntMain.setTDiscountsAll(id, 1);
+            task.Wait();
+            if (task.Result == null)
+            {
+                MessageBox.Show("Ошибка обновления статуса скидок", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                MessageBox.Show("Скидка возвращена в статус \"Неподтвержденные\"", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            get_data();
         }
     }
 }

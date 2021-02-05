@@ -183,7 +183,11 @@ namespace Arenda
             btJournalSealSections.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
             btAcceptDoc.Visible = new List<string> { "СОА", "РКВ", "КНТ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
             btCopyDoc.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
-            btKntListTaxes.Visible = new List<string> { "КНТ", "РКВ", "Д" }.Contains(TempData.Rezhim) && pListDoc.Visible;
+            //btKntListTaxes.Visible = new List<string> { "КНТ", "РКВ", "Д" }.Contains(TempData.Rezhim) && pListDoc.Visible;
+            btKntListTaxes.Visible = false;
+            //журналСчетовДопОплатToolStripMenuItem.Visible = new List<string> { "КНТ", "РКВ", "Д" }.Contains(TempData.Rezhim);
+            //журналСкидокToolStripMenuItem.Visible = new List<string> { "РКВ", "Д", "СОА" }.Contains(TempData.Rezhim);
+            //отчётПоВидамДейтельностиToolStripMenuItem.Visible = new List<string> { "РКВ", "МНД", "СОА" }.Contains(TempData.Rezhim);
             btAddDocFile.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim) && pLordland.Visible;
         }
 
@@ -235,8 +239,7 @@ namespace Arenda
         private void mForm_Load(object sender, EventArgs e)
         {           
             //this.Text ="Аренда " + username;
-            this.Text = progname + " " /*+ codeuser*/ + " " + username;
-            TempData.Rezhim = Nwuram.Framework.Settings.User.UserSettings.User.StatusCode;
+            this.Text = progname + " " /*+ codeuser*/ + " " + username;            
             dgLordland.AllowUserToResizeColumns = true;
             UserAccessAndElements();
 
@@ -249,6 +252,7 @@ namespace Arenda
             //выгрузкаДокументовToolStripMenuItem.Visible = TempData.Rezhim == "АДМ";
 
             StatusUserForVisibleButtons();
+            договорыToolStripMenuItem_Click(sender, e);
         }
 
 
@@ -275,7 +279,7 @@ namespace Arenda
             //выгрузкаДокументовToolStripMenuItem.Visible = new List<string> { "РКВ" }.Contains(TempData.Rezhim);
             tsmiLoad1C.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim);
             tsmiReport.Visible = new List<string> { "СОА", "РКВ", "КНТ", "СБ6", "Д" }.Contains(TempData.Rezhim);
-            tsmiJournalLoad1C.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim);
+            tsmiJournalLoad1C.Visible = new List<string> { "СОА", "РКВ", "Д", "КНТ" }.Contains(TempData.Rezhim);
 
 
             журналДолжниковToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д" }.Contains(TempData.Rezhim);
@@ -287,6 +291,13 @@ namespace Arenda
 
             btnMassDiscounts.Visible = new List<string> { "РКВ", "СОА" }.Contains(TempData.Rezhim);
 
+            журналСчетовДопОплатToolStripMenuItem.Visible = new List<string> { "КНТ", "РКВ", "Д" }.Contains(TempData.Rezhim);
+            журналСкидокToolStripMenuItem.Visible = new List<string> { "РКВ", "Д", "СОА" }.Contains(TempData.Rezhim);
+            отчётПоВидамДейтельностиToolStripMenuItem.Visible = new List<string> { "РКВ", "МНД", "СОА" }.Contains(TempData.Rezhim);
+            отчётПоСекцииToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "КНТ", "Д" }.Contains(TempData.Rezhim);
+            отчётПоОплатамToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "КНТ", "Д" }.Contains(TempData.Rezhim);
+
+            //.Visible = new List<string> { "Д","КНТ","РКВ", "ПР", "СОА" }.Contains(TempData.Rezhim);
 
             //if (TempData.Rezhim == "РКВ") { }
             //if (TempData.Rezhim == "СОА") { }
@@ -407,8 +418,9 @@ namespace Arenda
             //скрываем ненужные            
             btnListPayment.Visible = 
             btnListTaxes.Visible = !new List<string> { "МНД" }.Contains(TempData.Rezhim);
-            btReportTenant.Visible = new List<string> { "РКВ", "МНД", "СОА" }.Contains(TempData.Rezhim);
-            btDicDiscount.Visible = new List<string> { "РКВ", "Д", "СОА" }.Contains(TempData.Rezhim);
+            //btReportTenant.Visible = new List<string> { "РКВ", "МНД", "СОА" }.Contains(TempData.Rezhim);
+            //btDicDiscount.Visible = new List<string> { "РКВ", "Д", "СОА" }.Contains(TempData.Rezhim);
+            btDicDiscount.Visible = false;
 
             //скрываем ненужные
             // ---на этой вкладке все нужны
@@ -865,13 +877,14 @@ namespace Arenda
                                                   MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
 
-                            Logging.StartFirstLevel(540);
+                            Logging.StartFirstLevel(1542);
                             Logging.Comment("Произведена смена статуса у арендодателя на активный");
 
                             Logging.Comment("Арендадатель ID: " + dgLordland.CurrentRow.Cells["id_Landlord"].Value.ToString() + " ; Наименование: " + dgLordland.CurrentRow.Cells["Landlord"].Value.ToString());
                             Logging.Comment("ФИО представителя: " + dgLordland.CurrentRow.Cells["LordPreds"].Value.ToString());
                             Logging.Comment("Адрес : " + dgLordland.CurrentRow.Cells["Adress"].Value.ToString());
                             Logging.Comment("Адрес сдаваемого помещения : " + dgLordland.CurrentRow.Cells["Adress_trade"].Value.ToString());
+                            Logging.Comment("Объект ID: " + dgLordland.CurrentRow.Cells["id_ObjectLease"].Value.ToString() + " ; Наименование: " + dgLordland.CurrentRow.Cells["ObjName"].Value.ToString());
 
                             Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
                             + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
@@ -887,13 +900,14 @@ namespace Arenda
                                                       MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
 
-                        Logging.StartFirstLevel(540);
+                        Logging.StartFirstLevel(1542);
                         Logging.Comment("Произведена смена статуса у арендодателя на неактивный");
 
                         Logging.Comment("Арендадатель ID: " + dgLordland.CurrentRow.Cells["id_Landlord"].Value.ToString() + " ; Наименование: " + dgLordland.CurrentRow.Cells["Landlord"].Value.ToString());
                         Logging.Comment("ФИО представителя: " + dgLordland.CurrentRow.Cells["LordPreds"].Value.ToString());
                         Logging.Comment("Адрес : " + dgLordland.CurrentRow.Cells["Adress"].Value.ToString());
                         Logging.Comment("Адрес сдаваемого помещения : " + dgLordland.CurrentRow.Cells["Adress_trade"].Value.ToString());
+                        Logging.Comment("Объект ID: " + dgLordland.CurrentRow.Cells["id_ObjectLease"].Value.ToString() + " ; Наименование: " + dgLordland.CurrentRow.Cells["ObjName"].Value.ToString());
 
                         Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
                         + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
@@ -912,11 +926,10 @@ namespace Arenda
                 string _Pred = dgTenant.SelectedRows[0].Cells["Pred"].Value.ToString();
                 string _Locate = dgTenant.SelectedRows[0].Cells["Locate"].Value.ToString();
                 string _remark = dgTenant.SelectedRows[0].Cells["remark"].Value.ToString();
+                DataTable dtLT = _proc.getLT(_id);
 
                 if (_proc.BefLordTen(_id, "ten").Rows[0][0].ToString() == "0")
                 {
-
-
                     delTen(_id);
                     iniTenant();
                 }
@@ -928,6 +941,9 @@ namespace Arenda
                                                   MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
 
+                           
+                           
+
                             Logging.StartFirstLevel(540);
                             Logging.Comment("Произведена смена статуса записи Арендатора в ПО «Аренда.Остров» на «активный»");
                             Logging.Comment("ID: " + _id);
@@ -935,6 +951,8 @@ namespace Arenda
                             Logging.Comment("ФИО представителя: " + _Pred);
                             Logging.Comment("Местоположение : " + _Locate);
                             Logging.Comment("Примечание: " + _remark);
+                            Logging.Comment($"Электронная почта: {dtLT.Rows[0]["email"]}");
+                            Logging.Comment($"Телефон: {dtLT.Rows[0]["email"]}");
 
                             Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
                             + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
@@ -954,6 +972,8 @@ namespace Arenda
                         Logging.Comment("ФИО представителя: " + _Pred);
                         Logging.Comment("Местоположение : " + _Locate);
                         Logging.Comment("Примечание: " + _remark);
+                        Logging.Comment($"Электронная почта: {dtLT.Rows[0]["email"]}");
+                        Logging.Comment($"Телефон: {dtLT.Rows[0]["email"]}");
 
                         Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
                         + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
@@ -1022,6 +1042,9 @@ namespace Arenda
                     Logging.Comment("ФИО представителя: " + _Pred);
                     Logging.Comment("Местоположение : " + _Locate);
                     Logging.Comment("Примечание: " + _remark);
+                    Logging.Comment($"Электронная почта: {dt.Rows[0]["email"]}");
+                    Logging.Comment($"Телефон: {dt.Rows[0]["email"]}");
+
 
                     Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
                       + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
@@ -1052,6 +1075,8 @@ namespace Arenda
                     Logging.Comment("ФИО представителя: " + dgLordland.CurrentRow.Cells["LordPreds"].Value.ToString());
                     Logging.Comment("Адрес : " + dgLordland.CurrentRow.Cells["Adress"].Value.ToString());
                     Logging.Comment("Адрес сдаваемого помещения : " + dgLordland.CurrentRow.Cells["Adress_trade"].Value.ToString());
+                    Logging.Comment($"Электронная почта: {dt.Rows[0]["email"]}");
+                    Logging.Comment($"Телефон: {dt.Rows[0]["email"]}");
 
                     Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
                       + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
@@ -1923,6 +1948,24 @@ namespace Arenda
         {
             if (pListDoc.Visible)
             {
+
+                DataGridViewRow rowIn = dgListDoc.CurrentRow;
+                //Logging.StartFirstLevel((int)logEnum.Подтверждение_договора);
+                //Logging.Comment($"Id договора:{rowIn.Cells["id_agreements"].Value}");
+                //Logging.Comment($"Дата договора:{rowIn.Cells["Date"].Value}");
+                //Logging.Comment($"Id {rowIn.Cells["id_obj"].Value} и наименование объекта договора:{rowIn.Cells["ObjNameD"].Value}");
+                //Logging.Comment($"Id  {rowIn.Cells["id_lord"].Value}  и наименование арендатора:{rowIn.Cells["tTenant"].Value}");
+                //Logging.Comment($"Номер договора:{rowIn.Cells["number"].Value}");
+                //Logging.Comment($"Тип договора:{rowIn.Cells["Type"].Value}");
+                //Logging.Comment($"Начало аренды:{rowIn.Cells["DataStart"].Value}");
+                //Logging.Comment($"Конец аренды:{rowIn.Cells["DataEnd"].Value}");
+                //Logging.Comment($"Место:{rowIn.Cells["ALocate"].Value}");
+                //Logging.Comment($"S м2:{rowIn.Cells["Storage"].Value}");
+                //Logging.Comment($"Аренда:{rowIn.Cells["Arend"].Value}");
+                //Logging.Comment($"Тел.:{rowIn.Cells["Phone"].Value}");
+
+                //Logging.StopFirstLevel();
+
                 /*PrintForm f = new PrintForm(int.Parse(dgListDoc.CurrentRow.Cells["id_agreements"].Value.ToString()),
                     dgListDoc.CurrentRow.Cells["number"].Value.ToString().Trim(),
                     int.Parse(dgListDoc.CurrentRow.Cells["id_type"].Value.ToString()));*/
@@ -1938,7 +1981,7 @@ namespace Arenda
                         dgListDoc.CurrentRow.Cells["DataEnd"].Value.ToString(),
                         dgListDoc.CurrentRow.Cells["id_lord"].Value.ToString());
 
-
+                f.rowIn = rowIn;
                 f.ShowDialog();
                 iniListDoc();
             }
@@ -2324,7 +2367,8 @@ namespace Arenda
             try
             {
                 int id_agreements = Convert.ToInt32(dgListDoc.SelectedRows[0].Cells["id_agreements"].Value.ToString());
-                new frmSealSections() { id_agreements = id_agreements }.ShowDialog();
+                string placeName = (string)dgListDoc.SelectedRows[0].Cells["ALocate"].Value;
+                new frmSealSections() { id_agreements = id_agreements, placeName= placeName }.ShowDialog();
             }
             catch { }
         }
@@ -2336,6 +2380,14 @@ namespace Arenda
             {
                 int id_agreements = Convert.ToInt32(dgListDoc.SelectedRows[0].Cells["id_agreements"].Value.ToString());
                 bool isConfirmed = (bool)dgListDoc.SelectedRows[0].Cells["cisConfirmed"].Value;
+                bool isActUse = (bool)dgListDoc.SelectedRows[0].Cells["cIsActUse"].Value;
+
+                if (!isActUse && !isConfirmed)  
+                {
+                    MessageBox.Show("У договора нет акта приемка-передачи!","Информирование",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    return;
+                }
+
 
                 if (!isConfirmed && new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim))
                 { if (DialogResult.No == MessageBox.Show("Подтвердить договор?", "Запрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) return; }
@@ -2346,6 +2398,43 @@ namespace Arenda
 
 
                 _proc.setConfirm(id_agreements, !isConfirmed);
+
+                DataGridViewRow rowIn = dgListDoc.SelectedRows[0];
+
+                if (!isConfirmed)
+                {
+                    Logging.StartFirstLevel((int)logEnum.Подтверждение_договора);
+                    Logging.Comment($"Id договора:{rowIn.Cells["id_agreements"].Value}");
+                    Logging.Comment($"Дата договора:{rowIn.Cells["Date"].Value}");
+                    Logging.Comment($"Id {rowIn.Cells["id_obj"].Value} и наименование объекта договора:{rowIn.Cells["ObjNameD"].Value}");
+                    Logging.Comment($"Id  {rowIn.Cells["id_lord"].Value}  и наименование арендатора:{rowIn.Cells["tTenant"].Value}");
+                    Logging.Comment($"Номер договора:{rowIn.Cells["number"].Value}");
+                    Logging.Comment($"Тип договора:{rowIn.Cells["Type"].Value}");
+                    Logging.Comment($"Начало аренды:{rowIn.Cells["DataStart"].Value}");
+                    Logging.Comment($"Конец аренды:{rowIn.Cells["DataEnd"].Value}");
+                    Logging.Comment($"Место:{rowIn.Cells["ALocate"].Value}");
+                    Logging.Comment($"S м2:{rowIn.Cells["Storage"].Value}");
+                    Logging.Comment($"Аренда:{rowIn.Cells["Arend"].Value}");
+                    Logging.Comment($"Тел.:{rowIn.Cells["Phone"].Value}");
+                    Logging.StopFirstLevel();
+                }
+                else
+                {
+                    Logging.StartFirstLevel((int)logEnum.Отмена_подтверждения_договора);
+                    Logging.Comment($"Id договора:{rowIn.Cells["id_agreements"].Value}");
+                    Logging.Comment($"Дата договора:{rowIn.Cells["Date"].Value}");
+                    Logging.Comment($"Id {rowIn.Cells["id_obj"].Value} и наименование объекта договора:{rowIn.Cells["ObjNameD"].Value}");
+                    Logging.Comment($"Id  {rowIn.Cells["id_lord"].Value}  и наименование арендатора:{rowIn.Cells["tTenant"].Value}");
+                    Logging.Comment($"Номер договора:{rowIn.Cells["number"].Value}");
+                    Logging.Comment($"Тип договора:{rowIn.Cells["Type"].Value}");
+                    Logging.Comment($"Начало аренды:{rowIn.Cells["DataStart"].Value}");
+                    Logging.Comment($"Конец аренды:{rowIn.Cells["DataEnd"].Value}");
+                    Logging.Comment($"Место:{rowIn.Cells["ALocate"].Value}");
+                    Logging.Comment($"S м2:{rowIn.Cells["Storage"].Value}");
+                    Logging.Comment($"Аренда:{rowIn.Cells["Arend"].Value}");
+                    Logging.Comment($"Тел.:{rowIn.Cells["Phone"].Value}");
+                    Logging.StopFirstLevel();
+                }
 
                 iniListDoc();
             }
@@ -2369,9 +2458,15 @@ namespace Arenda
                     dgListDoc.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = rColor;
                     dgListDoc.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black;
                 }
+                else if ((bool)dgListDoc.Rows[e.RowIndex].Cells["cFullPayed"].Value)
+                {
+                    dgListDoc.Rows[e.RowIndex].DefaultCellStyle.BackColor = 
+                    dgListDoc.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = pFullPay.BackColor;
+                    dgListDoc.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black;
+                }
                 else
                 {
-                    if ((bool)dgListDoc.Rows[e.RowIndex].Cells["isCancelDoc"].Value)
+                    if ((bool)dgListDoc.Rows[e.RowIndex].Cells["cFullPayed"].Value)
                         rColor = pCancelDoc.BackColor;
 
                     dgListDoc.Rows[e.RowIndex].DefaultCellStyle.BackColor = rColor;
@@ -2584,6 +2679,31 @@ namespace Arenda
         private void tsmiLoad1C_Click(object sender, EventArgs e)
         {
             new DllLink1CForAgreements.frmLoaderFile1C().ShowDialog();
+        }
+
+        private void журналСчетовДопОплатToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Payments.frmKntListTaxes().ShowDialog();
+        }
+
+        private void журналСкидокToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new dllArendaDictonary.jDiscount.frmList().ShowDialog();
+        }
+
+        private void отчётПоВидамДейтельностиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new TenantsReport.frmMain() { ShowInTaskbar = false }.ShowDialog();
+        }
+
+        private void отчётПоСекцииToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new dllPlanReport.frmMain() { StartPosition = FormStartPosition.CenterScreen,FormBorderStyle = FormBorderStyle.FixedSingle}.ShowDialog();
+        }
+
+        private void отчётПоОплатамToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new dllPlanReportMonth.frmPrint() { StartPosition = FormStartPosition.CenterScreen, FormBorderStyle = FormBorderStyle.FixedSingle }.ShowDialog();
         }
 
         private void sPhone_KeyPress(object sender, KeyPressEventArgs e)

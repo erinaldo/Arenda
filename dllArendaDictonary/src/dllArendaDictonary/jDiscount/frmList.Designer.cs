@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tbLandLord = new System.Windows.Forms.TextBox();
             this.chbNotActive = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -43,10 +43,8 @@
             this.dtpEnd = new System.Windows.Forms.DateTimePicker();
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.tbAgreements = new System.Windows.Forms.TextBox();
-            this.btDeAcceptD = new System.Windows.Forms.Button();
-            this.btConfirmD = new System.Windows.Forms.Button();
-            this.btClose = new System.Windows.Forms.Button();
             this.dgvData = new System.Windows.Forms.DataGridView();
+            this.cV = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.cObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameLandLord = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cAgreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +55,11 @@
             this.cSumDiscount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cConfirmD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.chbIsAccept = new System.Windows.Forms.CheckBox();
+            this.btnBackInPast = new System.Windows.Forms.Button();
+            this.btnReport = new System.Windows.Forms.Button();
+            this.btDeAcceptD = new System.Windows.Forms.Button();
+            this.btConfirmD = new System.Windows.Forms.Button();
+            this.btClose = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -197,39 +200,6 @@
             this.tbAgreements.TabIndex = 0;
             this.tbAgreements.TextChanged += new System.EventHandler(this.tbName_TextChanged);
             // 
-            // btDeAcceptD
-            // 
-            this.btDeAcceptD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btDeAcceptD.Image = global::dllArendaDictonary.Properties.Resources.agt_action_fail_2870;
-            this.btDeAcceptD.Location = new System.Drawing.Point(904, 433);
-            this.btDeAcceptD.Name = "btDeAcceptD";
-            this.btDeAcceptD.Size = new System.Drawing.Size(32, 32);
-            this.btDeAcceptD.TabIndex = 96;
-            this.btDeAcceptD.UseVisualStyleBackColor = true;
-            this.btDeAcceptD.Click += new System.EventHandler(this.btDeAcceptD_Click);
-            // 
-            // btConfirmD
-            // 
-            this.btConfirmD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btConfirmD.Image = global::dllArendaDictonary.Properties.Resources.tick;
-            this.btConfirmD.Location = new System.Drawing.Point(866, 433);
-            this.btConfirmD.Name = "btConfirmD";
-            this.btConfirmD.Size = new System.Drawing.Size(32, 32);
-            this.btConfirmD.TabIndex = 5;
-            this.btConfirmD.UseVisualStyleBackColor = true;
-            this.btConfirmD.Click += new System.EventHandler(this.btConfirmD_Click);
-            // 
-            // btClose
-            // 
-            this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClose.Image = global::dllArendaDictonary.Properties.Resources.Exit;
-            this.btClose.Location = new System.Drawing.Point(1070, 433);
-            this.btClose.Name = "btClose";
-            this.btClose.Size = new System.Drawing.Size(32, 32);
-            this.btClose.TabIndex = 4;
-            this.btClose.UseVisualStyleBackColor = true;
-            this.btClose.Click += new System.EventHandler(this.btClose_Click);
-            // 
             // dgvData
             // 
             this.dgvData.AllowUserToAddRows = false;
@@ -239,16 +209,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.cV,
             this.cObject,
             this.nameLandLord,
             this.cAgreements,
@@ -266,14 +237,25 @@
             this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvData.Size = new System.Drawing.Size(1090, 367);
             this.dgvData.TabIndex = 97;
+            this.dgvData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellContentClick);
+            this.dgvData.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellContentDoubleClick);
             this.dgvData.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvData_ColumnWidthChanged);
             this.dgvData.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvData_RowPostPaint);
             this.dgvData.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
             this.dgvData.SelectionChanged += new System.EventHandler(this.dgvData_SelectionChanged);
             // 
+            // cV
+            // 
+            this.cV.DataPropertyName = "selected";
+            this.cV.FillWeight = 25F;
+            this.cV.HeaderText = "V";
+            this.cV.Name = "cV";
+            this.cV.ReadOnly = true;
+            // 
             // cObject
             // 
             this.cObject.DataPropertyName = "nameObjectLease";
+            this.cObject.FillWeight = 101.0787F;
             this.cObject.HeaderText = "Объект";
             this.cObject.Name = "cObject";
             this.cObject.ReadOnly = true;
@@ -281,6 +263,7 @@
             // nameLandLord
             // 
             this.nameLandLord.DataPropertyName = "nameLandLord";
+            this.nameLandLord.FillWeight = 101.0787F;
             this.nameLandLord.HeaderText = "Арендатор";
             this.nameLandLord.Name = "nameLandLord";
             this.nameLandLord.ReadOnly = true;
@@ -288,6 +271,7 @@
             // cAgreements
             // 
             this.cAgreements.DataPropertyName = "Agreement";
+            this.cAgreements.FillWeight = 101.0787F;
             this.cAgreements.HeaderText = "№ договора";
             this.cAgreements.Name = "cAgreements";
             this.cAgreements.ReadOnly = true;
@@ -295,6 +279,7 @@
             // cTypeDoc
             // 
             this.cTypeDoc.DataPropertyName = "TypeContract";
+            this.cTypeDoc.FillWeight = 101.0787F;
             this.cTypeDoc.HeaderText = "Тип договора";
             this.cTypeDoc.Name = "cTypeDoc";
             this.cTypeDoc.ReadOnly = true;
@@ -302,6 +287,7 @@
             // cStartDiscount
             // 
             this.cStartDiscount.DataPropertyName = "DateStart";
+            this.cStartDiscount.FillWeight = 101.0787F;
             this.cStartDiscount.HeaderText = "Дата  начала";
             this.cStartDiscount.Name = "cStartDiscount";
             this.cStartDiscount.ReadOnly = true;
@@ -309,6 +295,7 @@
             // cStopDiscount
             // 
             this.cStopDiscount.DataPropertyName = "DateEnd";
+            this.cStopDiscount.FillWeight = 101.0787F;
             this.cStopDiscount.HeaderText = "Дата окончания";
             this.cStopDiscount.Name = "cStopDiscount";
             this.cStopDiscount.ReadOnly = true;
@@ -316,6 +303,7 @@
             // cTypeDiscount
             // 
             this.cTypeDiscount.DataPropertyName = "nameTypeDiscount";
+            this.cTypeDiscount.FillWeight = 101.0787F;
             this.cTypeDiscount.HeaderText = "Тип скидки";
             this.cTypeDiscount.Name = "cTypeDiscount";
             this.cTypeDiscount.ReadOnly = true;
@@ -323,6 +311,7 @@
             // cSumDiscount
             // 
             this.cSumDiscount.DataPropertyName = "Discount";
+            this.cSumDiscount.FillWeight = 101.0787F;
             this.cSumDiscount.HeaderText = "Скидка";
             this.cSumDiscount.Name = "cSumDiscount";
             this.cSumDiscount.ReadOnly = true;
@@ -347,11 +336,68 @@
             this.chbIsAccept.UseVisualStyleBackColor = true;
             this.chbIsAccept.CheckedChanged += new System.EventHandler(this.chbNotActive_CheckedChanged);
             // 
+            // btnBackInPast
+            // 
+            this.btnBackInPast.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBackInPast.Image = global::dllArendaDictonary.Properties.Resources.back;
+            this.btnBackInPast.Location = new System.Drawing.Point(822, 433);
+            this.btnBackInPast.Name = "btnBackInPast";
+            this.btnBackInPast.Size = new System.Drawing.Size(38, 38);
+            this.btnBackInPast.TabIndex = 100;
+            this.btnBackInPast.UseVisualStyleBackColor = true;
+            this.btnBackInPast.Click += new System.EventHandler(this.btnBackInPast_Click);
+            // 
+            // btnReport
+            // 
+            this.btnReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReport.Image = global::dllArendaDictonary.Properties.Resources.printer_6;
+            this.btnReport.Location = new System.Drawing.Point(1011, 433);
+            this.btnReport.Name = "btnReport";
+            this.btnReport.Size = new System.Drawing.Size(38, 38);
+            this.btnReport.TabIndex = 99;
+            this.btnReport.UseVisualStyleBackColor = true;
+            this.btnReport.Click += new System.EventHandler(this.btnReport_Click);
+            // 
+            // btDeAcceptD
+            // 
+            this.btDeAcceptD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btDeAcceptD.Image = global::dllArendaDictonary.Properties.Resources.minus;
+            this.btDeAcceptD.Location = new System.Drawing.Point(910, 433);
+            this.btDeAcceptD.Name = "btDeAcceptD";
+            this.btDeAcceptD.Size = new System.Drawing.Size(38, 38);
+            this.btDeAcceptD.TabIndex = 96;
+            this.btDeAcceptD.UseVisualStyleBackColor = true;
+            this.btDeAcceptD.Click += new System.EventHandler(this.btDeAcceptD_Click);
+            // 
+            // btConfirmD
+            // 
+            this.btConfirmD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btConfirmD.Image = global::dllArendaDictonary.Properties.Resources.plus;
+            this.btConfirmD.Location = new System.Drawing.Point(866, 433);
+            this.btConfirmD.Name = "btConfirmD";
+            this.btConfirmD.Size = new System.Drawing.Size(38, 38);
+            this.btConfirmD.TabIndex = 5;
+            this.btConfirmD.UseVisualStyleBackColor = true;
+            this.btConfirmD.Click += new System.EventHandler(this.btConfirmD_Click);
+            // 
+            // btClose
+            // 
+            this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btClose.Image = global::dllArendaDictonary.Properties.Resources.Exit;
+            this.btClose.Location = new System.Drawing.Point(1064, 433);
+            this.btClose.Name = "btClose";
+            this.btClose.Size = new System.Drawing.Size(38, 38);
+            this.btClose.TabIndex = 4;
+            this.btClose.UseVisualStyleBackColor = true;
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
+            // 
             // frmList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1114, 474);
+            this.Controls.Add(this.btnBackInPast);
+            this.Controls.Add(this.btnReport);
             this.Controls.Add(this.chbIsAccept);
             this.Controls.Add(this.dgvData);
             this.Controls.Add(this.btDeAcceptD);
@@ -407,6 +453,7 @@
         private System.Windows.Forms.Button btDeAcceptD;
         private System.Windows.Forms.DataGridView dgvData;
         private System.Windows.Forms.CheckBox chbIsAccept;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn cV;
         private System.Windows.Forms.DataGridViewTextBoxColumn cObject;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameLandLord;
         private System.Windows.Forms.DataGridViewTextBoxColumn cAgreements;
@@ -416,5 +463,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cTypeDiscount;
         private System.Windows.Forms.DataGridViewTextBoxColumn cSumDiscount;
         private System.Windows.Forms.DataGridViewTextBoxColumn cConfirmD;
+        private System.Windows.Forms.Button btnReport;
+        private System.Windows.Forms.Button btnBackInPast;
     }
 }

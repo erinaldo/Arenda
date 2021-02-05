@@ -73,6 +73,16 @@ namespace Arenda.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _5364ab4274a6f36b8d4340e42d7bfbed {
+            get {
+                object obj = ResourceManager.GetObject("5364ab4274a6f36b8d4340e42d7bfbed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap arrowleft {
             get {
                 object obj = ResourceManager.GetObject("arrowleft", resourceCulture);

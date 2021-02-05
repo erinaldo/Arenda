@@ -46,9 +46,11 @@ namespace Arenda
                 { MessageBox.Show("Запись с такими параметрами уже существует", "Внимание" ); }
                 else
                 {
-                    _proc.AddEditType_o_o(tbCname.Text, tbAbbr.Text, 0, 1,1);
+                    DataTable dtResult = _proc.AddEditType_o_o(tbCname.Text, tbAbbr.Text, 0, 1, 1);
 
                     Logging.StartFirstLevel(1376);
+                    if (dtResult != null && dtResult.Rows.Count > 0 && dtResult.Columns.Contains("id"))
+                        Logging.Comment($"ID:{dtResult.Rows[0]["id"]}");
                     Logging.Comment("Наименование типа организации: " + tbCname.Text.Trim());
                     Logging.Comment("Аббревиатура этажа: " + tbAbbr.Text.Trim());
 

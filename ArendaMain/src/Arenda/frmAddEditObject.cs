@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Nwuram.Framework.Logging;
 using Nwuram.Framework.Settings.Connection;
 
 namespace Arenda
@@ -72,7 +73,37 @@ namespace Arenda
             DataTable dtObj = proc.CheckObjectName(id_Object, tbName.Text);
             if (dtObj == null || dtObj.Rows.Count == 0)
             {
-                proc.SaveObject(id_Object, tbName.Text, tbComment.Text, tbCadastralNumber.Text);
+                DataTable dtResult = proc.SaveObject(id_Object, tbName.Text, tbComment.Text, tbCadastralNumber.Text);
+
+                if (id_Object == 0)
+                {
+                    Logging.StartFirstLevel((int)logEnum.Добавление_объекта_аренды);
+                    if (dtResult != null && dtResult.Rows.Count > 0 && dtResult.Columns.Contains("id"))
+                        Logging.Comment($"ID:{dtResult.Rows[0]["id"]}");
+
+                    Logging.Comment("Наименование: " + tbName.Text.Trim());
+                    Logging.Comment("Примечание: " + tbComment.Text.Trim());
+                    Logging.Comment("Кадастровый номер: " + tbCadastralNumber.Text.Trim());
+
+                    Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
+                      + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                    Logging.StopFirstLevel();
+                }
+                else
+                {
+                    Logging.StartFirstLevel((int)logEnum.Редактирование_объекта_аренды);
+
+                    Logging.Comment($"ID:{id_Object}");
+
+                    Logging.VariableChange("Наименование: ", tbName.Text.Trim(), objName);
+                    Logging.VariableChange("Примечание: ", tbComment.Text.Trim(), Comment);
+                    Logging.VariableChange("Кадастровый номер: ", tbCadastralNumber.Text.Trim(), CadastralNumber);
+
+                    Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
+                      + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                    Logging.StopFirstLevel();
+                }
+
                 MessageBox.Show("Данные сохранены.", "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
             }
@@ -88,6 +119,18 @@ namespace Arenda
                 {
                     if (MessageBox.Show("Введённое наименование присутствует в БД и имеет статус \"недействующая\". Вы хотите изменить статус на \"действующая\"?", "Сохранение записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                     {
+
+                        Logging.StartFirstLevel(540);
+
+                        Logging.Comment($"Смена статуса объекта аренды на действующий");
+                        Logging.Comment($"ID:{dtObj.Rows[0]["id"]}");
+
+                        Logging.Comment($"Наименование: {dtObj.Rows[0]["cName"]}");
+                        Logging.Comment($"Аббревиатура: {dtObj.Rows[0]["Comment"]}");
+                        Logging.Comment($"Кадастровый номер {dtObj.Rows[0]["CadastralNumber"]}");
+
+                        Logging.StopFirstLevel();
+
                         proc.ChangeObjectActiveStatus(int.Parse(dtObj.Rows[0]["id"].ToString()), true, true, tbComment.Text);
                         MessageBox.Show("Данные сохранены.", "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         this.DialogResult = DialogResult.OK;

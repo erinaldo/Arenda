@@ -1,0 +1,55 @@
+USE [dbase2]
+GO
+/****** Object:  StoredProcedure [Arenda].[kav_getTablePayment]    Script Date: 12.11.2020 16:25:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		kav
+-- Create date: 2020-11-13
+-- Description:	получение договоров, у которых нет аппв и есть неануллированный съезд
+-- =============================================
+CREATE PROCEDURE [Arenda].[getDocumentsWithLeave]
+AS
+BEGIN
+	SET NOCOUNT ON;
+	
+	select 
+			agr.id,
+			zs.Date_of_Departure
+	from Arenda.j_Agreements agr
+	--аппв (надо чтобы было нулл)
+	left join Arenda.j_AdditionalDocuments appv on agr.id = appv.id_Agreements and appv.id_TypeDoc = 6 and appv.isActive = 1
+	--есть за€вка на съезд подтвержденна€
+	left join Arenda.j_AdditionalDocuments zs on agr.id = zs.id_Agreements and zs.id_TypeDoc = 8 and zs.isActive = 1 and exists
+												(select * from Arenda.j_AddDocConfirmed adc where adc.id_AdditionalDocuments = zs.id and isConfirmed = 1)
+												and zs.DateCreate = (select top 1 adMax.DateCreate
+													from Arenda.j_AdditionalDocuments adMax
+														inner join Arenda.j_AddDocConfirmed adMaxConf on adMax.id = adMaxConf.id_AdditionalDocuments and adMaxConf.isConfirmed = 1
+														where adMax.id_Agreements = zs.id_Agreements
+														and adMax.id_TypeDoc = 8 and adMax.isActive = 1
+														order by adMax.DateCreate desc)
+	-- нет аннул€ции за€вки
+	left join Arenda.j_AdditionalDocuments zsAnn on zs.id_PetitionLeave = zsAnn.id and zsAnn.isActive = 1 and exists
+												(select * from Arenda.j_AddDocConfirmed adc where adc.id_AdditionalDocuments = zsAnn.id and isConfirmed = 1)
+											and zsAnn.DateCreate = (select top 1 adMax.DateCreate
+													from Arenda.j_AdditionalDocuments adMax
+													inner join Arenda.j_AddDocConfirmed adMaxConf on adMax.id = adMaxConf.id_AdditionalDocuments and adMaxConf.isConfirmed = 1
+												where adMax.id_Agreements = zsAnn.id_Agreements
+												and adMax.id_TypeDoc = 8 and adMax.isActive = 1
+												order by adMax.DateCreate desc)
+	
+	
+	where
+	appv.id is null
+	and zs.id is not null
+	and zsAnn.id is null
+	and 
+	agr.fullPayed = 0 and agr.isConfirmed = 1
+
+	
+END
+
+
+select * from Arenda.s_PlanPeriodAgreements order by id_Agreements,PeriodPlan

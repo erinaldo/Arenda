@@ -1,4 +1,5 @@
-﻿using Nwuram.Framework.Settings.Connection;
+﻿using Nwuram.Framework.Logging;
+using Nwuram.Framework.Settings.Connection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -146,6 +147,36 @@ namespace JournalBorrower
 
         private void btPrint_Click(object sender, EventArgs e)
         {
+            Logging.StartFirstLevel(79);
+
+            foreach (Control cnt in this.Controls)
+            {
+                if (!cnt.Visible) continue;
+
+                if (cnt is TextBox)
+                {
+                    Logging.Comment($"{cnt.Tag}: {cnt.Text}");                    
+                }
+            }
+
+            Logging.Comment($"Объект ID:{cmbObject.SelectedValue}; Наименование:{cmbObject.Text}");
+            Logging.Comment($"Тип договора ID:{cmbTypeDoc.SelectedValue}; Наименование:{cmbTypeDoc.Text}");
+            Logging.Comment($"Тип оплат ID:{cmbTypePayment.SelectedValue}; Наименование:{cmbTypePayment.Text}");
+            foreach (Control cnt in this.groupBox1.Controls)
+            {
+                if (!cnt.Visible) continue;
+
+                if (cnt is RadioButton)
+                {
+                    if ((cnt as RadioButton).Checked)
+                    {
+                        Logging.Comment($"Тип долгов:{cnt.Text}");
+                        break;
+                    }
+                }
+            }
+            Logging.StopFirstLevel();
+
             Nwuram.Framework.ToExcelNew.ExcelUnLoad report = new Nwuram.Framework.ToExcelNew.ExcelUnLoad();
 
             int indexRow = 1;

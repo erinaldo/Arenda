@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartArguments>249 "Аренда  %28Х14%29 - Руководитель" 192.168.5.85\K21 dbase2 MrArenda 12345 "Силкина С. С." РКВ "Руководитель" КОН   11 "офис Х14" 96 0 0</StartArguments>
+  </PropertyGroup>
+</Project>

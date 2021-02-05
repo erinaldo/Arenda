@@ -1,0 +1,41 @@
+USE [dbase2]
+GO
+
+/****** Object:  StoredProcedure [Arenda].[kav_setDiscounts]    Script Date: 27.08.2020 13:31:51 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		KAV
+-- Create date: 2020-08-26
+-- Description:	Задает скидочку для выбранных договоров
+-- exec [Arenda].[kav_getSectionsDiscount]
+-- =============================================
+CREATE PROCEDURE [Arenda].[kav_setDiscounts]
+	@id_agreements varchar(max),
+	@date_start date,
+	@date_end date,
+	@id_TypeDiscount int,
+	@discount numeric(16,2),
+	@id_user int,
+	@permanent bit
+AS
+BEGIN
+	SET NOCOUNT ON;
+	select @id_agreements='select ''' + replace(@id_agreements,',',''' as id_agreements union all select ''') + ''''
+	declare @t table (id int identity, id_agreements int)
+	insert into @t
+	exec (@id_agreements)
+	if @permanent = 1
+	begin
+		set @date_end = null
+	end
+	insert into Arenda.j_tDiscount (id_Agreements, DateStart, DateEnd, id_TypeDiscount, id_StatusDiscount, Discount, id_Editor, DateEdit)
+	select id_agreements, @date_start, @date_end, @id_TypeDiscount, 1, @discount, @id_user, getdate() from @t
+
+END
+GO
+

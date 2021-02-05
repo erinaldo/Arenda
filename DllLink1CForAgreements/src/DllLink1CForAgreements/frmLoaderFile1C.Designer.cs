@@ -36,6 +36,7 @@ namespace DllLink1CForAgreements
             this.tbPath = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // btClose
@@ -83,11 +84,21 @@ namespace DllLink1CForAgreements
             this.tbPath.TabIndex = 2;
             this.tbPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbPath_KeyDown);
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(12, 44);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(521, 15);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar1.TabIndex = 3;
+            this.progressBar1.Visible = false;
+            // 
             // frmLoaderFile1C
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(647, 88);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.tbPath);
             this.Controls.Add(this.btSelectPath);
             this.Controls.Add(this.btSave);
@@ -114,5 +125,6 @@ namespace DllLink1CForAgreements
         private System.Windows.Forms.TextBox tbPath;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

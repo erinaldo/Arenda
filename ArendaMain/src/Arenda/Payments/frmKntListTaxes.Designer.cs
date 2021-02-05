@@ -79,7 +79,7 @@
             // 
             this.btClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btClose.Image = global::Arenda.Properties.Resources.Log_Out_icon1;
-            this.btClose.Location = new System.Drawing.Point(991, 406);
+            this.btClose.Location = new System.Drawing.Point(993, 412);
             this.btClose.Name = "btClose";
             this.btClose.Size = new System.Drawing.Size(32, 32);
             this.btClose.TabIndex = 21;
@@ -90,7 +90,7 @@
             // 
             this.btSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btSelect.Image = global::Arenda.Properties.Resources.saveHS;
-            this.btSelect.Location = new System.Drawing.Point(953, 406);
+            this.btSelect.Location = new System.Drawing.Point(955, 412);
             this.btSelect.Name = "btSelect";
             this.btSelect.Size = new System.Drawing.Size(32, 32);
             this.btSelect.TabIndex = 85;
@@ -124,12 +124,12 @@
             this.Summa,
             this.cDesciption,
             this.cSelect});
-            this.dgvData.Location = new System.Drawing.Point(12, 67);
+            this.dgvData.Location = new System.Drawing.Point(10, 67);
             this.dgvData.MultiSelect = false;
             this.dgvData.Name = "dgvData";
             this.dgvData.RowHeadersVisible = false;
             this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvData.Size = new System.Drawing.Size(1007, 333);
+            this.dgvData.Size = new System.Drawing.Size(1015, 337);
             this.dgvData.TabIndex = 86;
             this.dgvData.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvData_ColumnWidthChanged);
             this.dgvData.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvData_RowPostPaint);
@@ -199,7 +199,7 @@
             this.picBoxIsConfirmed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.picBoxIsConfirmed.BackColor = System.Drawing.Color.Coral;
             this.picBoxIsConfirmed.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picBoxIsConfirmed.Location = new System.Drawing.Point(15, 414);
+            this.picBoxIsConfirmed.Location = new System.Drawing.Point(18, 427);
             this.picBoxIsConfirmed.Name = "picBoxIsConfirmed";
             this.picBoxIsConfirmed.Size = new System.Drawing.Size(16, 16);
             this.picBoxIsConfirmed.TabIndex = 88;
@@ -209,7 +209,7 @@
             // 
             this.chbIsConfirmed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.chbIsConfirmed.AutoSize = true;
-            this.chbIsConfirmed.Location = new System.Drawing.Point(37, 414);
+            this.chbIsConfirmed.Location = new System.Drawing.Point(40, 427);
             this.chbIsConfirmed.Name = "chbIsConfirmed";
             this.chbIsConfirmed.Size = new System.Drawing.Size(115, 17);
             this.chbIsConfirmed.TabIndex = 89;
@@ -221,7 +221,7 @@
             // 
             this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btPrint.Image = ((System.Drawing.Image)(resources.GetObject("btPrint.Image")));
-            this.btPrint.Location = new System.Drawing.Point(882, 406);
+            this.btPrint.Location = new System.Drawing.Point(884, 412);
             this.btPrint.Name = "btPrint";
             this.btPrint.Size = new System.Drawing.Size(32, 32);
             this.btPrint.TabIndex = 90;
@@ -288,7 +288,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1027, 442);
+            this.ClientSize = new System.Drawing.Size(1037, 453);
             this.ControlBox = false;
             this.Controls.Add(this.cmbTypeAddPayment);
             this.Controls.Add(this.label3);

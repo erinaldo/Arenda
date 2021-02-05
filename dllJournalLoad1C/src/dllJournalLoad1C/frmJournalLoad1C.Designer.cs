@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.cmbObject = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cmbTypeDoc = new System.Windows.Forms.ComboBox();
@@ -53,6 +53,7 @@
             this.btExcel = new System.Windows.Forms.Button();
             this.btExit = new System.Windows.Forms.Button();
             this.btUpdate = new System.Windows.Forms.Button();
+            this.btSendMail = new System.Windows.Forms.Button();
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -62,7 +63,6 @@
             this.tbTypePay = new System.Windows.Forms.TextBox();
             this.tbAgreement1C = new System.Windows.Forms.TextBox();
             this.tbLandLord = new System.Windows.Forms.TextBox();
-            this.btSendMail = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -113,14 +113,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvData.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.cDate,
@@ -133,14 +133,14 @@
             this.cAgreement1C,
             this.cDate1C,
             this.cTypePay});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvData.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvData.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvData.Location = new System.Drawing.Point(12, 98);
             this.dgvData.Name = "dgvData";
             this.dgvData.RowHeadersVisible = false;
@@ -285,6 +285,18 @@
             this.btUpdate.UseVisualStyleBackColor = true;
             this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
             // 
+            // btSendMail
+            // 
+            this.btSendMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btSendMail.Image = global::dllJournalLoad1C.Properties.Resources.stamp1;
+            this.btSendMail.Location = new System.Drawing.Point(1026, 528);
+            this.btSendMail.Name = "btSendMail";
+            this.btSendMail.Size = new System.Drawing.Size(32, 32);
+            this.btSendMail.TabIndex = 33;
+            this.toolTip1.SetToolTip(this.btSendMail, "Отправить по почте");
+            this.btSendMail.UseVisualStyleBackColor = true;
+            this.btSendMail.Click += new System.EventHandler(this.btSendMail_Click);
+            // 
             // dtpStart
             // 
             this.dtpStart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
@@ -292,7 +304,9 @@
             this.dtpStart.Name = "dtpStart";
             this.dtpStart.Size = new System.Drawing.Size(93, 20);
             this.dtpStart.TabIndex = 38;
+            this.dtpStart.CloseUp += new System.EventHandler(this.dtpStart_CloseUp);
             this.dtpStart.ValueChanged += new System.EventHandler(this.dtpStart_ValueChanged);
+            this.dtpStart.Leave += new System.EventHandler(this.dtpStart_Leave);
             // 
             // label2
             // 
@@ -319,7 +333,9 @@
             this.dtpEnd.Name = "dtpEnd";
             this.dtpEnd.Size = new System.Drawing.Size(96, 20);
             this.dtpEnd.TabIndex = 38;
+            this.dtpEnd.CloseUp += new System.EventHandler(this.dtpStart_CloseUp);
             this.dtpEnd.ValueChanged += new System.EventHandler(this.dtpEnd_ValueChanged);
+            this.dtpEnd.Leave += new System.EventHandler(this.dtpStart_Leave);
             // 
             // label5
             // 
@@ -366,18 +382,6 @@
             this.tbLandLord.Size = new System.Drawing.Size(100, 20);
             this.tbLandLord.TabIndex = 43;
             this.tbLandLord.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
-            // 
-            // btSendMail
-            // 
-            this.btSendMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btSendMail.Image = global::dllJournalLoad1C.Properties.Resources.stamp1;
-            this.btSendMail.Location = new System.Drawing.Point(1026, 528);
-            this.btSendMail.Name = "btSendMail";
-            this.btSendMail.Size = new System.Drawing.Size(32, 32);
-            this.btSendMail.TabIndex = 33;
-            this.toolTip1.SetToolTip(this.btSendMail, "Отправить по почте");
-            this.btSendMail.UseVisualStyleBackColor = true;
-            this.btSendMail.Click += new System.EventHandler(this.btSendMail_Click);
             // 
             // frmJournalLoad1C
             // 

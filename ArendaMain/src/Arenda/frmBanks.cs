@@ -26,7 +26,7 @@ namespace Arenda
             InitializeComponent();
             dgBanks.AutoGenerateColumns = false;
 
-            if (Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.ToLower().Equals("пр"))
+            if (TempData.Rezhim.ToLower().Equals("пр"))
             {
                 Logging.StartFirstLevel(1394);
                 Logging.Comment("Открыта форма просмотра справочника банков");
@@ -78,19 +78,19 @@ namespace Arenda
         private void SetButtonsEnabled()
         {
 
-            if (!(Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.ToLower() == "ркв"))
+            if (!(TempData.Rezhim.ToLower() == "ркв"))
             {
                 btAdd.Visible = btDel.Visible = btEdit.Visible = false;
             }
 
-           /* if (Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.ToLower() == "адм")
-            {
-                btDel.Enabled = dgBanks.Rows.Count > 0 && dgBanks.CurrentRow != null;
-                btEdit.Enabled = dgBanks.Rows.Count > 0 && dgBanks.CurrentRow != null
-                  && bool.Parse(dgBanks.CurrentRow.Cells["isActive"].Value.ToString());
-            }
-            else
-                btAdd.Visible = btEdit.Visible = btDel.Visible = false;*/
+            /* if (TempData.Rezhim.ToLower() == "адм")
+             {
+                 btDel.Enabled = dgBanks.Rows.Count > 0 && dgBanks.CurrentRow != null;
+                 btEdit.Enabled = dgBanks.Rows.Count > 0 && dgBanks.CurrentRow != null
+                   && bool.Parse(dgBanks.CurrentRow.Cells["isActive"].Value.ToString());
+             }
+             else
+                 btAdd.Visible = btEdit.Visible = btDel.Visible = false;*/
         }
 
         private void Filter()
@@ -324,6 +324,16 @@ namespace Arenda
             {
                 _fileName += ".xls";
             }
+
+            Logging.StartFirstLevel(154);
+
+            Logging.Comment($"БИК:{tbBIC.Text}");
+            Logging.Comment($"Корр. счёт:{tbCA.Text}");
+            Logging.Comment($"Наименование:{tbName.Text}");
+
+            Logging.Comment($"Недействующие: {(cbIsActive.Checked ? "Да" : "Нет")}");
+
+            Logging.StopFirstLevel();
 
             this.Enabled = false;
 

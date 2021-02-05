@@ -73,7 +73,7 @@ from
 where 
 	a.isConfirmed = 1 
 	--and a.Start_Date<= @dateStart and @dateStart<=a.Stop_Date 
-	and a.id_ObjectLease = @id_ObjectLease and a.fullPayed = 0 and (@id_tMonthPlane = 0 or mp.id is not null)
+	and a.id_ObjectLease = @id_ObjectLease and (a.fullPayed = 0 or (a.fullPayed = 1 and GETDATE()<a.Stop_Date )) and (@id_tMonthPlane = 0 or mp.id is not null)
 	and (@id_tMonthPlane = 0 or mp.id is not null)
 ) as t
 where

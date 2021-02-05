@@ -1,0 +1,2023 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Framework</name>
+    </assembly>
+    <members>
+        <member name="T:Nwuram.Framework.IConnectInfoWorker">
+            <summary>
+            Используется для обработки данных входа при успешной авторизации.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.IConnectInfoWorker.SaveConnectionInfo(System.String,System.String,System.String)">
+            <summary>
+            Сохранение данных входа.
+            </summary>
+            <param name="username">Имя пользователя</param>
+            <param name="password">Пароль</param>
+            <param name="programName">Название программы</param>
+        </member>
+        <member name="M:Nwuram.Framework.IConnectInfoWorker.TestConnection(System.String,System.String)">
+            <summary>
+            Проверка соединения с сервером с данными, полученными при авторизации.
+            </summary>
+            <param name="username">Имя пользователя</param>
+            <param name="password">Пароль</param>
+            <returns>True, если попытка соединения удалась; иначе - false.</returns>
+        </member>
+        <member name="T:Nwuram.Framework.IUserInfoSaver">
+            <summary>
+            Используется для сохранения данных входа, полученных при авторизации.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.IUserInfoSaver.SaveUserInfo(Nwuram.Framework.Settings.User.User,System.String)">
+            <summary>
+            Сохранение данных пользователя.
+            </summary>
+            <param name="user">Пользователь</param>
+            <param name="password">Пароль</param>
+        </member>
+        <member name="T:Nwuram.Framework.IUserListService">
+            <summary>
+            Используется для получения данных для авторизации.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.IUserListService.GetListUsers(System.Int32,System.String)">
+            <summary>
+            Получение списка пользователей, который могут запустить программу на компьютере.
+            </summary>
+            <param name="idProgram">Идентификатор программы</param>
+            <param name="computerName">Имя компьютера</param>
+            <returns>Таблица пользователей</returns>
+        </member>
+        <member name="M:Nwuram.Framework.IUserListService.GetProgramName(System.Int32)">
+            <summary>
+            Получение имени программы по её идентификатору.
+            </summary>
+            <param name="idProgram">Идентификатор программы</param>
+            <returns>Имя программы</returns>
+        </member>
+        <member name="M:Nwuram.Framework.IUserListService.LoginUsesProgram(System.Int32,System.String)">
+            <summary>
+            Проверка повторного входа пользователя в программу.
+            </summary>
+            <param name="idProgram">Идентификатор программы</param>
+            <param name="login">Логин</param>
+            <returns>True, если пользователь уже вошёл в программу; иначе - false.</returns>
+        </member>
+        <member name="T:Nwuram.Framework.Authorization.frmConnect">
+            <summary>
+            Форма авторизации.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Authorization.frmConnect.#ctor">
+            <summary>
+            Создаёт новую форму авторизации.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Authorization.frmConnect.#ctor(Nwuram.Framework.IConnectInfoWorker,Nwuram.Framework.IUserInfoSaver,Nwuram.Framework.IUserListService,System.Int32)">
+            <summary>
+            Создаёт новую форму авторизации.
+            </summary>
+            <param name="connectWorker">Класс, реализующий IConnectInfoWorker</param>
+            <param name="userSaver">Класс, реализующий IUserInfoSaver</param>
+            <param name="ulService">Класс, реализующий IUserListService</param>
+            <param name="idProgram">Идентификатор программы</param>
+        </member>
+        <member name="F:Nwuram.Framework.Authorization.frmConnect.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Authorization.frmConnect.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Nwuram.Framework.Authorization.frmConnect.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Nwuram.Framework.Authorization.UserList">
+            <summary>
+            Используется для работы со списком пользователей.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Authorization.UserList.#ctor(Nwuram.Framework.IUserListService,System.Int32)">
+            <summary>
+            Создаёт объект типа UserList.
+            </summary>
+            <param name="_ulService">Интерфейс для работы со списком пользователей</param>
+            <param name="idProgram">Идентификатор программы</param>
+        </member>
+        <member name="P:Nwuram.Framework.Authorization.UserList.Users">
+            <summary>
+            Таблица пользователей
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Authorization.UserList.GetUser(System.Int32)">
+            <summary>
+            Получение пользователя по его идентификатору.
+            </summary>
+            <param name="id_user">Идентификатор пользователя</param>
+            <returns>Пользователь</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Authorization.UserList.LoginUsesProgram(System.Int32)">
+            <summary>
+            Проверяет, запущена ли программа пользователем.
+            </summary>
+            <param name="id_user">Идентификатор пользователя</param>
+            <returns>True, если поьзователь уже запустил программу; иначе - false.</returns>
+        </member>
+        <member name="P:Nwuram.Framework.Authorization.UserList.ProgramName">
+            <summary>
+            Имя программы
+            </summary>
+        </member>
+        <member name="T:Nwuram.Framework.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:Nwuram.Framework.UI.Controls.NumericTextBox">
+            <summary>
+            Текстовое поле для ввода чисел
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.UI.Controls.NumericTextBox.Negative">
+            <summary>
+            Признак отрицательного числа
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.UI.Controls.NumericTextBox.Integer">
+            <summary>
+            Признак целого числа
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.UI.Controls.NumericTextBox.IsNumber">
+            <summary>
+            Проверяет, является ли текст в поле числом. Возвращает true, если в поле число, иначе - false.
+            </summary>
+        </member>
+        <member name="F:Nwuram.Framework.UI.Forms.frmLoad.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.UI.Forms.frmLoad.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Nwuram.Framework.UI.Forms.frmLoad.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Nwuram.Framework.Data.DataProvider">
+            <summary>
+            Базовый класс доступа к данным
+            </summary>
+        </member>
+        <member name="F:Nwuram.Framework.Data.DataProvider.connectionString">
+            <summary>
+            Строка соединения (builder)
+            </summary>
+        </member>
+        <member name="F:Nwuram.Framework.Data.DataProvider.tn">
+            <summary>
+            Транзакция
+            </summary>
+        </member>
+        <member name="F:Nwuram.Framework.Data.DataProvider.wasError">
+            <summary>
+            Признак ошибки в процессе выполнения
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Data.DataProvider.#ctor(System.String)">
+            <summary>
+            конструктор
+            </summary>
+            <param name="providerName">название конкретного провайдера данных</param>
+        </member>
+        <member name="M:Nwuram.Framework.Data.DataProvider.OpenConnection(System.Data.Common.DbConnection)">
+            <summary>
+            Открывает соединение.
+            </summary>
+            <param name="cn">Соединение</param>
+            <returns>True, если соединение успешно установлено; иначе - false.</returns>
+        </member>
+        <member name="F:Nwuram.Framework.Data.DataProvider.ShowMessage">
+            <summary>
+            Сообщение
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Data.DataProvider.OpenConnection(System.Boolean)">
+            <summary>
+            Открывает соединение.
+            </summary>
+            <param name="log">Признак логирования действий</param>
+            <returns>True, если соединение успешно установлено; иначе - false.</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Data.DataProvider.CloseConnection(System.Data.Common.DbConnection)">
+            <summary>
+            Закрывает соединение.
+            </summary>
+            <param name="cn">Соединение</param>
+        </member>
+        <member name="M:Nwuram.Framework.Data.DataProvider.TestConnection">
+            <summary>
+            Открывает и закрывает соединение.
+            </summary>
+            <returns>true, если соединение успешно открыто; иначе - false.</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Data.DataProvider.BeginTransaction(System.Data.Common.DbConnection)">
+            <summary>
+            Начинает новую транзакцию.
+            </summary>
+            <param name="cn">Соединение</param>
+        </member>
+        <member name="M:Nwuram.Framework.Data.DataProvider.CommitTransaction">
+            <summary>
+            Подтверждение транзакции.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Data.DataProvider.RollbackTransaction">
+            <summary>
+            Откат транзакции.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Data.DataProvider.executeCommand(System.String)">
+            <summary>
+            Выполняет запрос.
+            </summary>
+            <param name="command">Строка запроса</param>
+            <returns>Таблица с результатами запроса.</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Data.DataProvider.executeNonQuery(System.String)">
+            <summary>
+            Выполняет запрос DML.
+            </summary>
+            <param name="command">Строка запроса.</param>
+        </member>
+        <member name="M:Nwuram.Framework.Data.DataProvider.executeProcedure(System.String,System.String[],System.Data.DbType[],System.Collections.ArrayList)">
+            <summary>
+            Выполняет процедуру.
+            </summary>
+            <param name="procName">Имя процедуры</param>
+            <param name="parameterNames">Массив имён параметров процедуры</param>
+            <param name="parameterTypes">Массив типов параметров</param>
+            <param name="parameterValues">Массив значений параметров</param>
+            <returns>Таблица с результатами выполнения процедуры.</returns>
+        </member>
+        <member name="T:Nwuram.Framework.Data.ODBCProvider">
+            <summary>
+            Поставщик данных ODBC (может использоваться как для работы с MS SQL, так и для работы с dbf).
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Data.ODBCProvider.#ctor(System.String)">
+            <summary>
+            Конструктор для соединения с dbf.
+            </summary>
+            <param name="path">Путь к папке с dbf таблицами.</param>
+        </member>
+        <member name="T:Nwuram.Framework.Data.OleDbProvider">
+            <summary>
+            Поставщик данных OleDb (может использоваться как для работы с MS SQL, так и для работы с dbf).
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Data.OleDbProvider.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Конструктор для соединения с MS SQL.
+            </summary>
+            <param name="server">Сервер</param>
+            <param name="database">База данных</param>
+            <param name="username">Имя пользователя</param>
+            <param name="password">Пароль</param>
+        </member>
+        <member name="M:Nwuram.Framework.Data.OleDbProvider.#ctor(System.String)">
+            <summary>
+            Конструктор для соединения с dbf.
+            </summary>
+            <param name="path">Путь к папке с dbf таблицами</param>
+        </member>
+        <member name="T:Nwuram.Framework.Data.RepairConnection">
+            <summary>
+            Используется для запуска формы восстановления соединения.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Data.RepairConnection.Repair(Nwuram.Framework.Data.DataProvider)">
+            <summary>
+            Запускает форму восстановления соединения.
+            </summary>
+            <param name="sql">Объект, для которого нужно восстановить соединение.</param>
+        </member>
+        <member name="T:Nwuram.Framework.Data.RepairForm">
+            <summary>
+            Форма восстановления соединения.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Data.RepairForm.#ctor(Nwuram.Framework.Data.DataProvider)">
+            <summary>
+            Создаёт форму восстановления соединения.
+            </summary>
+            <param name="sql">Объект, для которого нужно восстановить соединение.</param>
+        </member>
+        <member name="F:Nwuram.Framework.Data.RepairForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Data.RepairForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Nwuram.Framework.Data.RepairForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:Nwuram.Framework.Data.SqlProvider">
+            <summary>
+            Поставщик данных для MS SQL.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Data.SqlProvider.#ctor(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Конструктор для соединения с SQL сервером (MS SQL).
+            </summary>
+            <param name="server">Сервер</param>
+            <param name="database">База данных</param>
+            <param name="username">Имя пользователя</param>
+            <param name="password">Пароль</param>
+        </member>
+        <member name="M:Nwuram.Framework.fromElement.GetCheckValues.GetValues(System.Windows.Forms.Control)">
+            <summary>
+            Процедура получения дефолтных значений контролов формы
+            </summary>
+            <param name="ctrl">контрол - форма или TabPage</param>
+            <returns>массив значений</returns>
+        </member>
+        <member name="M:Nwuram.Framework.fromElement.numTextBox.NumericSeparator">
+            <summary>
+            Процедура получения текущего разделителя целой и дробной части числа на локальном компьютере
+            </summary>
+            <returns> разделитель </returns>
+        </member>
+        <member name="M:Nwuram.Framework.fromElement.numTextBox.KeyPress(System.Windows.Forms.TextBox,System.Windows.Forms.KeyPressEventArgs,System.Boolean,System.Boolean)">
+            <summary>
+            процедура обработки вводимых символов 
+            </summary>
+            <param name="txt">ТекстБокс - контрол формы</param>
+            <param name="e">обработчик события </param>
+            <param name="integerr">true - целое число, false - допускается ввод разделителя целой и дробной части</param>
+            <param name="negative">признак допустимости отрицательных значений: true - число может быть отрицательным, false - не может</param>
+        </member>
+        <member name="M:Nwuram.Framework.fromElement.numTextBox.CorrectSymbols(System.Windows.Forms.TextBox,System.Char,System.Boolean,System.Boolean)">
+            <summary>
+            процедура обработки вводимых символов 
+            </summary>
+            <param name="txt">ТекстБокс - контрол формы</param>
+            <param name="ch">Вводимый символ</param>
+            <param name="integerr">true - целое число, false - допускается ввод разделителя целой и дробной части</param>
+            <param name="negative">признак допустимости отрицательных значений: true - число может быть отрицательным, false - не может</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nwuram.Framework.fromElement.numTextBox.AnotherSeparatorWasDetected(System.Windows.Forms.TextBox)">
+            <summary>
+            проверка, что в поле еще не было разделителей
+            </summary>
+            <param name="txt">текст бокс</param>
+            <returns>true - разделитель уже был введен, false - разделитель еще не вводился </returns>
+        </member>
+        <member name="M:Nwuram.Framework.fromElement.numTextBox.CheckAndChange(System.String,System.Int32,System.Decimal,System.Decimal,System.Boolean,System.String,System.String)">
+            <summary>
+            Процедура проверки корректности введенного значения в текстбоксе
+            </summary>
+            <param name="txt">текст бокс</param>
+            <param name="signsAfterZpt">количество знаков после запятой</param>
+            <param name="minValue">минимальное допустимое значение</param>
+            <param name="maxValue">максимальное допустимое значение</param>
+            <param name="negative">признак допустимости отрицательных значений: true - число может быть отрицательным, false - не может</param>
+            <param name="defaultVal">значение по умолчанию которым заполняется текст бокс если введено некорректное значение</param>
+            <param name="SpecFormat">специальный формат текста</param>        
+            <returns>Скорректированное значение ("пусто" в случае если число не входило в заданный диапазон, либо если в текстбоксе был введен текст)</returns>
+        </member>
+        <member name="T:Nwuram.Framework.Logging.FileLogWriter">
+            <summary>
+            Используется для записи сообщений в файл с именем текущая_дата.log.
+            </summary>
+        </member>
+        <member name="F:Nwuram.Framework.Logging.FileLogWriter._fileName">
+            <summary>
+            Название файла лога
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Logging.FileLogWriter.Write(System.String)">
+            <summary>
+            Записывает сообщение в файл с именем текущая_дата.log.
+            </summary>
+            <param name="message">Сообщение</param>
+        </member>
+        <member name="M:Nwuram.Framework.Logging.ILoging.StartFirstLevelLoging(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Старт события логирования
+            </summary>
+            <param name="IdEvent">Код события</param>
+            <param name="IdUser">Код пользователя</param>
+            <param name="IdStatus">Код статуса</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nwuram.Framework.Logging.ILoging.StartFirstLevelLoging_2(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Старт события логирования
+            </summary>
+            <param name="IdEvent">Код события</param>
+            <param name="IdUser">Код пользователя</param>
+            <param name="IdStatus">Код статуса</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nwuram.Framework.Logging.ILoging.StopFirstLevelLoging(System.Int32)">
+            <summary>
+            Стоп события логирования
+            </summary>
+            <param name="Error">Код ошибки</param>
+        </member>
+        <member name="M:Nwuram.Framework.Logging.ILoging.SecondLevel(System.Int32,System.String)">
+            <summary>
+            Запись комментариев в событии
+            </summary>
+            <param name="IdTypeLog">Тип коммента</param>
+            <param name="strComment">Строка коммента</param>
+        </member>
+        <member name="T:Nwuram.Framework.Logging.ILogWriter">
+            <summary>
+            Используется для записи сообщений.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Logging.ILogWriter.Write(System.String)">
+            <summary>
+            Записывает сообщение.
+            </summary>
+            <param name="message">Сообщение</param>
+        </member>
+        <member name="T:Nwuram.Framework.Logging.Logger">
+            <summary>
+            Используется для логирования ошибок или сообщений о работе программы.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Logging.Logger.#ctor(Nwuram.Framework.Logging.ILogWriter)">
+            <summary>
+            Создаёт объект Logger.
+            </summary>
+            <param name="_writer">Класс, реализующий интерфейс ILogWriter</param>
+        </member>
+        <member name="M:Nwuram.Framework.Logging.Logger.NewMessage(System.String)">
+            <summary>
+            Запись нового сообщения в файл.
+            </summary>
+            <param name="message">Текст сообщения</param>
+        </member>
+        <member name="F:Nwuram.Framework.Logging.Logging.LoggerMessage">
+            <summary>
+            Ошибки, которые пишутся в файл - Ошибки процедуры, ошибки подключения
+            </summary>
+        </member>
+        <member name="T:Nwuram.Framework.SqlProcedures">
+            <summary>
+            Вспомогательный класс библиотеки для вызова процедур.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.SqlProcedures.GetSettings(System.Int32)">
+            <summary>
+            получение настроек
+            </summary>
+            <param name="idProg">ид программы</param>
+            <returns>таблица с настройками</returns>
+        </member>
+        <member name="M:Nwuram.Framework.SqlProcedures.GetUserSettings(System.Int32,System.Int32,System.String)">
+            <summary>
+            получение настроек пользователя
+            </summary>
+            <param name="id_user">ид пользователя</param>
+            <param name="id_program">ид программы</param>
+            <param name="compname">имя компьютера</param>
+            <returns>таблица с настройками</returns>
+        </member>
+        <member name="M:Nwuram.Framework.SqlProcedures.SetSettings(System.Int32,System.String,System.String)">
+            <summary>
+            запись настроек
+            </summary>
+            <param name="idProg">ид программы</param>
+            <param name="key">ключ</param>
+            <param name="value">значение</param>
+            <returns>таблица с новыми значениями</returns>
+        </member>
+        <member name="M:Nwuram.Framework.SqlProcedures.StartFirstLevelLoging(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Старт события логирования
+            </summary>
+            <param name="IdEvent">Код события</param>
+            <param name="IdUser">Код пользователя</param>
+            <param name="IdStatus">Код статуса</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nwuram.Framework.SqlProcedures.StartFirstLevelLoging_2(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Старт события логирования для доп отдела
+            </summary>
+            <param name="IdEvent">Код события</param>
+            <param name="IdUser">Код пользователя</param>
+            <param name="IdStatus">Код статуса</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nwuram.Framework.SqlProcedures.StartFirstLevelLoging(System.Int32)">
+            <summary>
+            Старт события логирования
+            </summary>
+            <param name="IdEvent">Код события</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nwuram.Framework.SqlProcedures.StartFirstLevelLoging_2(System.Int32)">
+            <summary>
+            Старт события логирования
+            </summary>
+            <param name="IdEvent">Код события</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nwuram.Framework.SqlProcedures.StopFirstLevelLoging(System.Int32)">
+            <summary>
+            Стоп события логирования
+            </summary>
+            <param name="Error">Код ошибки</param>
+        </member>
+        <member name="M:Nwuram.Framework.SqlProcedures.SecondLevel(System.Int32,System.String)">
+            <summary>
+            Запись комментариев в событии
+            </summary>
+            <param name="IdTypeLog">Тип коммента</param>
+            <param name="strComment">Строка коммента</param>
+        </member>
+        <member name="T:Nwuram.Framework.Project.Project">
+            <summary>
+            Основной класс библиотеки. Используется для загрузки настроек соединения и пользователя.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Project.Project.#ctor(System.String)">
+            <summary>
+            Создаёт объект типа Project (при получении настроек).
+            </summary>
+            <param name="iniFile">Путь к ини-файлу</param>
+        </member>
+        <member name="M:Nwuram.Framework.Project.Project.Authorize">
+            <summary>
+            Запускает форму авторизации.
+            </summary>
+            <returns>True, если авторизация прошла успешно; иначе - false.</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Project.Project.FillSettings(System.String[])">
+            <summary>
+            Заполняет настройки по аргументам командной строки.
+            </summary>
+            <param name="arguments">аргументы</param>
+            <returns>True, если настройки заполнены успешно; иначе - false.</returns>
+        </member>
+        <member name="T:Nwuram.Framework.Settings.Connection.Connect">
+            <summary>
+            Используется для хранения настроек соединения.
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.Connection.Connect.Server">
+            <summary>
+            Имя сервера
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.Connection.Connect.Database">
+            <summary>
+            База данных
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.Connection.Connect.Username">
+            <summary>
+            Имя пользователя
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.Connection.Connect.Password">
+            <summary>
+            Пароль
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.Connection.Connect.IdProgram">
+            <summary>
+            Идентификатор программы
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.Connection.Connect.IsAdditionConnect">
+            <summary>
+            Идентификатор доп коннекта
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.Connect.#ctor(System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="server"></param>
+            <param name="database"></param>
+            <param name="idProgram"></param>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.Connect.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="server"></param>
+            <param name="database"></param>
+            <param name="username"></param>
+            <param name="password"></param>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.Connect.#ctor(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="server">Сервер</param>
+            <param name="database">База данных</param>
+            <param name="username">пользователь</param>
+            <param name="password">пароль</param>
+            <param name="isAdditionConnect">признак доп. коннекта</param>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.Connect.#ctor(System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="server"></param>
+            <param name="database"></param>
+            <param name="username"></param>
+            <param name="password"></param>
+            <param name="programName"></param>
+            <param name="idProgram"></param>
+        </member>
+        <member name="T:Nwuram.Framework.Settings.Connection.ConnectionSettings">
+            <summary>
+            настройки соединения (или соединений)
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.#ctor(System.String)">
+            <summary>
+            конструктор
+            </summary>
+            <param name="iniPath">путь к ini файлу</param>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.#ctor(System.String,System.String)">
+            <summary>
+            конструктор
+            </summary>
+            <param name="iniPath">путь к ini файлу</param>
+            <param name="defaultSect">раздел ini файла по умолчанию</param>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.#ctor(System.String,System.String,System.String,System.String,System.String,System.Int32)">
+            <summary>
+            конструктор
+            </summary>
+            <param name="server">сервер</param>
+            <param name="database">база данных</param>
+            <param name="username">логин</param>
+            <param name="password">пароль</param>
+            <param name="programName">имя программы</param>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.fillSettings(System.String)">
+            <summary>
+            заполнение словаря настроек
+            </summary>
+            <param name="iniPath"></param>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.GetServer">
+            <summary>
+            получает название сервера ииз раздела по умолчанию
+            </summary>
+            <returns>название сервера</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.GetServer(System.String)">
+            <summary>
+            получает название сервера
+            </summary>
+            <param name="section">раздел ini файла</param>
+            <returns>название серверва</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.GetDatabase">
+            <summary>
+            получает название базы данных из раздела по умолчанию
+            </summary>
+            <returns>название базы данных</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.GetDatabase(System.String)">
+            <summary>
+            получает название базы данных
+            </summary>
+            <param name="section">раздел ini файла</param>
+            <returns>название базы данных</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.GetUsername">
+            <summary>
+            получает имя пользователя из раздела по умолчанию
+            </summary>
+            <returns>имя пользователя</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.GetUsername(System.String)">
+            <summary>
+            получает имя пользователя
+            </summary>
+            <param name="section">раздел ini файла</param>
+            <returns>имя пользователя</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.GetPassword">
+            <summary>
+            получает пароль из раздела по умолчанию
+            </summary>
+            <returns>пароль</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.GetPassword(System.String)">
+            <summary>
+            получает пароль
+            </summary>
+            <param name="section">раздел ini файла</param>
+            <returns>пароль</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.GetIdProgram">
+            <summary>
+            получает идентификатор программы из раздела по умолчанию
+            </summary>
+            <returns>идентификатор программы</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.GetIdProgram(System.String)">
+            <summary>
+            получает идентификатор программы
+            </summary>
+            <param name="section">раздел ini файла</param>
+            <returns>идентификатор программы</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.SetUsername(System.String)">
+            <summary>
+            записывает имя пользователя в раздел по умолчанию
+            </summary>
+            <param name="username">имя пользователя</param>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.SetUsername(System.String,System.String)">
+            <summary>
+            записывает имя пользователя
+            </summary>
+            <param name="section">раздел ini файла</param>
+            <param name="username">имя пользователя</param>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.SetPassword(System.String)">
+            <summary>
+            записывает пароль в раздел по умолчанию
+            </summary>
+            <param name="password">пароль</param>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.SetPassword(System.String,System.String)">
+            <summary>
+            записывает пароль
+            </summary>
+            <param name="section">раздел ini файла</param>
+            <param name="password">пароль</param>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.ConnectionSettings.AddConnection(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Добавляет соединение.
+            </summary>
+            <param name="section">раздел (название соединения)</param>
+            <param name="server">сервер</param>
+            <param name="database">база данных</param>
+            <param name="username">логин</param>
+            <param name="password">пароль</param>
+        </member>
+        <member name="T:Nwuram.Framework.Settings.Connection.IniFile">
+            <summary>
+            класс для работы с ini файлом
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.IniFile.#ctor(System.String)">
+            <summary>
+            конструктор
+            </summary>
+            <param name="INIPath">путь к ini файлу</param>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.IniFile.IniWriteValue(System.String,System.String,System.String)">
+            <summary>
+            запись в ini файл
+            </summary>
+            <param name="Section">раздел</param>
+            <param name="Key">ключ</param>
+            <param name="Value">значение</param>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.Connection.IniFile.IniReadValue(System.String,System.String)">
+            <summary>
+            чтение из ini файла
+            </summary>
+            <param name="Section">раздел</param>
+            <param name="Key">ключ</param>
+            <returns>значение</returns>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.User.User.Id">
+            <summary>
+            ид
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.User.User.IdKadr">
+            <summary>
+            ид кадр
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.User.User.Username">
+            <summary>
+            логин
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.User.User.Password">
+            <summary>
+            пароль
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.User.User.FullUsername">
+            <summary>
+            полное имя пользователя
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.User.User.IdStatus">
+            <summary>
+            номер режима
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.User.User.Status">
+            <summary>
+            название режима
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.User.User.StatusCode">
+            <summary>
+            код режима
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.User.User.DatabaseNote">
+            <summary>
+            комментарий к базе данных
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.User.User.IdDepartment">
+            <summary>
+            номер отдела
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.User.User.Department">
+            <summary>
+            название отдела
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.User.User.Header">
+            <summary>
+            заголовок для формы (Имя - Режим - База данных)
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.User.User.IdDepartment_Dop">
+            <summary>
+            номер отдела
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.User.User.Department_Dop">
+            <summary>
+            название отдела
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.Settings.User.User.IsUsedAdditionalConnect">
+            <summary>
+            Признак работы с доп отделами
+            </summary>
+        </member>
+        <member name="T:Nwuram.Framework.Settings.User.UserSettings">
+            <summary>
+            Настройки пользователя
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.User.UserSettings.GetValue(System.String)">
+            <summary>
+            Получение настроек - значение по ключу
+            </summary>
+            <param name="key">ключ</param>
+            <returns>значение</returns>
+        </member>
+        <member name="M:Nwuram.Framework.Settings.User.UserSettings.SetValue(System.String,System.Collections.ArrayList)">
+            <summary>
+            Запись настроек
+            </summary>
+            <param name="key">ключ</param>
+            <param name="value">значение</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.#ctor">
+            <summary>
+            Создаёт объект типа HandmadeReport.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.AddSingleValue(System.String,System.Int32,System.Int32)">
+            <summary>
+            Записывает строковое значение в отчёт.
+            </summary>
+            <param name="value">значение</param>
+            <param name="rowIndex">номер строки</param>
+            <param name="columnIndex">номер столбца</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.AddMultiValue(System.Data.DataTable,System.Int32,System.Int32)">
+            <summary>
+            Записывает таблицу в отчёт, начиная с указанной ячейки.
+            </summary>
+            <param name="data">таблица</param>
+            <param name="rowIndex">номер строки</param>
+            <param name="columnIndex">номер столбца</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.AddMultiValue(System.Data.DataTable,System.Int32,System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Записывает таблицу в отчёт с выделением цветом строк, удовл. условию.
+            </summary>
+            <param name="data">таблица</param>
+            <param name="rowIndex">номер строки</param>
+            <param name="columnIndex">номер столбца</param>
+            <param name="colorIndex">номер цвета</param>
+            <param name="flagName">название поля условия (одно из полей таблицы)</param>
+            <param name="flagValue">значение условия</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetBorders(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает полные (внешние и внутренние) границы на диапазон ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetBorders(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает полные (внешние и внутренние) границы определённого цвета на диапазон ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="colorIndex">номер цвета</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetBordersToBottom(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает границы для диапазона ячеек по нижнему краю.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetBordersToBottom(System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Устанавливает нижнюю границу для слитых ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки левой верхней ячейки</param>
+            <param name="columnIndexStart">номер столбца левой верхней ячейки</param>
+            <param name="howManyCellsMerged">количество слитых ячеек</param>
+            <param name="rowMerge">true, если ячейки сливались по строкам (вертикально); иначе - false (горизонтально)</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetFontBold(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Делает жирным шрифт в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetFontItalic(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Делает шрифт курсивом в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetFontUnderline(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Делает шрифт подчеркнутым в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetFontColor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает цвет шрифта в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="colorIndex">номер цвета</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetFontSize(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает размер шрифта в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="size">размер шрифта</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetFontName(System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Устанавливает тип шрифта в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="fontName">название типа шрифта</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetFormat(System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Устанавливает числовой формат в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="format">формат числа</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetColumnWidth(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает ширину стобца в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="width">ширина столбца</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetColumnAutoSize(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает ширину стобца в ячейках диапазона по ширине содержимого.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="width">ширина столбца</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetRowHeight(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает высоту строки в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="height">высота строки</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetCellAlignmentToLeft(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Горизонтальное выравнивание влево в диапазоне ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetCellAlignmentToRight(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Горизонтальное выравнивание вправо в диапазоне ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetCellAlignmentToCenter(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Горизонтальное выравнивание по центру в диапазоне ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetCellAlignmentToTop(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Вертикальное выравнивание по верхнему краю в диапазоне ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetCellAlignmentToBottom(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Вертикальное выравнивание по нижнему краю в диапазоне ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetCellAlignmentToJustify(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Вертикальное выравнивание по центру в диапазоне ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetOrientation(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает ориентацию текста.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetPageOrientationToLandscape">
+            <summary>
+            Устанавливает альбомную ориентацию страницы.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SetWrapText(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает перенос по словам для диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.Merge(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Слияние ячеек в диапазоне.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.Show">
+            <summary>
+            Отображает отчёт.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcelNew.ExcelUnLoad.SaveToFile(System.String)">
+            <summary>
+            Сохранение в файл
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="P:Nwuram.Framework.ToExcel.HandmadeReport.ExcelAvailable">
+            <summary>
+            Возвращает true, если Excel доступен на компьютере; иначе - false.
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.ToExcel.HandmadeReport.OOAvailable">
+            <summary>
+            Возвращает true, если Open Office доступен на компьютере; иначе - false.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.#ctor">
+            <summary>
+            Создаёт объект типа HandmadeReport.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.AddSingleValue(System.String,System.Int32,System.Int32)">
+            <summary>
+            Записывает строковое значение в отчёт.
+            </summary>
+            <param name="value">значение</param>
+            <param name="rowIndex">номер строки</param>
+            <param name="columnIndex">номер столбца</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.AddMultiValue(System.Data.DataTable,System.Int32,System.Int32)">
+            <summary>
+            Записывает таблицу в отчёт, начиная с указанной ячейки.
+            </summary>
+            <param name="data">таблица</param>
+            <param name="rowIndex">номер строки</param>
+            <param name="columnIndex">номер столбца</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.AddMultiValue(System.Data.DataTable,System.Int32,System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Записывает таблицу в отчёт с выделением цветом строк, удовл. условию.
+            </summary>
+            <param name="data">таблица</param>
+            <param name="rowIndex">номер строки</param>
+            <param name="columnIndex">номер столбца</param>
+            <param name="colorIndex">номер цвета</param>
+            <param name="flagName">название поля условия (одно из полей таблицы)</param>
+            <param name="flagValue">значение условия</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetBorders(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает полные (внешние и внутренние) границы на диапазон ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetBorders(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает полные (внешние и внутренние) границы определённого цвета на диапазон ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="colorIndex">номер цвета</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetDiagonalDownBorders(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает внутренние диагональные границы (диагональ вниз).
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetDiagonalUpBorders(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает внутренние диагональные границы (диагональ вверх).
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetBordersToBottom(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает границы для диапазона ячеек по нижнему краю.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetBordersToBottom(System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Устанавливает нижнюю границу для слитых ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки левой верхней ячейки</param>
+            <param name="columnIndexStart">номер столбца левой верхней ячейки</param>
+            <param name="howManyCellsMerged">количество слитых ячеек</param>
+            <param name="rowMerge">true, если ячейки сливались по строкам (вертикально); иначе - false (горизонтально)</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetFontBold(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Делает жирным шрифт в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetFontItalic(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Делает шрифт курсивом в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetFontUnderline(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Делает шрифт подчеркнутым в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetFontColor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает цвет шрифта в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="colorIndex">номер цвета</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetFontSize(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает размер шрифта в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="size">размер шрифта</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetFontName(System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Устанавливает тип шрифта в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="fontName">название типа шрифта</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetFormat(System.Int32,System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            Устанавливает числовой формат в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="format">формат числа</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetColumnWidth(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает ширину стобца в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="width">ширина столбца</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetColumnAutoSize(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает ширину стобца в ячейках диапазона по ширине содержимого.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="width">ширина столбца</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetRowHeight(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает высоту строки в ячейках диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+            <param name="height">высота строки</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetCellAlignmentToLeft(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Горизонтальное выравнивание влево в диапазоне ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetCellAlignmentToRight(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Горизонтальное выравнивание вправо в диапазоне ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetCellAlignmentToCenter(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Горизонтальное выравнивание по центру в диапазоне ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetCellAlignmentToTop(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Вертикальное выравнивание по верхнему краю в диапазоне ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetCellAlignmentToBottom(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Вертикальное выравнивание по нижнему краю в диапазоне ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetCellAlignmentToJustify(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Вертикальное выравнивание по центру в диапазоне ячеек.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetOrientation(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает ориентацию текста.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetPageOrientationToLandscape">
+            <summary>
+            Устанавливает альбомную ориентацию страницы.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SetWrapText(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает перенос по словам для диапазона.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.Merge(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Слияние ячеек в диапазоне.
+            </summary>
+            <param name="rowIndexStart">номер строки начала диапазона</param>
+            <param name="columnIndexStart">номер столбца начала диапазона</param>
+            <param name="rowIndexFinish">номер строки конца диапазона</param>
+            <param name="columnIndexFinish">номер столбца конца диапазона</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.Show">
+            <summary>
+            Отображает отчёт.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.Quit">
+            <summary>
+            Выход из Excel.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.SaveToFile(System.String)">
+            <summary>
+            Сохранение в файл
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.HandmadeReport.GoToNextSheet">
+            <summary>
+            Следующая страница
+            </summary>        
+        </member>
+        <member name="T:Nwuram.Framework.ToExcel.Microsoft.FillExcelTemplate">
+            <summary>
+            Заполение шаблона
+            Для работы класса необходимо подключить библиотеку (Microsoft Excel 11.0 Object Library)
+            (References->Add Reference->COM->Microsoft Excel 11.0 Object Library)
+            
+            Описание:
+            1. Заполните список единичных тегов, используя метод AddItemSingleList 
+            2. Заполните мульти-список, используя метод AddMultiList
+            3. Вызовите метод CreateTemplate для выгрузки шаблона
+            </summary>
+        </member>
+        <member name="F:Nwuram.Framework.ToExcel.Microsoft.FillExcelTemplate.MessageError">
+            <summary>
+            Сообщение об ошибке
+            </summary>
+        </member>
+        <member name="F:Nwuram.Framework.ToExcel.Microsoft.FillExcelTemplate.nError">
+            <summary>
+            Номер ошибки (0 - без ошибок, -1 - пользовательская ошибка, -2 - системная ошибка)
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.Microsoft.FillExcelTemplate.AddItemSingleList(System.String,System.String)">
+            <summary>
+            Добавить единичный тег
+            </summary>
+            <param name="TagName">Имя тега</param>
+            <param name="Value">Значение тега</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.Microsoft.FillExcelTemplate.AddMultiList(System.Data.DataTable,System.String)">
+            <summary>
+            Добавить мульти-список
+            </summary>
+            <param name="MultiList">Мульти-список (список должен сожержать имена полей без префикса и фигурных скобок)</param>
+            <param name="NamePrefix">Префикс тега</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.Microsoft.FillExcelTemplate.ClearSingleList">
+            <summary>
+            Очистить все единичные теги
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.Microsoft.FillExcelTemplate.ClearMultiList">
+            <summary>
+            Очистить все мульти-списки
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.Microsoft.FillExcelTemplate.ClearAll">
+            <summary>
+            Очистить все единичные теги и мульти-списки
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.Microsoft.FillExcelTemplate.CreateTemplate(System.String,System.String,System.Collections.ArrayList)">
+            <summary>
+            Создать шаблон
+            </summary>
+            <param name="PathTemplate">Путь к файлу шаблона</param>
+            <param name="PathUnloadTemplate">Путь для выгрузки шаблона, с именем файла</param>
+            <param name="ListSheetName">Список листов для которых нужно производить замену. Для замены во всех листах необходимо указать null, либо пустой список.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Nwuram.Framework.ToExcel.Microsoft.FillExcelTemplate.OpenFile(System.String)">
+            <summary>
+            открывает файл
+            </summary>
+            <param name="filePath">полное имя файла</param>
+            <returns>true, если файл открыт успешно; иначе - false</returns>
+        </member>
+        <member name="T:Nwuram.Framework.ToExcel.OOTemplate">
+            <summary>
+            класс для работы с шаблоном Open Office Calc
+            </summary>
+        </member>
+        <member name="T:Nwuram.Framework.ToExcel.ToOO">
+            <summary>
+            класс для работы с шаблоном Open Office Calc
+            </summary>
+        </member>
+        <member name="T:Nwuram.Framework.ToWord.FontFinder">
+            <summary>
+            Класс для подбора шрифта под размеры ячейки.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.FontFinder.GetFont(System.String,System.Single,System.Single,System.Int32,System.Int32,System.String,System.Drawing.FontStyle,System.Int32)">
+            <summary>
+            Находит максимальный (почти) шрифт, при котором текст впишется в ячейку. (Работает с междустрочным интервалом 0,8!)
+            </summary>
+            <param name="text">текст</param>
+            <param name="width">ширина ячейки (в пт)</param>
+            <param name="height">высота ячейки (в пт)</param>
+            <param name="minFontSize">минимальный допустимый размер шрифта</param>
+            <param name="maxFontSize">максимальный допустимый размер шрифта</param>
+            <param name="fontName">название шрифта</param>
+            <param name="fontStyle">стиль шрифта (жирный, курсив и т.п.)</param>
+            <param name="fontScaling">масштаб шрифта</param>
+            <returns>размер шрифта</returns>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.FontFinder.FitText(System.String,System.Single,System.Single,System.String,System.Int32,System.Drawing.FontStyle,System.Int32)">
+            <summary>
+            Определяет, впишется ли текст в ячейку при данном размере шрифта.
+            </summary>
+            <param name="text">текст</param>
+            <param name="width">ширина ячейки (в пт)</param>
+            <param name="height">высота ячейки (в пт)</param>
+            <param name="fontName">название шрифта</param>
+            <param name="emSize">размер шрифта</param>
+            <param name="fontStyle">стиль шрифта</param>
+            <param name="fontScaling">масштаб шрифта</param>
+            <returns>True, если текст вписывается, иначе - false.</returns>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.FontFinder.GetTextSize(System.String,System.Int32,System.String,System.Drawing.FontStyle,System.Int32)">
+            <summary>
+            Вычисляет размер надписи с текстом при указанном размере шрифта.
+            </summary>
+            <param name="text">текст</param>
+            <param name="fontSize">размер шрифта</param>
+            <param name="fontName">название шрифта</param>
+            <param name="fontStyle">стиль шрифта</param>
+            <param name="fontScaling">масштаб шрифта</param>
+            <returns>размер надписи</returns>
+        </member>
+        <member name="P:Nwuram.Framework.ToWord.Report.WordAvailable">
+            <summary>
+            Возвращает true, если Word доступен на компютере, иначе - false.
+            </summary>
+        </member>
+        <member name="T:Nwuram.Framework.ToWord.HandmadeReport">
+            <summary>
+            Класс "ручной" выгрузки в Word.
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.ToWord.HandmadeReport.CurrentTable">
+            <summary>
+            Текущая таблица.
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.ToWord.HandmadeReport.WordAvailable">
+            <summary>
+            Возвращает true, если Word доступен на компьютере; иначе - false.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.#ctor">
+            <summary>
+            Создаёт объект типа HandmadeReport.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.#ctor(System.Object)">
+            <summary>
+            Создаёт объект типа HadmadeReport на основе существующего файла.
+            </summary>
+            <param name="filePath">путь к файлу</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.AddTable(System.Int32,System.Int32)">
+            <summary>
+            Добавляет таблицу в документ.
+            </summary>
+            <param name="NumRows">количество строк</param>
+            <param name="NumColumns">количество столбцов</param>
+            <returns>созданная таблица</returns>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.GetTable(System.Int32)">
+            <summary>
+            Возвращает искомую таблицу.
+            </summary>
+            <param name="index">номер таблицы</param>
+            <returns>таблица с номером index</returns>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.Split(System.Int32,System.Int32,System.Object,System.Object)">
+            <summary>
+            Разбивает ячейку на несколько ячеек.
+            </summary>
+            <param name="rowNumber">номер строки разбиваемой ячейки</param>
+            <param name="columnNumber">номер столбца разбиваемой ячейки</param>
+            <param name="NumRows">количество строк</param>
+            <param name="NumColumns">количество столбцов</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellFontBold(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Устанавливает жирность шрифта в ячейке.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="bold">true - если жирный, false - если обычный</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellFontName(System.Int32,System.Int32,System.String)">
+            <summary>
+            Устанавливает название шрифта в ячейке.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="name">название шрифта</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellFontSize(System.Int32,System.Int32,System.Single)">
+            <summary>
+            Устанавливает размер шрифта в ячейке.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер солбца</param>
+            <param name="size">размер шрифта (в пт)</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellFontScaling(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Устанавливает масштаб шрифта в ячейке.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="scaling">масштаб (в процентах)</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellFontUnderline(System.Int32,System.Int32,Microsoft.Office.Interop.Word.WdUnderline)">
+            <summary>
+            Устанавливает подчёркивание шрифта в ячейке.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="underline">тип подчёркивания</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellFontColor(System.Int32,System.Int32,Microsoft.Office.Interop.Word.WdColor)">
+            <summary>
+            Устанавливает цвет шрифта.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="color">цвет</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellFontColor(System.Int32,System.Int32,Microsoft.Office.Interop.Word.WdColorIndex)">
+            <summary>
+            Устанавливает цвет шрифта.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="colorIndex">цвет</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellBackgroundColor(System.Int32,System.Int32,Microsoft.Office.Interop.Word.WdColor)">
+            <summary>
+            Устанавливает цвет фона ячейки.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="color">цвет</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellBackgroundColor(System.Int32,System.Int32,Microsoft.Office.Interop.Word.WdColorIndex)">
+            <summary>
+            Устанавливает цвет фона ячейки.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="colorIndex">цвет</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.InsertAfter(System.Int32,System.Int32,System.String)">
+            <summary>
+            Записывает текст в ячейку после содержимого.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="text">текст</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.InsertBefore(System.Int32,System.Int32,System.String)">
+            <summary>
+            Записывает текст в ячейку перед содержимым.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="text">текст</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellText(System.Int32,System.Int32,System.String)">
+            <summary>
+            Записывает текст в ячейку.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="text">текст</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.InsertBreak(System.Object)">
+            <summary>
+            Добавляет разрыв.
+            </summary>
+            <param name="type">тип разрыва</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.EndKey(System.Object,System.Object)">
+            <summary>
+            Устанавливает курсор в конец документа.
+            </summary>
+            <param name="unit"></param>
+            <param name="extend"></param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetTableParagraphLineSpacing(System.Int32,System.Int32,System.Single)">
+            <summary>
+            Устанавливает расстояние между строками текста в ячейке.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="lineSpacing">расстояние (в пт)</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetTableParagraphLineSpacingRule(System.Int32,System.Int32,Microsoft.Office.Interop.Word.WdLineSpacing)">
+            <summary>
+            Устанавливает правило для расстояния между строками текста в документе.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="lineSpacingRule">тип правила</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetTableParagraphLeftIndent(System.Int32,System.Int32,System.Single)">
+            <summary>
+            Устанавливает значение левого отступа абзаца в ячеке.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="leftIndent">размер отступа</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetTableParagraphRightIndent(System.Int32,System.Int32,System.Single)">
+            <summary>
+            Устанавливает значение правого отступа абзаца в ячейке.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="rightIndent">размер отступа</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetTableParagraphAlignment(System.Int32,System.Int32,Microsoft.Office.Interop.Word.WdParagraphAlignment)">
+            <summary>
+            Устанавливает выравнивание абзаца в ячейке.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="alignment">тип выравнивания</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellVerticalAlignment(System.Int32,System.Int32,Microsoft.Office.Interop.Word.WdCellVerticalAlignment)">
+            <summary>
+            Устанавливает вертикальное выравнивание текста в ячейке.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="verticalAlignment">тип вертикального выравнивания</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellHeight(System.Int32,System.Int32,System.Single)">
+            <summary>
+            Устанавливает высоту ячейки.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="height">высота</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellHeightRule(System.Int32,System.Int32,Microsoft.Office.Interop.Word.WdRowHeightRule)">
+            <summary>
+            Устанавливает правило для высоты ячейки.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="heightRule">правило для высоты ячейки</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellWidth(System.Int32,System.Int32,System.Single,System.Boolean)">
+            <summary>
+            Устанавливает ширину ячейки.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="width">ширина</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellWidth(System.Int32,System.Int32,System.Single)">
+            <summary>
+            Устанавливает ширину ячейки.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="width">ширина</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellWidth(System.Int32,System.Int32,System.Single,Microsoft.Office.Interop.Word.WdRulerStyle)">
+            <summary>
+            Устанавливает ширину ячейки.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="width">ширина</param>
+            <param name="rulerStyle">тип установления значения</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.GetCellHeight(System.Int32,System.Int32)">
+            <summary>
+            Получает высоту ячейки.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <returns>значение высоты ячейки</returns>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.GetCellWidth(System.Int32,System.Int32)">
+            <summary>
+            Получает ширину ячейки.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <returns>значение ширины ячейки</returns>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetCellBordersLineStyle(System.Int32,System.Int32,Microsoft.Office.Interop.Word.WdLineStyle)">
+            <summary>
+            Устанавливает тип линии границ ячейки.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="lineStyle">тип линии границ</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetMargin(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Устанавливает отступы страницы.
+            </summary>
+            <param name="topMargin">верхний отступ</param>
+            <param name="bottomMargin">нижний отступ</param>
+            <param name="leftMargin">левый отступ</param>
+            <param name="rightMargin">правый отступ</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetPageOrientation(Microsoft.Office.Interop.Word.WdOrientation)">
+            <summary>
+            Устанавливает ориентацию страницы.
+            </summary>
+            <param name="orientation">тип ориентации</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.FitText(System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Задаёт значение свойства "вписать текст" для ячейки.
+            </summary>
+            <param name="rowNumber">номер строки</param>
+            <param name="columnNumber">номер столбца</param>
+            <param name="fit">значение свойства (true - вписать текст, false - не вписывать текст)</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.Select">
+            <summary>
+            Выделяет содержимое документа.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.TypeText(System.Boolean,System.String)">
+            <summary>
+            Записывает текст в выделенную область в документе.
+            </summary>
+            <param name="text">текст</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.TypeBackspace">
+            <summary>
+            Записывает backspace в выделенную область в документе.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetTextColumnsCount(System.Int32)">
+            <summary>
+            Устанавливает количество колонок в документе.
+            </summary>
+            <param name="NumColumns">количество колонок</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SetTextColumnsSpacing(System.Single)">
+            <summary>
+            Устанавливает значение промежутка между колонками в документе.
+            </summary>
+            <param name="spacing">значение промежутка</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.AddRectangle(System.Single,System.Single,System.Single,System.Single,System.String,System.Single)">
+            <summary>
+            Добавляет прямоугольник.
+            </summary>
+            <param name="left">координата X</param>
+            <param name="top">координата Y</param>
+            <param name="width">ширина</param>
+            <param name="height">высота</param>
+            <param name="text">текст внутри прямоугольника</param>
+            <param name="font_size">размер шрифта</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.PrintOut">
+            <summary>
+            Отправляет документ на печать.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.PrintOut(System.Object)">
+            <summary>
+            Отправляет документ на печать.
+            </summary>
+        </member>
+        <member name="P:Nwuram.Framework.ToWord.HandmadeReport.PagesCount">
+            <summary>
+            Возвращает кол-во сраниц в документе.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SaveAs(System.Object,System.Object)">
+            <summary>
+            Сохраняет документ.
+            </summary>
+            <param name="fileName">название файла</param>
+            <param name="fileFormat">тип файла</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.SaveAs(System.Object)">
+            <summary>
+            Сохраняет документ.
+            </summary>
+            <param name="fileName">название файла</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.Close(System.Object)">
+            <summary>
+            Закрывает документ.
+            </summary>
+            <param name="saveChanges">сохранить ли изменения</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.Exit(System.Object)">
+            <summary>
+            Закрывает Word.
+            </summary>
+            <param name="saveChanges">сохранить ли изменения</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.DisplayAlerts(Microsoft.Office.Interop.Word.WdAlertLevel)">
+            <summary>
+            Задаёт отображение предупреждающих сообщений.
+            </summary>
+            <param name="alertLevel">тип отображения</param>
+        </member>
+        <member name="M:Nwuram.Framework.ToWord.HandmadeReport.Show">
+            <summary>
+            Отображает документ.
+            </summary>
+        </member>
+        <member name="M:Nwuram.Framework.workDataGrid.Convert.convertGridToTable(System.Windows.Forms.DataGridView,System.Boolean)">
+            <summary>
+            Преобразование DataGridView в DataTable.
+            </summary>
+            <param name="dtGrid">DataGridView</param>
+            Возвращает DataTable или NULL
+        </member>
+        <member name="M:Nwuram.Framework.workDataGrid.Convert.GetDataTableFromGrid(System.Windows.Forms.DataGridView)">
+            <summary>
+            Преобразование Грида в DataTable "как есть"
+            </summary>
+            <param name="dgv">Грид</param>
+            <returns>таблица DataTable</returns>
+        </member>
+        <member name="M:Nwuram.Framework.workDataGrid.Convert.GetDataTableFromGridWithNum(System.Windows.Forms.DataGridView)">
+            <summary>
+            Преобразование Грида в DataTable с добавлением колонки с нумерацией строк
+            </summary>
+            <param name="dgv">Грид</param>
+            <returns>таблица DataTable</returns>
+        </member>
+    </members>
+</doc>

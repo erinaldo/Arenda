@@ -47,60 +47,71 @@ namespace Arenda
         private void btnSave_Click(object sender, EventArgs e)
         {
           DataTable dtd = proc.CheckDeviceName(device.Id, txtName.Text);
-          if (dtd == null || dtd.Rows.Count == 0)
-          {
-            if (device.Id == 0)
+            if (dtd == null || dtd.Rows.Count == 0)
             {
-              Logging.StartFirstLevel(1391);
-              Logging.Comment("Наименование прибора: " + txtName.Text.Trim());
-              Logging.Comment("Аббревиатура прибора: " + txtAbbr.Text.Trim());
-              Logging.Comment("Единицы измерения: " + txtUnit.Text.Trim());
+             int idNew =   proc.SaveDevice(device.Id, txtName.Text, txtAbbr.Text, txtUnit.Text);
 
-              Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
-              + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
-              Logging.StopFirstLevel();
-            }
-            else
-            {
-              Logging.StartFirstLevel(1392);
-              Logging.Comment("ID: " + device.Id);
-              Logging.VariableChange("Наименование этажа: ", txtName.Text.Trim(), device.Name);
-              Logging.VariableChange("Аббревиатура этажа: ", txtAbbr.Text.Trim(), device.Abbreviation);
-              Logging.VariableChange("Единицы измерения: ", txtUnit.Text.Trim(), device.Unit);
+                if (device.Id == 0)
+                {
+                    Logging.StartFirstLevel(1391);
 
-              Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
-              + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
-              Logging.StopFirstLevel();
-            }
+                    Logging.Comment($"ID:{idNew}");
+                    Logging.Comment("Наименование прибора: " + txtName.Text.Trim());
+                    Logging.Comment("Аббревиатура прибора: " + txtAbbr.Text.Trim());
+                    Logging.Comment("Единицы измерения: " + txtUnit.Text.Trim());
 
-            proc.SaveDevice(device.Id, txtName.Text, txtAbbr.Text, txtUnit.Text);
-            MessageBox.Show("Данные сохранены.", "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.DialogResult = DialogResult.OK;
-          }
-          else
-          {
-            if (bool.Parse(dtd.Rows[0]["isActive"].ToString()))
-            {
-              //MessageBox.Show("Введённое наименование присутствует в БД и имеет статус \"действующая\". Сохранить введённое наименование нельзя.", "Сохранение записи", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-              MessageBox.Show("        В справочнике уже\n      присутствует прибор\n   с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
-              return;
-            }
-            else if (device.Id == 0)
-            {
-              if (MessageBox.Show("Введённое наименование присутствует в БД и имеет статус \"недействующий\". Вы хотите изменить статус на \"действующий\"?", "Сохранение записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              {
-                proc.RestoreDevice(int.Parse(dtd.Rows[0]["id"].ToString()), true, false);
+                    Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
+                    + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                    Logging.StopFirstLevel();
+                }
+                else
+                {
+                    Logging.StartFirstLevel(1392);
+                    Logging.Comment("ID: " + device.Id);
+                    Logging.VariableChange("Наименование этажа: ", txtName.Text.Trim(), device.Name);
+                    Logging.VariableChange("Аббревиатура этажа: ", txtAbbr.Text.Trim(), device.Abbreviation);
+                    Logging.VariableChange("Единицы измерения: ", txtUnit.Text.Trim(), device.Unit);
+
+                    Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
+                    + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                    Logging.StopFirstLevel();
+                }
+
                 MessageBox.Show("Данные сохранены.", "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
-              }
             }
             else
             {
-              MessageBox.Show("Введённое наименование присутствует в БД и имеет статус \"недействующий\". Сохранить введённое наименование нельзя.",
-                "Сохранение записи", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-              return;
+                if (bool.Parse(dtd.Rows[0]["isActive"].ToString()))
+                {
+                    //MessageBox.Show("Введённое наименование присутствует в БД и имеет статус \"действующая\". Сохранить введённое наименование нельзя.", "Сохранение записи", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("        В справочнике уже\n      присутствует прибор\n   с таким наименованием.", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                else if (device.Id == 0)
+                {
+                    if (MessageBox.Show("Введённое наименование присутствует в БД и имеет статус \"недействующий\". Вы хотите изменить статус на \"действующий\"?", "Сохранение записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    {
+                        Logging.StartFirstLevel(540);
+                        Logging.Comment($"Смена статуса прибора на действующий");
+
+                        Logging.Comment($"ID:{dtd.Rows[0]["id"]}");
+                        Logging.Comment($"Наименование прибора: {dtd.Rows[0]["cName"]}");
+                        Logging.Comment($"Аббревиатура прибора: {dtd.Rows[0]["Abbreviation"]}");
+                        Logging.Comment($"Единицы измерения: {dtd.Rows[0]["Unit"]}");
+
+                        proc.RestoreDevice(int.Parse(dtd.Rows[0]["id"].ToString()), true, false);
+                        MessageBox.Show("Данные сохранены.", "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.DialogResult = DialogResult.OK;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Введённое наименование присутствует в БД и имеет статус \"недействующий\". Сохранить введённое наименование нельзя.",
+                      "Сохранение записи", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
-          }
         }
 
         private bool SomethingChanged()

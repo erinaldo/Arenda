@@ -1,4 +1,5 @@
-﻿using Nwuram.Framework.Settings.Connection;
+﻿using Nwuram.Framework.Logging;
+using Nwuram.Framework.Settings.Connection;
 using Nwuram.Framework.Settings.User;
 using System;
 using System.Collections.Generic;
@@ -232,6 +233,7 @@ namespace dllJournalPlaneReport
                 int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
                 DateTime _tmpDate = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["PeriodMonthPlan"];
                 int _tmpObjectLease = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_ObjectLease"];
+                string nameObject = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["nameObject"];
 
                 Task<DataTable> task = Config.hCntMain.setTPlanReport(id, _tmpDate, _tmpObjectLease, true, false, 0);
                 task.Wait();
@@ -250,6 +252,16 @@ namespace dllJournalPlaneReport
                     return;
                 }
 
+                Logging.StartFirstLevel((int)logEnum.Подтверждение_план_отчета);
+
+                Logging.Comment($"Id план-отчета:{id}");
+                Logging.Comment($"Объекта аренды ID:{_tmpObjectLease}; Наименование:{nameObject}");
+                Logging.Comment($"Период плана:{_tmpDate}");
+                Logging.Comment($"Подтвердил:{UserSettings.User.FullUsername}");
+                Logging.Comment($"Дата подтверждения:{DateTime.Now}");
+
+                Logging.StopFirstLevel();
+
                 MessageBox.Show("План подтвержден!", "Подтверждение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 getData();
             }
@@ -264,6 +276,15 @@ namespace dllJournalPlaneReport
                 int _tmpObjectLease = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_ObjectLease"];
                 string _nameObject  = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["nameObject"];
                 string status = (bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isСonfirmed"] ? "Подтверждена" : "Не подтверждена";
+
+                Logging.StartFirstLevel(79);
+                Logging.Comment("Выгружен план-отчет со следующими параметрами:");
+                Logging.Comment($"ID:{id}");
+                Logging.Comment($"Период плана:{_tmpDate.ToShortDateString()}");
+                Logging.Comment("id объекта  = " + cmbObject.SelectedValue.ToString()
+                            + ", Наименование объекта : \"" + cmbObject.Text.ToString() + "\"");
+                Logging.StopFirstLevel();
+
                 reports.createReport(id, _tmpDate, _tmpObjectLease, _nameObject, status);
             }
         }
@@ -275,6 +296,9 @@ namespace dllJournalPlaneReport
                 int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
                 DateTime _tmpDate = (DateTime)dtData.DefaultView[dgvData.CurrentRow.Index]["PeriodMonthPlan"];
                 int _tmpObjectLease = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_ObjectLease"];
+                string nameObject = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["nameObject"];
+
+
 
                 Task<DataTable> task = Config.hCntMain.setTPlanReport(id, _tmpDate, _tmpObjectLease, true, true, 0);
                 task.Wait();
@@ -309,11 +333,55 @@ namespace dllJournalPlaneReport
                     return;
                 }
 
-                if (result == 0 )
+                if (result == 0)
                 {
                     if (DialogResult.Yes == MessageBox.Show("Удалить выбранную запись?", "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
                     {
-                        //setLog(id, 2);
+                        task = Config.hCntMain.getPlanReport(_tmpDate.Date, _tmpObjectLease, id);
+                        task.Wait();
+
+                        Logging.StartFirstLevel((int)logEnum.Удалить_план_отчет);
+
+                        Logging.Comment($"ID:{id}");
+                        Logging.Comment($"Период плана:{_tmpDate.ToShortDateString()}");
+                        Logging.Comment("id объекта  = " + _tmpObjectLease.ToString()
+                                    + ", Наименование объекта : \"" + nameObject + "\"");
+
+                        if (task.Result != null)
+                        {
+                            Logging.Comment("Информация по договорам");
+
+                            foreach (DataRow row in task.Result.Rows)
+                            {
+                                Logging.Comment($"Id договора:{row["id"]}");
+                                Logging.Comment($"Арендодатель:{row["nameLandLord"]}");
+                                Logging.Comment($"Арендатор:{row["nameTenant"]}");
+                                Logging.Comment($"Номер договора:{row["Agreement"]}");
+                                Logging.Comment($"Срок действия:{row["timeLimit"]}");
+                                Logging.Comment($"Здание:{row["Build"]}");
+                                Logging.Comment($"Этаж:{row["Floor"]}");
+                                Logging.Comment($"№ секции:{row["namePlace"]}");
+                                Logging.Comment($"Площадь м2:{row["Total_Area"]}");
+                                Logging.Comment($"Стоимость м2:{row["Cost_of_Meter"]}");
+                                Logging.Comment($"Сумма по договору:{row["Total_Sum"]}");
+                                Logging.Comment($"Скидка:{row["Discount"]}");
+                                Logging.Comment($"Обеспечительный платеж:{row["sumPayCont"]}");
+                                Logging.Comment($"Долг за предыдущий период:{row["preCredit"]}");
+                                Logging.Comment($"Переплата за предыдущий период:{row["preOverPayment"]}");
+                                Logging.Comment($"План на начало:{row["prePlan"]}");
+                                Logging.Comment($"План на конец:{row["EndPlan"]}");
+                                Logging.Comment($"Пени:{row["Penalty"]}");
+                                Logging.Comment($"Прочие платежи:{row["OtherPayments"]}");
+                                Logging.Comment($"Всего к оплате:{row["ultraResult"]}");
+                                Logging.Comment($"Внесено:{row["Included"]}");
+                                Logging.Comment($"Долг:{row["Credit"]}");
+                                Logging.Comment($"Переплата:{row["OverPayment"]}");
+                            }
+                        }
+
+                        Logging.StopFirstLevel();
+
+
                         task = Config.hCntMain.setTPlanReport(id, _tmpDate, _tmpObjectLease, true, true, 1);
                         task.Wait();
                         if (task.Result == null)
@@ -325,7 +393,7 @@ namespace dllJournalPlaneReport
                         return;
                     }
                 }
-               
+
             }
         }
 

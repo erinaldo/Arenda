@@ -84,7 +84,7 @@
             // 
             this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(250, 458);
+            this.btnSave.Location = new System.Drawing.Point(246, 458);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(30, 30);
             this.btnSave.TabIndex = 41;
@@ -96,7 +96,7 @@
             // 
             this.btnQuit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnQuit.Image = ((System.Drawing.Image)(resources.GetObject("btnQuit.Image")));
-            this.btnQuit.Location = new System.Drawing.Point(286, 458);
+            this.btnQuit.Location = new System.Drawing.Point(282, 458);
             this.btnQuit.Name = "btnQuit";
             this.btnQuit.Size = new System.Drawing.Size(30, 30);
             this.btnQuit.TabIndex = 40;
@@ -391,7 +391,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(328, 492);
+            this.ClientSize = new System.Drawing.Size(324, 496);
             this.ControlBox = false;
             this.Controls.Add(this.tbDescription);
             this.Controls.Add(this.label8);

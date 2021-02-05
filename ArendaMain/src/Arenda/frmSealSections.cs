@@ -1,4 +1,5 @@
-﻿using Nwuram.Framework.Settings.Connection;
+﻿using Nwuram.Framework.Logging;
+using Nwuram.Framework.Settings.Connection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ namespace Arenda
 
         public int id_agreements { set; private get; }
         private DataTable dtData;
+        public string placeName { set; private get; }
 
         public frmSealSections()
         {
@@ -33,6 +35,15 @@ namespace Arenda
             if (DialogResult.OK == frmSelectDate.ShowDialog())
             {
                 _proc.setSealSections(id_agreements, frmSelectDate.date, 1);
+
+                Logging.StartFirstLevel(765);
+
+                Logging.Comment("Смена статуса секции на «Опечатана»");
+                Logging.Comment($"ID договора:{id_agreements}");
+                Logging.Comment($"Место:{placeName}");
+                Logging.Comment($"Дата опечатывания:{frmSelectDate.date.ToShortDateString()}");
+                Logging.StopFirstLevel();
+
                 getData();
             }
         }
@@ -46,6 +57,15 @@ namespace Arenda
             if (DialogResult.OK == frmSelectDate.ShowDialog())
             {
                 _proc.setSealSections(id_agreements, frmSelectDate.date, 2);
+
+                Logging.StartFirstLevel(765);
+
+                Logging.Comment("Смена статуса секции на «Открыта»");
+                Logging.Comment($"ID договора:{id_agreements}");
+                Logging.Comment($"Место:{placeName}");
+                Logging.Comment($"Дата открытия:{frmSelectDate.date.ToShortDateString()}");
+                Logging.StopFirstLevel();
+
                 getData();
             }
         }

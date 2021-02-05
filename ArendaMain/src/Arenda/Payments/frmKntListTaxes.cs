@@ -1,4 +1,5 @@
-﻿using Nwuram.Framework.Settings.Connection;
+﻿using Nwuram.Framework.Logging;
+using Nwuram.Framework.Settings.Connection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,7 +23,7 @@ namespace Arenda.Payments
         {
             InitializeComponent();
             dgvData.AutoGenerateColumns = false;
-            if (!new string[] { "КНТ" }.Contains(Nwuram.Framework.Settings.User.UserSettings.User.StatusCode))
+            if (!new string[] { "КНТ" }.Contains(TempData.Rezhim))
             {
                 btSelect.Enabled = false;
                 cSelect.Visible = false;
@@ -130,17 +131,33 @@ namespace Arenda.Payments
                 MessageBox.Show("Необходимо выбрать не подтверждённые данные!","Подтверждение",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 return;
             }
-            
+
+            Logging.StartFirstLevel((int)logEnum.Подтвержение_счета);
+            Logging.Comment("Подтверждение счетов по дополнительным счетам к договорам");
+            Logging.Comment($"Объект:{cmbObject.Text}");
+            Logging.Comment($"План отчёт за:{cmbPlaneDate.Text}");
+            Logging.Comment("Информация по счетам");
             foreach (DataRow row in rowCollect)
             {
                 int id_taxes = (int)row["id"];
-                DataTable dtResult = _proc.setConfirmedTaxes(id_taxes);
+                DataTable dtResult = _proc.setConfirmedTaxes(id_taxes, true);
                 if (dtResult == null || dtResult.Rows.Count == 0 || (int)dtResult.Rows[0]["id"] < 0)
                 {
                     MessageBox.Show("Ошибка сохранения данных!", "Информирование", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Logging.Comment("Ошибка сохранения данных");
+                    Logging.StopFirstLevel();
                     return;
                 }
+
+                Logging.Comment($"Id счета:{row["id"]}");
+                Logging.Comment($"Договор ID:{row["id_Agreements"]}; Номер:{row["Agreement"]}");
+                Logging.Comment($"Дата выписки:{row["DateFines"]}");
+                Logging.Comment($"Тип доп.оплаты:{row["cName"]}");
+                Logging.Comment($"Сумма к оплате:{row["Summa"]}");                
             }
+            Logging.StopFirstLevel();
+
+
 
             MessageBox.Show("Данные сохранены!","Сохранение",MessageBoxButtons.OK,MessageBoxIcon.Information);
 

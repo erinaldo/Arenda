@@ -256,7 +256,7 @@ namespace Arenda
             //изменить активацию записей, проверка на изменение данных в секции
             int uniqRec;
 
-            DataTable dtCheakSec = _proc.CheakSec(tbcName.Text, /*cbZdan.Text, cbFloor.Text,*/ (int)cmbObject.SelectedValue);
+            DataTable dtCheakSec = _proc.CheakSec(tbcName.Text, cbZdan.Text, cbFloor.Text, (int)cmbObject.SelectedValue);
             if (mode == 0)
             {
                 DataRow[] dttemp = dtCheakSec.Select($"id = {_id}");

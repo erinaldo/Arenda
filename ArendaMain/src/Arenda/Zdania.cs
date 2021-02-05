@@ -31,7 +31,7 @@ namespace Arenda
                 button3.Enabled = true;                
             }
 
-            if (Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.ToLower().Equals("пр"))
+            if (TempData.Rezhim.ToLower().Equals("пр"))
             {
                 Logging.StartFirstLevel(1394);
                 Logging.Comment("Открыта форма просмотра справочника зданий");

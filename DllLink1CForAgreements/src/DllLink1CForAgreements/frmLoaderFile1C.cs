@@ -19,6 +19,7 @@ using System.Threading;
 using OfficeOpenXml;
 using Xceed.Words.NET;
 using Xceed.Document.NET;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace DllLink1CForAgreements
 {
@@ -27,20 +28,20 @@ namespace DllLink1CForAgreements
         private string pathSign = "";
         private string pathSignTmpPDF = "";
         private string pathEndParse = "";
-        private static readonly Random getrandom = new Random();
+        private static Random getrandom = new Random();
         private List<FileData> lFileData = new List<FileData>();
         private NetworkShare net;
 
         private List<string> lStringError = new List<string>();
+        private Nwuram.Framework.UI.Service.EnableControlsServiceInProg blockers = new Nwuram.Framework.UI.Service.EnableControlsServiceInProg();
 
-       
 
         #region "Over"
         public frmLoaderFile1C()
         {
             InitializeComponent();
             if(Config.hCntMain==null)
-                Config.hCntMain = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
+                Config.hCntMain = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);            
             //DataTable providers = (new OleDbEnumerator()).GetElements();
         }
 
@@ -62,19 +63,32 @@ namespace DllLink1CForAgreements
 
         private void btSelectPath_Click(object sender, EventArgs e)
         {
-            if (DialogResult.OK == folderBrowserDialog1.ShowDialog())
-            {
-                if (!validateFileAndFolder(folderBrowserDialog1.SelectedPath)) return;
+
+            CommonOpenFileDialog dialog = new CommonOpenFileDialog();
+            
+            //dialog.InitialDirectory = "C:\\Users";
+            dialog.IsFolderPicker = true;
+            if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {                
+                if (!validateFileAndFolder(dialog.FileName)) return;
 
                 btSave.Enabled = true;
-                tbPath.Text = folderBrowserDialog1.SelectedPath;
-
-                //Type folderBrowserType = folderBrowserDialog1.GetType();
-                //FieldInfo fieldInfo = folderBrowserType.GetField("rootFolder", BindingFlags.NonPublic | BindingFlags.Instance);
-                //fieldInfo.SetValue(folderBrowserDialog1, (Environment.SpecialFolder)18);
-
-                //folderBrowserDialog1.ShowDialog();
+                tbPath.Text = dialog.FileName;
             }
+
+            //if (DialogResult.OK == folderBrowserDialog1.ShowDialog())
+            //{
+            //    if (!validateFileAndFolder(folderBrowserDialog1.SelectedPath)) return;
+
+            //    btSave.Enabled = true;
+            //    tbPath.Text = folderBrowserDialog1.SelectedPath;
+
+            //    //Type folderBrowserType = folderBrowserDialog1.GetType();
+            //    //FieldInfo fieldInfo = folderBrowserType.GetField("rootFolder", BindingFlags.NonPublic | BindingFlags.Instance);
+            //    //fieldInfo.SetValue(folderBrowserDialog1, (Environment.SpecialFolder)18);
+
+            //    //folderBrowserDialog1.ShowDialog();
+            //}
         }
 
         private void btClose_Click(object sender, EventArgs e)
@@ -82,79 +96,90 @@ namespace DllLink1CForAgreements
             Close();
         }
 
-        private void btSave_Click(object sender, EventArgs e)
+        private async void btSave_Click(object sender, EventArgs e)
         {
-            lStringError.Clear();
-            net = new NetworkShare(true, false);
-            pathSignTmpPDF = tbPath.Text + "\\tmpPdfSign\\";
-            pathEndParse = tbPath.Text + "\\EndParse\\";
-
-            if (!Directory.Exists(pathSignTmpPDF)) Directory.CreateDirectory(pathSignTmpPDF);
-            if (!Directory.Exists(pathEndParse)) Directory.CreateDirectory(pathEndParse);
-
-
-            lFileData.Clear();
-            var listFileExcel = Directory.GetFiles(tbPath.Text).Where(s => s.EndsWith(".xls") || s.EndsWith(".xlsx"));
-            var listFileWord = Directory.GetFiles(tbPath.Text).Where(s => s.EndsWith(".doc") || s.EndsWith(".docx"));
-            var listFilePDF = Directory.GetFiles(tbPath.Text).Where(s => s.EndsWith(".pdf"));
-
-            foreach (string filePath in listFileExcel)
+            blockers.SaveControlsEnabledState(this);
+            blockers.SetControlsEnabled(this, false);
+            progressBar1.Visible = true;
+            var result = await Task<bool>.Factory.StartNew(() =>
             {
-                ParseExcelFile(filePath);                
-            }
+                lStringError.Clear();
+                net = new NetworkShare(true, false);
+                pathSignTmpPDF = tbPath.Text + "\\tmpPdfSign\\";
+                pathEndParse = tbPath.Text + "\\EndParse\\";
 
-            foreach (string filePath in listFileWord)
-            {                
-                ParseWordFile(filePath);
-            }
+                if (!Directory.Exists(pathSignTmpPDF)) Directory.CreateDirectory(pathSignTmpPDF);
+                if (!Directory.Exists(pathEndParse)) Directory.CreateDirectory(pathEndParse);
 
-            if (lStringError.Count > 0)
-            {
-                string msg = "У следующих арендодателей\nотсутствуют файлы подписи для\nсчетов 1С.\n";
-                foreach (string s in lStringError)
+
+                lFileData.Clear();
+                var listFileExcel = Directory.GetFiles(tbPath.Text).Where(s => s.EndsWith(".xls") || s.EndsWith(".xlsx"));
+                var listFileWord = Directory.GetFiles(tbPath.Text).Where(s => s.EndsWith(".doc") || s.EndsWith(".docx"));
+                var listFilePDF = Directory.GetFiles(tbPath.Text).Where(s => s.EndsWith(".pdf"));
+
+                foreach (string filePath in listFileExcel)
                 {
-                    msg += $"- {s}\n";
+                    ParseExcelFile(filePath);
                 }
-                msg += $"Их файлы не будут обработаны.";
-                MessageBox.Show(Config.centralText(msg + "\n"), "У арендодателей отсутствуют подписи", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
 
-            if (lFileData.Count > 0)
-            {
-                if (DialogResult.Yes == MessageBox.Show(Config.centralText("В процессе загрузки счетов 1С найдены счета\nбез связи с договором. Установить связь\n вручную и обработать счета заново?\n"),"Обнаружены не связанные договора",MessageBoxButtons.YesNo,MessageBoxIcon.Question,MessageBoxDefaultButton.Button2))
+                foreach (string filePath in listFileWord)
                 {
+                    ParseWordFile(filePath);
+                }
 
-                    if (DialogResult.OK == new frmLinkAgreementVs1C() { lFileData = lFileData.ToList() }.ShowDialog())
+                if (lStringError.Count > 0)
+                {
+                    string msg = "У следующих арендодателей\nотсутствуют файлы подписи для\nсчетов 1С.\n";
+                    foreach (string s in lStringError)
                     {
-                        var ListToParse = lFileData.AsEnumerable<FileData>().Where(r => r.idAgreement != 0);
+                        msg += $"- {s}\n";
+                    }
+                    msg += $"Их файлы не будут обработаны.";
+                    MessageBox.Show(Config.centralText(msg + "\n"), "У арендодателей отсутствуют подписи", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
-                        if (ListToParse.Count() > 0)
+                if (lFileData.Count > 0)
+                {
+                    if (DialogResult.Yes == MessageBox.Show(Config.centralText("В процессе загрузки счетов 1С найдены счета\nбез связи с договором. Установить связь\n вручную и обработать счета заново?\n"), "Обнаружены не связанные договора", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2))
+                    {
+                        lStringError.Clear();
+                        if (DialogResult.OK == new frmLinkAgreementVs1C() { lFileData = lFileData.ToList() }.ShowDialog())
                         {
-                            foreach (FileData fData in ListToParse)
+                            var ListToParse = lFileData.AsEnumerable<FileData>().Where(r => r.idAgreement != 0);
+
+                            if (ListToParse.Count() > 0)
                             {
-                                if (!AddSignAndConvertToPDF(fData.tFile, fData))
+                                foreach (FileData fData in ListToParse)
                                 {
+                                    if (!AddSignAndConvertToPDF(fData.tFile, fData))
+                                    {
 
+                                    }
                                 }
-                            }
 
-                            if (lStringError.Count > 0)
-                            {
-                                string msg = "У следующих арендодателей\nотсутствуют файлы подписи для\nсчетов 1С.\n";
-                                foreach (string s in lStringError)
+                                if (lStringError.Count > 0)
                                 {
-                                    msg += $"- {s}\n";
+                                    string msg = "У следующих арендодателей\nотсутствуют файлы подписи для\nсчетов 1С.\n";
+                                    foreach (string s in lStringError)
+                                    {
+                                        msg += $"- {s}\n";
+                                    }
+                                    msg += $"Их файлы не будут обработаны.";
+                                    MessageBox.Show(Config.centralText(msg + "\n"), "У арендодателей отсутствуют подписи", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
-                                msg += $"Их файлы не будут обработаны.";
-                                MessageBox.Show(Config.centralText(msg + "\n"), "У арендодателей отсутствуют подписи", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
 
+                            }
                         }
                     }
                 }
-            }
-
-            MessageBox.Show(Config.centralText("Загрузка счетов 1С\nзавершена.\n"), "Загрузка счетов 1С", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Config.DoOnUIThread(() =>
+                {
+                    blockers.RestoreControlEnabledState(this);
+                    progressBar1.Visible = false;
+                }, this);
+                MessageBox.Show(Config.centralText("Загрузка счетов 1С\nзавершена.\n"), "Загрузка счетов 1С", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return true;
+            });
         }
 
         private void tbPath_KeyDown(object sender, KeyEventArgs e)
@@ -199,7 +224,7 @@ namespace DllLink1CForAgreements
         }
         #endregion
 
-        #region "excel"
+        #region "Excel"
         private void ParseExcelFile(string filePath)
         {
             FileInfo newFile = new FileInfo(filePath);
@@ -252,7 +277,7 @@ namespace DllLink1CForAgreements
                     s3 = s3.Replace("\r\a", string.Empty);
 
 
-                    if (s1 != null && s2 != null && s3 != null)
+                    if (s1 != null && s2 != null && s3 != null && s1.Length!=0 && s2.Length != 0 && s3.Length != 0)
                     {
                         parserText(s1, s2, s3, filePath, typeFile.excel);                                                
                     }
@@ -260,6 +285,7 @@ namespace DllLink1CForAgreements
             }
             catch (Exception ex)
             {
+                MessageBox.Show($"{filePath}: {ex.Message}","");
                 Console.WriteLine($"{filePath}: {ex.Message}");
             }
             finally
@@ -269,14 +295,37 @@ namespace DllLink1CForAgreements
             }
         }
 
+        
         private void reSaveFile(string filePath)
         {
+            object paramMissing = Type.Missing;
             var app = new Microsoft.Office.Interop.Excel.Application();
+            app.Caption = System.Guid.NewGuid().ToString().ToUpper();            
+            string ver = app.Version;
             var wb = app.Workbooks.Open(filePath);
+
+            
+
             app.DisplayAlerts = false;
             wb.SaveAs(filePath, FileFormat: Microsoft.Office.Interop.Excel.XlFileFormat.xlOpenXMLWorkbook);
-            wb.Close();
+            wb.Close(false, paramMissing, paramMissing);
             app.Quit();
+
+            Config.EnsureProcessKilled(IntPtr.Zero, app.Caption);
+            
+
+            Marshal.ReleaseComObject(wb);
+            Marshal.FinalReleaseComObject(wb);
+            wb = null;
+
+            Marshal.ReleaseComObject(app);
+            Marshal.FinalReleaseComObject(app);
+            app = null;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
         }
         #endregion
 
@@ -401,9 +450,11 @@ namespace DllLink1CForAgreements
                 int id_agreement = (int)dtTmp.Rows[0]["id"];
                 bool isAdd = (bool)dtTmp.Rows[0]["isAdd"];
                 string nameLandLord = (string)dtTmp.Rows[0]["nameLandLord"];
+                int id_Landlord= (int)dtTmp.Rows[0]["id_Landlord"];
+                string nameObject = (string)dtTmp.Rows[0]["nameObject"];
 
                 FileData fData = new FileData();
-                fData.setData(file, file, num, date, agreement, s3, id_agreement, isAdd, nameLandLord, tFile);
+                fData.setData(file, file, num, date, agreement, s3, id_agreement, isAdd, nameLandLord, tFile, id_Landlord, nameObject);
                 if (!AddSignAndConvertToPDF(tFile, fData))
                 {
 
@@ -412,7 +463,7 @@ namespace DllLink1CForAgreements
             else
             {
                 FileData fData = new FileData();
-                fData.setData(file, file, num, date, agreement, s3, 0, true, "", tFile);
+                fData.setData(file, file, num, date, agreement, s3, 0, true, "", tFile, 0,"");
                 lFileData.Add(fData);
             }
         }
@@ -423,37 +474,39 @@ namespace DllLink1CForAgreements
             if (!Directory.Exists(link)) return "";
 
             string[] files = Directory.GetFiles(link);
-            
+            if (files.Count() == 0) return "";
+
+            getrandom = new Random((int)DateTime.Now.Ticks);
             int value = getrandom.Next(0, files.Length - 1);
 
             return files[value];
         }
 
-        private bool  AddSignAndConvertToPDF(typeFile tFile, FileData fData)
+        private bool AddSignAndConvertToPDF(typeFile tFile, FileData fData)
         {
             string FileName = fData.FileName;
             FileInfo newFile = new FileInfo(FileName);
             string FileNameToSaveAndSign = pathSignTmpPDF + "\\" + Path.GetFileNameWithoutExtension(FileName) + newFile.Extension;
             string FileAndParse = pathEndParse + "\\" + Path.GetFileNameWithoutExtension(FileName) + newFile.Extension;
             File.Copy(FileName, FileNameToSaveAndSign, true);
-            string filePDF = "";
+            string filePDF = pathSignTmpPDF + "\\" + Path.GetFileNameWithoutExtension(FileName) + ".pdf";
             newFile = new FileInfo(FileNameToSaveAndSign);
 
 
             if (tFile == typeFile.word)
             {
-                using (DocX document = DocX.Load(FileNameToSaveAndSign))
+                using (var document = DocX.Load(FileNameToSaveAndSign))
                 {
-                    string StrImage = GetImageAgreements(fData.idAgreement);
+                    string StrImage = GetImageAgreements(fData.id_Landlord);
                     if (StrImage.Length == 0)
                     {
-                        if(File.Exists(FileNameToSaveAndSign))
+                        if (File.Exists(FileNameToSaveAndSign))
                             File.Delete(FileNameToSaveAndSign);
 
                         string sError = $"{fData.nameLandLord}: Отсутствует файлы для подписи";
 
                         if (!lStringError.Contains(fData.nameLandLord.Trim()))
-                            lStringError.Add(fData.nameLandLord);
+                            lStringError.Add(fData.nameLandLord + "/" + fData.nameObject);
 
                         return false;
                     }
@@ -461,6 +514,8 @@ namespace DllLink1CForAgreements
                     Picture picture = image.CreatePicture();
                     //picture.Rotation = 10;
                     picture.SetPictureShape(BasicShapes.cube);
+                    //picture.Height = 115;
+                    //picture.Width = 931;
 
                     Table table = document.Tables[3];
                     table.Rows[7].Remove();
@@ -476,13 +531,30 @@ namespace DllLink1CForAgreements
             {
                 if (newFile.Extension.Equals(".xls"))
                 {
+                    object paramMissing = Type.Missing;
                     string newFileName = newFile.DirectoryName + "\\" + Path.GetFileNameWithoutExtension(FileName) + ".xlsx";
 
                     var app = new Microsoft.Office.Interop.Excel.Application();
+                    app.Caption = System.Guid.NewGuid().ToString().ToUpper();
                     var wb = app.Workbooks.Open(FileName);
                     wb.SaveAs(newFileName, FileFormat: Microsoft.Office.Interop.Excel.XlFileFormat.xlOpenXMLWorkbook);
-                    wb.Close();
+                    wb.Close(false, paramMissing, paramMissing);
                     app.Quit();
+                    Config.EnsureProcessKilled(IntPtr.Zero, app.Caption);
+
+                    Marshal.ReleaseComObject(wb);
+                    Marshal.FinalReleaseComObject(wb);
+                    wb = null;
+
+                    Marshal.ReleaseComObject(app);
+                    Marshal.FinalReleaseComObject(app);
+                    app = null;
+
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+
                     File.Delete(FileNameToSaveAndSign);
                     FileNameToSaveAndSign = newFileName;
                     newFile = new FileInfo(FileNameToSaveAndSign);
@@ -490,8 +562,8 @@ namespace DllLink1CForAgreements
 
                 if (newFile.Extension.Equals(".xlsx"))
                 {
-                    ExcelPackage epp = new ExcelPackage(newFile);
-                    string StrImage = GetImageAgreements(fData.idAgreement);
+
+                    string StrImage = GetImageAgreements(fData.id_Landlord);
                     if (StrImage.Length == 0)
                     {
                         if (File.Exists(FileNameToSaveAndSign))
@@ -499,10 +571,13 @@ namespace DllLink1CForAgreements
 
                         string sError = $"{fData.nameLandLord}: Отсутствует файлы для подписи";
                         if (!lStringError.Contains(fData.nameLandLord.Trim()))
-                            lStringError.Add(fData.nameLandLord);
+                            //lStringError.Add(fData.nameLandLord);
+                            lStringError.Add(fData.nameLandLord + "/" + fData.nameObject);
                         return false;
                     }
 
+
+                    ExcelPackage epp = new ExcelPackage(newFile);
                     Bitmap image = new Bitmap(StrImage);
                     OfficeOpenXml.Drawing.ExcelPicture excelImage = null;
                     var worksheet = epp.Workbook.Worksheets[0];
@@ -514,30 +589,88 @@ namespace DllLink1CForAgreements
                     excelImage.SetPosition(34, 0, 0, 0);
 
                     //set size of image, 100= width, 100= height
-                    //excelImage.SetSize(100, 100);
+                    //excelImage.SetSize(931, 115);
                     epp.Save();
                     //epp.SaveAs()
                 }
-                filePDF =  cnvXLSToPDF.ConvertData(FileNameToSaveAndSign);
+                filePDF = cnvXLSToPDF.ConvertData(FileNameToSaveAndSign);
 
             }
 
 
 
 
-            File.Delete(FileNameToSaveAndSign);            
+            File.Delete(FileNameToSaveAndSign);
             newFile = new FileInfo(filePDF);
-            net.CopyFile(fData.idAgreement.ToString(), filePDF, Path.GetFileNameWithoutExtension(filePDF) + newFile.Extension);
+
+            DataTable dtScan = Config.hCntMain.getScan(fData.idAgreement, -1);
+            bool isoverwrite = false;
+            int id_Scane = 0;
+            if (dtScan != null && dtScan.Rows.Count > 0)
+            {
+                EnumerableRowCollection<DataRow> rowCollectScan = dtScan.AsEnumerable().Where(r => r.Field<string>("cName").Contains(Path.GetFileNameWithoutExtension(filePDF))).OrderBy(r => r.Field<int>("id"));
+                if (rowCollectScan.Count() > 0)
+                {
+                    DialogResult dlResult = DialogResult.Cancel;
+                    Config.DoOnUIThread(() =>
+                    {
+                        dlResult = new MyMessageBox.MyMessageBox($"В каталоге арендатора уже существует файл с сохраняемым именем \r\n \"{Path.GetFileNameWithoutExtension(filePDF)}\"", "Сохранение PDF файла счёта", MyMessageBox.MessageBoxButtons.YesNoCancel, new List<string>(new string[] { "Перезаписать", "Создать копию", "Отмена" })) { Owner = this }.ShowDialog();
+                    }, this);
+                    if (dlResult == DialogResult.Cancel)
+                    {
+                        if (File.Exists(filePDF))
+                            File.Delete(filePDF);
+
+                        MessageBox.Show(Config.centralText("PDF файл счёта не сохранён.\nОперация прервана пользователем\n"), "Сохранение PDF файла счёта", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        return false;
+                    }
+
+                    if (dlResult == DialogResult.Yes)
+                    {
+                        isoverwrite = true;
+                        //id_Scane = (int)rowCollectScan.First()["id"];
+                    }
+                    else if (dlResult == DialogResult.No)
+                    {
+                        string filePDFTmp = filePDF.Replace(Path.GetFileNameWithoutExtension(filePDF), Path.GetFileNameWithoutExtension(filePDF) + $"({rowCollectScan.Count()})");
+                        File.Move(filePDF, filePDFTmp);
+                        filePDF = filePDFTmp;
+                    }
+                }
+            }
 
             string ServerPath = $"{net.server}\\{fData.idAgreement}";
-            int id_Scane = 0;
-            DataTable dtResult = Config.hCntMain.setScan(fData.idAgreement, Path.GetFileNameWithoutExtension(filePDF), newFile.Extension, 11, fData.Date, ServerPath);
-            if (dtResult != null && dtResult.Rows.Count > 0)
-                id_Scane = (int)dtResult.Rows[0]["id"];
+            //if (id_Scane == 0)
+            //{
+                DataTable dtResult = Config.hCntMain.setScan(fData.idAgreement, Path.GetFileNameWithoutExtension(filePDF), newFile.Extension, 11, fData.Date, ServerPath);
+                if (dtResult != null && dtResult.Rows.Count > 0)
+                {
+                    id_Scane = (int)dtResult.Rows[0]["id"];
+                    net.CopyFile(fData.idAgreement.ToString(), filePDF, Path.GetFileNameWithoutExtension(filePDF) + newFile.Extension, isoverwrite);
+                }
+            //}
+            //else
+            //{
+            //    net.CopyFile(fData.idAgreement.ToString(), filePDF, Path.GetFileNameWithoutExtension(filePDF) + newFile.Extension, isoverwrite);
+            //}
 
-            Config.hCntMain.SetAgreement1CForAgreement(fData.idAgreement, fData.Number, fData.Date, fData.Agreement, fData.TypePay, fData.isAdd, id_Scane);            
+            Config.hCntMain.SetAgreement1CForAgreement(fData.idAgreement, fData.Number, fData.Date, fData.Agreement, fData.TypePay, fData.isAdd, id_Scane, !isoverwrite);            
             File.Delete(filePDF);
-            File.Move(FileName, FileAndParse);
+
+            try
+            {
+                File.Move(FileName, FileAndParse);
+            }
+            catch (IOException ex)
+            {
+                newFile = new FileInfo(FileName);
+                string[] listFileInDir = Directory.GetFiles(pathEndParse + "\\", Path.GetFileNameWithoutExtension(FileName)+"*");
+                if (listFileInDir.Count() > 0)
+                    FileAndParse = pathEndParse + "\\" + Path.GetFileNameWithoutExtension(FileName) + $"({listFileInDir.Count()})" + newFile.Extension;
+
+                File.Move(FileName, FileAndParse);
+            }
 
             return true;
         }

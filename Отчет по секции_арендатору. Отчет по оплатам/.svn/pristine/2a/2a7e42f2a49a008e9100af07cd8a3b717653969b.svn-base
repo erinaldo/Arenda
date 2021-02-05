@@ -1,0 +1,61 @@
+USE [dbase2]
+GO
+/****** Object:  StoredProcedure [Arenda].[kav_getTablePayment]    Script Date: 12.11.2020 16:25:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		kav
+-- Create date: 2020-11-12
+-- Description:	получение активных секций дл€ отчета по плану
+-- =============================================
+ALTER PROCEDURE [Arenda].[getPlanAgreement]
+
+AS
+BEGIN
+	SET NOCOUNT ON;
+	
+	select 
+	agr.id,
+	agr.Agreement,
+	dateadd(day, isnull(adAgr.RentalVacation,0), case when ad.DateDocument is not null then ad.DateDocument else agr.Start_Date end) as dateStart,
+		case	when adV.DateDocument is not null then adV.DateDocument 
+				--when adLeave.DateDocument is not null and (adLeaveAnnul.id is null or adLeaveAnnul.DateCreate<adLeave.DateCreate) then adLeave.Date_of_Departure
+				else agr.Stop_Date end	 as dateEnd,
+				agr.Total_Sum,
+				agr.Total_Area,
+				agr.Phone
+	from Arenda.j_Agreements agr
+	--апп
+	left join Arenda.j_AdditionalDocuments ad on agr.id = ad.id_Agreements and ad.id_TypeDoc = 2 and ad.isActive = 1
+	--аппв
+	left join Arenda.j_AdditionalDocuments adV on agr.id = adV.id_Agreements and adV.id_TypeDoc = 6 and adV.isActive = 1
+	--за€вление на съезд
+
+	left join Arenda.j_AdditionalDocuments adLeave on agr.id  = adLeave.id_Agreements and adLeave.id_TypeDoc = 8 and adLeave.isActive = 1 
+
+		-- последн€€ за€вка на съезд
+		and adLeave.DateCreate = (select top 1 adMax.DateCreate
+								from Arenda.j_AdditionalDocuments adMax
+									inner join Arenda.j_AddDocConfirmed adMaxConf on adMax.id = adMaxConf.id_AdditionalDocuments and adMaxConf.isConfirmed = 1
+								where adMax.id_Agreements = adLeave.id_Agreements
+								and adMax.id_TypeDoc = 8 and adMax.isActive = 1
+								order by adMax.DateCreate desc)
+	-- аннул€ци€ съезда
+	left join Arenda.j_AdditionalDocuments adLeaveAnnul on agr.id = adLeaveAnnul.id_Agreements and adLeaveAnnul.id_TypeDoc = 9 and adLeaveAnnul.isActive = 1 
+
+		-- последн€€ аннул€ци€
+		and adLeaveAnnul.DateCreate = (select top 1 adMax.DateCreate
+								from Arenda.j_AdditionalDocuments adMax
+								inner join Arenda.j_AddDocConfirmed adMaxConf on adMax.id = adMaxConf.id_AdditionalDocuments and adMaxConf.isConfirmed = 1
+								where adMax.id_Agreements = adLeaveAnnul.id_Agreements
+								and adMax.id_TypeDoc = 8 and adMax.isActive = 1
+								order by adMax.DateCreate desc)
+		
+	-- арендные каникулы
+	left join Arenda.j_AdditionalAgreements adAgr on agr.id = adAgr.id_Agreements
+	where agr.fullPayed = 0 and agr.isConfirmed = 1
+END
+
+

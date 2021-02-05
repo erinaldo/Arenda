@@ -24,6 +24,7 @@ namespace DllLink1CForAgreements
             bool result;
             Word.ApplicationClass wordApplication = new Word.ApplicationClass();
             Word.Document wordDocument = null;
+            wordApplication.Caption = System.Guid.NewGuid().ToString().ToUpper();
             try
             {                
                 bool paramOpenAfterExport = false;
@@ -68,6 +69,8 @@ namespace DllLink1CForAgreements
                 if (wordApplication != null)
                 {
                     wordApplication.Quit(ref paramMissing, ref paramMissing, ref paramMissing);
+                   Config.EnsureProcessKilled(IntPtr.Zero, wordApplication.Caption);
+
                     wordApplication = null;
                 }
                 GC.Collect();

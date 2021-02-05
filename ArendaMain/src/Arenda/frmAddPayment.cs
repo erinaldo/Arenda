@@ -22,6 +22,7 @@ namespace Arenda
         bool Reklama;
         string defaultVal = "0.00";
         decimal Phone = 0;
+        decimal sumUse = 0;
         bool load = false;
         bool Running = false;
 
@@ -30,6 +31,12 @@ namespace Arenda
         int oldSign;
         DataTable dtY;
         int? id_SavePayment= null, id_Fine= null;
+
+        public string _txtNum { set; private get; }
+        public string _txtTenant { set; private get; }
+        public string _txtSum { set; private get; }
+        public string _idArend { set; private get; }
+
 
         public frmAddPayment(int _id, int _id_agreement, string _num, bool _Reklama,int? id_SavePayment)
         {
@@ -214,6 +221,21 @@ namespace Arenda
                 }
             }
 
+            if (groupBox3.Visible)
+            {
+                if (id_Fine == null)
+                {
+                    MessageBox.Show("Необходимо выбрать счёт!", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (sumUse < decimal.Parse(numTextBox.ConvertToCompPunctuation(txtSum.Text)))
+                {
+                    MessageBox.Show($"Максимальная сумма оплаты не должна превышать:{(sumUse.ToString("0.00"))}!", "Сохранение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
             /* DateTime AgrDate = DateTime.Parse(dtAgreement.Rows[0]["Date_of_Conclusion"].ToString()).Date;
              if (dtpDate.Value.Date < AgrDate)
              {
@@ -311,10 +333,33 @@ namespace Arenda
                     operation = "Добавление оплаты по договору № " + num + ", id договора = " + id_agreement.ToString();
 
                     Logging.Comment(operation);
-                    Logging.Comment("");
+
+                    Logging.Comment("Информация по договору:");
+                    Logging.Comment($"ID договора:{_idArend}");
+                    Logging.Comment($"Номер договора:{_txtNum}");
+                    Logging.Comment($"Наименование арендатора:{_txtTenant}");
+                    Logging.Comment($"Аренда {_txtSum} руб");
+
+                    Logging.Comment("Информация по оплате:");
                     Logging.Comment("id оплаты = " + id_Payment.ToString());
                     Logging.Comment("Дата: " + dtpDate.Value.ToShortDateString());
                     Logging.Comment("Сумма оплаты: " + txtSum.Text);
+                    Logging.Comment($"Тип оплаты:{cmbPayType.Text}");
+                    Logging.Comment($"План месяц:{cmbPlaneDate.Text}");
+
+                    Logging.Comment($"Тип оплаты:{(rbRealMoney.Checked ? rbRealMoney.Text : rbCard.Text)}");
+                    Logging.Comment($"Вид оплаты:{(rbSendMoney.Checked ? rbSendMoney.Text : rbPayArend.Text)}");
+
+                    if (groupBox3.Visible)
+                    {
+                        Logging.Comment("Информация по счету");
+                        Logging.Comment($"ID:{id_Fine}");
+                        Logging.Comment($"Месяц:{tbMonth.Text}");
+                        Logging.Comment($"Дата создания :{tbDateCreate.Text}");
+                        Logging.Comment($"Тип платежа:{tbTypePay.Text}");
+                        Logging.Comment($"Сумма:{tbSummaPay.Text}");
+                    }
+
                     //Logging.Comment("Признак оплаты: " + (rbAr.Checked ? "Аренда" : "Реклама"));
                     Logging.Comment("");
                     Logging.Comment("Оплата просрочена на " + penni.dtPaymentContract.Rows[0]["days"].ToString() + " дней.");
@@ -327,10 +372,31 @@ namespace Arenda
                     operation = "Редактирование оплаты по договору № " + num + ", id договора = " + id_agreement.ToString();
 
                     Logging.Comment(operation);
-                    Logging.Comment("");
+                    Logging.Comment("Информация по договору:");
+                    Logging.Comment($"ID договора:{_idArend}");
+                    Logging.Comment($"Номер договора:{_txtNum}");
+                    Logging.Comment($"Наименование арендатора:{_txtTenant}");
+                    Logging.Comment($"Аренда {_txtSum} руб");
+
+                    Logging.Comment("Информация по оплате:");
                     Logging.Comment("id оплаты = " + id.ToString());
                     Logging.VariableChange("Дата", dtpDate.Value.ToShortDateString(), oldDate.ToShortDateString());
                     Logging.VariableChange("Сумма оплаты", txtSum.Text, oldSum);
+                    Logging.Comment($"Тип оплаты:{cmbPayType.Text}");
+                    Logging.Comment($"План месяц:{cmbPlaneDate.Text}");
+
+                    Logging.Comment($"Тип оплаты:{(rbRealMoney.Checked ? rbRealMoney.Text : rbCard.Text)}");
+                    Logging.Comment($"Вид оплаты:{(rbSendMoney.Checked ? rbSendMoney.Text : rbPayArend.Text)}");
+
+                    if (groupBox3.Visible)
+                    {
+                        Logging.Comment("Информация по счету");
+                        Logging.Comment($"ID:{id_Fine}");
+                        Logging.Comment($"Месяц:{tbMonth.Text}");
+                        Logging.Comment($"Дата создания :{tbDateCreate.Text}");
+                        Logging.Comment($"Тип платежа:{tbTypePay.Text}");
+                        Logging.Comment($"Сумма:{tbSummaPay.Text}");
+                    }
                     //Logging.VariableChange("Признак оплаты",
                     //    (rbAr.Checked ? "Аренда" : "Реклама"),
                     //    (oldSign == 0) ? "Аренда" : "Реклама");
@@ -596,6 +662,7 @@ namespace Arenda
                 tbMonth.Text = infoPay.PlanDate;
                 tbTypePay.Text = infoPay.cName;
                 tbSummaPay.Text = infoPay.Summa.ToString("0.00");
+                sumUse = infoPay.sumUse;
                 id_Fine = infoPay.id;
             }
             else

@@ -212,7 +212,11 @@ namespace dllJournalLoad1C
             byte[] img;
             img = net.GetFileWithPathBytes(dtScanData.Rows[0]["id_Doc"].ToString(), dtScanData.Rows[0]["cName"].ToString(), dtScanData.Rows[0]["Extension"].ToString(), dtScanData.Rows[0]["Path"].ToString());
 
-            if (img == null) return;
+            if (img == null)
+            {
+                MessageBox.Show("Не удалось получить документ!","Просмотр документа",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                return;
+            }
 
             string fileName = dtScanData.Rows[0]["cName"].ToString() + dtScanData.Rows[0]["Extension"].ToString();
             if (!Directory.Exists("tmp\\"))
@@ -563,6 +567,7 @@ namespace dllJournalLoad1C
                 Config.DoOnUIThread(() =>
                 {
                     MessageBox.Show("Завершение отправки писем", "Информирование", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    GetData();
                     this.Enabled = true;
                 }, this);
 
@@ -656,6 +661,16 @@ namespace dllJournalLoad1C
             }
 
             return isOK;
+        }
+
+        private void dtpStart_CloseUp(object sender, EventArgs e)
+        {
+            GetData();
+        }
+
+        private void dtpStart_Leave(object sender, EventArgs e)
+        {
+            GetData();
         }
 
         private void GetData()

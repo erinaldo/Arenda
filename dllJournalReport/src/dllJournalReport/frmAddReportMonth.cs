@@ -1,4 +1,5 @@
-﻿using Nwuram.Framework.Settings.User;
+﻿using Nwuram.Framework.Logging;
+using Nwuram.Framework.Settings.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -516,6 +517,37 @@ namespace dllJournalReport
                 }
             }
 
+            Logging.StartFirstLevel(row == null ? (int)logEnum.Добавление_ежемесячного_плана : (int)logEnum.Редактирование_ежемесячного_плана);
+
+            Logging.Comment($"ID:{id}");
+            Logging.Comment($"Период плана:{dtpStart.Value.ToShortDateString()}");
+            Logging.Comment("id объекта  = " + cmbObject.SelectedValue.ToString()
+                        + ", Наименование объекта : \"" + cmbObject.Text.ToString() + "\"");
+
+            Logging.Comment("Информация по договорам");
+
+            foreach (DataRow row in dtData.Rows)
+            {
+                Logging.Comment($"Id договора:{row["id"]}");
+                Logging.Comment($"Арендодатель:{row["nameLandLord"]}");
+                Logging.Comment($"Арендатор:{row["nameTenant"]}");
+                Logging.Comment($"Тип договора:{row["TypeContract"]}");
+                Logging.Comment($"Номер договора:{row["Agreement"]}");
+                Logging.Comment($"Срок действия:{row["timeLimit"]}");
+                Logging.Comment($"Здание:{row["Build"]}");
+                Logging.Comment($"Этаж:{row["Floor"]}");
+                Logging.Comment($"№ секции:{row["namePlace"]}");
+                Logging.Comment($"Площадь м2:{row["Total_Area"]}");
+                Logging.Comment($"Стоимость м2:{row["Cost_of_Meter"]}");
+                Logging.Comment($"Сумма по договору:{row["Total_Sum"]}");
+                Logging.Comment($"Скидка:{row["discount"]}");
+                Logging.Comment($"План:{row["plane"]}");                
+            }
+
+
+            Logging.StopFirstLevel();
+
+
             MessageBox.Show("Данные сохранены.", "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
             isChangeValue = false;
             this.DialogResult = DialogResult.OK;
@@ -580,6 +612,14 @@ namespace dllJournalReport
 
             if (row != null)
                 status = (bool)row["isСonfirmed"] ? "Подтверждена" : "Не подтверждена";
+
+            Logging.StartFirstLevel(79);
+            Logging.Comment("Выгружен ежемесячный план со следующими параметрами:");
+            Logging.Comment($"ID:{id}");
+            Logging.Comment($"Период плана:{dtpStart.Value.ToShortDateString()}");
+            Logging.Comment("id объекта  = " + cmbObject.SelectedValue.ToString()
+                        + ", Наименование объекта : \"" + cmbObject.Text.ToString() + "\"");
+            Logging.StopFirstLevel();
 
             reports.createReport(dtData, cmbObject.Text, status, dtpStart.Value.Date);
         }

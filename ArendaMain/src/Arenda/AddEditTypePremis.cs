@@ -52,15 +52,25 @@ namespace Arenda
         {
             if (Chk == false)
             {
-                if (_proc.CheakAll(tbCname.Text, "tp").Rows.Count != 0)
+                DataTable dtBil = _proc.CheakAll(tbCname.Text, "tp");
+
+                if (dtBil.Rows.Count != 0)
                 {
-                    int uniqRec = Convert.ToInt32(_proc.CheakAll(tbCname.Text, "tp").Rows[0][0].ToString());
+                    int uniqRec = Convert.ToInt32(dtBil.Rows[0][0].ToString());
                     string rez = _proc.isActiveTypePr(uniqRec).Rows[0][0].ToString().ToString();
                     if (rez == "False")
                     {
                         if (MessageBox.Show("Уже существует неактивная запись с таким наименованием!сделать запись активной?", "Внимание", MessageBoxButtons.YesNo,
                                             MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
+                            Logging.StartFirstLevel(540);
+
+                            Logging.Comment($"Произведена смена статуса на активный у помещения");
+                            Logging.Comment($"ID:{dtBil.Rows[0]["id"]}");
+                            Logging.Comment($"Наименование помещения: {dtBil.Rows[0]["cName"]}");                            
+
+                            Logging.StopFirstLevel();
+
                             _proc.ActiveSprav("typeprem", uniqRec, 1);
                             DialogResult = DialogResult.Cancel;
                         }
@@ -70,9 +80,12 @@ namespace Arenda
                 }
                 else
                 {
-                    _proc.AddTypePr(tbCname.Text);
+                    DataTable dtResult =  _proc.AddTypePr(tbCname.Text);
 
                     Logging.StartFirstLevel(1373);
+                    if (dtResult != null && dtResult.Rows.Count > 0 && dtResult.Columns.Contains("id"))
+                        Logging.Comment($"ID:{dtResult.Rows[0]["id"]}");
+
                     Logging.Comment("Наименование помещения: " + tbCname.Text.Trim());                    
 
                     Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id

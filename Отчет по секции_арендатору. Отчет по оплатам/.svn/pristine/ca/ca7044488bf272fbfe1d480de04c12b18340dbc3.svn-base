@@ -1,0 +1,33 @@
+
+begin try
+begin tran
+insert into Arenda.j_PaymentContract(id_Agreements, Date, Summa, isPayment, DateEdit, id_Editor, id_PayType, isToTenant, isCash, id_Fines, PlaneDate)
+select 
+
+	a.id, 
+	'1900-01-01',
+	((select isnull(sum(SummaPlan),0) from Arenda.s_PlanPeriodAgreements where id_Agreements = a.id) - 
+	(select isnull(sum(Summa),0) from Arenda.j_PaymentContract pc where id_Agreements = a.id
+	and isToTenant = 0 and id_PayType = 2)),
+	0,
+	'1900-01-01',
+	96,
+	2,
+	0,
+	0,
+	null,
+	'1900-01-01'
+	from Arenda.j_Agreements a
+	where a.fullPayed = 1 and a.isConfirmed = 1
+commit tran
+end try
+begin catch
+rollback tran
+select ERROR_MESSAGE()
+end catch
+
+delete from Arenda.j_PaymentContract
+where Summa = 0 and Date = '1900-01-01'
+
+delete from Arenda.j_PaymentContract 
+where Summa<0 and Date = '1900-01-01'

@@ -1,0 +1,36 @@
+USE [dbase2]
+GO
+
+/****** Object:  Table [Arenda].[j_Fines]    Script Date: 12.11.2020 16:17:31 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TABLE [Arenda].[s_PlanPeriodAgreements](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	id_Agreements int not null,
+	PeriodPlan datetime not null,
+	SummaPlan numeric (16,2) not null,
+	id_Editor int not null,
+	DateEdit int not null
+) ON [PRIMARY]
+GO
+
+
+ALTER TABLE [Arenda].[s_PlanPeriodAgreements]  WITH CHECK ADD  CONSTRAINT [FK_s_PlanPeriodAgreements_id_Agreements] FOREIGN KEY([id_Agreements])
+REFERENCES [Arenda].j_Agreements ([id])
+GO
+
+ALTER TABLE [Arenda].[s_PlanPeriodAgreements] CHECK CONSTRAINT [FK_s_PlanPeriodAgreements_id_Agreements]
+GO
+
+
+
+ALTER TABLE [Arenda].[s_PlanPeriodAgreements]  WITH CHECK ADD  CONSTRAINT [FK_s_PlanPeriodAgreements_id_Editor] FOREIGN KEY(id_Editor)
+REFERENCES dbo.ListUsers ([id])
+GO
+
+ALTER TABLE [Arenda].[s_PlanPeriodAgreements] CHECK CONSTRAINT [FK_s_PlanPeriodAgreements_id_Editor]
+GO

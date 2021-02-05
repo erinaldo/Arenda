@@ -81,7 +81,7 @@ from
 
 		left join Arenda.s_LandPlot lp on lp.id = a.id_Section and a.id_TypeContract = 3
 where 
-	@dateStart<=lac.DateLoad and lac.DateLoad<=@dateEnd
+	@dateStart<=cast(lac.DateLoad  as date) and cast(lac.DateLoad as date)<=@dateEnd
 	and (@id_object = 0 or a.id_ObjectLease = @id_object)
 
 END

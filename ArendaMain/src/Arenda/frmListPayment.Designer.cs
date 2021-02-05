@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmListPayment));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmListPayment));
             this.lblNum = new System.Windows.Forms.Label();
             this.lblDate = new System.Windows.Forms.Label();
             this.lblTenant = new System.Windows.Forms.Label();
@@ -43,6 +43,20 @@
             this.txtSum = new System.Windows.Forms.TextBox();
             this.lblRub = new System.Windows.Forms.Label();
             this.grdPayments = new System.Windows.Forms.DataGridView();
+            this.PaymentDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cPlaneDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PaymentSum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sign = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cTypePay = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cIsTypeCash = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cTypeOperation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_payment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_Agreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DateEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_Editor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Editor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lblItog = new System.Windows.Forms.Label();
             this.txtItog = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -63,20 +77,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.PaymentDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cPlaneDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PaymentSum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sign = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cTypePay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cIsTypeCash = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cTypeOperation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_payment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_Agreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isPayment = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_Editor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Editor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbLandLord = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdPayments)).BeginInit();
             this.SuspendLayout();
             // 
@@ -101,7 +103,7 @@
             // lblTenant
             // 
             this.lblTenant.AutoSize = true;
-            this.lblTenant.Location = new System.Drawing.Point(12, 32);
+            this.lblTenant.Location = new System.Drawing.Point(12, 33);
             this.lblTenant.Name = "lblTenant";
             this.lblTenant.Size = new System.Drawing.Size(64, 13);
             this.lblTenant.TabIndex = 2;
@@ -208,6 +210,117 @@
             this.grdPayments.Size = new System.Drawing.Size(756, 258);
             this.grdPayments.TabIndex = 1;
             this.grdPayments.SelectionChanged += new System.EventHandler(this.grdPayments_SelectionChanged);
+            // 
+            // PaymentDate
+            // 
+            this.PaymentDate.DataPropertyName = "PaymentDate";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.PaymentDate.DefaultCellStyle = dataGridViewCellStyle2;
+            this.PaymentDate.HeaderText = "Дата оплаты";
+            this.PaymentDate.Name = "PaymentDate";
+            this.PaymentDate.ReadOnly = true;
+            // 
+            // cPlaneDate
+            // 
+            this.cPlaneDate.DataPropertyName = "planedate";
+            this.cPlaneDate.HeaderText = "План";
+            this.cPlaneDate.Name = "cPlaneDate";
+            this.cPlaneDate.ReadOnly = true;
+            // 
+            // PaymentSum
+            // 
+            this.PaymentSum.DataPropertyName = "PaymentSum";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = "0";
+            this.PaymentSum.DefaultCellStyle = dataGridViewCellStyle3;
+            this.PaymentSum.HeaderText = "Сумма оплаты";
+            this.PaymentSum.Name = "PaymentSum";
+            this.PaymentSum.ReadOnly = true;
+            // 
+            // sign
+            // 
+            this.sign.DataPropertyName = "sign";
+            this.sign.HeaderText = "Признак";
+            this.sign.Name = "sign";
+            this.sign.ReadOnly = true;
+            this.sign.Visible = false;
+            // 
+            // cTypePay
+            // 
+            this.cTypePay.DataPropertyName = "namePaymentType";
+            this.cTypePay.HeaderText = "Тип платежа";
+            this.cTypePay.Name = "cTypePay";
+            this.cTypePay.ReadOnly = true;
+            // 
+            // cIsTypeCash
+            // 
+            this.cIsTypeCash.DataPropertyName = "typeCash";
+            this.cIsTypeCash.HeaderText = "Нал./Безнал.";
+            this.cIsTypeCash.Name = "cIsTypeCash";
+            this.cIsTypeCash.ReadOnly = true;
+            // 
+            // cTypeOperation
+            // 
+            this.cTypeOperation.DataPropertyName = "typeTenant";
+            this.cTypeOperation.HeaderText = "Тип операции";
+            this.cTypeOperation.Name = "cTypeOperation";
+            this.cTypeOperation.ReadOnly = true;
+            // 
+            // cDescription
+            // 
+            this.cDescription.DataPropertyName = "Description";
+            this.cDescription.HeaderText = "Примечание";
+            this.cDescription.Name = "cDescription";
+            this.cDescription.ReadOnly = true;
+            // 
+            // id_payment
+            // 
+            this.id_payment.DataPropertyName = "id";
+            this.id_payment.HeaderText = "id_payment";
+            this.id_payment.Name = "id_payment";
+            this.id_payment.ReadOnly = true;
+            this.id_payment.Visible = false;
+            // 
+            // id_Agreements
+            // 
+            this.id_Agreements.DataPropertyName = "id_Agreements";
+            this.id_Agreements.HeaderText = "id_Agreements";
+            this.id_Agreements.Name = "id_Agreements";
+            this.id_Agreements.ReadOnly = true;
+            this.id_Agreements.Visible = false;
+            // 
+            // isPayment
+            // 
+            this.isPayment.DataPropertyName = "isPayment";
+            this.isPayment.HeaderText = "isPayment";
+            this.isPayment.Name = "isPayment";
+            this.isPayment.ReadOnly = true;
+            this.isPayment.Visible = false;
+            // 
+            // DateEdit
+            // 
+            this.DateEdit.DataPropertyName = "DateEdit";
+            this.DateEdit.HeaderText = "DateEdit";
+            this.DateEdit.Name = "DateEdit";
+            this.DateEdit.ReadOnly = true;
+            this.DateEdit.Visible = false;
+            // 
+            // id_Editor
+            // 
+            this.id_Editor.DataPropertyName = "id_Editor";
+            this.id_Editor.HeaderText = "id_Editor";
+            this.id_Editor.Name = "id_Editor";
+            this.id_Editor.ReadOnly = true;
+            this.id_Editor.Visible = false;
+            // 
+            // Editor
+            // 
+            this.Editor.DataPropertyName = "Editor";
+            this.Editor.HeaderText = "Editor";
+            this.Editor.Name = "Editor";
+            this.Editor.ReadOnly = true;
+            this.Editor.Visible = false;
             // 
             // lblItog
             // 
@@ -411,116 +524,23 @@
             this.label4.TabIndex = 47;
             this.label4.Text = "Дата создания:";
             // 
-            // PaymentDate
+            // label5
             // 
-            this.PaymentDate.DataPropertyName = "PaymentDate";
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.PaymentDate.DefaultCellStyle = dataGridViewCellStyle2;
-            this.PaymentDate.HeaderText = "Дата оплаты";
-            this.PaymentDate.Name = "PaymentDate";
-            this.PaymentDate.ReadOnly = true;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(405, 33);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(82, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Арендодатель:";
             // 
-            // cPlaneDate
+            // tbLandLord
             // 
-            this.cPlaneDate.DataPropertyName = "planedate";
-            this.cPlaneDate.HeaderText = "План";
-            this.cPlaneDate.Name = "cPlaneDate";
-            this.cPlaneDate.ReadOnly = true;
-            // 
-            // PaymentSum
-            // 
-            this.PaymentSum.DataPropertyName = "PaymentSum";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = "0";
-            this.PaymentSum.DefaultCellStyle = dataGridViewCellStyle3;
-            this.PaymentSum.HeaderText = "Сумма оплаты";
-            this.PaymentSum.Name = "PaymentSum";
-            this.PaymentSum.ReadOnly = true;
-            // 
-            // sign
-            // 
-            this.sign.DataPropertyName = "sign";
-            this.sign.HeaderText = "Признак";
-            this.sign.Name = "sign";
-            this.sign.ReadOnly = true;
-            this.sign.Visible = false;
-            // 
-            // cTypePay
-            // 
-            this.cTypePay.DataPropertyName = "namePaymentType";
-            this.cTypePay.HeaderText = "Тип платежа";
-            this.cTypePay.Name = "cTypePay";
-            this.cTypePay.ReadOnly = true;
-            // 
-            // cIsTypeCash
-            // 
-            this.cIsTypeCash.DataPropertyName = "typeCash";
-            this.cIsTypeCash.HeaderText = "Нал./Безнал.";
-            this.cIsTypeCash.Name = "cIsTypeCash";
-            this.cIsTypeCash.ReadOnly = true;
-            // 
-            // cTypeOperation
-            // 
-            this.cTypeOperation.DataPropertyName = "typeTenant";
-            this.cTypeOperation.HeaderText = "Тип операции";
-            this.cTypeOperation.Name = "cTypeOperation";
-            this.cTypeOperation.ReadOnly = true;
-            // 
-            // cDescription
-            // 
-            this.cDescription.DataPropertyName = "Description";
-            this.cDescription.HeaderText = "Примечание";
-            this.cDescription.Name = "cDescription";
-            this.cDescription.ReadOnly = true;
-            // 
-            // id_payment
-            // 
-            this.id_payment.DataPropertyName = "id";
-            this.id_payment.HeaderText = "id_payment";
-            this.id_payment.Name = "id_payment";
-            this.id_payment.ReadOnly = true;
-            this.id_payment.Visible = false;
-            // 
-            // id_Agreements
-            // 
-            this.id_Agreements.DataPropertyName = "id_Agreements";
-            this.id_Agreements.HeaderText = "id_Agreements";
-            this.id_Agreements.Name = "id_Agreements";
-            this.id_Agreements.ReadOnly = true;
-            this.id_Agreements.Visible = false;
-            // 
-            // isPayment
-            // 
-            this.isPayment.DataPropertyName = "isPayment";
-            this.isPayment.HeaderText = "isPayment";
-            this.isPayment.Name = "isPayment";
-            this.isPayment.ReadOnly = true;
-            this.isPayment.Visible = false;
-            // 
-            // DateEdit
-            // 
-            this.DateEdit.DataPropertyName = "DateEdit";
-            this.DateEdit.HeaderText = "DateEdit";
-            this.DateEdit.Name = "DateEdit";
-            this.DateEdit.ReadOnly = true;
-            this.DateEdit.Visible = false;
-            // 
-            // id_Editor
-            // 
-            this.id_Editor.DataPropertyName = "id_Editor";
-            this.id_Editor.HeaderText = "id_Editor";
-            this.id_Editor.Name = "id_Editor";
-            this.id_Editor.ReadOnly = true;
-            this.id_Editor.Visible = false;
-            // 
-            // Editor
-            // 
-            this.Editor.DataPropertyName = "Editor";
-            this.Editor.HeaderText = "Editor";
-            this.Editor.Name = "Editor";
-            this.Editor.ReadOnly = true;
-            this.Editor.Visible = false;
+            this.tbLandLord.Location = new System.Drawing.Point(493, 29);
+            this.tbLandLord.Name = "tbLandLord";
+            this.tbLandLord.ReadOnly = true;
+            this.tbLandLord.Size = new System.Drawing.Size(278, 20);
+            this.tbLandLord.TabIndex = 6;
+            this.tbLandLord.TabStop = false;
             // 
             // frmListPayment
             // 
@@ -549,9 +569,11 @@
             this.Controls.Add(this.grdPayments);
             this.Controls.Add(this.lblRub);
             this.Controls.Add(this.txtSum);
+            this.Controls.Add(this.tbLandLord);
             this.Controls.Add(this.txtTenant);
             this.Controls.Add(this.dtpDate);
             this.Controls.Add(this.txtNum);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.lblSum);
             this.Controls.Add(this.lblTenant);
             this.Controls.Add(this.lblDate);
@@ -618,5 +640,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn DateEdit;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_Editor;
         private System.Windows.Forms.DataGridViewTextBoxColumn Editor;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbLandLord;
     }
 }

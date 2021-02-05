@@ -28,7 +28,7 @@ namespace dllArendaDictonary
                     Logging.StopFirstLevel();
 
                     Application.Run(new dllArendaDictonary.jDiscount.frmList());
-
+                    //Application.Run(new dllArendaDictonary.dicLandPlot.frmList());
                     Logging.StartFirstLevel(2);
                     Logging.Comment("Выход из программы");
                     Logging.StopFirstLevel();

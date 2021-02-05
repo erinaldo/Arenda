@@ -296,6 +296,7 @@ namespace dllJournalCongress
             if (dgvData.CurrentRow != null && dgvData.CurrentRow.Index != -1 && dtData != null && dtData.DefaultView.Count != 0)
             {
                 int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
+                int id_Agreements = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_Agreements"];
                 bool isLinkPetitionLeave = (bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isLinkPetitionLeave"];
                 bool isConfirmed = (bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isConfirmed"];
 
@@ -340,6 +341,7 @@ namespace dllJournalCongress
                     {
                         Logging.StartFirstLevel(1568);
                         Logging.Comment($"ID: {id}");
+                        Logging.Comment($"ID договора: {id_Agreements}");
                         foreach (DataGridViewColumn col in dgvData.Columns)
                         {
                             if (col.Visible)
@@ -349,8 +351,9 @@ namespace dllJournalCongress
                     }
                     else
                     {
-                        Logging.StartFirstLevel(1567);
+                        Logging.StartFirstLevel((int)logEnum.Подтверждение_съезда);
                         Logging.Comment($"ID: {id}");
+                        Logging.Comment($"ID договора: {id_Agreements}");
                         foreach (DataGridViewColumn col in dgvData.Columns)
                         {
                             if (col.Visible)
@@ -375,6 +378,16 @@ namespace dllJournalCongress
             Logging.StartFirstLevel(79);
 
             Logging.Comment($"Фомирование отчёта из \"{this.Text}\"");
+
+            Logging.Comment($"Договор:{tbAgreement.Text}");
+            Logging.Comment($"Арендатор:{tbTenant.Text}");
+            Logging.Comment($"Арендодатель:{tbLandLord.Text}");
+            Logging.Comment($"Место:{tbNamePlace.Text}");
+
+            Logging.Comment($"Период с:{dtpStart.Value.ToShortDateString()} по {dtpEnd.Value.ToShortDateString()}");
+            Logging.Comment($"Объект аренды ID:{cmbObject.SelectedValue}; Наименование:{cmbObject.Text}");            
+            Logging.Comment($"Съезд подтвержден: {(chbCongressAccept.Checked ? "Да" : "Нет")}");
+            Logging.Comment($"Аннуляция поддтверждена/имеется расторжение договора: {(chbDropAgreements.Checked ? "Да" : "Нет")}");
 
             Logging.StopFirstLevel();
 

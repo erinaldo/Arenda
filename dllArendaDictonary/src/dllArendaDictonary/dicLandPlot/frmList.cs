@@ -75,7 +75,7 @@ namespace dllArendaDictonary.dicLandPlot
                 int id = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
                 bool isActive = (bool)dtData.DefaultView[dgvData.CurrentRow.Index]["isActive"];
                 int id_ObjectLease = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_ObjectLease"];
-                Int64 AreaPlot = (Int64)dtData.DefaultView[dgvData.CurrentRow.Index]["AreaPlot"];
+                decimal AreaPlot = (decimal)dtData.DefaultView[dgvData.CurrentRow.Index]["AreaPlot"];
                 string NumberPlot = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["NumberPlot"];
 
                 Task<DataTable> task = Config.hCntMain.setLandPlot(id, NumberPlot, id_ObjectLease, AreaPlot, isActive, true, 0);
@@ -301,7 +301,7 @@ namespace dllArendaDictonary.dicLandPlot
 
 
             int id_ObjectLease = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_ObjectLease"];
-            Int64 AreaPlot = (Int64)dtData.DefaultView[dgvData.CurrentRow.Index]["AreaPlot"];
+            decimal AreaPlot = (decimal)dtData.DefaultView[dgvData.CurrentRow.Index]["AreaPlot"];
             string NumberPlot = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["NumberPlot"];
             string nameObject = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["NumberPlot"];
 

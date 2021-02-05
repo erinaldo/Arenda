@@ -1,0 +1,94 @@
+USE [dbase2]
+GO
+
+/****** Object:  StoredProcedure [Arenda].[kav_getSectionsDiscount]    Script Date: 27.08.2020 13:52:33 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		KAV
+-- Create date: 2020-08-26
+-- Description:	Получение списка секций для формы "массовое добавление скидок"
+-- exec [Arenda].[kav_getSectionsDiscount]
+-- =============================================
+CREATE PROCEDURE [Arenda].[kav_getSectionsDiscount]		 
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+select
+	Convert(bit,0) as checked,
+	agr.id,
+	agr.id_TypeContract,
+	isnull(agr.id_Section,-1) as section_id,
+	-- здание
+	case when agr.id_TypeContract = 1
+		then isnull(b.id,-1)
+		when agr.id_TypeContract = 2
+		then isnull(bR.id,-1)
+		when agr.id_TypeContract = 3
+		then 0 end as build_id,
+	case when agr.id_TypeContract = 1
+		then isnull(b.cName,'')
+		when agr.id_TypeContract = 2
+		then isnull(bR.cName,'')
+		when agr.id_TypeContract = 3
+		then '' end as build_name,
+	-- объект
+	case when agr.id_TypeContract = 1
+		then isnull(o.id,-1)
+		when agr.id_TypeContract = 2
+		then isnull(objR.id,-1)
+		when agr.id_TypeContract = 3
+		then isnull(objZ.id,-1) end as obj_id,
+	case when agr.id_TypeContract = 1
+		then isnull(o.cName,'')
+		when agr.id_TypeContract = 2
+		then isnull(objR.cName,'')
+		when agr.id_TypeContract = 3
+		then isnull(objZ.cName,'') end as obj_name,
+	-- этаж
+	case when agr.id_TypeContract = 1
+		then f.id else 0 end as floor_id,
+	case when agr.id_TypeContract = 1
+		then f.cName else '' end as floor_name,
+	-- наименование
+	case when agr.id_TypeContract = 1
+		then isnull(s.cName,'')
+		when agr.id_TypeContract = 2
+		then isnull(recl.NumberPlace,'')
+		when agr.id_TypeContract = 3
+		then isnull(land.NumberPlot,'') end as place_name,
+	case when agr.id_TypeContract in (1,3)
+		then Convert(varchar(50),isnull(agr.Total_Area,0))
+		else Convert(varchar(50),isnull(recl.Length,0)) + '*' + Convert(varchar(50),isnull(recl.Width,0)) end as area,
+	agr.Cost_of_Meter as price,
+	t.cName as tenant_name,
+	agr.Agreement as agreement_name
+from 
+
+	Arenda.j_Agreements agr
+	--секция реклама и площадь в зависимости от id_typeContract
+	left join Arenda.s_Sections s on agr.id_Section = s.id and agr.id_TypeContract = 1
+	left join Arenda.s_ReclamaPlace recl on agr.id_Section = recl.id and agr.id_TypeContract = 2
+	left join Arenda.s_LandPlot land on agr.id_Section = land.id and agr.id_TypeContract = 3
+	--для секций
+	left join Arenda.s_Floors f on f.id = s.id_Floor
+	left join Arenda.s_Building b on b.id = s.id_Building
+	left join Arenda.s_ObjectLease o on agr.id_ObjectLease = o.id
+	-- для рекламы
+	left join Arenda.s_ObjectLease objR on agr.id_ObjectLease = objR.id
+	left join Arenda.s_Building bR on recl.id_Building = bR.id
+	-- для земельного участка
+	left join Arenda.s_ObjectLease objZ on agr.id_ObjectLease = objZ.id
+
+	left join Arenda.s_Landlord_Tenant t on agr.id_Tenant = t.id
+
+	where convert(date,getdate()) between agr.Start_Date and agr.Stop_Date
+END
+
+GO
+

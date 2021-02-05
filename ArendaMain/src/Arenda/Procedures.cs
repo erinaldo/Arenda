@@ -490,16 +490,16 @@ namespace Arenda
 
         }
 
-        public DataTable CheakSec(string cname, /*string build, string floor,*/ int id_Obj)
+        public DataTable CheakSec(string cname, string build, string floor, int id_Obj)
         {
             ap.Clear();
             ap.Add(cname);
-            //ap.Add(build);
-            //ap.Add(floor);
+            ap.Add(build);
+            ap.Add(floor);
             ap.Add(id_Obj);
             return executeProcedure("Arenda.CheakSec",
-              new string[] { "@cName", /*"@id_b", "@id_f",*/ "@id_Obj" },
-              new DbType[] { DbType.String, /*DbType.String, DbType.String,*/ DbType.Int32 },
+              new string[] { "@cName", "@id_b", "@id_f", "@id_Obj" },
+              new DbType[] { DbType.String, DbType.String, DbType.String, DbType.Int32 },
               ap);
         }
 
@@ -2037,18 +2037,18 @@ namespace Arenda
             return executeProcedure("Arenda.GetSectionDevices", new string[] { "@id_section" }, new DbType[] { DbType.Int32 }, ap);
         }
 
-        public void AddDeviceToSection(int id_section, int id_device, int quantity)
+        public DataTable AddDeviceToSection(int id_section, int id_device, int quantity)
         {
             ap.Clear();
             ap.AddRange(new object[] { id_section, id_device, quantity,UserSettings.User.Id });
-            executeProcedure("Arenda.AddDeviceToSection", new string[] { "@id_section", "@id_device", "@quantity","@id_user" }, new DbType[] { DbType.Int32, DbType.Int32, DbType.Int32, DbType.Int32 }, ap);
+          return  executeProcedure("Arenda.AddDeviceToSection", new string[] { "@id_section", "@id_device", "@quantity","@id_user" }, new DbType[] { DbType.Int32, DbType.Int32, DbType.Int32, DbType.Int32 }, ap);
         }
 
-        public void RemoveDeviceFromSection(int id_section, int id_device)
+        public DataTable RemoveDeviceFromSection(int id_section, int id_device)
         {
             ap.Clear();
             ap.AddRange(new object[] { id_section, id_device });
-            executeProcedure("Arenda.RemoveDeviceFromSection", new string[] { "@id_section", "@id_device" }, new DbType[] { DbType.Int32, DbType.Int32 }, ap);
+            return executeProcedure("Arenda.RemoveDeviceFromSection", new string[] { "@id_section", "@id_device" }, new DbType[] { DbType.Int32, DbType.Int32 }, ap);
         }
 
         public DataTable GetPrintDataActReklama(int id, int id_act_rekl)
@@ -2439,16 +2439,16 @@ namespace Arenda
               new DbType[1] { DbType.Date }, ap);
         }
 
-        public DataTable setConfirmedTaxes(int id)
+        public DataTable setConfirmedTaxes(int id,bool isConfirmed)
         {
             ap.Clear();
             ap.Add(id);
             ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
-
+            ap.Add(isConfirmed);
 
             return executeProcedure("Arenda.spg_setConfirmedTaxes",
-              new string[2] { "@id", "@id_user" },
-              new DbType[2] { DbType.Int32, DbType.Int32 }, ap);
+              new string[3] { "@id", "@id_user", "@isConfirmed" },
+              new DbType[3] { DbType.Int32, DbType.Int32, DbType.Boolean }, ap);
         }
 
         public DataTable getTypeDiscount(bool withAllDeps = false)

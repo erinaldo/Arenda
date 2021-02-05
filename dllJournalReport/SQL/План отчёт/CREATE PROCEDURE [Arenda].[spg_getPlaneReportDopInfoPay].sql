@@ -48,6 +48,6 @@ from
 		left join Arenda.s_AddPayment ap on ap.id = f.id_ÀddPayment
 		left join Arenda.j_PaymentContract pc on pc.id_Agreements = a.id and pc.id_Fines = f.id
 where	
-	a.id = @id and f.PlanDate = @date and a.fullPayed = 0
+	a.id = @id and f.PlanDate = @date and (a.fullPayed = 0 or (a.fullPayed = 1 and GETDATE()<a.Stop_Date ))
 	
 END

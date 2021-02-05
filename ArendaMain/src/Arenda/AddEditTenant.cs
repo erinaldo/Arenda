@@ -18,10 +18,10 @@ namespace Arenda
 {
     public partial class AddEditTenant : Form
     {
-        int id; string type; string cName; string name; string otc; string fam; string famR; int sex; string wphone; string hphone; string mphone;
+        int id; string type; string cName; string name; string otc; string fam; string famR; int sex; string wphone; string hphone; string mphone;string email;
         string _adress; string pa; string okpo; string kpp; string inn; string WiS; string dateReg;
         string regNum; string numCert; string serCer; string WPON; string numAcc; string serAcc; int nds; string _remark; string _email;
-            DataTable Ten; int id_obj; string path;
+            DataTable Ten; int id_obj; string path;string name_object;
             DataTable cpTen;
         readonly Procedures _proc = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
 
@@ -139,6 +139,7 @@ namespace Arenda
             wphone = telrab.Text;
             hphone = telhome.Text;
             mphone = telsot.Text;
+            email = tbEmail.Text;
             _tbAdrTrade = tbAdrTrade.Text;
             _adress = adress.Text;
             nds = checkBox1.Checked ? 1 : 0;
@@ -150,6 +151,7 @@ namespace Arenda
             {
                 if (cmbObject.SelectedValue != null)
                     id_obj = (int)cmbObject.SelectedValue;
+                name_object = cmbObject.Text;
             }
             //tabPage2 Реквизиты
             _textBox1 = textBox1.Text;
@@ -489,8 +491,8 @@ namespace Arenda
             //}
             //else
             //{
-
-            if (!ValidateBanks()) return;
+            if (!tenant)
+                if (!ValidateBanks()) return;
 
             if (tenant)
             {
@@ -872,7 +874,7 @@ namespace Arenda
 
             if (id == 0)
             {
-                Logging.StartFirstLevel(1398);
+                Logging.StartFirstLevel((int)logEnum.Добавление_арендодателя);
 
                 Logging.Comment("ID: " + new_id);
            
@@ -898,7 +900,12 @@ namespace Arenda
                 Logging.Comment("Выводить арендатора в отчет по оплатам: " + (chbShowInReport.Checked ? "Да" : "Нет"));
                 Logging.Comment("НДС: " + (checkBox1.Checked ? "Да" : "Нет"));
 
+                Logging.Comment($"Электронная почта: {tbEmail.Text}");
+
                 Logging.Comment("Примечание: " + remark.Text);
+                Logging.Comment("Объект ID: " + cmbObject.SelectedValue.ToString() + " ; Наименование: " + cmbObject.Text);
+                Logging.Comment("Путь к шаблонам: " + tbScanD.Text);
+
                 #endregion
 
                 #region "Данные вкладки 'Реквизиты'"
@@ -911,7 +918,7 @@ namespace Arenda
                 Logging.Comment("КПП банка: " + tbKpp.Text);
                 Logging.Comment("ИНН организации: " + tbInn.Text);
               if(!tenant)
-                Logging.Comment("ОРГН: " + tbOGRN.Text);
+                Logging.Comment("ОГРН: " + tbOGRN.Text);
 
                 if (id_basement != null)
                 {
@@ -948,17 +955,33 @@ namespace Arenda
                     Logging.Comment("Выдан: " + txtIssued.Text);
                     Logging.Comment("Адрес: " + txtAddress.Text);
                     Logging.Comment("«Пол сотрудника: " + (rbM.Checked ? "М" : "Ж"));
-                    Logging.Comment("ОРГНИП: " + txtORGNIP.Text);
+                    Logging.Comment("ОГРНИП: " + txtORGNIP.Text);
                 }
                 #endregion
 
+                if (tenant)
+                {
+                    if (cpTen != null && cpTen.Rows.Count>0)
+                    {
+                        Logging.Comment("Связанные арендаторы");
+                        foreach (DataRow row in cpTen.Rows)
+                        {
+                            Logging.Comment($"Аредатор ID:{row["id"]} Наименование:{row["cName"]}");
+                        }
+                    /*foreach (DataGridViewRow row in dgCon.Rows)
+                    {
+                        Logging.Comment($"Аредатор:{row.Cells["cTenant"].Value}");
+                    }*/
+                    }
+                }
+                
                 Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
                     + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
                 Logging.StopFirstLevel();
             }
             else
             {
-                Logging.StartFirstLevel(1399);
+                Logging.StartFirstLevel((int)logEnum.Редактирование_арендодателя);
 
                 Logging.Comment("ID: " + new_id);
 
@@ -986,7 +1009,16 @@ namespace Arenda
                 Logging.VariableChange("Выводить арендатора в отчет по оплатам: ", (chbShowInReport.Checked ? "Да" : "Нет"), (_chbShowInReport == 1 ? "Да" : "Нет"));
                 Logging.VariableChange("НДС: " , (checkBox1.Checked ? "Да" : "Нет"), (nds == 1 ? "Да" : "Нет"));
 
+                Logging.VariableChange("Электронная почта", tbEmail.Text, email);
+
+
                 Logging.VariableChange("Примечание: ", remark.Text, _remark);
+
+                Logging.VariableChange("Объект ID: ", cmbObject.SelectedValue.ToString(), id_obj.ToString());
+                Logging.VariableChange("Объект Наименование: ", cmbObject.Text, name_object);
+                Logging.VariableChange("Путь к шаблонам: ", tbScanD.Text, path);
+
+
                 #endregion
 
                 #region "Данные вкладки 'Реквизиты'"
@@ -1000,15 +1032,19 @@ namespace Arenda
                 Logging.VariableChange("КПП банка: " , tbKpp.Text, kpp);
                 Logging.VariableChange("ИНН организации: " , tbInn.Text, inn);
 
-                if (id_basement != null)
-                {
-                    Logging.VariableChange("Основания документа заключения договора ID: " , cbBasment.SelectedValue, id_basment);
-                    Logging.VariableChange("Основания документа заключения договора Наименование: " , cbBasment.Text, _cbBasment);
-                    if (tbnumbas.Enabled)
-                        Logging.VariableChange("№: " , tbnumbas.Text, _tbnumbas);
-                    if (dtbase.Enabled)
-                        Logging.VariableChange("От: " , dtbase.Value.ToShortDateString(), _dtbase);
-                }
+                if (!tenant)
+                    Logging.VariableChange("ОГРН: ", tbOGRN.Text, _tbOGRN);
+
+                //if (id_basement != null)
+                //{
+                Logging.VariableChange("Основания документа заключения договора ID: ", cbBasment.SelectedValue, id_basment);
+                Logging.VariableChange("Основания документа заключения договора Наименование: ", cbBasment.Text, _cbBasment);
+                   
+                if (tbnumbas.Enabled)
+                        Logging.VariableChange("№: " , tbnumbas.Text, _tbnumbas,typeLog._string);
+                if (dtbase.Enabled)
+                    Logging.VariableChange("От: ", dtbase.Value.ToShortDateString(), _dtbase, typeLog._string);
+                //}
 
 
                 Logging.VariableChange("Регистрация «Кем»: " , tbKem.Text, WiS);
@@ -1020,6 +1056,7 @@ namespace Arenda
                 Logging.VariableChange("№ учета: " , tbNchet.Text, numAcc);
                 Logging.VariableChange("Серия постановки на учет: " , tbSerP.Text, serAcc);
 
+          
                 #endregion
 
                 #region "Данные вкладки 'Дополнительно'"
@@ -1039,6 +1076,23 @@ namespace Arenda
                     Logging.VariableChange("ОРГНИП: ", txtORGNIP.Text, _tbOrgnip);
                 }
                 #endregion
+
+
+                if (tenant)
+                {
+                    if (cpTen != null && cpTen.Rows.Count > 0)
+                    {
+                        Logging.Comment("Связанные арендаторы");
+                        foreach (DataRow row in cpTen.Rows)
+                        {
+                            Logging.Comment($"Аредатор ID:{row["id"]} Наименование:{row["cName"]}");
+                        }
+                        /*foreach (DataGridViewRow row in dgCon.Rows)
+                        {
+                            Logging.Comment($"Аредатор:{row.Cells["cTenant"].Value}");
+                        }*/
+                    }
+                }
 
                 Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
                     + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
@@ -1958,13 +2012,13 @@ namespace Arenda
                 return false;
             }
 
-            if (tenant) {
-                if (dtBanks.Rows.Count >1)
-                {
-                    MessageBox.Show(TempData.centralText("Банк должен быть только 1!\n"), "Проверка на дубли", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-            }
+            //if (tenant) {
+            //    if (dtBanks.Rows.Count >1)
+            //    {
+            //        MessageBox.Show(TempData.centralText("Банк должен быть только 1!\n"), "Проверка на дубли", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //        return false;
+            //    }
+            //}
 
             foreach (DataRow row in dtBanks.Rows)
             {

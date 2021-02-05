@@ -71,6 +71,12 @@ namespace dllArendaDictonary.dicLandPlot
             this.DialogResult = DialogResult.Cancel;
         }
 
+        private void tbArea_Leave(object sender, EventArgs e)
+        {
+            if (tbArea.Text.Length>0)
+                tbArea.Text = decimal.Parse(tbArea.Text.ToString()).ToString("0.00");
+        }
+
         private void btSave_Click(object sender, EventArgs e)
         {
             if (cmbObject.SelectedIndex == -1)
@@ -95,7 +101,7 @@ namespace dllArendaDictonary.dicLandPlot
             }
 
 
-            Task<DataTable> task = Config.hCntMain.setLandPlot(id, tbNumber.Text, (int)cmbObject.SelectedValue, Int64.Parse(tbArea.Text), true, false, 0);
+            Task<DataTable> task = Config.hCntMain.setLandPlot(id, tbNumber.Text, (int)cmbObject.SelectedValue, decimal.Parse(tbArea.Text), true, false, 0);
             task.Wait();
 
             DataTable dtResult = task.Result;
@@ -157,7 +163,22 @@ namespace dllArendaDictonary.dicLandPlot
 
         private void tbArea_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != '\b';
+            if (e.KeyChar == '.')
+            {
+                e.KeyChar = ',';
+            }
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.ToString().Contains(e.KeyChar) || (sender as TextBox).Text.ToString().Length == 0))
+            {
+                e.Handled = true;
+            }
+            else if ((!Char.IsNumber(e.KeyChar) && (e.KeyChar != ',')) 
+                || ((sender as TextBox).Text.Contains(',') && (sender as TextBox).Text.Length - 2>(sender as TextBox).Text.IndexOf(',') ))
+            {
+                if (e.KeyChar != '\b' && tbArea.SelectedText.Length!=tbArea.Text.Length)
+                { e.Handled = true; }
+            }
+
+            //e.Handled = !char.IsDigit(e.KeyChar) && e.KeyChar != '\b';
         }
     }
 }

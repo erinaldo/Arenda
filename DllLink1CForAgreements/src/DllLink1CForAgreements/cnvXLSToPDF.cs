@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.Office.Interop.Excel;
 using System.IO;
+using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace DllLink1CForAgreements
 {
@@ -15,6 +17,7 @@ namespace DllLink1CForAgreements
 
             ApplicationClass excelApplication = new ApplicationClass();
             Workbook excelWorkBook = null;
+            excelApplication.Caption = System.Guid.NewGuid().ToString().ToUpper();
 
             string paramSourceBookPath = files;//System.Windows.Forms.Application.StartupPath + @"\" + files;// @"D:\test.xls";
             object paramMissing = Type.Missing;
@@ -60,7 +63,7 @@ namespace DllLink1CForAgreements
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message.ToString());
+                MessageBox.Show(ex.Message.ToString());
                 // Respond to the error.
             }
             finally
@@ -68,7 +71,10 @@ namespace DllLink1CForAgreements
                 // Close the workbook object.
                 if (excelWorkBook != null)
                 {
+                    excelApplication.DisplayAlerts = false;
                     excelWorkBook.Close(false, paramMissing, paramMissing);
+                    Marshal.ReleaseComObject(excelWorkBook);
+                    Marshal.FinalReleaseComObject(excelWorkBook);
                     excelWorkBook = null;
                 }
 
@@ -76,13 +82,19 @@ namespace DllLink1CForAgreements
                 if (excelApplication != null)
                 {
                     excelApplication.Quit();
+                    Config.EnsureProcessKilled(IntPtr.Zero, excelApplication.Caption);
+                    Marshal.ReleaseComObject(excelApplication);
+                    Marshal.FinalReleaseComObject(excelApplication);
                     excelApplication = null;
                 }
+
 
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
+
+              
             }
 
             return paramExportFilePath;

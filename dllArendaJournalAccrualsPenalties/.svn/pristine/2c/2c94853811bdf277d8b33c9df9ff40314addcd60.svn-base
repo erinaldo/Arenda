@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartArguments>888 "Заявки на ремонт-Администратор" 192.168.5.85\K21 dbase2 SuperUser fate "Спорыхин Г.Ю." Д "Администратор" ОЭЭС 79 "Коммерческий" 427</StartArguments>
+  </PropertyGroup>
+</Project>

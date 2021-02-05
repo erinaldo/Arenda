@@ -194,7 +194,7 @@ namespace DllLink1CForAgreements
         }
 
 
-        public DataTable SetAgreement1CForAgreement(int id_Agreements,string NumberAccount,DateTime DateAccount,string NumberAgreement,string TypePayment,bool isAdd,int id_Scan)
+        public DataTable SetAgreement1CForAgreement(int id_Agreements,string NumberAccount,DateTime DateAccount,string NumberAgreement,string TypePayment,bool isAdd,int id_Scan,bool isNewData)
         {
             ap.Clear();
             ap.Add(id_Agreements);
@@ -205,10 +205,11 @@ namespace DllLink1CForAgreements
             ap.Add(isAdd);
             ap.Add(id_Scan);            
             ap.Add(UserSettings.User.Id);
+            ap.Add(isNewData);
 
             return executeProcedure("Arenda.SetAgreement1CForAgreement",
-              new string[8] { "@id_Agreements", "@NumberAccount", "@DateAccount", "@NumberAgreement", "@TypePayment", "@isAdd", "@id_Scan", "@id_user" },
-              new DbType[8] { DbType.Int32, DbType.String, DbType.DateTime, DbType.String, DbType.String, DbType.Boolean, DbType.Int32, DbType.Int32 }, ap);
+              new string[9] { "@id_Agreements", "@NumberAccount", "@DateAccount", "@NumberAgreement", "@TypePayment", "@isAdd", "@id_Scan", "@id_user", "@isNewData" },
+              new DbType[9] { DbType.Int32, DbType.String, DbType.DateTime, DbType.String, DbType.String, DbType.Boolean, DbType.Int32, DbType.Int32,DbType.Boolean }, ap);
         }
 
         public DataTable getScan(int id_Doc, int id)
@@ -240,5 +241,15 @@ namespace DllLink1CForAgreements
               DbType.DateTime, DbType.String}, ap);
         }
 
+        public DataTable UpdateAgreements1C(int id_Agreements, string NumberAgreement)
+        {
+            ap.Clear();
+            ap.Add(id_Agreements);
+            ap.Add(NumberAgreement);
+
+            return executeProcedure("Arenda.UpdateAgreements1C",
+              new string[2] { "@id_Agreements", "@NumberAgreement" },
+              new DbType[2] { DbType.Int32, DbType.String }, ap);
+        }
     }
 }

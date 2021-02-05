@@ -1,4 +1,5 @@
-﻿using Nwuram.Framework.Settings.Connection;
+﻿using Nwuram.Framework.Logging;
+using Nwuram.Framework.Settings.Connection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,16 @@ namespace Arenda.Payments
 
         public int id_Agreements { set; private get; }
         public int id_TypeDog { set; private get; }
+
+
+        public string tbTen { set; private get; }
+        public int id_ten { set; private get; }
+
+        public string tbLord { set; private get; }
+        public int id_lord { set; private get; }
+
+        public string tbnumd { set; private get; }
+
         public frmAddDiscount()
         {
             InitializeComponent();
@@ -164,6 +175,28 @@ namespace Arenda.Payments
                 MessageBox.Show("Произошла неведомая хрень.", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+
+            Logging.StartFirstLevel((int)logEnum.Создание_скидки);
+            Logging.Comment("Информация о договоре");
+            Logging.Comment($"ID договора :{id_Agreements}");
+            Logging.Comment($"Арендатор ID: {id_ten}; Наименование: {tbTen}");
+            Logging.Comment($"Арендатотель ID: {id_lord}; Наименование: {tbLord}");
+            Logging.Comment($"Номер договора :{tbnumd}");
+
+            Logging.Comment("Информация о скидке");
+            Logging.Comment($"ID:{dtResult.Rows[0]["id"]}");
+            Logging.Comment($"Дата начала:{dtpStart.Value.ToShortDateString()}");
+            Logging.Comment($"Дата окончания:{(chbUnlimitedDiscount.Checked? "Постоянная скидка" : dtpEnd.Value.ToShortDateString())}");
+            Logging.Comment($"Тип скидки ID:{cmbTypeDicount.SelectedValue};Наименование:{cmbTypeDicount.Text}");
+
+            if ((int)cmbTypeDicount.SelectedValue == 1)
+                Logging.Comment($"Процент скидки от общей стоимости договора:{tbPercentDiscount.Text}");
+            else if ((int)cmbTypeDicount.SelectedValue == 2)
+                Logging.Comment($"Новая цена стоимости 1 кв.м: {tbPercentDiscount.Text}");
+
+            Logging.StopFirstLevel();
+
 
             isEditData = false;
             MessageBox.Show("Данные сохранены.", "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);

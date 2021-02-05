@@ -35,7 +35,7 @@ namespace Arenda
         {
             InitializeComponent();
 
-            if (Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.ToLower().Equals("пр"))
+            if (TempData.Rezhim.ToLower().Equals("пр"))
             {
                 Logging.StartFirstLevel(1403);
                 Logging.Comment("Открыта форма «Настройки» для просмотра");

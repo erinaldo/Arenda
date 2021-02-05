@@ -25,17 +25,20 @@ namespace DllLink1CForAgreements
         {
             dtData = new DataTable();
 
-            dtData.Columns.Add("FileName", typeof(string));            
+            dtData.Columns.Add("FileName", typeof(string));
             dtData.Columns.Add("Agreement1C", typeof(string));
             dtData.Columns.Add("Agreement", typeof(string));
             dtData.Columns.Add("id_agreement", typeof(int));
             dtData.Columns.Add("nameLandLord", typeof(string));
+            dtData.Columns.Add("nameObject", typeof(string));
+            dtData.Columns.Add("id_Landlord", typeof(int));
             dtData.AcceptChanges();
 
             //var lslsl= lFileData.AsEnumerable<FileData>().ToList();
-            foreach (var l in lFileData.AsEnumerable<FileData>().ToList())
+            foreach (var l in lFileData.AsEnumerable<FileData>().GroupBy(r => new { Agreement = r.Agreement }).Select(s => new { s.Key.Agreement }).ToList())
             {
-                dtData.Rows.Add(l.FileName, l.Agreement, "", DBNull.Value);                                  
+                //dtData.Rows.Add(l.FileName, l.Agreement, "", DBNull.Value, "", "");
+                dtData.Rows.Add("", l.Agreement, "", DBNull.Value, "", "");
             }
             dgvData.DataSource = dtData;
         }
@@ -117,6 +120,7 @@ namespace DllLink1CForAgreements
             var listRow = dtData.AsEnumerable().Where(r => r.Field<object>("id_agreement") != null);
             foreach (var r in listRow)
             {
+                /*
                 var lslsl = lFileData.AsEnumerable<FileData>().Where(rr => rr.FileName.Equals((string)r["FileName"]));
                 if (lslsl.Count() > 0)
                 {
@@ -124,8 +128,27 @@ namespace DllLink1CForAgreements
                     fData.isAdd = true;
                     fData.idAgreement = (int)r["id_agreement"];
                     fData.nameLandLord = (string)r["nameLandLord"];
+                    fData.id_Landlord = (int)r["id_Landlord"];
+                    fData.nameObject = (string)r["nameObject"];
                     tmpFileData.Add(fData);
                 }
+                */
+                var lslsl = lFileData.AsEnumerable<FileData>().Where(rr => rr.Agreement.Equals((string)r["Agreement1C"]));
+                if (lslsl.Count() > 0)
+                {
+                    foreach (FileData fData in lslsl)
+                    {
+                        //FileData fData = lslsl.First();
+                        fData.isAdd = true;
+                        fData.idAgreement = (int)r["id_agreement"];
+                        fData.nameLandLord = (string)r["nameLandLord"];
+                        fData.id_Landlord = (int)r["id_Landlord"];
+                        fData.nameObject = (string)r["nameObject"];
+                        tmpFileData.Add(fData);
+                    }
+                }
+
+                Config.hCntMain.UpdateAgreements1C((int)r["id_agreement"], (string)r["Agreement1C"]);
             }
             this.DialogResult = DialogResult.OK;
         }
@@ -140,6 +163,8 @@ namespace DllLink1CForAgreements
                 row["Agreement"] = frm.Agreement;
                 row["id_agreement"] = frm.IdAgreement;
                 row["nameLandLord"] = frm.nameLandLord;
+                row["nameObject"] = frm.nameObjectLease;
+                row["id_Landlord"] = frm.id_Landlord;
                 dtData.AcceptChanges();
             }
         }

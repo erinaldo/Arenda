@@ -1,0 +1,32 @@
+USE [dbase2]
+GO
+
+/****** Object:  StoredProcedure [Arenda].[kav_getDiscounts]    Script Date: 12.11.2020 17:04:50 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		kav
+-- Create date: 2020-07-15
+-- Description:	Просмотр занятости секций
+-- exec [Arenda].[kav_getArendaPeriod] 3059
+-- =============================================
+ALTER PROCEDURE [Arenda].[kav_getDiscounts]
+@id_agr int = 0
+AS
+BEGIN
+	SET NOCOUNT ON;
+	declare @dateStart datetime, @dateEnd datetime
+
+	select DateStart, DateEnd, id_TypeDiscount, Discount, id_Agreements from Arenda.j_tDiscount 
+	where 
+	(id_Agreements = @id_agr or @id_agr = 0) 
+	and id_StatusDiscount = 2
+	
+END
+GO
+
+

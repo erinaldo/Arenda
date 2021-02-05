@@ -40,16 +40,31 @@ namespace Arenda
         {
             if (Chk == false)
             {
-                if (_proc.CheakAll(tbCname.Text, "fl").Rows.Count != 0)
+                DataTable dtBil = _proc.CheakAll(tbCname.Text, "fl");
+
+                if (dtBil.Rows.Count != 0)
                 {
-                    int uniqRec = Convert.ToInt32(_proc.CheakAll(tbCname.Text, "fl").Rows[0][0].ToString());
+                    int uniqRec = Convert.ToInt32(dtBil.Rows[0]["id"].ToString());
                     string rez = _proc.isActiveFloor(uniqRec).Rows[0][0].ToString().ToString();
                     if (rez == "False")
                     {
                         if (MessageBox.Show("Уже существует неактивная запись с таким наименованием!сделать запись активной?", "Внимание", MessageBoxButtons.YesNo,
                                             MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
+                            
                             _proc.ActiveSprav("floor", uniqRec, 1);
+
+                            Logging.StartFirstLevel(540);
+
+                            Logging.Comment($"Произведена смена статуса на активный у этажа");
+                            Logging.Comment($"ID:{dtBil.Rows[0]["id"]}");
+                            Logging.Comment($"Наименование этажа: {dtBil.Rows[0]["cName"]}");
+                            Logging.Comment($"Аббревиатура этажа: {dtBil.Rows[0]["Abbreviation"]}");
+
+                            Logging.StopFirstLevel();
+                           
+
+
                             DialogResult = DialogResult.Cancel;
                         }
 
@@ -58,9 +73,12 @@ namespace Arenda
                 }
                 else
                 {
-                    _proc.AddFloor(tbCname.Text, tbAbbr.Text);
+                    DataTable dtResult = _proc.AddFloor(tbCname.Text, tbAbbr.Text);
 
                     Logging.StartFirstLevel(1370);
+                    if (dtResult != null && dtResult.Rows.Count > 0 && dtResult.Columns.Contains("id"))
+                        Logging.Comment($"ID:{dtResult.Rows[0]["id"]}");
+
                     Logging.Comment("Наименование этажа: " + tbCname.Text.Trim());
                     Logging.Comment("Аббревиатура этажа: " + tbAbbr.Text.Trim());
 

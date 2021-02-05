@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Excel;
 using System.IO;
-
+using System.Runtime.InteropServices;
 
 namespace DllLink1CForAgreements
 {
@@ -68,6 +68,43 @@ namespace DllLink1CForAgreements
         {
             if (_this.InvokeRequired) { _this.Invoke(d); } else { d(); }
         }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern int GetWindowThreadProcessId(IntPtr hWnd, out int lpdwProcessId);
+        [DllImport("kernel32.dll")]
+        //static extern uint GetLastError();
+        static extern IntPtr SetLastError(int dwErrCode);
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr EndTask(IntPtr hWnd);
+
+        public static void EnsureProcessKilled(IntPtr MainWindowHandle, string Caption)
+        {
+            SetLastError(0);
+            // for Excel versions <10, this won't be set yet
+            if (IntPtr.Equals(MainWindowHandle, IntPtr.Zero))
+                MainWindowHandle = FindWindow(null, Caption);
+            if (IntPtr.Equals(MainWindowHandle, IntPtr.Zero))
+                return; // at this point, presume the window has been closed.
+            int iRes, iProcID;
+            iRes = GetWindowThreadProcessId(MainWindowHandle, out iProcID);
+            if (iProcID == 0)
+            {
+                if (EndTask(MainWindowHandle) != (IntPtr)0)
+                    return; // success
+                throw new ApplicationException("Failed to close.");
+            }
+            System.Diagnostics.Process proc;
+            //proc = System.Diagnostics.Process.GetProcessById(ProcessID);
+            proc = System.Diagnostics.Process.GetProcessById(iProcID);
+            proc.CloseMainWindow();
+            proc.Refresh();
+            if (proc.HasExited)
+                return;
+            proc.Kill();
+        }
+
     }
 
     public class FileData
@@ -81,10 +118,12 @@ namespace DllLink1CForAgreements
         public int idAgreement { set; get; }
         public string nameLandLord { set; get; }
         public typeFile tFile { private set; get; }
+        public int id_Landlord { set; get; }
 
+        public string nameObject { set; get; }
         public bool isAdd { set; get; }        
 
-        public void setData(string FileName, string Path, string Number, DateTime Date, string Agreement, string TypePay, int idAgreement, bool isAdd, string nameLandLord, typeFile tFile)
+        public void setData(string FileName, string Path, string Number, DateTime Date, string Agreement, string TypePay, int idAgreement, bool isAdd, string nameLandLord, typeFile tFile,int id_LandLord,string nameObject)
         {
             this.FileName = FileName;
             this.Path = Path;
@@ -96,6 +135,8 @@ namespace DllLink1CForAgreements
             this.isAdd = isAdd;
             this.nameLandLord = nameLandLord;
             this.tFile = tFile;
+            this.id_Landlord = id_LandLord;
+            this.nameObject = nameObject;
         }
     }
 

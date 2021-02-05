@@ -264,10 +264,17 @@ namespace Arenda
 
                 Logging.StartFirstLevel(1407);
                 Logging.Comment(operation);
+                Logging.Comment("Информация по договору:");
+                Logging.Comment($"ID договора:{id}");
+                Logging.Comment($"Номер договора:{txtNum.Text}");
+                Logging.Comment($"ID арендатора:{idArend}");
+                Logging.Comment($"Наименование арендатора:{txtTenant.Text}");
+
                 Logging.Comment("");
                 Logging.Comment("id дополнительной оплаты = " + id_tax.ToString());
                 Logging.Comment("Дата: " + dr["TaxDate"].ToString());
                 Logging.Comment("Сумма дополнительной оплаты: " + dr["penalty"].ToString());
+                //Logging.Comment("Id и наименование План отчёта: " + cmbPlaneDate.SelectedValue.ToString() + ", " + dr["PaymentSum"].ToString());
                 Logging.Comment("Сумма оплат дополнительной оплаты: " + dr["PaymentSum"].ToString());
                 Logging.Comment("Примечание: " + dr["Comment"].ToString().Trim());
                 Logging.Comment("");

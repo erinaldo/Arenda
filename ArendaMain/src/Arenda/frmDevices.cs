@@ -20,7 +20,7 @@ namespace Arenda
             InitializeComponent();
             dgvDevices.AutoGenerateColumns = false;
 
-            if (Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.ToLower().Equals("пр"))
+            if (TempData.Rezhim.ToLower().Equals("пр"))
             {
                 Logging.StartFirstLevel(1394);
                 Logging.Comment("Открыта форма просмотра справочника приборов");
@@ -33,7 +33,7 @@ namespace Arenda
 
         private void frmDevices_Load(object sender, EventArgs e)
         {
-            //if (UserSettings.User.StatusCode == "ПР")
+            //if (TempData.Rezhim == "ПР")
             if (new List<string> { "СОА", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim))
             {
                 btnAdd.Visible = btnEdit.Visible = btnDelete.Visible = false;
@@ -170,7 +170,7 @@ namespace Arenda
               MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
               Logging.StartFirstLevel(1393);
-              Logging.Comment("Произведена смена статуса на неактивный у прибора");
+              Logging.Comment("Удаление прибора");
               Logging.Comment("ID: " + zid);
               Logging.Comment("Наименование прибора: " + _cName);
               Logging.Comment("Аббревиатура прибора: " + _Abbr);

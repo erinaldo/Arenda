@@ -10,6 +10,7 @@ using Nwuram.Framework.Settings.Connection;
 using System.IO;
 using System.Security.AccessControl;
 using System.Threading.Tasks;
+using Nwuram.Framework.Logging;
 
 namespace ArendaFileExport
 {
@@ -246,6 +247,7 @@ namespace ArendaFileExport
                     }
                     else
                     {
+                        Logging.Comment("Принудительная остановка выгрузки файлов");
                         //button1.Enabled = stop = true;
                         //button2.Enabled = false;
                         return;
@@ -260,6 +262,7 @@ namespace ArendaFileExport
                         label2.Refresh();
                     }, this);
                 }
+                Logging.Comment($"Количество выгруженных файлов:{i}");
             }
             else
             {
@@ -269,6 +272,9 @@ namespace ArendaFileExport
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+
+            Logging.Comment("Заверешение выгрузки файлов");
+            Logging.StopFirstLevel();
             this.Cursor = Cursors.Arrow;
             MessageBox.Show("Выгрузка окончена!");
             label1.Text = "Выгрузка завершена.";
@@ -283,6 +289,10 @@ namespace ArendaFileExport
         string Path = "";
         private void newUnload()
         {
+            Logging.StartFirstLevel(821);
+            Logging.Comment("Начало выгрузки файлов");
+
+
             button1.Enabled = false;
             button2.Enabled = true;
             label1.Text = "Получение пути сохранения...";

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,6 +59,8 @@
             this.журналЕжемесячныхПлановToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.журналДолжниковToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiJournalLoad1C = new System.Windows.Forms.ToolStripMenuItem();
+            this.журналСчетовДопОплатToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.журналСкидокToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.арендаторыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.договорыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.арендодателиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -67,6 +69,7 @@
             this.выгрузкаДокументовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiReport = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiReportPayTypeDates = new System.Windows.Forms.ToolStripMenuItem();
+            this.отчётПоВидамДейтельностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pTenant = new System.Windows.Forms.Panel();
             this.sPhone = new System.Windows.Forms.TextBox();
             this.sEmail = new System.Windows.Forms.TextBox();
@@ -148,8 +151,12 @@
             this.isEndingDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isDocForLostTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.isUseDopData = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cIsActUse = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.cFullPayed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.cbLordland = new System.Windows.Forms.ComboBox();
             this.pListDoc = new System.Windows.Forms.Panel();
+            this.label17 = new System.Windows.Forms.Label();
+            this.pFullPay = new System.Windows.Forms.Panel();
             this.label16 = new System.Windows.Forms.Label();
             this.pUseDopData = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
@@ -193,6 +200,8 @@
             this.bds = new System.Windows.Forms.BindingSource(this.components);
             this.bds1 = new System.Windows.Forms.BindingSource(this.components);
             this.dbs2 = new System.Windows.Forms.BindingSource(this.components);
+            this.отчётПоСекцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отчётПоОплатамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.pTenant.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).BeginInit();
@@ -392,7 +401,9 @@
             this.журналСъездовToolStripMenuItem,
             this.журналЕжемесячныхПлановToolStripMenuItem,
             this.журналДолжниковToolStripMenuItem,
-            this.tsmiJournalLoad1C});
+            this.tsmiJournalLoad1C,
+            this.журналСчетовДопОплатToolStripMenuItem,
+            this.журналСкидокToolStripMenuItem});
             this.журналыToolStripMenuItem.Name = "журналыToolStripMenuItem";
             this.журналыToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
             this.журналыToolStripMenuItem.Text = "Журналы";
@@ -438,6 +449,20 @@
             this.tsmiJournalLoad1C.Size = new System.Drawing.Size(225, 22);
             this.tsmiJournalLoad1C.Text = "Журнал загрузки счетов 1С";
             this.tsmiJournalLoad1C.Click += new System.EventHandler(this.tsmiJournalLoad1C_Click);
+            // 
+            // журналСчетовДопОплатToolStripMenuItem
+            // 
+            this.журналСчетовДопОплатToolStripMenuItem.Name = "журналСчетовДопОплатToolStripMenuItem";
+            this.журналСчетовДопОплатToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.журналСчетовДопОплатToolStripMenuItem.Text = "Журнал счетов доп. оплат";
+            this.журналСчетовДопОплатToolStripMenuItem.Click += new System.EventHandler(this.журналСчетовДопОплатToolStripMenuItem_Click);
+            // 
+            // журналСкидокToolStripMenuItem
+            // 
+            this.журналСкидокToolStripMenuItem.Name = "журналСкидокToolStripMenuItem";
+            this.журналСкидокToolStripMenuItem.Size = new System.Drawing.Size(225, 22);
+            this.журналСкидокToolStripMenuItem.Text = "Журнал скидок";
+            this.журналСкидокToolStripMenuItem.Click += new System.EventHandler(this.журналСкидокToolStripMenuItem_Click);
             // 
             // арендаторыToolStripMenuItem
             // 
@@ -485,7 +510,10 @@
             // tsmiReport
             // 
             this.tsmiReport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiReportPayTypeDates});
+            this.tsmiReportPayTypeDates,
+            this.отчётПоВидамДейтельностиToolStripMenuItem,
+            this.отчётПоСекцииToolStripMenuItem,
+            this.отчётПоОплатамToolStripMenuItem});
             this.tsmiReport.Name = "tsmiReport";
             this.tsmiReport.Size = new System.Drawing.Size(59, 20);
             this.tsmiReport.Text = "Отчёты";
@@ -496,6 +524,13 @@
             this.tsmiReportPayTypeDates.Size = new System.Drawing.Size(292, 22);
             this.tsmiReportPayTypeDates.Text = "Отчёт по добавленным оплатам за период";
             this.tsmiReportPayTypeDates.Click += new System.EventHandler(this.tsmiReportPayTypeDates_Click);
+            // 
+            // отчётПоВидамДейтельностиToolStripMenuItem
+            // 
+            this.отчётПоВидамДейтельностиToolStripMenuItem.Name = "отчётПоВидамДейтельностиToolStripMenuItem";
+            this.отчётПоВидамДейтельностиToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
+            this.отчётПоВидамДейтельностиToolStripMenuItem.Text = "Отчёт по видам дейтельности";
+            this.отчётПоВидамДейтельностиToolStripMenuItem.Click += new System.EventHandler(this.отчётПоВидамДейтельностиToolStripMenuItem_Click);
             // 
             // pTenant
             // 
@@ -1141,14 +1176,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgListDoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgListDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgListDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dgListDoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgListDoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Date,
@@ -1170,19 +1205,21 @@
             this.isCancelDoc,
             this.isEndingDoc,
             this.isDocForLostTime,
-            this.isUseDopData});
+            this.isUseDopData,
+            this.cIsActUse,
+            this.cFullPayed});
             this.dgListDoc.Location = new System.Drawing.Point(11, 85);
             this.dgListDoc.MultiSelect = false;
             this.dgListDoc.Name = "dgListDoc";
             this.dgListDoc.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgListDoc.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgListDoc.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgListDoc.RowHeadersVisible = false;
             this.dgListDoc.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgListDoc.Size = new System.Drawing.Size(710, 259);
@@ -1352,6 +1389,25 @@
             this.isUseDopData.ReadOnly = true;
             this.isUseDopData.Visible = false;
             // 
+            // cIsActUse
+            // 
+            this.cIsActUse.DataPropertyName = "isActUse";
+            this.cIsActUse.HeaderText = "isActUse";
+            this.cIsActUse.Name = "cIsActUse";
+            this.cIsActUse.ReadOnly = true;
+            this.cIsActUse.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.cIsActUse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.cIsActUse.Visible = false;
+            // 
+            // cFullPayed
+            // 
+            this.cFullPayed.DataPropertyName = "fullPayed";
+            this.cFullPayed.HeaderText = "fullPayed";
+            this.cFullPayed.Name = "cFullPayed";
+            this.cFullPayed.ReadOnly = true;
+            this.cFullPayed.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.cFullPayed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
             // cbLordland
             // 
             this.cbLordland.DisplayMember = "lName";
@@ -1369,6 +1425,8 @@
             this.pListDoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pListDoc.Controls.Add(this.label17);
+            this.pListDoc.Controls.Add(this.pFullPay);
             this.pListDoc.Controls.Add(this.label16);
             this.pListDoc.Controls.Add(this.pUseDopData);
             this.pListDoc.Controls.Add(this.label15);
@@ -1396,6 +1454,26 @@
             this.pListDoc.Size = new System.Drawing.Size(735, 402);
             this.pListDoc.TabIndex = 7;
             this.pListDoc.VisibleChanged += new System.EventHandler(this.pListDoc_VisibleChanged);
+            // 
+            // label17
+            // 
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(481, 353);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(153, 13);
+            this.label17.TabIndex = 49;
+            this.label17.Text = "Договор оплачен полностью";
+            // 
+            // pFullPay
+            // 
+            this.pFullPay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pFullPay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.pFullPay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pFullPay.Location = new System.Drawing.Point(455, 349);
+            this.pFullPay.Name = "pFullPay";
+            this.pFullPay.Size = new System.Drawing.Size(20, 20);
+            this.pFullPay.TabIndex = 48;
             // 
             // label16
             // 
@@ -1829,6 +1907,20 @@
             this.btPrint.UseVisualStyleBackColor = true;
             this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
             // 
+            // отчётПоСекцииToolStripMenuItem
+            // 
+            this.отчётПоСекцииToolStripMenuItem.Name = "отчётПоСекцииToolStripMenuItem";
+            this.отчётПоСекцииToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
+            this.отчётПоСекцииToolStripMenuItem.Text = "Отчёт по секции";
+            this.отчётПоСекцииToolStripMenuItem.Click += new System.EventHandler(this.отчётПоСекцииToolStripMenuItem_Click);
+            // 
+            // отчётПоОплатамToolStripMenuItem
+            // 
+            this.отчётПоОплатамToolStripMenuItem.Name = "отчётПоОплатамToolStripMenuItem";
+            this.отчётПоОплатамToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
+            this.отчётПоОплатамToolStripMenuItem.Text = "Отчёт по оплатам";
+            this.отчётПоОплатамToolStripMenuItem.Click += new System.EventHandler(this.отчётПоОплатамToolStripMenuItem_Click);
+            // 
             // mForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1840,7 +1932,6 @@
             this.Controls.Add(this.btReportTenant);
             this.Controls.Add(this.btKntListTaxes);
             this.Controls.Add(this.btCopyDoc);
-            this.Controls.Add(this.pLordland);
             this.Controls.Add(this.btAcceptDoc);
             this.Controls.Add(this.btJournalSealSections);
             this.Controls.Add(this.btnReport);
@@ -1857,8 +1948,9 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.pTenant);
             this.Controls.Add(this.pListDoc);
+            this.Controls.Add(this.pLordland);
+            this.Controls.Add(this.pTenant);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(775, 539);
@@ -1995,26 +2087,6 @@
         private System.Windows.Forms.Panel pEndingDoc;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Panel pDocForLostTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_obj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ObjNameD;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_agreements;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tTenant;
-        private System.Windows.Forms.DataGridViewTextBoxColumn number;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_type;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DataStart;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DataEnd;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ALocate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Storage;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Arend;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id_lord;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cIsConfirmed;
-        private System.Windows.Forms.DataGridViewTextBoxColumn isCancelDoc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn isEndingDoc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn isDocForLostTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn isUseDopData;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Panel pUseDopData;
         private System.Windows.Forms.ToolStripMenuItem справочникОборудованияToolStripMenuItem;
@@ -2056,6 +2128,35 @@
         private System.Windows.Forms.Button btAddDocFile;
         private System.Windows.Forms.ToolStripMenuItem tsmiLoad1C;
         private System.Windows.Forms.ToolStripMenuItem tsmiJournalLoad1C;
+        private System.Windows.Forms.ToolStripMenuItem журналСчетовДопОплатToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem журналСкидокToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem отчётПоВидамДейтельностиToolStripMenuItem;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Panel pFullPay;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_obj;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ObjNameD;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_agreements;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tTenant;
+        private System.Windows.Forms.DataGridViewTextBoxColumn number;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Type;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataStart;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DataEnd;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ALocate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Storage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Arend;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Phone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_lord;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cIsConfirmed;
+        private System.Windows.Forms.DataGridViewTextBoxColumn isCancelDoc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn isEndingDoc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn isDocForLostTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn isUseDopData;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn cIsActUse;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn cFullPayed;
+        private System.Windows.Forms.ToolStripMenuItem отчётПоСекцииToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem отчётПоОплатамToolStripMenuItem;
     }
 }
 

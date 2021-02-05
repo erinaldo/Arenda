@@ -57,15 +57,26 @@ namespace Arenda
         {
             if (Chk == false)
             {
-                if (_proc.CheakAll(tbCname.Text, "bl").Rows.Count != 0)
+                DataTable dtBil = _proc.CheakAll(tbCname.Text, "bl");
+                if (dtBil.Rows.Count != 0)
                 {
-                    int uniqRec = Convert.ToInt32(_proc.CheakAll(tbCname.Text, "bl").Rows[0][0].ToString());
+                    int uniqRec = Convert.ToInt32(dtBil.Rows[0]["id"].ToString());
                     string rez = _proc.isActive(uniqRec).Rows[0][0].ToString().ToString();
                     if (rez == "False")
                     {
                         if (MessageBox.Show("Уже существует неактивная запись с таким наименованием!сделать запись активной?", "Внимание", MessageBoxButtons.YesNo,
                                             MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
                         {
+
+                            Logging.StartFirstLevel(540);
+
+                            Logging.Comment($"Произведена смена статуса на активный у здания");
+                            Logging.Comment($"ID:{dtBil.Rows[0]["id"]}");
+                            Logging.Comment($"Наименование здания: {dtBil.Rows[0]["cName"]}");
+                            Logging.Comment($"Аббревиатура здания: {dtBil.Rows[0]["Abbreviation"]}");
+                            
+                            Logging.StopFirstLevel();
+
                             _proc.ActiveSprav("build", uniqRec, 1);
                             DialogResult = DialogResult.Cancel;
                         }
@@ -76,7 +87,12 @@ namespace Arenda
                 else
                 {
 
-                    Logging.StartFirstLevel(1367);                    
+                    DataTable dtResult = _proc.AddZdan(tbCname.Text, tbAbbr.Text);
+
+                    Logging.StartFirstLevel(1367);
+                    if (dtResult != null && dtResult.Rows.Count > 0 && dtResult.Columns.Contains("id"))
+                        Logging.Comment($"ID:{dtResult.Rows[0]["id"]}");
+
                     Logging.Comment("Наименование здания: " + tbCname.Text.Trim());
                     Logging.Comment("Аббревиатура здания: " + tbAbbr.Text.Trim());
 
@@ -84,7 +100,7 @@ namespace Arenda
                     + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
                     Logging.StopFirstLevel();
 
-                    _proc.AddZdan(tbCname.Text, tbAbbr.Text);
+                   
                     //MessageBox.Show("Запись добавлена");
                     MessageBox.Show("Данные сохранены.", "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     tbCname.Clear();

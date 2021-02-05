@@ -136,7 +136,7 @@
             this.dgvData.Name = "dgvData";
             this.dgvData.RowHeadersVisible = false;
             this.dgvData.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvData.Size = new System.Drawing.Size(912, 423);
+            this.dgvData.Size = new System.Drawing.Size(953, 423);
             this.dgvData.TabIndex = 32;
             this.dgvData.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellDoubleClick);
             this.dgvData.ColumnWidthChanged += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvData_ColumnWidthChanged);
@@ -259,7 +259,7 @@
             // 
             this.btSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btSave.Image = global::DllLink1CForAgreements.Properties.Resources.save_edit;
-            this.btSave.Location = new System.Drawing.Point(854, 532);
+            this.btSave.Location = new System.Drawing.Point(895, 527);
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(32, 32);
             this.btSave.TabIndex = 33;
@@ -271,7 +271,7 @@
             // 
             this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btExit.Image = global::DllLink1CForAgreements.Properties.Resources.exit_8633;
-            this.btExit.Location = new System.Drawing.Point(892, 532);
+            this.btExit.Location = new System.Drawing.Point(933, 527);
             this.btExit.Name = "btExit";
             this.btExit.Size = new System.Drawing.Size(32, 32);
             this.btExit.TabIndex = 34;
@@ -283,7 +283,7 @@
             // 
             this.btUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btUpdate.Image = global::DllLink1CForAgreements.Properties.Resources.reload_8055;
-            this.btUpdate.Location = new System.Drawing.Point(876, 12);
+            this.btUpdate.Location = new System.Drawing.Point(917, 12);
             this.btUpdate.Name = "btUpdate";
             this.btUpdate.Size = new System.Drawing.Size(48, 48);
             this.btUpdate.TabIndex = 31;
@@ -295,7 +295,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(928, 572);
+            this.ClientSize = new System.Drawing.Size(977, 568);
             this.ControlBox = false;
             this.Controls.Add(this.cmbLandLord);
             this.Controls.Add(this.label2);

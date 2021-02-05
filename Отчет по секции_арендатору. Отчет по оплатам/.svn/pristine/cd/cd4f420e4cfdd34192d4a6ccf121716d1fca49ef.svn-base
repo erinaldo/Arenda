@@ -1,0 +1,47 @@
+USE [dbase2]
+GO
+/****** Object:  StoredProcedure [Arenda].[getMainTablePlan]    Script Date: 17.11.2020 16:36:59 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:			Kamaev AV
+-- Create date:		2020-11-18
+-- Description:		ѕолучение оплат с 16 числа дл€ мес€ца плана
+-- exec [Arenda].[getReportAllPayments] '2020-11-01'
+-- =============================================
+ALTER PROCEDURE [Arenda].[getReportAllPayments]
+	@date_plan datetime --из проги идет 1 число выбранного мес€ца
+AS
+BEGIN
+SET NOCOUNT ON
+	--день икс - 25-26 число мес€ца, мес€ц икс - 1 число всегда
+	declare @dateStart datetime, @monthX datetime, @dateEnd datetime
+	--из прогконфиг дата
+	declare @days int = 16
+	--select @days = cast(value as int) from dbo.prog_config where id_prog = @id_prog and id_value = 'chsl'
+
+
+--день икс - это дата дл€ предыдущего мес€ца
+	select @dateStart =  dateadd(month,case when datepart(day,@date_plan)>=@days then 0 else -1 end,  
+						dateadd(day, - datepart(day, @date_plan) + @days, convert(date, @date_plan)))
+--мес€ц икс
+	select @monthX =  @date_plan
+	-- дата, от которой считаем оплаты
+	set @dateEnd = dateadd(day, -1, DATEADD(month, 1, @dateStart))
+
+	select 
+		a.id_ObjectLease,
+		max(o.cName) as nameObj,
+		case when isCash = 0 then 'бн' else 'н' end as cashType,
+		pc.Date,
+		sum(pc.Summa) as sumPay
+		
+	from Arenda.j_Agreements a
+	left join Arenda.j_PaymentContract pc on a.id  = pc.id_Agreements
+	left join Arenda.s_ObjectLease o on a.id_ObjectLease = o.id
+	where pc.Date>=@dateStart and pc.id_PayType = 2 and pc.isToTenant = 0
+	group by a.id_ObjectLease, pc.Date, pc.isCash
+	order by pc.Date
+end

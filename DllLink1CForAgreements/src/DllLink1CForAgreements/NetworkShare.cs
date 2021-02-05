@@ -156,19 +156,20 @@ public class NetworkShare : IDisposable
             Console.WriteLine(ex.Message);
         }
     }
-    public bool CopyFile(string id_doc, string fullname, string shortname)
+    public bool CopyFile(string id_doc, string fullname, string shortname,bool isoverwrite)
     {
         try
         {
             ConnectToShare();
             if (!Directory.Exists(server + "\\" + id_doc))
                 Directory.CreateDirectory(server + "\\" + id_doc);
-            File.Copy(fullname, server + "\\" + id_doc + "\\" + shortname);
+            File.Copy(fullname, server + "\\" + id_doc + "\\" + shortname, isoverwrite);
             DisconnectFromShare(false);
             return true;
         }
         catch (Exception ex)
         {
+            MessageBox.Show(ex.Message, "");
             return false;
         }
     }

@@ -18,6 +18,7 @@ namespace ArendaPrint
     public partial class frmPrint : Form
     {
         readonly Procedures _proc = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
+        public DataGridViewRow rowIn { set; private get; }
         /// <summary>
         /// Инициализация формы печати
         /// </summary>
@@ -116,48 +117,95 @@ namespace ArendaPrint
                     //печатаем если выбран хотя бы один чек-бокс
                     if (!errorChecked)
                     {
-                        Logging.StartFirstLevel(79);
-                        Logging.Comment("Выгрузка отчета по договору");
-
-                        foreach (Control cnt in groupBox1.Controls)
+                        if (rowIn != null)
                         {
-                            if (cnt is CheckBox)
+                            Logging.StartFirstLevel(79);
+                            Logging.Comment("Информация по договору");
+                            Logging.Comment($"Id договора:{rowIn.Cells["id_agreements"].Value}");
+                            Logging.Comment($"Дата договора:{rowIn.Cells["Date"].Value}");
+                            Logging.Comment($"Id {rowIn.Cells["id_obj"].Value} и наименование объекта договора:{rowIn.Cells["ObjNameD"].Value}");
+                            Logging.Comment($"Id  {rowIn.Cells["id_lord"].Value}  и наименование арендатора:{rowIn.Cells["tTenant"].Value}");
+                            Logging.Comment($"Номер договора:{rowIn.Cells["number"].Value}");
+                            Logging.Comment($"Тип договора:{rowIn.Cells["Type"].Value}");
+                            Logging.Comment($"Начало аренды:{rowIn.Cells["DataStart"].Value}");
+                            Logging.Comment($"Конец аренды:{rowIn.Cells["DataEnd"].Value}");
+                            Logging.Comment($"Место:{rowIn.Cells["ALocate"].Value}");
+                            Logging.Comment($"S м2:{rowIn.Cells["Storage"].Value}");
+                            Logging.Comment($"Аренда:{rowIn.Cells["Arend"].Value}");
+                            Logging.Comment($"Тел.:{rowIn.Cells["Phone"].Value}");
+
+                            Logging.Comment("Информация по выгруженным документам");
+                            foreach (Control cnt in groupBox1.Controls)
                             {
-                                if ((cnt as CheckBox).Checked)
+                                if (cnt is CheckBox)
                                 {
-                                    string fTitle = (cnt as CheckBox).Name.Replace("chb", "");
-                                    string strToLog = (cnt as CheckBox).Text;
-                                    foreach (Control cCmb in groupBox1.Controls)
+                                    if ((cnt as CheckBox).Checked)
                                     {
-                                        if (cCmb is ComboBox)
+                                        string fTitle = (cnt as CheckBox).Name.Replace("chb", "");
+                                        string strToLog = (cnt as CheckBox).Text;
+                                        foreach (Control cCmb in groupBox1.Controls)
                                         {
-                                            string cmbName = (cCmb as ComboBox).Name.Replace("cbo", "").Replace("cmb", "");
-                                            if (fTitle.ToLower().Equals(cmbName.ToLower()))
+                                            if (cCmb is ComboBox)
                                             {
-                                                strToLog += " " + (cCmb as ComboBox).Text;
-                                                break;
+                                                string cmbName = (cCmb as ComboBox).Name.Replace("cbo", "").Replace("cmb", "");
+                                                if (fTitle.ToLower().Equals(cmbName.ToLower()))
+                                                {
+                                                    strToLog += " " + (cCmb as ComboBox).Text;
+                                                    break;
+                                                }
                                             }
                                         }
-                                    }
 
-                                    Logging.Comment(strToLog);
+                                        Logging.Comment(strToLog);
+                                    }
                                 }
                             }
+                            Logging.StopFirstLevel();
                         }
+                        else
+                        {
+                            Logging.StartFirstLevel(79);
+                            Logging.Comment("Выгрузка отчета по договору");
 
-                        Logging.Comment("Данные арендатора, для  которого печатается отчет");
-                        Logging.Comment("Дата документа: " + dateDoc);
-                        Logging.Comment("Арендатель Наименование: " + nameArend);
-                        Logging.Comment("Арендодатель Наименование: " + idArend);
-                        Logging.Comment("№ договора: " + numDoc);
-                        Logging.Comment("Начало: " + dateStartDoc);
-                        Logging.Comment("Конец: " + dateEndDoc);
-                        Logging.Comment("Место: " + position);
+                            foreach (Control cnt in groupBox1.Controls)
+                            {
+                                if (cnt is CheckBox)
+                                {
+                                    if ((cnt as CheckBox).Checked)
+                                    {
+                                        string fTitle = (cnt as CheckBox).Name.Replace("chb", "");
+                                        string strToLog = (cnt as CheckBox).Text;
+                                        foreach (Control cCmb in groupBox1.Controls)
+                                        {
+                                            if (cCmb is ComboBox)
+                                            {
+                                                string cmbName = (cCmb as ComboBox).Name.Replace("cbo", "").Replace("cmb", "");
+                                                if (fTitle.ToLower().Equals(cmbName.ToLower()))
+                                                {
+                                                    strToLog += " " + (cCmb as ComboBox).Text;
+                                                    break;
+                                                }
+                                            }
+                                        }
 
-                        Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
-                        + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
-                        Logging.StopFirstLevel();
+                                        Logging.Comment(strToLog);
+                                    }
+                                }
+                            }
 
+                            Logging.Comment("Данные арендатора, для  которого печатается отчет");
+                            Logging.Comment("Дата документа: " + dateDoc);
+                            Logging.Comment("Арендатель Наименование: " + nameArend);
+                            Logging.Comment("Арендодатель Наименование: " + idArend);
+                            Logging.Comment("№ договора: " + numDoc);
+                            Logging.Comment("Начало: " + dateStartDoc);
+                            Logging.Comment("Конец: " + dateEndDoc);
+                            Logging.Comment("Место: " + position);
+
+                            Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
+                            + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                            Logging.StopFirstLevel();
+                        }
                         //выгружаем данные
                         prbExcel.Visible = true;
                         this.Enabled = false;

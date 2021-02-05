@@ -122,6 +122,12 @@
     <Reference Include="DllLink1CForAgreements">
       <HintPath>..\..\..\DllLink1CForAgreements\src\DllLink1CForAgreements\bin\Debug\DllLink1CForAgreements.dll</HintPath>
     </Reference>
+    <Reference Include="dllPlanReport">
+      <HintPath>..\..\..\Отчет по секции_арендатору. Отчет по оплатам\dllPlanReport.dll</HintPath>
+    </Reference>
+    <Reference Include="dllPlanReportMonth">
+      <HintPath>..\..\..\Отчет по секции_арендатору. Отчет по оплатам\dllPlanReportMonth.dll</HintPath>
+    </Reference>
     <Reference Include="Framework, Version=3.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\Framework.dll</HintPath>
@@ -897,6 +903,7 @@
     <None Include="Resources\document_delete.png" />
     <None Include="Resources\btnDiscountsAdd.png" />
     <None Include="Resources\document-library.png" />
+    <None Include="Resources\5364ab4274a6f36b8d4340e42d7bfbed.jpg" />
     <Content Include="Resources\pict_edit.BMP" />
     <Content Include="Resources\pict_save.BMP" />
   </ItemGroup>

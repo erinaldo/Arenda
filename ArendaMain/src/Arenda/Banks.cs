@@ -37,7 +37,7 @@ namespace Arenda
             InitializeComponent();
             dgBanks.AutoGenerateColumns = false;
 
-            if (Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.ToLower().Equals("пр"))
+            if (TempData.Rezhim.ToLower().Equals("пр"))
             {
                 Logging.StartFirstLevel(1394);
                 Logging.Comment("Открыта форма просмотра справочника банков");
@@ -356,7 +356,12 @@ namespace Arenda
                         if (uniq(dgBanks.Rows[selected].Cells[1].Value.ToString(), dgBanks.Rows[selected].Cells[2].Value.ToString(), dgBanks.Rows[selected].Cells[3].Value.ToString()))
                         {
 
+                            DataTable dtResult = _proc.addeditBank(Convert.ToInt32(dgBanks.Rows[selected].Cells[0].Value), dgBanks.Rows[selected].Cells[1].Value.ToString(), dgBanks.Rows[selected].Cells[2].Value.ToString(), dgBanks.Rows[selected].Cells[3].Value.ToString(), mode, 1);
+
                             Logging.StartFirstLevel(1385);
+                            if (dtResult != null && dtResult.Rows.Count > 0 && dtResult.Columns.Contains("id"))
+                                Logging.Comment($"ID:{dtResult.Rows[0]["id"]}");
+
                             Logging.Comment("Наименование банка: " + dgBanks.Rows[selected].Cells[1].Value.ToString());
                             Logging.Comment("Корр. счет банка: " + dgBanks.Rows[selected].Cells[2].Value.ToString());
                             Logging.Comment("БИК банка: " + dgBanks.Rows[selected].Cells[3].Value.ToString());
@@ -366,7 +371,7 @@ namespace Arenda
                             Logging.StopFirstLevel();
 
 
-                            _proc.addeditBank(Convert.ToInt32(dgBanks.Rows[selected].Cells[0].Value), dgBanks.Rows[selected].Cells[1].Value.ToString(), dgBanks.Rows[selected].Cells[2].Value.ToString(), dgBanks.Rows[selected].Cells[3].Value.ToString(), mode, 1);
+                           
                             saving = false;
                             add = false;
                             mode = 3;

@@ -29,17 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditTenant));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditTenant));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lPassWord = new System.Windows.Forms.Label();
+            this.tbPassWord = new System.Windows.Forms.TextBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.tbFactAdress = new System.Windows.Forms.TextBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.btDelCon = new System.Windows.Forms.Button();
-            this.btAddCon = new System.Windows.Forms.Button();
             this.dgCon = new System.Windows.Forms.DataGridView();
             this.cNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cTenant = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -153,15 +153,8 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tbPlace = new System.Windows.Forms.TextBox();
             this.tbNumber = new System.Windows.Forms.TextBox();
-            this.btnView = new System.Windows.Forms.Button();
             this.label32 = new System.Windows.Forms.Label();
-            this.picConEnding = new System.Windows.Forms.PictureBox();
             this.label31 = new System.Windows.Forms.Label();
-            this.picConEnded = new System.Windows.Forms.PictureBox();
-            this.btPrint = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.tbLord = new System.Windows.Forms.TextBox();
             this.dgdoc = new System.Windows.Forms.DataGridView();
             this.iddoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -182,20 +175,27 @@
             this.tpBank = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbBankNotActive = new System.Windows.Forms.CheckBox();
-            this.btDelBank = new System.Windows.Forms.Button();
-            this.btEditBank = new System.Windows.Forms.Button();
-            this.btAddBank = new System.Windows.Forms.Button();
             this.dgvBank = new System.Windows.Forms.DataGridView();
             this.cBankName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cBankBik = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cBankKS = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cBankRS = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btExit = new System.Windows.Forms.Button();
             this.btAdd = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btDelCon = new System.Windows.Forms.Button();
+            this.btAddCon = new System.Windows.Forms.Button();
+            this.btnView = new System.Windows.Forms.Button();
+            this.picConEnding = new System.Windows.Forms.PictureBox();
+            this.picConEnded = new System.Windows.Forms.PictureBox();
+            this.btPrint = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.btDelBank = new System.Windows.Forms.Button();
+            this.btEditBank = new System.Windows.Forms.Button();
+            this.btAddBank = new System.Windows.Forms.Button();
             this.dbs = new System.Windows.Forms.BindingSource(this.components);
-            this.tbPassWord = new System.Windows.Forms.TextBox();
-            this.lPassWord = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox10.SuspendLayout();
@@ -212,16 +212,19 @@
             this.groupBox5.SuspendLayout();
             this.tbpAddInfo.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picConEnded)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgdoc)).BeginInit();
             this.tpBank.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBank)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConEnded)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbs)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tbpAddInfo);
@@ -231,7 +234,7 @@
             this.tabControl1.Location = new System.Drawing.Point(2, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(730, 482);
+            this.tabControl1.Size = new System.Drawing.Size(738, 482);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
@@ -262,9 +265,26 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(722, 456);
+            this.tabPage1.Size = new System.Drawing.Size(730, 456);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Основная информация";
+            // 
+            // lPassWord
+            // 
+            this.lPassWord.AutoSize = true;
+            this.lPassWord.Location = new System.Drawing.Point(578, 74);
+            this.lPassWord.Name = "lPassWord";
+            this.lPassWord.Size = new System.Drawing.Size(48, 13);
+            this.lPassWord.TabIndex = 50;
+            this.lPassWord.Text = "Пароль:";
+            // 
+            // tbPassWord
+            // 
+            this.tbPassWord.Location = new System.Drawing.Point(632, 70);
+            this.tbPassWord.Name = "tbPassWord";
+            this.tbPassWord.PasswordChar = '*';
+            this.tbPassWord.Size = new System.Drawing.Size(84, 20);
+            this.tbPassWord.TabIndex = 49;
             // 
             // groupBox10
             // 
@@ -299,28 +319,6 @@
             this.groupBox9.TabIndex = 48;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Связанные арендаторы";
-            // 
-            // btDelCon
-            // 
-            this.btDelCon.Image = global::Arenda.Properties.Resources.DeleteHS;
-            this.btDelCon.Location = new System.Drawing.Point(434, 53);
-            this.btDelCon.Name = "btDelCon";
-            this.btDelCon.Size = new System.Drawing.Size(35, 35);
-            this.btDelCon.TabIndex = 36;
-            this.toolTip1.SetToolTip(this.btDelCon, "Удалить");
-            this.btDelCon.UseVisualStyleBackColor = true;
-            this.btDelCon.Click += new System.EventHandler(this.btDelCon_Click);
-            // 
-            // btAddCon
-            // 
-            this.btAddCon.Image = global::Arenda.Properties.Resources.DocumentHS;
-            this.btAddCon.Location = new System.Drawing.Point(435, 13);
-            this.btAddCon.Name = "btAddCon";
-            this.btAddCon.Size = new System.Drawing.Size(35, 35);
-            this.btAddCon.TabIndex = 35;
-            this.toolTip1.SetToolTip(this.btAddCon, "Добавить");
-            this.btAddCon.UseVisualStyleBackColor = true;
-            this.btAddCon.Click += new System.EventHandler(this.btAddCon_Click);
             // 
             // dgCon
             // 
@@ -419,11 +417,10 @@
             // 
             // cmbObject
             // 
-            this.cmbObject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbObject.DisplayMember = "cName";
             this.cmbObject.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbObject.FormattingEnabled = true;
-            this.cmbObject.Location = new System.Drawing.Point(369, 6);
+            this.cmbObject.Location = new System.Drawing.Point(374, 6);
             this.cmbObject.Name = "cmbObject";
             this.cmbObject.Size = new System.Drawing.Size(350, 21);
             this.cmbObject.TabIndex = 41;
@@ -788,7 +785,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(722, 456);
+            this.tabPage2.Size = new System.Drawing.Size(730, 456);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Реквизиты";
             // 
@@ -1236,7 +1233,7 @@
             this.tbpAddInfo.Controls.Add(this.label33);
             this.tbpAddInfo.Location = new System.Drawing.Point(4, 22);
             this.tbpAddInfo.Name = "tbpAddInfo";
-            this.tbpAddInfo.Size = new System.Drawing.Size(722, 456);
+            this.tbpAddInfo.Size = new System.Drawing.Size(730, 456);
             this.tbpAddInfo.TabIndex = 3;
             this.tbpAddInfo.Text = "Дополнительно";
             this.tbpAddInfo.UseVisualStyleBackColor = true;
@@ -1434,21 +1431,21 @@
             this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage3.Controls.Add(this.tbPlace);
             this.tabPage3.Controls.Add(this.tbNumber);
-            this.tabPage3.Controls.Add(this.btnView);
             this.tabPage3.Controls.Add(this.label32);
-            this.tabPage3.Controls.Add(this.picConEnding);
             this.tabPage3.Controls.Add(this.label31);
+            this.tabPage3.Controls.Add(this.tbLord);
+            this.tabPage3.Controls.Add(this.dgdoc);
+            this.tabPage3.Controls.Add(this.btnView);
+            this.tabPage3.Controls.Add(this.picConEnding);
             this.tabPage3.Controls.Add(this.picConEnded);
             this.tabPage3.Controls.Add(this.btPrint);
             this.tabPage3.Controls.Add(this.button4);
             this.tabPage3.Controls.Add(this.button3);
             this.tabPage3.Controls.Add(this.button2);
-            this.tabPage3.Controls.Add(this.tbLord);
-            this.tabPage3.Controls.Add(this.dgdoc);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(722, 456);
+            this.tabPage3.Size = new System.Drawing.Size(730, 456);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Документы";
             // 
@@ -1470,19 +1467,6 @@
             this.tbNumber.TextChanged += new System.EventHandler(this.tbNumber_TextChanged);
             this.tbNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbNumber_KeyPress);
             // 
-            // btnView
-            // 
-            this.btnView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnView.Image = global::Arenda.Properties.Resources.glaz;
-            this.btnView.Location = new System.Drawing.Point(486, 408);
-            this.btnView.Name = "btnView";
-            this.btnView.Size = new System.Drawing.Size(32, 32);
-            this.btnView.TabIndex = 51;
-            this.toolTip1.SetToolTip(this.btnView, "Просмотр документа");
-            this.btnView.UseVisualStyleBackColor = true;
-            this.btnView.Visible = false;
-            this.btnView.Click += new System.EventHandler(this.btnView_Click);
-            // 
             // label32
             // 
             this.label32.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1493,17 +1477,6 @@
             this.label32.TabIndex = 41;
             this.label32.Text = "Заканчивающиеся";
             // 
-            // picConEnding
-            // 
-            this.picConEnding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.picConEnding.BackColor = System.Drawing.Color.Tomato;
-            this.picConEnding.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picConEnding.Location = new System.Drawing.Point(13, 428);
-            this.picConEnding.Name = "picConEnding";
-            this.picConEnding.Size = new System.Drawing.Size(12, 12);
-            this.picConEnding.TabIndex = 40;
-            this.picConEnding.TabStop = false;
-            // 
             // label31
             // 
             this.label31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -1513,65 +1486,6 @@
             this.label31.Size = new System.Drawing.Size(87, 13);
             this.label31.TabIndex = 39;
             this.label31.Text = "Закончившиеся";
-            // 
-            // picConEnded
-            // 
-            this.picConEnded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.picConEnded.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.picConEnded.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picConEnded.Location = new System.Drawing.Point(13, 410);
-            this.picConEnded.Name = "picConEnded";
-            this.picConEnded.Size = new System.Drawing.Size(12, 12);
-            this.picConEnded.TabIndex = 38;
-            this.picConEnded.TabStop = false;
-            // 
-            // btPrint
-            // 
-            this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btPrint.Image = ((System.Drawing.Image)(resources.GetObject("btPrint.Image")));
-            this.btPrint.Location = new System.Drawing.Point(573, 408);
-            this.btPrint.Name = "btPrint";
-            this.btPrint.Size = new System.Drawing.Size(32, 32);
-            this.btPrint.TabIndex = 34;
-            this.toolTip1.SetToolTip(this.btPrint, "Печать");
-            this.btPrint.UseVisualStyleBackColor = true;
-            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
-            // 
-            // button4
-            // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Image = global::Arenda.Properties.Resources.DeleteHS;
-            this.button4.Location = new System.Drawing.Point(684, 408);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(32, 32);
-            this.button4.TabIndex = 9;
-            this.toolTip1.SetToolTip(this.button4, "Удалить");
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Image = global::Arenda.Properties.Resources.DocumentHS;
-            this.button3.Location = new System.Drawing.Point(611, 408);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(31, 32);
-            this.button3.TabIndex = 8;
-            this.toolTip1.SetToolTip(this.button3, "Добавить");
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Image = global::Arenda.Properties.Resources.EditTableHS;
-            this.button2.Location = new System.Drawing.Point(648, 408);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(30, 32);
-            this.button2.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.button2, "Редактировать");
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // tbLord
             // 
@@ -1589,6 +1503,9 @@
             this.dgdoc.AllowUserToDeleteRows = false;
             this.dgdoc.AllowUserToOrderColumns = true;
             this.dgdoc.AllowUserToResizeRows = false;
+            this.dgdoc.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgdoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -1759,20 +1676,21 @@
             // 
             this.tpBank.Controls.Add(this.panel1);
             this.tpBank.Controls.Add(this.cbBankNotActive);
+            this.tpBank.Controls.Add(this.dgvBank);
             this.tpBank.Controls.Add(this.btDelBank);
             this.tpBank.Controls.Add(this.btEditBank);
             this.tpBank.Controls.Add(this.btAddBank);
-            this.tpBank.Controls.Add(this.dgvBank);
             this.tpBank.Location = new System.Drawing.Point(4, 22);
             this.tpBank.Name = "tpBank";
             this.tpBank.Padding = new System.Windows.Forms.Padding(3);
-            this.tpBank.Size = new System.Drawing.Size(722, 456);
+            this.tpBank.Size = new System.Drawing.Size(723, 456);
             this.tpBank.TabIndex = 4;
             this.tpBank.Text = "Банки";
             this.tpBank.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(204)))), ((int)(((byte)(255)))));
             this.panel1.Location = new System.Drawing.Point(10, 424);
             this.panel1.Name = "panel1";
@@ -1781,6 +1699,7 @@
             // 
             // cbBankNotActive
             // 
+            this.cbBankNotActive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cbBankNotActive.AutoSize = true;
             this.cbBankNotActive.Location = new System.Drawing.Point(35, 425);
             this.cbBankNotActive.Name = "cbBankNotActive";
@@ -1790,44 +1709,14 @@
             this.cbBankNotActive.UseVisualStyleBackColor = true;
             this.cbBankNotActive.Click += new System.EventHandler(this.cbBankNotActive_Click);
             // 
-            // btDelBank
-            // 
-            this.btDelBank.Image = global::Arenda.Properties.Resources.pict_delete;
-            this.btDelBank.Location = new System.Drawing.Point(681, 415);
-            this.btDelBank.Name = "btDelBank";
-            this.btDelBank.Size = new System.Drawing.Size(35, 35);
-            this.btDelBank.TabIndex = 36;
-            this.toolTip1.SetToolTip(this.btDelBank, "Удалить");
-            this.btDelBank.UseVisualStyleBackColor = true;
-            this.btDelBank.Click += new System.EventHandler(this.btDelBank_Click);
-            // 
-            // btEditBank
-            // 
-            this.btEditBank.Image = global::Arenda.Properties.Resources.pict_edit;
-            this.btEditBank.Location = new System.Drawing.Point(640, 415);
-            this.btEditBank.Name = "btEditBank";
-            this.btEditBank.Size = new System.Drawing.Size(35, 35);
-            this.btEditBank.TabIndex = 36;
-            this.toolTip1.SetToolTip(this.btEditBank, "Редактировать");
-            this.btEditBank.UseVisualStyleBackColor = true;
-            this.btEditBank.Click += new System.EventHandler(this.btEditBank_Click);
-            // 
-            // btAddBank
-            // 
-            this.btAddBank.Image = global::Arenda.Properties.Resources.DocumentHS;
-            this.btAddBank.Location = new System.Drawing.Point(599, 415);
-            this.btAddBank.Name = "btAddBank";
-            this.btAddBank.Size = new System.Drawing.Size(35, 35);
-            this.btAddBank.TabIndex = 36;
-            this.toolTip1.SetToolTip(this.btAddBank, "Добавить");
-            this.btAddBank.UseVisualStyleBackColor = true;
-            this.btAddBank.Click += new System.EventHandler(this.btAddBank_Click);
-            // 
             // dgvBank
             // 
             this.dgvBank.AllowUserToAddRows = false;
             this.dgvBank.AllowUserToDeleteRows = false;
             this.dgvBank.AllowUserToResizeRows = false;
+            this.dgvBank.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvBank.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
@@ -1849,7 +1738,7 @@
             this.dgvBank.ReadOnly = true;
             this.dgvBank.RowHeadersVisible = false;
             this.dgvBank.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvBank.Size = new System.Drawing.Size(710, 403);
+            this.dgvBank.Size = new System.Drawing.Size(711, 403);
             this.dgvBank.TabIndex = 0;
             this.dgvBank.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvBank_RowPostPaint);
             this.dgvBank.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvBank_RowPrePaint);
@@ -1883,10 +1772,15 @@
             this.cBankRS.Name = "cBankRS";
             this.cBankRS.ReadOnly = true;
             // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            // 
             // btExit
             // 
+            this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btExit.Image = ((System.Drawing.Image)(resources.GetObject("btExit.Image")));
-            this.btExit.Location = new System.Drawing.Point(690, 488);
+            this.btExit.Location = new System.Drawing.Point(708, 496);
             this.btExit.Name = "btExit";
             this.btExit.Size = new System.Drawing.Size(32, 32);
             this.btExit.TabIndex = 35;
@@ -1896,8 +1790,9 @@
             // 
             // btAdd
             // 
+            this.btAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btAdd.Image = global::Arenda.Properties.Resources.saveHS;
-            this.btAdd.Location = new System.Drawing.Point(649, 488);
+            this.btAdd.Location = new System.Drawing.Point(667, 496);
             this.btAdd.Name = "btAdd";
             this.btAdd.Size = new System.Drawing.Size(32, 32);
             this.btAdd.TabIndex = 34;
@@ -1905,39 +1800,157 @@
             this.btAdd.UseVisualStyleBackColor = true;
             this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
             // 
-            // toolTip1
+            // btDelCon
             // 
-            this.toolTip1.IsBalloon = true;
+            this.btDelCon.Image = global::Arenda.Properties.Resources.DeleteHS;
+            this.btDelCon.Location = new System.Drawing.Point(434, 53);
+            this.btDelCon.Name = "btDelCon";
+            this.btDelCon.Size = new System.Drawing.Size(35, 35);
+            this.btDelCon.TabIndex = 36;
+            this.toolTip1.SetToolTip(this.btDelCon, "Удалить");
+            this.btDelCon.UseVisualStyleBackColor = true;
+            this.btDelCon.Click += new System.EventHandler(this.btDelCon_Click);
             // 
-            // tbPassWord
+            // btAddCon
             // 
-            this.tbPassWord.Location = new System.Drawing.Point(632, 70);
-            this.tbPassWord.Name = "tbPassWord";
-            this.tbPassWord.PasswordChar = '*';
-            this.tbPassWord.Size = new System.Drawing.Size(84, 20);
-            this.tbPassWord.TabIndex = 49;
+            this.btAddCon.Image = global::Arenda.Properties.Resources.DocumentHS;
+            this.btAddCon.Location = new System.Drawing.Point(435, 13);
+            this.btAddCon.Name = "btAddCon";
+            this.btAddCon.Size = new System.Drawing.Size(35, 35);
+            this.btAddCon.TabIndex = 35;
+            this.toolTip1.SetToolTip(this.btAddCon, "Добавить");
+            this.btAddCon.UseVisualStyleBackColor = true;
+            this.btAddCon.Click += new System.EventHandler(this.btAddCon_Click);
             // 
-            // lPassWord
+            // btnView
             // 
-            this.lPassWord.AutoSize = true;
-            this.lPassWord.Location = new System.Drawing.Point(578, 74);
-            this.lPassWord.Name = "lPassWord";
-            this.lPassWord.Size = new System.Drawing.Size(48, 13);
-            this.lPassWord.TabIndex = 50;
-            this.lPassWord.Text = "Пароль:";
+            this.btnView.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnView.Image = global::Arenda.Properties.Resources.glaz;
+            this.btnView.Location = new System.Drawing.Point(494, 408);
+            this.btnView.Name = "btnView";
+            this.btnView.Size = new System.Drawing.Size(32, 32);
+            this.btnView.TabIndex = 51;
+            this.toolTip1.SetToolTip(this.btnView, "Просмотр документа");
+            this.btnView.UseVisualStyleBackColor = true;
+            this.btnView.Visible = false;
+            this.btnView.Click += new System.EventHandler(this.btnView_Click);
+            // 
+            // picConEnding
+            // 
+            this.picConEnding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picConEnding.BackColor = System.Drawing.Color.Tomato;
+            this.picConEnding.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picConEnding.Location = new System.Drawing.Point(13, 428);
+            this.picConEnding.Name = "picConEnding";
+            this.picConEnding.Size = new System.Drawing.Size(12, 12);
+            this.picConEnding.TabIndex = 40;
+            this.picConEnding.TabStop = false;
+            // 
+            // picConEnded
+            // 
+            this.picConEnded.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.picConEnded.BackColor = System.Drawing.Color.DarkSeaGreen;
+            this.picConEnded.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picConEnded.Location = new System.Drawing.Point(13, 410);
+            this.picConEnded.Name = "picConEnded";
+            this.picConEnded.Size = new System.Drawing.Size(12, 12);
+            this.picConEnded.TabIndex = 38;
+            this.picConEnded.TabStop = false;
+            // 
+            // btPrint
+            // 
+            this.btPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btPrint.Image = ((System.Drawing.Image)(resources.GetObject("btPrint.Image")));
+            this.btPrint.Location = new System.Drawing.Point(581, 408);
+            this.btPrint.Name = "btPrint";
+            this.btPrint.Size = new System.Drawing.Size(32, 32);
+            this.btPrint.TabIndex = 34;
+            this.toolTip1.SetToolTip(this.btPrint, "Печать");
+            this.btPrint.UseVisualStyleBackColor = true;
+            this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button4.Image = global::Arenda.Properties.Resources.DeleteHS;
+            this.button4.Location = new System.Drawing.Point(692, 408);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(32, 32);
+            this.button4.TabIndex = 9;
+            this.toolTip1.SetToolTip(this.button4, "Удалить");
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Image = global::Arenda.Properties.Resources.DocumentHS;
+            this.button3.Location = new System.Drawing.Point(619, 408);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(31, 32);
+            this.button3.TabIndex = 8;
+            this.toolTip1.SetToolTip(this.button3, "Добавить");
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Image = global::Arenda.Properties.Resources.EditTableHS;
+            this.button2.Location = new System.Drawing.Point(656, 408);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(30, 32);
+            this.button2.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.button2, "Редактировать");
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // btDelBank
+            // 
+            this.btDelBank.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btDelBank.Image = global::Arenda.Properties.Resources.pict_delete;
+            this.btDelBank.Location = new System.Drawing.Point(682, 415);
+            this.btDelBank.Name = "btDelBank";
+            this.btDelBank.Size = new System.Drawing.Size(35, 35);
+            this.btDelBank.TabIndex = 36;
+            this.toolTip1.SetToolTip(this.btDelBank, "Удалить");
+            this.btDelBank.UseVisualStyleBackColor = true;
+            this.btDelBank.Click += new System.EventHandler(this.btDelBank_Click);
+            // 
+            // btEditBank
+            // 
+            this.btEditBank.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btEditBank.Image = global::Arenda.Properties.Resources.pict_edit;
+            this.btEditBank.Location = new System.Drawing.Point(641, 415);
+            this.btEditBank.Name = "btEditBank";
+            this.btEditBank.Size = new System.Drawing.Size(35, 35);
+            this.btEditBank.TabIndex = 36;
+            this.toolTip1.SetToolTip(this.btEditBank, "Редактировать");
+            this.btEditBank.UseVisualStyleBackColor = true;
+            this.btEditBank.Click += new System.EventHandler(this.btEditBank_Click);
+            // 
+            // btAddBank
+            // 
+            this.btAddBank.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btAddBank.Image = global::Arenda.Properties.Resources.DocumentHS;
+            this.btAddBank.Location = new System.Drawing.Point(600, 415);
+            this.btAddBank.Name = "btAddBank";
+            this.btAddBank.Size = new System.Drawing.Size(35, 35);
+            this.btAddBank.TabIndex = 36;
+            this.toolTip1.SetToolTip(this.btAddBank, "Добавить");
+            this.btAddBank.UseVisualStyleBackColor = true;
+            this.btAddBank.Click += new System.EventHandler(this.btAddBank_Click);
             // 
             // AddEditTenant
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 532);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(744, 540);
             this.Controls.Add(this.btExit);
             this.Controls.Add(this.btAdd);
             this.Controls.Add(this.tabControl1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(752, 567);
             this.Name = "AddEditTenant";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -1973,12 +1986,12 @@
             this.tbpAddInfo.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.picConEnded)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgdoc)).EndInit();
             this.tpBank.ResumeLayout(false);
             this.tpBank.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBank)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConEnded)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dbs)).EndInit();
             this.ResumeLayout(false);
 

@@ -1,0 +1,152 @@
+USE [dbase2]
+GO
+
+/****** Object:  StoredProcedure [Arenda].[kav_getCurrentSections]    Script Date: 10.08.2020 10:24:03 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		kav
+-- Create date: 2020-07-15
+-- Description:	Просмотр занятости секций
+-- exec [Arenda].[kav_getCurrentSections]	
+-- =============================================
+CREATE PROCEDURE [Arenda].[kav_getCurrentSections]		 
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+--выборка по договорам
+	
+		select distinct
+	a.id_Section,
+	a.Start_Date,
+	a.Stop_Date,
+	a.id_Tenant,
+	a.isConfirmed,
+	a.Agreement,
+	ad.DateDocument as dateDocument1,
+	ad.Date_of_Departure as dateDeparture1,
+	ad.id_TypeDoc as typeDoc1,
+	AD.id_TypeDoc as typeDoc2,
+	AD.DateDocument as dateDocument2,
+	AD.Date_of_Departure as dateDerapture2,
+	AD.id as id
+	,AD1003.id_TypeDoc as typeDoc3
+	,AD1003.id as id3
+	,AD1003.comfId
+	,a.Total_Area
+	into #tmpAgreements
+	from Arenda.j_Agreements a 
+	left join Arenda.j_AdditionalDocuments ad on a.id = ad.id_Agreements and ad.id_TypeDoc = 6 
+
+	left join 
+		(select  
+		ad.id_Agreements, ad.DateDocument, 
+		ad.Date_of_Departure, ad.id_TypeDoc, ad.id, ad.id_PetitionLeave, adoc.id as comfId
+		from Arenda.j_AdditionalDocuments  ad
+		left join Arenda.j_AddDocConfirmed adoc on ad.id = adoc.id_AdditionalDocuments and adoc.isConfirmed = 1
+		where ad.id_TypeDoc = 8 )
+		AD on a.id = AD.id_Agreements and AD.DateDocument = (select max(DateDocument) from Arenda.j_AdditionalDocuments ad1 where
+		ad1.id_Agreements = a.id and ad1.id_TypeDoc = 8)
+	left join 
+		( select 
+		ad.id_Agreements, ad.DateDocument, 
+		ad.Date_of_Departure, ad.id_TypeDoc, ad.id, ad.id_PetitionLeave, adoc.id as comfId
+		from Arenda.j_AdditionalDocuments ad 
+		left join Arenda.j_AddDocConfirmed adoc on ad.id = adoc.id_AdditionalDocuments  and adoc.isConfirmed = 1
+		where id_TypeDoc = 9 
+		) AD1003 on a.id = AD1003.id_Agreements and AD1003.id_PetitionLeave = AD.id 
+	where a.isConfirmed = 1 and Convert(date,getdate()) >= a.Start_Date and CONVERT(date,getdate()) <= a.Stop_Date
+
+
+
+
+
+	select distinct
+		s.id as idSection, 
+		s.cName as nameSection,
+		f.id as idFloor,
+		f.cName as nameFloor,
+		b.id as idBuilding,
+		b.cName as nameBuilding,
+		o.id as  idObject,
+		o.cName as nameObject,
+	/*case when a.isConfirmed = 1 and exists (select top(1) id from Arenda.j_AdditionalDocuments ad
+										where ad.id_Agreements = a.id and id_TypeDoc = 7) 
+										then (select top(1) ad.DateDocument from Arenda.j_AdditionalDocuments ad
+											where ad.id_Agreements = a.id and id_TypeDoc = 7)
+										else a.Start_Date end as StartDate,
+		case when a.isConfirmed = 1 and exists (select top(1) id from Arenda.j_AdditionalDocuments ad
+										where ad.id_Agreements = a.id and id_TypeDoc = 6) 
+										then (select top(1) ad.DateDocument from Arenda.j_AdditionalDocuments ad
+											where ad.id_Agreements = a.id and id_TypeDoc =6)
+										else a.Stop_Date end as EndDate,
+		*/
+
+		case 
+			when --exists (select id from #tmpAgreements ta where id_Section = s.id and
+			a.dateDocument1 is not null and a.typeDoc1=6 then a.dateDocument1
+			when --(select id from #tmpAgreements ta where id_Section = s.id
+				 a.dateDocument1 is null and a.dateDerapture2 is not null and comfId is null then a.dateDerapture2
+			when (a.dateDocument1 is null and comfId is not null) then a.Stop_Date
+				else a.Stop_Date end as EndDate,
+		
+		case when a.isConfirmed = 1 and exists (select top(1) id from Arenda.j_AdditionalDocuments ad
+										where ad.id_Agreements = a.id and id_TypeDoc = 7) 
+										then (select top(1) ad.DateDocument from Arenda.j_AdditionalDocuments ad
+											where ad.id_Agreements = a.id and id_TypeDoc = 7)
+										else a.Start_Date end as StartDate,
+
+		--a.isConfirmed,
+
+	--	(select top 1 ta.Start_Date from #tmpAgreements ta where ta.id_Section = s.id) as StartDate
+
+	--	,(select top 1 ta.Stop_Date from #tmpAgreements ta where ta.id_Section = s.id) as EndDate
+		-- 0 свободные, 1 освобождающиеся, 2 занятые
+	case when	(--условия в порядке убывания
+				
+		--	exists (select id from #tmpAgreements ta where id_Section = s.id and 
+		(	(a.dateDocument1 is null and DATEADD(day,-30,a.Stop_Date) > GETDATE() and a.dateDocument2 is null)
+			or (dateadd(day,-30,dateDocument1) > getdate() )
+			or (dateDocument1 is null and DATEADD(day, -30, dateDerapture2) > getdate() and a.comfId is null)
+			or (dateadd(day, -30, Stop_Date) > getdate() and dateadd(day,-30, dateDerapture2) > getdate() and a.comfId is null )
+			or (dateDerapture2 < getdate() )
+			or (a.Stop_Date < getdate() ) and dateDeparture1 is null and dateDerapture2 is null) ) 
+
+						then 2
+			when	--условия в порядке убывания
+				--exists (select id from #tmpAgreements ta where id_Section = s.id and 
+				((a.dateDocument1 is null and DATEADD(day,-30,a.Stop_Date) < GETDATE() and a.Stop_Date > getdate() and a.dateDocument2 is null)
+				or ( dateadd(day,-30,dateDocument1) < getdate() and dateDocument1 > getdate())
+				or (dateDocument1 is null and DATEADD(day, -30, dateDerapture2) < getdate() and a.comfId is null and dateDerapture2 > getdate())
+				or (dateadd(day, -30, Stop_Date) < getdate() and dateadd(day,-30, dateDerapture2) > getdate() and a.comfId is null and Stop_Date > getdate() ) )
+						then 1
+			else 0 end as typeSection,
+		
+		a.Agreement as numDoc,
+		org.Abbreviation + ' ' + l.cName as nameArenda,
+		a.Total_Area as agrTotalArea,
+		s.Total_Area as secTotalArea
+	from Arenda.s_Sections s
+	left join Arenda.s_Floors f on s.id_Floor = f.id and f.isActive = 1
+	left join Arenda.s_Building b on s.id_Building = b.id and b.isActive = 1
+	left join Arenda.s_ObjectLease o on s.id_ObjectLease = o.id and o.isActive = 1
+	left join #tmpAgreements a on s.id = a.id_Section 		
+	left join Arenda.s_Landlord_Tenant l on a.id_Tenant = l.id
+	left join Arenda.s_Type_of_Organization org  on l.id_Type_Of_Organization = org.id
+	where s.isActive = 1
+
+ drop table #tmpAgreements
+END
+
+
+
+/*
+select * from Arenda.j_Agreements where id_Section = 2017 --1028
+*/
+GO
+

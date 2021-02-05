@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Nwuram.Framework.Logging;
 using Nwuram.Framework.Settings.Connection;
 
 namespace Arenda
@@ -37,7 +38,7 @@ namespace Arenda
 
         private void SetButtonsEnabled()
         {
-            if (Nwuram.Framework.Settings.User.UserSettings.User.StatusCode.Equals("РКВ"))
+            if (TempData.Rezhim.Equals("РКВ"))
             {
                 btDel.Enabled = dgvObjects.Rows.Count > 0 && dgvObjects.CurrentRow != null;
                 btEdit.Enabled = dgvObjects.Rows.Count > 0 && dgvObjects.CurrentRow != null
@@ -145,12 +146,51 @@ namespace Arenda
                             return;
                         }
                     }
+
+                    if (used)
+                    {
+                        Logging.StartFirstLevel(540);
+
+                        Logging.Comment($"Смена статуса объекта аренды на недействующий");
+                        Logging.Comment($"ID:{dgvObjects.CurrentRow.Cells["id"].Value}");
+
+                        Logging.Comment($"Наименование: {dgvObjects.CurrentRow.Cells["cName"].Value}");
+                        Logging.Comment($"Аббревиатура: {dgvObjects.CurrentRow.Cells["Comment"].Value }");
+                        Logging.Comment($"Кадастровый номер {dgvObjects.CurrentRow.Cells["CadastralNumber"].Value}");
+
+                        Logging.StopFirstLevel();
+                    }
+                    else
+                    {
+                        Logging.StartFirstLevel((int)logEnum.Удаление_объекта_аренды);
+                                                
+                        Logging.Comment($"ID:{dgvObjects.CurrentRow.Cells["id"].Value}");
+
+                        Logging.Comment($"Наименование: {dgvObjects.CurrentRow.Cells["cName"].Value}");
+                        Logging.Comment($"Аббревиатура: {dgvObjects.CurrentRow.Cells["Comment"].Value }");
+                        Logging.Comment($"Кадастровый номер {dgvObjects.CurrentRow.Cells["CadastralNumber"].Value}");
+
+                        Logging.StopFirstLevel();
+                    }
+
                     proc.ChangeObjectActiveStatus(Convert.ToInt32(dgvObjects.CurrentRow.Cells["id"].Value), false, used, dgvObjects.CurrentRow.Cells["Comment"].Value.ToString());
                     GetObjects();
                 }
             }
             else if (MessageBox.Show("Сделать выбранную запись действующей?", "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
+
+                Logging.StartFirstLevel(540);
+
+                Logging.Comment($"Смена статуса объекта аренды на действующий");
+                Logging.Comment($"ID:{dgvObjects.CurrentRow.Cells["id"].Value}");
+
+                Logging.Comment($"Наименование: {dgvObjects.CurrentRow.Cells["cName"].Value}");
+                Logging.Comment($"Аббревиатура: {dgvObjects.CurrentRow.Cells["Comment"].Value }");
+                Logging.Comment($"Кадастровый номер {dgvObjects.CurrentRow.Cells["CadastralNumber"].Value}");
+
+                Logging.StopFirstLevel();
+
                 proc.ChangeObjectActiveStatus(Convert.ToInt32(dgvObjects.CurrentRow.Cells["id"].Value), true, true, dgvObjects.CurrentRow.Cells["Comment"].Value.ToString());
                 GetObjects();
             }

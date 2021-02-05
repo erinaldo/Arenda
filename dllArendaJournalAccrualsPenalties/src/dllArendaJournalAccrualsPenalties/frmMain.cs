@@ -582,7 +582,7 @@ namespace dllArendaJournalAccrualsPenalties
             {
                 int CountDaysCredit = (int)dtData.DefaultView[e.RowIndex]["CountDaysCredit"];
                 decimal SummaCredit = (decimal)dtData.DefaultView[e.RowIndex]["SummaCredit"];
-                SummaPenalty = ((SummaCredit * PercentPenalty) / 100)* CountDaysCredit;                
+                SummaPenalty = Math.Round(((SummaCredit * PercentPenalty) / 100)* CountDaysCredit);                
             }
 
 
@@ -734,8 +734,9 @@ namespace dllArendaJournalAccrualsPenalties
                         return;
                     }
 
-                    Logging.StartFirstLevel(1569);
+                    Logging.StartFirstLevel((int)logEnum.Подтверждение_пени);
                     Logging.Comment($"ID: {id}");
+                    Logging.Comment($"ID договора: {id_Agreements}");
                     foreach (DataGridViewColumn col in dgvData.Columns)
                     {
                         if (col.Visible)
@@ -759,6 +760,13 @@ namespace dllArendaJournalAccrualsPenalties
             Logging.StartFirstLevel(79);
 
             Logging.Comment($"Фомирование отчёта из \"{this.Text}\"");
+
+            Logging.Comment($"Договор:{tbAgreement.Text}");
+            Logging.Comment($"Арендатор:{tbTenant.Text}");
+            Logging.Comment($"Период начисления:{cmbPeriodCredit.Text}");
+            Logging.Comment($"Объект аренды:{cmbObject.Text}");
+            Logging.Comment($"Тип договора:{cmbTypeContract.Text}");
+            Logging.Comment($"Подтвержденные пени: {(chbCongressAccept.Checked ? "Да" : "Нет")}");
 
             Logging.StopFirstLevel();
 

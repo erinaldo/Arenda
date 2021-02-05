@@ -177,5 +177,17 @@
   <ItemGroup>
     <None Include="Resources\agt_action_fail_2870.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plus.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

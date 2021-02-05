@@ -143,6 +143,9 @@ namespace Arenda
             Logging.Comment("Период с " + dtpDate1.Value.ToShortDateString() + " по " + dtpDate2.Value.ToShortDateString());
             Logging.Comment("Договор ID: " + cboContract.SelectedValue + " ; Наименование: " + cboContract.Text);
 
+            Logging.Comment($"Эл.почта:{dtAgreem.Rows[0]["email"]}");
+            Logging.Comment($"Раб.телефон:{dtAgreem.Rows[0]["Work_phone"]}");
+
             Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
             + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
             Logging.StopFirstLevel();

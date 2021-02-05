@@ -101,11 +101,11 @@ namespace Arenda.Reports
 
                 List<int> numbers = new List<int>() { 1, 3, 2 };
                 //for (int i = 1; i <= 3; i++)
-                foreach(int i in numbers)
+                foreach (int i in numbers)
                 {
                     EnumerableRowCollection<DataRow> rowCollect = dtReport.AsEnumerable()
                     .Where(r => r.Field<int>("id_PayType") == i)
-                    .OrderBy(r=>r.Field<DateTime>("Date"));
+                    .OrderBy(r => r.Field<DateTime>("Date"));
                     if (rowCollect.Count() == 0) continue;
 
 
@@ -115,7 +115,7 @@ namespace Arenda.Reports
                         report.changeNameTab(rowCollect.First()["namePayType"].ToString());
                     }
                     else report.GoToNextSheet(rowCollect.First()["namePayType"].ToString());
-                    
+
                     indexRow = 1;
 
                     #region "Head"
@@ -149,15 +149,14 @@ namespace Arenda.Reports
                     report.AddSingleValue("Местоположение по договору", indexRow, 4);
                     report.SetPrintRepeatHead(indexRow, indexRow);
 
-
-
                     #region "Обеспечительный платёж"
-                    if (i == 1) {                                               
-                        maxColumns = 8;                    
+                    if (i == 1)
+                    {
+                        maxColumns = 8;
                         setWidthColumn(indexRow, 5, 14, report);
                         setWidthColumn(indexRow, 6, 17, report);
                         setWidthColumn(indexRow, 7, 20, report);
-                                               
+
                         report.AddSingleValue("Дата оплаты", indexRow, 5);
                         report.AddSingleValue("Сумма оплаты", indexRow, 6);
                         report.AddSingleValue("Тип обеспечительного платежа", indexRow, 7);
@@ -172,10 +171,10 @@ namespace Arenda.Reports
                         indexRow++;
 
                         EnumerableRowCollection<DataRow> Rows = rowCollect.Where(r => r.Field<bool>("isCash"));
-                        if (Rows.Count() >0)
+                        if (Rows.Count() > 0)
                         {
                             report.Merge(indexRow, 1, indexRow, maxColumns);
-                            report.AddSingleValue("Наличные", indexRow,1);
+                            report.AddSingleValue("Наличные", indexRow, 1);
                             report.SetFontBold(indexRow, 1, indexRow, maxColumns);
                             report.SetBorders(indexRow, 1, indexRow, maxColumns);
                             report.SetWrapText(indexRow, 1, indexRow, maxColumns);
@@ -183,25 +182,38 @@ namespace Arenda.Reports
                             report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
                             indexRow++;
 
-                            foreach (DataRow row in Rows)
+                            var gData = Rows.AsEnumerable().GroupBy(g => new { Date = g.Field<DateTime>("Date") }).Select(s => new { s.Key.Date });
+                            foreach (var rData in gData)
                             {
-                                report.SetWrapText(indexRow, 1, indexRow, maxColumns);
-
-                                addDataToCell(row["nameTenant"], indexRow, 1, report);
-                                addDataToCell(row["nameLandLord"], indexRow, 2, report);
-                                addDataToCell(row["Agreement"], indexRow, 3, report);
-                                addDataToCell(row["namePlace"], indexRow, 4, report);
-
-                                addDataToCell(row["Date"], indexRow, 5, report);
-                                addDataToCell(row["Summa"], indexRow, 6, report);
-                                addDataToCell(row["nameSavePayment"], indexRow, 7, report);
-                                addDataToCell(row["nameToTenant"], indexRow, 8, report);
-
-
+                                report.Merge(indexRow, 1, indexRow, maxColumns);
+                                report.AddSingleValue($"{rData.Date.ToShortDateString()}", indexRow, 1);
+                                report.SetFontBold(indexRow, 1, indexRow, maxColumns);
                                 report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                                report.SetWrapText(indexRow, 1, indexRow, maxColumns);
                                 report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
                                 report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
                                 indexRow++;
+
+                                foreach (DataRow row in Rows.AsEnumerable().Where(r => r.Field<DateTime>("Date").Date == rData.Date))
+                                {
+                                    report.SetWrapText(indexRow, 1, indexRow, maxColumns);
+
+                                    addDataToCell(row["nameTenant"], indexRow, 1, report);
+                                    addDataToCell(row["nameLandLord"], indexRow, 2, report);
+                                    addDataToCell(row["Agreement"], indexRow, 3, report);
+                                    addDataToCell(row["namePlace"], indexRow, 4, report);
+
+                                    addDataToCell(row["Date"], indexRow, 5, report);
+                                    addDataToCell(row["Summa"], indexRow, 6, report);
+                                    addDataToCell(row["nameSavePayment"], indexRow, 7, report);
+                                    addDataToCell(row["nameToTenant"], indexRow, 8, report);
+
+
+                                    report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                                    report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+                                    report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
+                                    indexRow++;
+                                }
                             }
                         }
 
@@ -217,31 +229,46 @@ namespace Arenda.Reports
                             report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
                             indexRow++;
 
-                            foreach (DataRow row in Rows)
+                            var gData = Rows.AsEnumerable().GroupBy(g => new { Date = g.Field<DateTime>("Date") }).Select(s => new { s.Key.Date });
+                            foreach (var rData in gData)
                             {
-                                report.SetWrapText(indexRow, 1, indexRow, maxColumns);
-
-                                addDataToCell(row["nameTenant"], indexRow, 1, report);
-                                addDataToCell(row["nameLandLord"], indexRow, 2, report);
-                                addDataToCell(row["Agreement"], indexRow, 3, report);
-                                addDataToCell(row["namePlace"], indexRow, 4, report);
-
-                                addDataToCell(row["Date"], indexRow, 5, report);
-                                addDataToCell(row["Summa"], indexRow, 6, report);
-                                addDataToCell(row["nameSavePayment"], indexRow, 7, report);
-                                addDataToCell(row["nameToTenant"], indexRow, 8, report);
-
+                                report.Merge(indexRow, 1, indexRow, maxColumns);
+                                report.AddSingleValue($"{rData.Date.ToShortDateString()}", indexRow, 1);
+                                report.SetFontBold(indexRow, 1, indexRow, maxColumns);
                                 report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                                report.SetWrapText(indexRow, 1, indexRow, maxColumns);
                                 report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
                                 report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
                                 indexRow++;
+
+                                foreach (DataRow row in Rows.AsEnumerable().Where(r => r.Field<DateTime>("Date").Date == rData.Date))
+                                {
+
+                                    report.SetWrapText(indexRow, 1, indexRow, maxColumns);
+
+                                    addDataToCell(row["nameTenant"], indexRow, 1, report);
+                                    addDataToCell(row["nameLandLord"], indexRow, 2, report);
+                                    addDataToCell(row["Agreement"], indexRow, 3, report);
+                                    addDataToCell(row["namePlace"], indexRow, 4, report);
+
+                                    addDataToCell(row["Date"], indexRow, 5, report);
+                                    addDataToCell(row["Summa"], indexRow, 6, report);
+                                    addDataToCell(row["nameSavePayment"], indexRow, 7, report);
+                                    addDataToCell(row["nameToTenant"], indexRow, 8, report);
+
+                                    report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                                    report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+                                    report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
+                                    indexRow++;
+                                }
                             }
                         }
                     }
                     #endregion
 
                     #region "Оплата аренды"
-                    if (i == 2) {
+                    if (i == 2)
+                    {
                         maxColumns = 8;
                         setWidthColumn(indexRow, 5, 14, report);
                         setWidthColumn(indexRow, 6, 17, report);
@@ -273,24 +300,37 @@ namespace Arenda.Reports
                             report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
                             indexRow++;
 
-                            foreach (DataRow row in Rows)
+                            var gData = Rows.AsEnumerable().GroupBy(g => new { Date = g.Field<DateTime>("Date") }).Select(s => new { s.Key.Date });
+                            foreach (var rData in gData)
                             {
-                                report.SetWrapText(indexRow, 1, indexRow, maxColumns);
-
-                                addDataToCell(row["nameTenant"], indexRow, 1, report);
-                                addDataToCell(row["nameLandLord"], indexRow, 2, report);
-                                addDataToCell(row["Agreement"], indexRow, 3, report);
-                                addDataToCell(row["namePlace"], indexRow, 4, report);
-
-                                addDataToCell(row["Date"], indexRow, 5, report);
-                                addDataToCell(row["Summa"], indexRow, 6, report);
-                                addDataToCell(row["nameToTenant"], indexRow, 7, report);
-                                addDataToCell(row["PlaneDate"], indexRow, 8, report);
-
+                                report.Merge(indexRow, 1, indexRow, maxColumns);
+                                report.AddSingleValue($"{rData.Date.ToShortDateString()}", indexRow, 1);
+                                report.SetFontBold(indexRow, 1, indexRow, maxColumns);
                                 report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                                report.SetWrapText(indexRow, 1, indexRow, maxColumns);
                                 report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
                                 report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
                                 indexRow++;
+
+                                foreach (DataRow row in Rows.AsEnumerable().Where(r => r.Field<DateTime>("Date").Date == rData.Date))
+                                {
+                                    report.SetWrapText(indexRow, 1, indexRow, maxColumns);
+
+                                    addDataToCell(row["nameTenant"], indexRow, 1, report);
+                                    addDataToCell(row["nameLandLord"], indexRow, 2, report);
+                                    addDataToCell(row["Agreement"], indexRow, 3, report);
+                                    addDataToCell(row["namePlace"], indexRow, 4, report);
+
+                                    addDataToCell(row["Date"], indexRow, 5, report);
+                                    addDataToCell(row["Summa"], indexRow, 6, report);
+                                    addDataToCell(row["nameToTenant"], indexRow, 7, report);
+                                    addDataToCell(row["PlaneDate"], indexRow, 8, report);
+
+                                    report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                                    report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+                                    report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
+                                    indexRow++;
+                                }
                             }
                         }
 
@@ -306,31 +346,45 @@ namespace Arenda.Reports
                             report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
                             indexRow++;
 
-                            foreach (DataRow row in Rows)
+                            var gData = Rows.AsEnumerable().GroupBy(g => new { Date = g.Field<DateTime>("Date") }).Select(s => new { s.Key.Date });
+                            foreach (var rData in gData)
                             {
-                                report.SetWrapText(indexRow, 1, indexRow, maxColumns);
-
-                                addDataToCell(row["nameTenant"], indexRow, 1, report);
-                                addDataToCell(row["nameLandLord"], indexRow, 2, report);
-                                addDataToCell(row["Agreement"], indexRow, 3, report);
-                                addDataToCell(row["namePlace"], indexRow, 4, report);
-
-                                addDataToCell(row["Date"], indexRow, 5, report);
-                                addDataToCell(row["Summa"], indexRow, 6, report);
-                                addDataToCell(row["nameToTenant"], indexRow, 7, report);
-                                addDataToCell(row["PlaneDate"], indexRow, 8, report);
-
+                                report.Merge(indexRow, 1, indexRow, maxColumns);
+                                report.AddSingleValue($"{rData.Date.ToShortDateString()}", indexRow, 1);
+                                report.SetFontBold(indexRow, 1, indexRow, maxColumns);
                                 report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                                report.SetWrapText(indexRow, 1, indexRow, maxColumns);
                                 report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
                                 report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
                                 indexRow++;
+
+                                foreach (DataRow row in Rows.AsEnumerable().Where(r => r.Field<DateTime>("Date").Date == rData.Date))
+                                {
+                                    report.SetWrapText(indexRow, 1, indexRow, maxColumns);
+
+                                    addDataToCell(row["nameTenant"], indexRow, 1, report);
+                                    addDataToCell(row["nameLandLord"], indexRow, 2, report);
+                                    addDataToCell(row["Agreement"], indexRow, 3, report);
+                                    addDataToCell(row["namePlace"], indexRow, 4, report);
+
+                                    addDataToCell(row["Date"], indexRow, 5, report);
+                                    addDataToCell(row["Summa"], indexRow, 6, report);
+                                    addDataToCell(row["nameToTenant"], indexRow, 7, report);
+                                    addDataToCell(row["PlaneDate"], indexRow, 8, report);
+
+                                    report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                                    report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+                                    report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
+                                    indexRow++;
+                                }
                             }
                         }
                     }
                     #endregion
 
                     #region "Дополнительная оплата"
-                    if (i == 3) {
+                    if (i == 3)
+                    {
                         maxColumns = 10;
                         setWidthColumn(indexRow, 5, 17, report);
                         setWidthColumn(indexRow, 6, 13, report);
@@ -367,28 +421,41 @@ namespace Arenda.Reports
                             report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
                             indexRow++;
 
-                            foreach (DataRow row in Rows)
+                            var gData = Rows.AsEnumerable().GroupBy(g => new { Date = g.Field<DateTime>("Date") }).Select(s => new { s.Key.Date });
+                            foreach (var rData in gData)
                             {
-                                report.SetWrapText(indexRow, 1, indexRow, maxColumns);
-
-                                addDataToCell(row["nameTenant"], indexRow, 1, report);
-                                addDataToCell(row["nameLandLord"], indexRow, 2, report);
-                                addDataToCell(row["Agreement"], indexRow, 3, report);
-                                addDataToCell(row["namePlace"], indexRow, 4, report);
-
-
-                                addDataToCell(row["nameAddPayment"], indexRow, 5, report);
-                                addDataToCell(row["DateFines"], indexRow, 6, report);
-
-                                addDataToCell(row["Date"], indexRow, 7, report);
-                                addDataToCell(row["Summa"], indexRow, 8, report);
-                                addDataToCell(row["nameToTenant"], indexRow, 9, report);
-                                addDataToCell(row["PlaneDate"], indexRow, 10, report);
-
+                                report.Merge(indexRow, 1, indexRow, maxColumns);
+                                report.AddSingleValue($"{rData.Date.ToShortDateString()}", indexRow, 1);
+                                report.SetFontBold(indexRow, 1, indexRow, maxColumns);
                                 report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                                report.SetWrapText(indexRow, 1, indexRow, maxColumns);
                                 report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
                                 report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
                                 indexRow++;
+
+                                foreach (DataRow row in Rows.AsEnumerable().Where(r => r.Field<DateTime>("Date").Date == rData.Date))
+                                {
+                                    report.SetWrapText(indexRow, 1, indexRow, maxColumns);
+
+                                    addDataToCell(row["nameTenant"], indexRow, 1, report);
+                                    addDataToCell(row["nameLandLord"], indexRow, 2, report);
+                                    addDataToCell(row["Agreement"], indexRow, 3, report);
+                                    addDataToCell(row["namePlace"], indexRow, 4, report);
+
+
+                                    addDataToCell(row["nameAddPayment"], indexRow, 5, report);
+                                    addDataToCell(row["DateFines"], indexRow, 6, report);
+
+                                    addDataToCell(row["Date"], indexRow, 7, report);
+                                    addDataToCell(row["Summa"], indexRow, 8, report);
+                                    addDataToCell(row["nameToTenant"], indexRow, 9, report);
+                                    addDataToCell(row["PlaneDate"], indexRow, 10, report);
+
+                                    report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                                    report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+                                    report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
+                                    indexRow++;
+                                }
                             }
                         }
 
@@ -404,32 +471,42 @@ namespace Arenda.Reports
                             report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
                             indexRow++;
 
-                            foreach (DataRow row in Rows)
+                            var gData = Rows.AsEnumerable().GroupBy(g => new { Date = g.Field<DateTime>("Date") }).Select(s => new { s.Key.Date });
+                            foreach (var rData in gData)
                             {
-                                report.SetWrapText(indexRow, 1, indexRow, maxColumns);
-
-                                addDataToCell(row["nameTenant"], indexRow, 1, report);
-                                addDataToCell(row["nameLandLord"], indexRow, 2, report);
-                                addDataToCell(row["Agreement"], indexRow, 3, report);
-                                addDataToCell(row["namePlace"], indexRow, 4, report);
-
-                                addDataToCell(row["nameAddPayment"], indexRow, 5, report);
-                                addDataToCell(row["DateFines"], indexRow, 6, report);
-
-                                addDataToCell(row["Date"], indexRow, 7, report);
-                                addDataToCell(row["Summa"], indexRow, 8, report);
-                                addDataToCell(row["nameToTenant"], indexRow, 9, report);
-                                addDataToCell(row["PlaneDate"], indexRow, 10, report);
-
+                                report.Merge(indexRow, 1, indexRow, maxColumns);
+                                report.AddSingleValue($"{rData.Date.ToShortDateString()}", indexRow, 1);
+                                report.SetFontBold(indexRow, 1, indexRow, maxColumns);
                                 report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                                report.SetWrapText(indexRow, 1, indexRow, maxColumns);
                                 report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
                                 report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
                                 indexRow++;
+
+                                foreach (DataRow row in Rows.AsEnumerable().Where(r => r.Field<DateTime>("Date").Date == rData.Date))
+                                {
+                                    report.SetWrapText(indexRow, 1, indexRow, maxColumns);
+
+                                    addDataToCell(row["nameTenant"], indexRow, 1, report);
+                                    addDataToCell(row["nameLandLord"], indexRow, 2, report);
+                                    addDataToCell(row["Agreement"], indexRow, 3, report);
+                                    addDataToCell(row["namePlace"], indexRow, 4, report);
+
+                                    addDataToCell(row["nameAddPayment"], indexRow, 5, report);
+                                    addDataToCell(row["DateFines"], indexRow, 6, report);
+
+                                    addDataToCell(row["Date"], indexRow, 7, report);
+                                    addDataToCell(row["Summa"], indexRow, 8, report);
+                                    addDataToCell(row["nameToTenant"], indexRow, 9, report);
+                                    addDataToCell(row["PlaneDate"], indexRow, 10, report);
+
+                                    report.SetBorders(indexRow, 1, indexRow, maxColumns);
+                                    report.SetCellAlignmentToCenter(indexRow, 1, indexRow, maxColumns);
+                                    report.SetCellAlignmentToJustify(indexRow, 1, indexRow, maxColumns);
+                                    indexRow++;
+                                }
                             }
                         }
-
-
-
                     }
                     #endregion
 

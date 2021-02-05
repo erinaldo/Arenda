@@ -44,6 +44,7 @@ namespace Arenda
                 txtNum.Text = dt.Rows[0]["Agreement"].ToString().Trim();
                 dtpDate.Value = DateTime.Parse(dt.Rows[0]["Date_of_Conclusion"].ToString());
                 txtTenant.Text = dt.Rows[0]["Tenant_name"].ToString().Trim();
+                tbLandLord.Text = $"{dt.Rows[0]["Obj"].ToString().Trim()}/{dt.Rows[0]["Landlord_name"].ToString().Trim()}";
                 txtSum.Text = numTextBox.CheckAndChange(dt.Rows[0]["Total_Sum"].ToString().Trim(), 2, 0, 999999999, false, "0.00", "{0:# ### ### ##0.00}");
                 Phone = decimal.Parse(dt.Rows[0]["Phone"].ToString());
                 idArend = dt.Rows[0]["id_Tenant"].ToString();
@@ -126,7 +127,13 @@ namespace Arenda
 
         private void Add(int? id_SavePayment)
         {
-            frmAddPayment frmAddP = new frmAddPayment(0, id, txtNum.Text, Reklama, id_SavePayment);
+            frmAddPayment frmAddP = new frmAddPayment(0, id, txtNum.Text, Reklama, id_SavePayment)
+            {
+                _txtNum = txtNum.Text,
+                _txtTenant = txtTenant.Text,
+                _txtSum = txtSum.Text,
+                _idArend = idArend
+            };                        
             frmAddP.ShowDialog();
             GetData();
         }
@@ -212,14 +219,27 @@ namespace Arenda
 
                 Logging.StartFirstLevel(182);
                 Logging.Comment(operation);
-                Logging.Comment("");
+                Logging.Comment("Информация по договору:");
+                Logging.Comment($"ID договора:{idArend}");
+                Logging.Comment($"Номер договора:{txtNum.Text}");
+                Logging.Comment($"Наименование арендатора:{txtTenant.Text}");
+                Logging.Comment($"Аренда {txtSum.Text} руб");
+
+                Logging.Comment("Информация по оплате");
                 Logging.Comment("id оплаты = " + id_payment.ToString());
                 Logging.Comment("Дата: " + dr["PaymentDate"].ToString());
                 Logging.Comment("Сумма оплаты: " + dr["PaymentSum"].ToString());
                 Logging.Comment("Признак оплаты: " +
                     ((!Reklama) ? "Аренда" : "Реклама")
                     );
-                Logging.Comment("");
+
+                Logging.Comment($"Тип оплаты:{dr["namePaymentType"]}");
+                Logging.Comment($"План месяц:{dr["PaymentDate"]}");
+
+                Logging.Comment($"Тип оплаты:{dr["typeCash"]}");
+                Logging.Comment($"Вид оплаты:{dr["typeTenant"]}");
+
+
 
                 for (int i = 0; dtDetails.Rows.Count > i; i++)
                 {

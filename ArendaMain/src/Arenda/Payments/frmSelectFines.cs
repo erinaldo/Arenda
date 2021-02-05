@@ -45,7 +45,7 @@ namespace Arenda.Payments
             infoPay.pfSumma = (decimal)dtData.DefaultView[dgvData.CurrentRow.Index]["pfSumma"];
             infoPay.resDolg = (decimal)dtData.DefaultView[dgvData.CurrentRow.Index]["resDolg"];
             infoPay.PlanDate = dtData.DefaultView[dgvData.CurrentRow.Index]["PlanDate"].ToString();
-            
+            infoPay.sumUse = (decimal)dtData.DefaultView[dgvData.CurrentRow.Index]["sumUse"];
 
             id_fine = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id"];
 

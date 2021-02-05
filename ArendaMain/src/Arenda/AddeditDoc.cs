@@ -1109,14 +1109,25 @@ namespace Arenda
 
                         string operation = "Добавление договора";
 
-                        Logging.Comment(operation);
-                        Logging.Comment("");
+                        Logging.Comment(operation);                        
                         Logging.Comment("id договора = " + _id.ToString());
+
+                        #region "Договор"
+                        Logging.Comment("Договор");
+                        Logging.Comment($"Тип договора ID:{cmbTypeDog.SelectedValue}; Наименование:{ cmbTypeDog.SelectedText}");                        
                         Logging.Comment("Арендатор ID: " + id_ten + "; Наименование: " + tbTen.Text);
                         Logging.Comment("Арендодатель ID: " + id_lord + "; Наименование: " + tbLord.Text);
                         Logging.Comment("Номер договора: " + tbnumd.Text);
                         Logging.Comment("Дата заключения договора: " + doc.Value.ToShortDateString());
                         Logging.Comment("Срок аренды: с " + startdate.Value.ToShortDateString() + " по " + stopdate.Value.ToShortDateString());
+                        #endregion
+
+                        #region "Местоположение"
+
+                        Logging.Comment("Местоположение");
+
+                        Logging.Comment($"Объект аренды:{tbObj.Text}");
+                        
                         if ((int)cmbTypeDog.SelectedValue != 3)
                         {
                             Logging.Comment("Здание ID: " + cbFloor.SelectedValue + "; Наименование: " + cbZdan.Text);
@@ -1129,9 +1140,15 @@ namespace Arenda
 
                             Logging.Comment("Тип помещения ID: " + cbTp.SelectedValue + "; Наименование: " + cbTp.Text);
                         }
+
+                        #endregion
+
+                        #region "Площадь"
+
+                        #endregion
+
                         Logging.Comment("Аренда: " + tbAr.Text);
-                        Logging.Comment("Тип договора: "
-                            + cmbTypeDog.SelectedText);
+                      
 
 
                         Logging.Comment("Номер рабочего телефона: " + telrab.Text);
@@ -1154,8 +1171,7 @@ namespace Arenda
                         Logging.Comment("Стоимость 1 кв.м.: " + tbcbm.Text);
                         Logging.Comment("Тип оплаты: " + (radioButton1.Checked ? "Нал" : "Безнал"));
                         Logging.Comment("Замечание/примечание: " + tbFailComment.Text);
-                        Logging.Comment("Примечание: " + tbremark.Text);
-                        Logging.Comment("");
+                        Logging.Comment("Примечание: " + tbremark.Text);                        
                         Logging.Comment("Завершение операции \"" + operation + "\"");
                         Logging.StopFirstLevel();
                     }
@@ -1874,6 +1890,28 @@ namespace Arenda
                         MessageBox.Show(TempData.centralText("При сохранение данных возникли ошибки записи.\nОбратитесь в ОЭЭС\n"), "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
+
+                    Logging.StartFirstLevel((int)logEnum.Удаленеие_скидки);
+                    Logging.Comment("Информация о договоре");
+                    Logging.Comment($"ID договора :{_id}");
+                    Logging.Comment($"Арендатор ID: {id_ten}; Наименование: {tbTen.Text}");
+                    Logging.Comment($"Арендатотель ID: {id_lord}; Наименование: {tbLord.Text}");
+                    Logging.Comment($"Номер договора :{tbnumd.Text}");
+
+                    Logging.Comment("Информация о скидке");
+                    Logging.Comment($"ID:{id_discount}");
+                    Logging.Comment($"Дата начала:{dtDiscount.DefaultView[dgvData.CurrentRow.Index]["DateStart"]}");
+                    Logging.Comment($"Дата окончания:{(dtDiscount.DefaultView[dgvData.CurrentRow.Index]["DateEnd"] ==DBNull.Value ? "Постоянная скидка" : dtDiscount.DefaultView[dgvData.CurrentRow.Index]["DateEnd"])}");
+                    Logging.Comment($"Тип скидки ID:{dtDiscount.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"]};Наименование:{dtDiscount.DefaultView[dgvData.CurrentRow.Index]["nameTypeDiscount"]}");
+
+                    if ((int)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"] == 1)
+                        Logging.Comment($"Процент скидки от общей стоимости договора:{dtDiscount.DefaultView[dgvData.CurrentRow.Index]["Discount"]}");
+                    else if ((int)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"] == 2)
+                        Logging.Comment($"Новая цена стоимости 1 кв.м: {dtDiscount.DefaultView[dgvData.CurrentRow.Index]["Discount"]}");
+
+                    Logging.StopFirstLevel();
+
+
                     getDiscount();
                     return;
                 }
@@ -1936,6 +1974,7 @@ namespace Arenda
             int id_TypeDiscount = (int)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
             decimal discount = (decimal)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["Discount"];
             int id_Status = 2;
+            string nameTypeDiscount = (string)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["nameTypeDiscount"];
 
             DataTable dtResult = _proc.setTDiscount(id_discount, _id, dStart, dEnd, id_TypeDiscount, id_Status, discount);
 
@@ -1946,6 +1985,24 @@ namespace Arenda
             }
 
             int result = (int)dtResult.Rows[0]["id"];
+
+            Logging.StartFirstLevel((int)logEnum.Подтверждение_скидки);
+            Logging.Comment($"ID:{result}");
+            Logging.Comment($"ID договора:{_id}");
+            Logging.Comment($"Объект аренды:{tbObj.Text}");
+            Logging.Comment("Арендатор ID: " + id_ten + "; Наименование: " + tbTen.Text);
+            Logging.Comment("Номер договора: " + tbnumd.Text);
+            Logging.Comment($"Тип договора ID:{cmbTypeDog.SelectedValue}; Наименование:{ cmbTypeDog.SelectedText}");
+
+            Logging.Comment($"Дата начала:{dStart}");
+            if(dEnd!=null)
+            Logging.Comment($"Дата окончания:{dEnd}");
+            Logging.Comment($"Тип скидки:{nameTypeDiscount}");
+            Logging.Comment($"Скидка:{discount}");
+
+            Logging.StopFirstLevel();
+
+            
             getDiscount();
         }
 
@@ -1958,6 +2015,8 @@ namespace Arenda
             int id_TypeDiscount = (int)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["id_TypeDiscount"];
             decimal discount = (decimal)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["Discount"];
             int id_Status = 3;
+            string nameTypeDiscount = (string)dtDiscount.DefaultView[dgvData.CurrentRow.Index]["nameTypeDiscount"];
+
 
             DataTable dtResult = _proc.setTDiscount(id_discount, _id, dStart, dEnd, id_TypeDiscount, id_Status, discount);
 
@@ -1968,12 +2027,29 @@ namespace Arenda
             }
 
             int result = (int)dtResult.Rows[0]["id"];
+
+            Logging.StartFirstLevel((int)logEnum.Отклонение_скидки);
+            Logging.Comment($"ID:{id_discount}");
+            Logging.Comment($"ID договора:{_id}");
+            Logging.Comment($"Объект аренды:{tbObj.Text}");
+            Logging.Comment("Арендатор ID: " + id_ten + "; Наименование: " + tbTen.Text);
+            Logging.Comment("Номер договора: " + tbnumd.Text);
+            Logging.Comment($"Тип договора ID:{cmbTypeDog.SelectedValue}; Наименование:{ cmbTypeDog.SelectedText}");
+
+            Logging.Comment($"Дата начала:{dStart}");
+            if (dEnd != null)
+                Logging.Comment($"Дата окончания:{dEnd}");
+            Logging.Comment($"Тип скидки:{nameTypeDiscount}");
+            Logging.Comment($"Скидка:{discount}");
+
+            Logging.StopFirstLevel();
+
             getDiscount();
         }
 
         private void dgvData_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right && e.RowIndex != -1 && new List<string> { "Д" }.Contains(UserSettings.User.StatusCode))
+            if (e.Button == MouseButtons.Right && e.RowIndex != -1 && new List<string> { "Д" }.Contains(TempData.Rezhim))
             {
                 dgvData.CurrentCell = dgvData[e.ColumnIndex, e.RowIndex];
                 dgvData_SelectionChanged(null, null);
@@ -2100,6 +2176,7 @@ namespace Arenda
                 btAdd.Visible = true;
                 btAdd.Enabled = true;
                 tbremark.Enabled = true;
+                tbNum1c.Enabled = true;
             }
 
         }

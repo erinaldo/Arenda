@@ -27,10 +27,11 @@ namespace Arenda
                 Logging.StartFirstLevel(1);
                 Logging.Comment("Вход в программу");
                 Logging.StopFirstLevel();
-                
-                //new Reports.frmDelete_Files().ShowDialog();
 
-                if (!new List<string>() { "СОА", "РКВ", "МНД", "ПР", "КНТ", "СБ6", "Д" }.Contains(Nwuram.Framework.Settings.User.UserSettings.User.StatusCode)) { return; }
+                //new Reports.frmDelete_Files().ShowDialog();
+                TempData.Rezhim = Nwuram.Framework.Settings.User.UserSettings.User.StatusCode;
+
+                if (!new List<string>() { "СОА", "РКВ", "МНД", "ПР", "КНТ", "СБ6", "Д" }.Contains(TempData.Rezhim)) { return; }
 
                 Application.Run(new mForm(args[1], args[8], args[6]));
 

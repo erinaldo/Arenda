@@ -1,4 +1,5 @@
-﻿using Nwuram.Framework.Settings.User;
+﻿using Nwuram.Framework.Logging;
+using Nwuram.Framework.Settings.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -459,13 +460,14 @@ namespace dllJournalPlaneReport
             task.Wait();
             if (task.Result != null && task.Result.Rows.Count > 0)
             {
-                 _id = (int)task.Result.Rows[0]["id"];
+                _id = (int)task.Result.Rows[0]["id"];
 
                 MyMessageBox.MyMessageBox mmb = new MyMessageBox.MyMessageBox($"За выбранный период для объекта:\n\"{cmbObject.Text}\"\nуже создан ежемесячный план на {dtpStart.Text}.\nПерезаписать существующий план?", "", MyMessageBox.MessageBoxButtons.YesNoCancel, new List<string> { "Да", "Нет", "Отмена" });
                 DialogResult dlgResult = mmb.ShowDialog();
                 if (dlgResult == DialogResult.Cancel) return;
-                if (dlgResult == DialogResult.No) { dgvData.DataSource = null; dtData.Clear();setFilter();statusElements(true); isChangeValue = false;return; }
-                if (dlgResult == DialogResult.Yes) {
+                if (dlgResult == DialogResult.No) { dgvData.DataSource = null; dtData.Clear(); setFilter(); statusElements(true); isChangeValue = false; return; }
+                if (dlgResult == DialogResult.Yes)
+                {
 
                     task = Config.hCntMain.setTPlanReport(_id, _startDate.Date, (int)cmbObject.SelectedValue, false, true, 0);
                     task.Wait();
@@ -495,7 +497,7 @@ namespace dllJournalPlaneReport
                     task.Wait();
                 }
             }
-            
+
 
 
             task = Config.hCntMain.setTPlanReport(id, _startDate.Date, (int)cmbObject.SelectedValue, false, false, 0);
@@ -551,6 +553,46 @@ namespace dllJournalPlaneReport
                     return;
                 }
             }
+
+
+            Logging.StartFirstLevel(row == null ? (int)logEnum.Добавление_план_отчета : (int)logEnum.Редактирование_план_отчета);
+
+            Logging.Comment($"ID:{id}");
+            Logging.Comment($"Период плана:{dtpStart.Value.ToShortDateString()}");
+            Logging.Comment("id объекта  = " + cmbObject.SelectedValue.ToString()
+                        + ", Наименование объекта : \"" + cmbObject.Text.ToString() + "\"");
+
+            Logging.Comment("Информация по договорам");
+
+            foreach (DataRow row in dtData.Rows)
+            {
+                Logging.Comment($"Id договора:{row["id"]}");
+                Logging.Comment($"Арендодатель:{row["nameLandLord"]}");
+                Logging.Comment($"Арендатор:{row["nameTenant"]}");
+                Logging.Comment($"Номер договора:{row["Agreement"]}");
+                Logging.Comment($"Срок действия:{row["timeLimit"]}");
+                Logging.Comment($"Здание:{row["Build"]}");
+                Logging.Comment($"Этаж:{row["Floor"]}");
+                Logging.Comment($"№ секции:{row["namePlace"]}");
+                Logging.Comment($"Площадь м2:{row["Total_Area"]}");
+                Logging.Comment($"Стоимость м2:{row["Cost_of_Meter"]}");
+                Logging.Comment($"Сумма по договору:{row["Total_Sum"]}");
+                Logging.Comment($"Скидка:{row["Discount"]}");
+                Logging.Comment($"Обеспечительный платеж:{row["sumPayCont"]}");
+                Logging.Comment($"Долг за предыдущий период:{row["preCredit"]}");
+                Logging.Comment($"Переплата за предыдущий период:{row["preOverPayment"]}");
+                Logging.Comment($"План на начало:{row["prePlan"]}");
+                Logging.Comment($"План на конец:{row["EndPlan"]}");
+                Logging.Comment($"Пени:{row["Penalty"]}");
+                Logging.Comment($"Прочие платежи:{row["OtherPayments"]}");
+                Logging.Comment($"Всего к оплате:{row["ultraResult"]}");
+                Logging.Comment($"Внесено:{row["Included"]}");
+                Logging.Comment($"Долг:{row["Credit"]}");
+                Logging.Comment($"Переплата:{row["OverPayment"]}");                
+            }
+
+
+            Logging.StopFirstLevel();
 
             MessageBox.Show("Данные сохранены.", "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
             isChangeValue = false;
@@ -616,6 +658,18 @@ namespace dllJournalPlaneReport
 
             if (row != null)
                 status = (bool)row["isСonfirmed"] ? "Подтверждена" : "Не подтверждена";
+
+            Logging.StartFirstLevel(79);
+            Logging.Comment("Выгружен план-отчет со следующими параметрами:");
+            Logging.Comment($"ID:{id}");
+            Logging.Comment($"Период плана:{dtpStart.Value.ToShortDateString()}");
+            Logging.Comment("id объекта  = " + cmbObject.SelectedValue.ToString()
+                        + ", Наименование объекта : \"" + cmbObject.Text.ToString() + "\"");
+
+           
+
+
+            Logging.StopFirstLevel();
 
             reports.createReport(dtData, cmbObject.Text, status, dtpStart.Value.Date);
         }

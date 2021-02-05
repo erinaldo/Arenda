@@ -25,7 +25,14 @@ namespace Arenda
         string oldPayment;
         int oldAnotherPayID;
         string oldAnotherPay;
-            
+
+        int oldPlaneDateID;
+        string oldPlaneDate;
+
+        public string txtNum { set; private get; }
+        public string txtTenant { set; private get; }
+        public string idArend { set; private get; }
+
 
         public frmAddTaxes(int _id, int _id_agreement, string _num)
         {
@@ -103,6 +110,9 @@ namespace Arenda
             oldAnotherPayID = (cboAnotherPay.SelectedValue == null) ? 0 : int.Parse(cboAnotherPay.SelectedValue.ToString());
             oldAnotherPay = cboAnotherPay.Text;
 
+
+            oldPlaneDateID = (cmbPlaneDate.SelectedValue == null) ? 0 : int.Parse(cmbPlaneDate.SelectedValue.ToString());
+            oldPlaneDate = cmbPlaneDate.Text;
 
             tbDataMeters.Text = numTextBox.CheckAndChange(tbDataMeters.Text, 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}");
 
@@ -273,8 +283,17 @@ namespace Arenda
                 operation = "Добавление дополнительной оплаты по договору № " + num + ", id договора = " + id_agreement.ToString();
 
                 Logging.Comment(operation);
+
+
+                Logging.Comment("Информация по договору:");
+                Logging.Comment($"ID договора:{id_agreement}");
+                Logging.Comment($"Номер договора:{txtNum}");
+                Logging.Comment($"ID арендатора:{idArend}");
+                Logging.Comment($"Наименование арендатора:{txtTenant}");
+                
                 Logging.Comment("");
                 Logging.Comment("id записи = " + id_row.ToString());
+                Logging.Comment("Id и наименование План отчёта: " + cmbPlaneDate.SelectedValue.ToString() + ", " + cmbPlaneDate.Text);
                 Logging.Comment("Id и наименование дополнительной оплаты: " + cboAnotherPay.SelectedValue.ToString() + ", " + cboAnotherPay.Text);
                 Logging.Comment("Дата: " + dtpDate.Value.ToShortDateString());
                 Logging.Comment("Сумма: " + txtSum.Text);
@@ -287,8 +306,19 @@ namespace Arenda
                 operation = "Редактирование дополнительной оплаты по договору № " + num + ", id договора = " + id_agreement.ToString();
 
                 Logging.Comment(operation);
+                Logging.Comment("Информация по договору:");
+                Logging.Comment($"ID договора:{id_agreement}");
+                Logging.Comment($"Номер договора:{txtNum}");
+                Logging.Comment($"ID арендатора:{idArend}");
+                Logging.Comment($"Наименование арендатора:{txtTenant}");
+
                 Logging.Comment("");
                 Logging.Comment("id записи = " + id.ToString());
+
+                Logging.VariableChange("Id и наименование План отчёта: ",
+                    cmbPlaneDate.SelectedValue.ToString() + ", " + cmbPlaneDate.Text,
+                    oldPlaneDateID.ToString() + ", " + oldPlaneDate);
+
                 Logging.VariableChange("Id и наименование дополнительной оплаты: ", 
                     cboAnotherPay.SelectedValue.ToString() + ", " + cboAnotherPay.Text, 
                     oldAnotherPayID.ToString() + ", " + oldAnotherPay);

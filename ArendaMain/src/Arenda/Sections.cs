@@ -322,206 +322,251 @@ namespace Arenda
             }
             catch { }
         }
-      
-      private void btDelSec_Click(object sender, EventArgs e)
-      {
-        try
+
+        private void btDelSec_Click(object sender, EventArgs e)
         {
-          int? tl;
-          int? lm;
-          string ph;
-          decimal ta, ath;
-
-          if (tbSections1.SelectedRows[0].Cells["sTelephone_lines"].Value.ToString() == "")
-            tl = null;
-          else
-            tl = Convert.ToInt32(tbSections1.SelectedRows[0].Cells["sTelephone_lines"].Value);
-
-          if (tbSections1.SelectedRows[0].Cells["sLamps"].Value.ToString() == "")
-            lm = null;
-          else
-            lm = Convert.ToInt32(tbSections1.SelectedRows[0].Cells["sLamps"].Value);
-
-          if (tbSections1.SelectedRows[0].Cells["sPhone_number"].Value.ToString() == "")
-            ph = null;
-          else
-            ph = tbSections1.SelectedRows[0].Cells["sPhone_number"].Value.ToString();
-
-          if (tbSections1.SelectedRows[0].Cells["sTotal_Area"].Value.ToString() == "")
-            ta = 0;
-          else
-            ta = decimal.Parse(tbSections1.SelectedRows[0].Cells["sTotal_Area"].Value.ToString());
-
-          if (tbSections1.SelectedRows[0].Cells["sArea_of_Trading_Hall"].Value.ToString() == "")
-            ath = 0;
-          else
-            ath = decimal.Parse(tbSections1.SelectedRows[0].Cells["sArea_of_Trading_Hall"].Value.ToString());
-
-          int idSec = Convert.ToInt32(tbSections1.SelectedRows[0].Cells["sid"].Value.ToString());
-
-          string rez = _proc.isActiveSec(Convert.ToInt32(tbSections1.SelectedRows[0].Cells["sid"].Value.ToString())).Rows[0][0].ToString();
-          if (rez == "False")
-          {
+            try
             {
-              //if (MessageBox.Show("Сделать запись снова активной?", "Внимание", MessageBoxButtons.YesNo,
-                //MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              if (MessageBox.Show("Сделать выбранную запись действующей?",
-                "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              {
-                string logEvent = "Смена статуса секции";
+                int? tl;
+                int? lm;
+                string ph;
+                decimal ta, ath;
 
-                Logging.StartFirstLevel(765);
-                Logging.Comment(logEvent);
-                Logging.Comment("id = " + idSec.ToString());
-                Logging.Comment("Наименование секции: \"" + tbSections1.SelectedRows[0].Cells["sSec"].Value.ToString() + "\"");
-                Logging.Comment("Статус изменен на активный");
+                if (tbSections1.SelectedRows[0].Cells["sTelephone_lines"].Value.ToString() == "")
+                    tl = null;
+                else
+                    tl = Convert.ToInt32(tbSections1.SelectedRows[0].Cells["sTelephone_lines"].Value);
 
-                Logging.Comment("Список приборов в секции");
-                foreach (DataGridViewRow r in dgvDevices.Rows)
+                if (tbSections1.SelectedRows[0].Cells["sLamps"].Value.ToString() == "")
+                    lm = null;
+                else
+                    lm = Convert.ToInt32(tbSections1.SelectedRows[0].Cells["sLamps"].Value);
+
+                if (tbSections1.SelectedRows[0].Cells["sPhone_number"].Value.ToString() == "")
+                    ph = null;
+                else
+                    ph = tbSections1.SelectedRows[0].Cells["sPhone_number"].Value.ToString();
+
+                if (tbSections1.SelectedRows[0].Cells["sTotal_Area"].Value.ToString() == "")
+                    ta = 0;
+                else
+                    ta = decimal.Parse(tbSections1.SelectedRows[0].Cells["sTotal_Area"].Value.ToString());
+
+                if (tbSections1.SelectedRows[0].Cells["sArea_of_Trading_Hall"].Value.ToString() == "")
+                    ath = 0;
+                else
+                    ath = decimal.Parse(tbSections1.SelectedRows[0].Cells["sArea_of_Trading_Hall"].Value.ToString());
+
+                int idSec = Convert.ToInt32(tbSections1.SelectedRows[0].Cells["sid"].Value.ToString());
+
+                string rez = _proc.isActiveSec(Convert.ToInt32(tbSections1.SelectedRows[0].Cells["sid"].Value.ToString())).Rows[0][0].ToString();
+                if (rez == "False")
                 {
-                  Logging.Comment("Тип прибора ID: " + r.Cells["id_device"].Value + " ;Наименование: " + r.Cells["device_name"].Value.ToString());
-                  Logging.Comment("Количество: " + r.Cells["device_quantity"].Value);
+                    {
+                        //if (MessageBox.Show("Сделать запись снова активной?", "Внимание", MessageBoxButtons.YesNo,
+                        //MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        if (MessageBox.Show("Сделать выбранную запись действующей?",
+                          "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                          MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            DataTable dtGetSecInfo = new DataTable();
+                            dtGetSecInfo = _proc.GetSecInfo(idSec);
+                            string logEvent = "Смена статуса секции";
+
+                            Logging.StartFirstLevel(765);
+                            Logging.Comment(logEvent);
+                            Logging.Comment("Статус изменен на активный");
+                            Logging.Comment("id = " + idSec.ToString()
+                                   + ", Наименование секции: \"" + dtGetSecInfo.Rows[0]["Sec"].ToString() + "\"");
+
+                            Logging.Comment("id объекта  = " + dtGetSecInfo.Rows[0]["id_ObjectLease"].ToString()
+                             + ", Наименование объекта : \"" + dtGetSecInfo.Rows[0]["Obj"].ToString() + "\"");
+
+                            Logging.Comment("id здания = " + dtGetSecInfo.Rows[0]["id_Build"].ToString()
+                               + ", Наименование здания: \"" + dtGetSecInfo.Rows[0]["Build"].ToString() + "\"");
+
+                            Logging.Comment("id этажа = " + dtGetSecInfo.Rows[0]["id_Floo"].ToString()
+                            + ", Наименование этажа: \"" + dtGetSecInfo.Rows[0]["Floo"].ToString() + "\"");
+                            Logging.Comment("Количество телефонных линий: " + dtGetSecInfo.Rows[0]["Telephone_lines"].ToString());
+                            Logging.Comment("Количество светильников: " + dtGetSecInfo.Rows[0]["Lamps"].ToString());
+                            Logging.Comment("Номер телефона: " + dtGetSecInfo.Rows[0]["Phone_number"].ToString());
+                            Logging.Comment("Общая площадь: " + dtGetSecInfo.Rows[0]["Total_Area"].ToString());
+                            Logging.Comment("Площадь торгового зала: " + dtGetSecInfo.Rows[0]["Area_of_Trading_Hall"].ToString());
+                            Logging.Comment("Признак АППЗ: " + ((bool.Parse(dtGetSecInfo.Rows[0]["isAPPZ"].ToString())) ? "ДА" : "НЕТ"));
+
+
+
+
+                            Logging.Comment("Список приборов в секции");
+                            foreach (DataGridViewRow r in dgvDevices.Rows)
+                            {
+                                Logging.Comment("Тип прибора ID: " + r.Cells["id_device"].Value + " ;Наименование: " + r.Cells["device_name"].Value.ToString());
+                                Logging.Comment("Количество: " + r.Cells["device_quantity"].Value);
+                            }
+
+                            Logging.Comment("Список оборудования в секции");
+                            foreach (DataGridViewRow r in dgEqVsSec.Rows)
+                            {
+                                Logging.Comment("Тип оборудования ID: " + r.Cells["idEqVsSec"].Value + " ;Наименование: " + r.Cells["Equipment"].Value.ToString());
+                                Logging.Comment("Количество: " + r.Cells["Col"].Value);
+                            }
+
+                            Logging.Comment("Завершение операции \"" + logEvent + "\"");
+                            Logging.StopFirstLevel();
+
+                            _proc.AddEditSec(
+                              tbSections1.SelectedRows[0].Cells["sSec"].Value.ToString(),
+                              tbSections1.SelectedRows[0].Cells["sBuild"].Value.ToString(),
+                              tbSections1.SelectedRows[0].Cells["sFloo"].Value.ToString(),
+                              0,
+                              idSec,
+                              1,
+                              lm,
+                              tl,
+                              ph,
+                              ta,
+                              ath,
+                              int.Parse(tbSections1.SelectedRows[0].Cells["cIdObj"].Value.ToString())
+                              );
+                        }
+                    }
+                }
+                else
+                {
+                    //if (MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание", MessageBoxButtons.YesNo,
+                    //                  MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    string cheas = _proc.BefSec(idSec).Rows[0][0].ToString();
+                    if (cheas == "0")
+                    {
+                        if (MessageBox.Show("Удалить выбранную запись?", "Удаление записи",
+                          MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                          MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            DataTable dtGetSecInfo = new DataTable();
+                            dtGetSecInfo = _proc.GetSecInfo(idSec);
+
+                            if ((dtGetSecInfo != null) && (dtGetSecInfo.Rows.Count > 0))
+                            {
+                                string logEvent = "Удаление секции из справочника";
+
+                                Logging.StartFirstLevel(759);
+                                Logging.Comment(logEvent);
+                                Logging.Comment("id = " + idSec.ToString()
+                                  + ", Наименование секции: \"" + dtGetSecInfo.Rows[0]["Sec"].ToString() + "\"");
+        
+                                Logging.Comment("id объекта  = " + dtGetSecInfo.Rows[0]["id_ObjectLease"].ToString()
+                                 + ", Наименование объекта : \"" + dtGetSecInfo.Rows[0]["Obj"].ToString() + "\"");
+    
+                                Logging.Comment("id здания = " + dtGetSecInfo.Rows[0]["id_Build"].ToString()
+                                   + ", Наименование здания: \"" + dtGetSecInfo.Rows[0]["Build"].ToString() + "\"");
+                                                             
+                                Logging.Comment("id этажа = " + dtGetSecInfo.Rows[0]["id_Floo"].ToString()
+                                + ", Наименование этажа: \"" + dtGetSecInfo.Rows[0]["Floo"].ToString() + "\"");
+                                Logging.Comment("Количество телефонных линий: " + dtGetSecInfo.Rows[0]["Telephone_lines"].ToString());
+                                Logging.Comment("Количество светильников: " + dtGetSecInfo.Rows[0]["Lamps"].ToString());
+                                Logging.Comment("Номер телефона: " + dtGetSecInfo.Rows[0]["Phone_number"].ToString());
+                                Logging.Comment("Общая площадь: " + dtGetSecInfo.Rows[0]["Total_Area"].ToString());
+                                Logging.Comment("Площадь торгового зала: " + dtGetSecInfo.Rows[0]["Area_of_Trading_Hall"].ToString());
+                                Logging.Comment("Признак АППЗ: " + ((bool.Parse(dtGetSecInfo.Rows[0]["isAPPZ"].ToString())) ? "ДА" : "НЕТ"));
+
+                                Logging.Comment("Список приборов в секции");
+                                foreach (DataGridViewRow r in dgvDevices.Rows)
+                                {
+                                    Logging.Comment("Тип прибора ID: " + r.Cells["id_device"].Value + " ;Наименование: " + r.Cells["device_name"].Value.ToString());
+                                    Logging.Comment("Количество: " + r.Cells["device_quantity"].Value);
+                                }
+
+                                Logging.Comment("Список оборудования в секции");
+                                foreach (DataGridViewRow r in dgEqVsSec.Rows)
+                                {
+                                    Logging.Comment("Тип оборудования ID: " + r.Cells["idEqVsSec"].Value + " ;Наименование: " + r.Cells["Equipment"].Value.ToString());
+                                    Logging.Comment("Количество: " + r.Cells["Col"].Value);
+                                }
+
+                                Logging.Comment("Завершение операции \"" + logEvent + "\"");
+                                Logging.StopFirstLevel();
+                            }
+
+                            _proc.delSec(idSec);
+                        }
+                    }
+                    else
+                    {
+                        //if (MessageBox.Show("Удаляемая запись используется и ее невозможно удалить. Сделать ее неактивной?", "Ошибка", MessageBoxButtons.YesNo,
+                        //MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        if (MessageBox.Show("Выбранная для удаления запись\n    используется в программе.\nСделать запись недействующей?",
+                          "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                          MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            DataTable dtGetSecInfo = new DataTable();
+                            dtGetSecInfo = _proc.GetSecInfo(idSec);
+                            string logEvent = "Смена статуса секции";
+
+                            Logging.StartFirstLevel(765);
+                            Logging.Comment(logEvent);
+                            Logging.Comment("Статус изменен на неактивный");
+
+                            Logging.Comment("id = " + idSec.ToString()
+                                   + ", Наименование секции: \"" + dtGetSecInfo.Rows[0]["Sec"].ToString() + "\"");
+
+                            Logging.Comment("id объекта  = " + dtGetSecInfo.Rows[0]["id_ObjectLease"].ToString()
+                             + ", Наименование объекта : \"" + dtGetSecInfo.Rows[0]["Obj"].ToString() + "\"");
+
+                            Logging.Comment("id здания = " + dtGetSecInfo.Rows[0]["id_Build"].ToString()
+                               + ", Наименование здания: \"" + dtGetSecInfo.Rows[0]["Build"].ToString() + "\"");
+
+                            Logging.Comment("id этажа = " + dtGetSecInfo.Rows[0]["id_Floo"].ToString()
+                            + ", Наименование этажа: \"" + dtGetSecInfo.Rows[0]["Floo"].ToString() + "\"");
+                            Logging.Comment("Количество телефонных линий: " + dtGetSecInfo.Rows[0]["Telephone_lines"].ToString());
+                            Logging.Comment("Количество светильников: " + dtGetSecInfo.Rows[0]["Lamps"].ToString());
+                            Logging.Comment("Номер телефона: " + dtGetSecInfo.Rows[0]["Phone_number"].ToString());
+                            Logging.Comment("Общая площадь: " + dtGetSecInfo.Rows[0]["Total_Area"].ToString());
+                            Logging.Comment("Площадь торгового зала: " + dtGetSecInfo.Rows[0]["Area_of_Trading_Hall"].ToString());
+                            Logging.Comment("Признак АППЗ: " + ((bool.Parse(dtGetSecInfo.Rows[0]["isAPPZ"].ToString())) ? "ДА" : "НЕТ"));
+
+
+
+                            Logging.Comment("Список приборов в секции");
+                            foreach (DataGridViewRow r in dgvDevices.Rows)
+                            {
+                                Logging.Comment("Тип прибора ID: " + r.Cells["id_device"].Value + " ;Наименование: " + r.Cells["device_name"].Value.ToString());
+                                Logging.Comment("Количество: " + r.Cells["device_quantity"].Value);
+                            }
+
+                            Logging.Comment("Список оборудования в секции");
+                            foreach (DataGridViewRow r in dgEqVsSec.Rows)
+                            {
+                                Logging.Comment("Тип оборудования ID: " + r.Cells["idEqVsSec"].Value + " ;Наименование: " + r.Cells["Equipment"].Value.ToString());
+                                Logging.Comment("Количество: " + r.Cells["Col"].Value);
+                            }
+
+                            Logging.Comment("Завершение операции \"" + logEvent + "\"");
+                            Logging.StopFirstLevel();
+
+                            _proc.AddEditSec(
+                              tbSections1.SelectedRows[0].Cells["sSec"].Value.ToString(),
+                              tbSections1.SelectedRows[0].Cells["sBuild"].Value.ToString(),
+                              tbSections1.SelectedRows[0].Cells["sFloo"].Value.ToString(),
+                              0,
+                              idSec,
+                              0,
+                              lm,
+                              tl,
+                              ph,
+                              ta,
+                              ath,
+                              int.Parse(tbSections1.SelectedRows[0].Cells["cIdObj"].Value.ToString())
+                              );
+                        }
+                    }
                 }
 
-                Logging.Comment("Список оборудования в секции");
-                foreach (DataGridViewRow r in dgEqVsSec.Rows)
-                {
-                  Logging.Comment("Тип оборудования ID: " + r.Cells["idEqVsSec"].Value + " ;Наименование: " + r.Cells["Equipment"].Value.ToString());
-                  Logging.Comment("Количество: " + r.Cells["Col"].Value);
-                }
-                
-                Logging.Comment("Завершение операции \"" + logEvent + "\"");
-                Logging.StopFirstLevel();
-
-                _proc.AddEditSec(
-                  tbSections1.SelectedRows[0].Cells["sSec"].Value.ToString(),
-                  tbSections1.SelectedRows[0].Cells["sBuild"].Value.ToString(),
-                  tbSections1.SelectedRows[0].Cells["sFloo"].Value.ToString(),
-                  0,
-                  idSec,
-                  1,
-                  lm,
-                  tl,
-                  ph,
-                  ta,
-                  ath,
-                  int.Parse(tbSections1.SelectedRows[0].Cells["cIdObj"].Value.ToString())
-                  );
-              }
+                ini();
+                iniclick();
+                deleqvsec();
             }
-          }
-          else
-          {
-            //if (MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание", MessageBoxButtons.YesNo,
-            //                  MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-            string cheas = _proc.BefSec(idSec).Rows[0][0].ToString();
-            if (cheas == "0")
-            {
-              if (MessageBox.Show("Удалить выбранную запись?", "Удаление записи",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              {
-                DataTable dtGetSecInfo = new DataTable();
-                dtGetSecInfo = _proc.GetSecInfo(idSec);
-
-                if ((dtGetSecInfo != null) && (dtGetSecInfo.Rows.Count > 0))
-                {
-                  string logEvent = "Удаление секции из справочника";
-
-                  Logging.StartFirstLevel(759);
-                  Logging.Comment(logEvent);
-                  Logging.Comment("id = " + idSec.ToString()
-                    + ", Наименование секции: \"" + dtGetSecInfo.Rows[0]["Sec"].ToString() + "\"");
-                  Logging.Comment("id здания = " + dtGetSecInfo.Rows[0]["id_Build"].ToString()
-                    + ", Наименование здания: \"" + dtGetSecInfo.Rows[0]["Build"].ToString() + "\"");
-                  Logging.Comment("id этажа = " + dtGetSecInfo.Rows[0]["id_Floo"].ToString()
-                    + ", Наименование этажа: \"" + dtGetSecInfo.Rows[0]["Floo"].ToString() + "\"");
-                  Logging.Comment("Количество телефонных линий: " + dtGetSecInfo.Rows[0]["Telephone_lines"].ToString());
-                  Logging.Comment("Количество светильников: " + dtGetSecInfo.Rows[0]["Lamps"].ToString());
-                  Logging.Comment("Номер телефона: " + dtGetSecInfo.Rows[0]["Phone_number"].ToString());
-                  Logging.Comment("Общая площадь: " + dtGetSecInfo.Rows[0]["Total_Area"].ToString());
-                  Logging.Comment("Площадь торгового зала: " + dtGetSecInfo.Rows[0]["Area_of_Trading_Hall"].ToString());
-                  Logging.Comment("Признак АППЗ: " + ((bool.Parse(dtGetSecInfo.Rows[0]["isAPPZ"].ToString())) ? "ДА" : "НЕТ"));
-
-                  Logging.Comment("Список приборов в секции");
-                  foreach (DataGridViewRow r in dgvDevices.Rows)
-                  {
-                    Logging.Comment("Тип прибора ID: " + r.Cells["id_device"].Value + " ;Наименование: " + r.Cells["device_name"].Value.ToString());
-                    Logging.Comment("Количество: " + r.Cells["device_quantity"].Value);
-                  }
-
-                  Logging.Comment("Список оборудования в секции");
-                  foreach (DataGridViewRow r in dgEqVsSec.Rows)
-                  {
-                    Logging.Comment("Тип оборудования ID: " + r.Cells["idEqVsSec"].Value + " ;Наименование: " + r.Cells["Equipment"].Value.ToString());
-                    Logging.Comment("Количество: " + r.Cells["Col"].Value);
-                  }
-
-                  Logging.Comment("Завершение операции \"" + logEvent + "\"");
-                  Logging.StopFirstLevel();
-                }
-
-                _proc.delSec(idSec);
-              }
-            }
-            else
-            {
-              //if (MessageBox.Show("Удаляемая запись используется и ее невозможно удалить. Сделать ее неактивной?", "Ошибка", MessageBoxButtons.YesNo,
-              //MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              if (MessageBox.Show("Выбранная для удаления запись\n    используется в программе.\nСделать запись недействующей?",
-                "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              {
-                string logEvent = "Смена статуса секции";
-
-                Logging.StartFirstLevel(765);
-                Logging.Comment(logEvent);
-                Logging.Comment("id = " + idSec.ToString());
-                Logging.Comment("Наименование секции: \"" + tbSections1.SelectedRows[0].Cells["sSec"].Value.ToString() + "\"");
-                Logging.Comment("Статус изменен на неактивный");
-
-                Logging.Comment("Список приборов в секции");
-                foreach (DataGridViewRow r in dgvDevices.Rows)
-                {
-                  Logging.Comment("Тип прибора ID: " + r.Cells["id_device"].Value + " ;Наименование: " + r.Cells["device_name"].Value.ToString());
-                  Logging.Comment("Количество: " + r.Cells["device_quantity"].Value);
-                }
-
-                Logging.Comment("Список оборудования в секции");
-                foreach (DataGridViewRow r in dgEqVsSec.Rows)
-                {
-                  Logging.Comment("Тип оборудования ID: " + r.Cells["idEqVsSec"].Value + " ;Наименование: " + r.Cells["Equipment"].Value.ToString());
-                  Logging.Comment("Количество: " + r.Cells["Col"].Value);
-                }
-
-                Logging.Comment("Завершение операции \"" + logEvent + "\"");
-                Logging.StopFirstLevel();
-
-                _proc.AddEditSec(
-                  tbSections1.SelectedRows[0].Cells["sSec"].Value.ToString(),
-                  tbSections1.SelectedRows[0].Cells["sBuild"].Value.ToString(),
-                  tbSections1.SelectedRows[0].Cells["sFloo"].Value.ToString(),
-                  0,
-                  idSec,
-                  0,
-                  lm,
-                  tl,
-                  ph,
-                  ta,
-                  ath,
-                  int.Parse(tbSections1.SelectedRows[0].Cells["cIdObj"].Value.ToString())
-                  );
-              }
-            }
-          }
-          
-          ini();
-          iniclick();
-          deleqvsec();
+            catch (Exception r) { MessageBox.Show("Нет записей для удаления." + "\n" + r.ToString(), "Ошибка"); }
         }
-        catch (Exception r) { MessageBox.Show("Нет записей для удаления." + "\n" + r.ToString(), "Ошибка"); }
-      }
 
         private void btEditEq_Click(object sender, EventArgs e)
         {
@@ -771,7 +816,19 @@ namespace Arenda
 
         private void btExel_Click(object sender, EventArgs e)
         {
-          
+
+            Logging.StartFirstLevel(763);
+            Logging.Comment("Выгрузка отчета о занятости секций");
+
+            Logging.Comment($"Объект ID:{cmbObject.SelectedValue}; Наименование:{cmbObject.Text}");
+            Logging.Comment($"Здание ID:{cbZdan.SelectedValue}; Наименование:{cbZdan.Text}");
+            Logging.Comment($"Этаж ID:{cbZloor.SelectedValue}; Наименование:{cbZloor.Text}");
+            Logging.Comment($"Поиск по секции:{textBox1.Text}");
+
+            Logging.Comment($"{checSec.Text}:{(checSec.Checked ? "Да" : "Нет")}");            
+
+            Logging.StopFirstLevel();
+
             this.Enabled = false;
             frmWait = new frmLoad();
             frmWait.TextWait = "ЖДИТЕ. ИДЁТ ВЫГРУЗКА";
@@ -1008,9 +1065,42 @@ namespace Arenda
         {
             if (tbSections1.CurrentRow != null && dgvDevices.CurrentRow !=  null && MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                int idSec = int.Parse(tbSections1.CurrentRow.Cells["sid"].Value.ToString());
+                DataTable dtGetSecInfo = new DataTable();
+                dtGetSecInfo = _proc.GetSecInfo(idSec);
+
+
 
                 Logging.StartFirstLevel(1397);
-                Logging.Comment("Секция ID: " + tbSections1.CurrentRow.Cells["sid"].Value.ToString() + " ;Наименование: " + tbSections1.CurrentRow.Cells["sSec"].Value.ToString());
+
+                Logging.Comment("Информация о секции:");
+
+                Logging.Comment("id = " + idSec.ToString()
+                     + ", Наименование секции: \"" + dtGetSecInfo.Rows[0]["Sec"].ToString() + "\"");
+
+                Logging.Comment("id объекта  = " + dtGetSecInfo.Rows[0]["id_ObjectLease"].ToString()
+                 + ", Наименование объекта : \"" + dtGetSecInfo.Rows[0]["Obj"].ToString() + "\"");
+
+                Logging.Comment("id здания = " + dtGetSecInfo.Rows[0]["id_Build"].ToString()
+                   + ", Наименование здания: \"" + dtGetSecInfo.Rows[0]["Build"].ToString() + "\"");
+
+                Logging.Comment("id этажа = " + dtGetSecInfo.Rows[0]["id_Floo"].ToString()
+                + ", Наименование этажа: \"" + dtGetSecInfo.Rows[0]["Floo"].ToString() + "\"");
+                Logging.Comment("Количество телефонных линий: " + dtGetSecInfo.Rows[0]["Telephone_lines"].ToString());
+                Logging.Comment("Количество светильников: " + dtGetSecInfo.Rows[0]["Lamps"].ToString());
+                Logging.Comment("Номер телефона: " + dtGetSecInfo.Rows[0]["Phone_number"].ToString());
+                Logging.Comment("Общая площадь: " + dtGetSecInfo.Rows[0]["Total_Area"].ToString());
+                Logging.Comment("Площадь торгового зала: " + dtGetSecInfo.Rows[0]["Area_of_Trading_Hall"].ToString());
+                Logging.Comment("Признак АППЗ: " + ((bool.Parse(dtGetSecInfo.Rows[0]["isAPPZ"].ToString())) ? "ДА" : "НЕТ"));
+
+
+                Logging.Comment("Информация о удаленном приборе:");
+
+                DataTable dtResult =  _proc.RemoveDeviceFromSection(Convert.ToInt32(tbSections1.CurrentRow.Cells["sid"].Value), Convert.ToInt32(dgvDevices.CurrentRow.Cells["id_device"].Value));
+
+                if (dtResult != null && dtResult.Rows.Count > 0 && dtResult.Columns.Contains("id"))
+                    Logging.Comment($"ID:{dtResult.Rows[0]["id"]}");
+
                 Logging.Comment("Тип прибора ID: " + dgvDevices.CurrentRow.Cells["id_device"].Value + " ;Наименование: " + dgvDevices.CurrentRow.Cells["device_name"].Value.ToString());
                 Logging.Comment("Количество: " + dgvDevices.CurrentRow.Cells["device_quantity"].Value);
 
@@ -1018,7 +1108,6 @@ namespace Arenda
                 + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
                 Logging.StopFirstLevel();
 
-                _proc.RemoveDeviceFromSection(Convert.ToInt32(tbSections1.CurrentRow.Cells["sid"].Value), Convert.ToInt32(dgvDevices.CurrentRow.Cells["id_device"].Value));
                 FillDevices();
             }
         }

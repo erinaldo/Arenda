@@ -171,7 +171,7 @@ namespace dllArendaDictonary
         /// <param name="result">Результирующая для проверки</param>
         /// <returns>Таблица с данными</returns>
         /// <param name="id">код созданной записи</param>
-        public async Task<DataTable> setLandPlot(int id, string NumberPlot, int id_ObjectLease,  Int64 AreaPlot, bool isActive, bool isDel, int result)
+        public async Task<DataTable> setLandPlot(int id, string NumberPlot, int id_ObjectLease,  decimal AreaPlot, bool isActive, bool isDel, int result)
         {
             ap.Clear();
             ap.Add(id);
@@ -185,7 +185,7 @@ namespace dllArendaDictonary
 
             DataTable dtResult = executeProcedure("[Arenda].[spg_setLandPlot]",
                  new string[8] { "@id", "@NumberPlot", "@id_ObjectLease", "@AreaPlot", "@isActive", "@id_user", "@result", "@isDel" },
-                 new DbType[8] { DbType.Int32, DbType.String, DbType.Int32, DbType.Int64, DbType.Boolean, DbType.Int32, DbType.Int32, DbType.Boolean }, ap);
+                 new DbType[8] { DbType.Int32, DbType.String, DbType.Int32, DbType.Decimal, DbType.Boolean, DbType.Int32, DbType.Int32, DbType.Boolean }, ap);
 
             return dtResult;
         }
@@ -496,26 +496,18 @@ namespace dllArendaDictonary
             return dtResult;
         }
 
-        public async Task<DataTable> setTDiscount(int id, int id_Agreements, DateTime dateStart, DateTime? dateEnd, int id_TypeDiscount, int id_StatusDiscount, decimal discount, int result = 0, bool isDel = false)
+        public async Task<DataTable> setTDiscountsAll(string id, int status)
         {
             ap.Clear();
             ap.Add(id);
-            ap.Add(id_Agreements);
-            ap.Add(dateStart);
-            ap.Add(dateEnd);
-            ap.Add(id_TypeDiscount);
-            ap.Add(id_StatusDiscount);
-            ap.Add(discount);
-            ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
-            ap.Add(result);
-            ap.Add(isDel);
+            ap.Add(status);
+            ap.Add(UserSettings.User.Id);
 
-
-            return executeProcedure("Arenda.spg_setTDiscount",
-              new string[10] { "@id", "@id_Agreements", "@dateStart", "@dateEnd", "@id_TypeDiscount", "@id_StatusDiscount", "@Discount", "@id_user", "@result", "@isDel" },
-              new DbType[10] { DbType.Int32, DbType.Int32, DbType.Date, DbType.Date, DbType.Int32, DbType.Int32, DbType.Decimal, DbType.Int32, DbType.Int32, DbType.Boolean }, ap);
+            return executeProcedure("[Arenda].[kav_ConfirmDiscounts]",
+                new string[] { "@id", "@status", "@id_user" },
+                new DbType[] { DbType.String, DbType.Int32, DbType.Int32 }, ap);
+            
         }
-
 
         public async Task<DataTable> setDiscountValue(int id, int id_tDiscount, decimal? PercentDiscount, decimal? DiscountPrice, decimal? Price, decimal? TotalPrice, bool isActive, bool isDel, int result)
         {

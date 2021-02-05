@@ -18,7 +18,8 @@ ALTER PROCEDURE [Arenda].[SetAgreement1CForAgreement]
 	@TypePayment varchar(max),
 	@isAdd bit,
 	@id_Scan int,
-	@id_user int
+	@id_user int,
+	@isNewData bit = false
 AS
 BEGIN
 	
@@ -27,7 +28,7 @@ BEGIN
 			UPDATE Arenda.j_Agreements set Agreement1C = @NumberAgreement where id = @id_Agreements
 		END
 	
-	if not exists(select id from Arenda.j_LoadAccount1C where id_Agreements = @id_Agreements)
+	if not exists(select id from Arenda.j_LoadAccount1C where id_Agreements = @id_Agreements and id_Scan = @id_Scan) or @isNewData = 1
 		BEGIN
 			INSERT INTO Arenda.j_LoadAccount1C (id_Agreements,NumberAccount,NumberAgreement,TypePayment,DateAccount,DateLoad,DateSendMail,id_Loader,id_Scan)
 			VALUES (@id_Agreements,@NumberAccount,@NumberAgreement,@TypePayment,@DateAccount,GETDATE(),null,@id_user,@id_Scan)		
