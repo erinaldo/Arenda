@@ -173,6 +173,7 @@ namespace Arenda
 
             btnView.Visible = false;
 
+            UserAccessAndElements();
             StatusUserForVisibleButtons();
         }
 
@@ -180,15 +181,18 @@ namespace Arenda
         {
             btnReport.Visible = false;
 
-            btJournalSealSections.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
+            btJournalSealSections.Visible = new List<string> { "СОА", "РКВ"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
             btAcceptDoc.Visible = new List<string> { "СОА", "РКВ", "КНТ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
-            btCopyDoc.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim) && pListDoc.Visible;
-            //btKntListTaxes.Visible = new List<string> { "КНТ", "РКВ", "Д" }.Contains(TempData.Rezhim) && pListDoc.Visible;
+            btCopyDoc.Visible = new List<string> { "СОА", "РКВ"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim) && pListDoc.Visible;                       
+            btAddDocFile.Visible = new List<string> { "СОА", "РКВ"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim) && pLordland.Visible;
             btKntListTaxes.Visible = false;
+            btDicDiscount.Visible = false;
+
+
+            //btKntListTaxes.Visible = new List<string> { "КНТ", "РКВ", "Д" }.Contains(TempData.Rezhim) && pListDoc.Visible;
             //журналСчетовДопОплатToolStripMenuItem.Visible = new List<string> { "КНТ", "РКВ", "Д" }.Contains(TempData.Rezhim);
             //журналСкидокToolStripMenuItem.Visible = new List<string> { "РКВ", "Д", "СОА" }.Contains(TempData.Rezhim);
             //отчётПоВидамДейтельностиToolStripMenuItem.Visible = new List<string> { "РКВ", "МНД", "СОА" }.Contains(TempData.Rezhim);
-            btAddDocFile.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim) && pLordland.Visible;
         }
 
         private void арендаторыToolStripMenuItem_Click(object sender, EventArgs e)
@@ -237,7 +241,8 @@ namespace Arenda
         }
 
         private void mForm_Load(object sender, EventArgs e)
-        {           
+        {
+            dgListDoc.AutoGenerateColumns = dgLordland.AutoGenerateColumns = dgTenant.AutoGenerateColumns = false;
             //this.Text ="Аренда " + username;
             this.Text = progname + " " /*+ codeuser*/ + " " + username;            
             dgLordland.AllowUserToResizeColumns = true;
@@ -277,23 +282,23 @@ namespace Arenda
             справочникСкидокToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ", "Д" }.Contains(TempData.Rezhim);
             //справочникиToolStripMenuItem.Visible = new List<string> { "СОА", "РКВ", "МНД", "ПР", "КНТ" }.Contains(TempData.Rezhim);
             //выгрузкаДокументовToolStripMenuItem.Visible = new List<string> { "РКВ" }.Contains(TempData.Rezhim);
-            tsmiLoad1C.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim);
+            tsmiLoad1C.Visible = new List<string> { "СОА", "РКВ"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
             tsmiReport.Visible = new List<string> { "СОА", "РКВ", "КНТ", "СБ6", "Д" }.Contains(TempData.Rezhim);
             tsmiJournalLoad1C.Visible = new List<string> { "СОА", "РКВ", "Д", "КНТ" }.Contains(TempData.Rezhim);
 
 
-            журналДолжниковToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д" }.Contains(TempData.Rezhim);
-            журналСъездовToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д", "МНД" }.Contains(TempData.Rezhim);
-            журналНачисленияПениToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д" }.Contains(TempData.Rezhim);
+            журналДолжниковToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
+            журналСъездовToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д", "МНД"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
+            журналНачисленияПениToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
 
-            журналЕжемесячныхПлановToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д","СБ6" }.Contains(TempData.Rezhim);            
-            журналПланОтчётовToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д", "СБ6" }.Contains(TempData.Rezhim);
+            журналЕжемесячныхПлановToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д", "СБ6"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);            
+            журналПланОтчётовToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "Д", "СБ6"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
 
-            btnMassDiscounts.Visible = new List<string> { "РКВ", "СОА" }.Contains(TempData.Rezhim);
+            btnMassDiscounts.Visible = new List<string> { "РКВ", "СОА"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
 
             журналСчетовДопОплатToolStripMenuItem.Visible = new List<string> { "КНТ", "РКВ", "Д" }.Contains(TempData.Rezhim);
-            журналСкидокToolStripMenuItem.Visible = new List<string> { "РКВ", "Д", "СОА" }.Contains(TempData.Rezhim);
-            отчётПоВидамДейтельностиToolStripMenuItem.Visible = new List<string> { "РКВ", "МНД", "СОА" }.Contains(TempData.Rezhim);
+            журналСкидокToolStripMenuItem.Visible = new List<string> { "РКВ", "Д", "СОА"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
+            отчётПоВидамДейтельностиToolStripMenuItem.Visible = new List<string> { "РКВ", "МНД", "СОА"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
             отчётПоСекцииToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "КНТ", "Д" }.Contains(TempData.Rezhim);
             отчётПоОплатамToolStripMenuItem.Visible = new List<string> { "РКВ", "СОА", "КНТ", "Д" }.Contains(TempData.Rezhim);
 
@@ -307,7 +312,6 @@ namespace Arenda
             //if (TempData.Rezhim == "ПР") { }
             //if (TempData.Rezhim == "КНТ") { }
         }
-
 
         private void iniTenant()
         {
@@ -463,7 +467,7 @@ namespace Arenda
             t.SetToolTip(btPrint, "Выгрузить в Excel");
             t.SetToolTip(btnReport, "Отчет по неоплаченным дополнительным оплатам");
 
-            if (new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim))
+            if (new List<string> { "СОА", "РКВ"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim))
             {
                 btAcceptDoc.Image = global::Arenda.Properties.Resources.pict_ok;
                 ToolTip tp = new ToolTip();
@@ -2389,7 +2393,7 @@ namespace Arenda
                 }
 
 
-                if (!isConfirmed && new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim))
+                if (!isConfirmed && new List<string> { "СОА", "РКВ"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim))
                 { if (DialogResult.No == MessageBox.Show("Подтвердить договор?", "Запрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)) return; }
                 else
                     if (isConfirmed && new List<string> { "КНТ" }.Contains(TempData.Rezhim))
@@ -2458,7 +2462,7 @@ namespace Arenda
                     dgListDoc.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = rColor;
                     dgListDoc.Rows[e.RowIndex].DefaultCellStyle.SelectionForeColor = Color.Black;
                 }
-                else if ((bool)dgListDoc.Rows[e.RowIndex].Cells["cFullPayed"].Value)
+                else if (dgListDoc.Rows[e.RowIndex].Cells["cFullPayed"].Value!=null && (bool)dgListDoc.Rows[e.RowIndex].Cells["cFullPayed"].Value)
                 {
                     dgListDoc.Rows[e.RowIndex].DefaultCellStyle.BackColor = 
                     dgListDoc.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = pFullPay.BackColor;
@@ -2466,7 +2470,7 @@ namespace Arenda
                 }
                 else
                 {
-                    if ((bool)dgListDoc.Rows[e.RowIndex].Cells["cFullPayed"].Value)
+                    if (dgListDoc.Rows[e.RowIndex].Cells["cFullPayed"].Value != null && (bool)dgListDoc.Rows[e.RowIndex].Cells["cFullPayed"].Value)
                         rColor = pCancelDoc.BackColor;
 
                     dgListDoc.Rows[e.RowIndex].DefaultCellStyle.BackColor = rColor;
@@ -2563,7 +2567,7 @@ namespace Arenda
                 {
                     btAcceptDoc.Enabled = true;
                 }
-                else if (!(bool)dgListDoc.Rows[dgListDoc.CurrentRow.Index].Cells["cisConfirmed"].Value && new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim))
+                else if (!(bool)dgListDoc.Rows[dgListDoc.CurrentRow.Index].Cells["cisConfirmed"].Value && new List<string> { "СОА", "РКВ"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim))
                 {
                     btAcceptDoc.Enabled = true;
                 }

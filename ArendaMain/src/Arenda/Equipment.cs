@@ -52,7 +52,7 @@ namespace Arenda
             {
                 button1.Visible
                   = button2.Visible
-                  = button3.Visible = new List<string> { "РКВ" }.Contains(TempData.Rezhim);
+                  = button3.Visible = new List<string> { "РКВ"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
                   //= _proc.SuperUserMode();
             }
 
@@ -222,6 +222,12 @@ namespace Arenda
 
         private void isactive()
         {
+            if (bgEquipment.CurrentRow == null || bgEquipment.CurrentRow.Index == -1)
+            {
+                button2.Enabled = false;
+                return;
+            }
+            
             try
             {
                 if (bgEquipment.CurrentRow.Cells["isActive"].Value.ToString() == "False")

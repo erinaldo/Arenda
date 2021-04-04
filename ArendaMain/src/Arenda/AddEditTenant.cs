@@ -1014,8 +1014,11 @@ namespace Arenda
 
                 Logging.VariableChange("Примечание: ", remark.Text, _remark);
 
-                Logging.VariableChange("Объект ID: ", cmbObject.SelectedValue.ToString(), id_obj.ToString());
-                Logging.VariableChange("Объект Наименование: ", cmbObject.Text, name_object);
+                if (cmbObject.SelectedValue != null)
+                {
+                    Logging.VariableChange("Объект ID: ", cmbObject.SelectedValue.ToString(), id_obj.ToString());
+                    Logging.VariableChange("Объект Наименование: ", cmbObject.Text, name_object);
+                }
                 Logging.VariableChange("Путь к шаблонам: ", tbScanD.Text, path);
 
 

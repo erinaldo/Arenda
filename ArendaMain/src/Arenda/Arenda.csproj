@@ -59,7 +59,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
@@ -82,60 +82,15 @@
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ArendaDiscount, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\ArendaDiscount.dll</HintPath>
-    </Reference>
-    <Reference Include="ArendaFileExport, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\ArendaFileExport.dll</HintPath>
-    </Reference>
-    <Reference Include="ArendaPrint, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\ArendaPrint.dll</HintPath>
-    </Reference>
-    <Reference Include="ArendaViewSection">
-      <HintPath>..\..\..\ArendaViewSection.dll</HintPath>
-    </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="dllArendaDictonary">
-      <HintPath>..\..\..\dllArendaDictonary\dllArendaDictonary\dllArendaDictonary\bin\Debug\dllArendaDictonary.dll</HintPath>
-    </Reference>
-    <Reference Include="dllArendaJournalAccrualsPenalties">
-      <HintPath>..\..\..\dllArendaJournalAccrualsPenalties\src\dllArendaJournalAccrualsPenalties\bin\Debug\dllArendaJournalAccrualsPenalties.dll</HintPath>
-    </Reference>
-    <Reference Include="dllJournalCongress">
-      <HintPath>..\..\..\dllJournalCongress\src\dllJournalCongress\bin\Debug\dllJournalCongress.dll</HintPath>
-    </Reference>
-    <Reference Include="dllJournalLoad1C">
-      <HintPath>..\..\..\dllJournalLoad1C\src\dllJournalLoad1C\bin\Debug\dllJournalLoad1C.dll</HintPath>
-    </Reference>
-    <Reference Include="dllJournalPlaneReport">
-      <HintPath>..\..\..\dllJournalReport\src\dllJournalPlaneReport\bin\Debug\dllJournalPlaneReport.dll</HintPath>
-    </Reference>
-    <Reference Include="dllJournalReport">
-      <HintPath>..\..\..\dllJournalReport\src\dllJournalReport\bin\Debug\dllJournalReport.dll</HintPath>
-    </Reference>
-    <Reference Include="DllLink1CForAgreements">
-      <HintPath>..\..\..\DllLink1CForAgreements\src\DllLink1CForAgreements\bin\Debug\DllLink1CForAgreements.dll</HintPath>
-    </Reference>
-    <Reference Include="dllPlanReport">
-      <HintPath>..\..\..\Отчет по секции_арендатору. Отчет по оплатам\dllPlanReport.dll</HintPath>
-    </Reference>
-    <Reference Include="dllPlanReportMonth">
-      <HintPath>..\..\..\Отчет по секции_арендатору. Отчет по оплатам\dllPlanReportMonth.dll</HintPath>
-    </Reference>
     <Reference Include="Framework, Version=3.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\Framework.dll</HintPath>
     </Reference>
     <Reference Include="Interop.Excel, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="JournalBorrower">
-      <HintPath>..\..\..\dllJournalBorrower\src\JournalBorrower\bin\Debug\JournalBorrower.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
     <Reference Include="MyMessageBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -162,9 +117,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="TenantsReport">
-      <HintPath>..\..\..\TenantsReport.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddEditBasement.cs">
@@ -926,6 +878,68 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ArendaFileExport\src\ArendaFileExport\ArendaFileExport.csproj">
+      <Project>{cf796e05-e5cb-44ac-8c21-4fe998335e5f}</Project>
+      <Name>ArendaFileExport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dllArendaDictonary\src\dllArendaDictonary\dllArendaDictonary.csproj">
+      <Project>{52af3caf-66a2-44ec-b7e9-b13f3de87627}</Project>
+      <Name>dllArendaDictonary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dllArendaJournalAccrualsPenalties\src\dllArendaJournalAccrualsPenalties\dllArendaJournalAccrualsPenalties.csproj">
+      <Project>{35bc31ec-4b13-43b8-9bec-779259d3c9c9}</Project>
+      <Name>dllArendaJournalAccrualsPenalties</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dllJournalBorrower\src\JournalBorrower\JournalBorrower.csproj">
+      <Project>{28798789-9a07-4cab-aa68-1445fc1b8279}</Project>
+      <Name>JournalBorrower</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dllJournalCongress\src\dllJournalCongress\dllJournalCongress.csproj">
+      <Project>{9ddaea94-7f9c-45b6-80a3-eaa5cb020349}</Project>
+      <Name>dllJournalCongress</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dllJournalLoad1C\src\dllJournalLoad1C\dllJournalLoad1C.csproj">
+      <Project>{71bc04bd-2f2f-4ba3-995f-9b62885615e9}</Project>
+      <Name>dllJournalLoad1C</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dllJournalReport\src\dllJournalPlaneReport\dllJournalPlaneReport.csproj">
+      <Project>{d7a4e85d-aefd-4d3e-b019-d652069f4e47}</Project>
+      <Name>dllJournalPlaneReport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dllJournalReport\src\dllJournalReport\dllJournalReport.csproj">
+      <Project>{1529797c-3140-44f5-bec9-3e311316dacb}</Project>
+      <Name>dllJournalReport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DllLink1CForAgreements\src\DllLink1CForAgreements\DllLink1CForAgreements.csproj">
+      <Project>{6e3c5365-814e-4f28-b1e9-c31c354054be}</Project>
+      <Name>DllLink1CForAgreements</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dllMassDisounts\src\ArendaDiscount\ArendaDiscount.csproj">
+      <Project>{14aec103-b4c1-4a62-b857-8c62fb0dbc58}</Project>
+      <Name>ArendaDiscount</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dllPrint\src\ArendaPrint\ArendaPrint.csproj">
+      <Project>{83df7b21-1823-480c-939a-fe070d35434c}</Project>
+      <Name>ArendaPrint</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\dllTenantReport\TenantsReport\TenantsReport.csproj">
+      <Project>{2ef1cbba-4517-4504-88f3-6c4b2089bf4b}</Project>
+      <Name>TenantsReport</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Отчет о занятости секций\src\ArendaViewSection\ArendaViewSection.csproj">
+      <Project>{2d27ff4f-76e5-4787-b46a-a1c58e576a42}</Project>
+      <Name>ArendaViewSection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Отчет по секции_арендатору. Отчет по оплатам\dllPlanReportMonth\dllPlanReportMonth\dllPlanReportMonth\dllPlanReportMonth.csproj">
+      <Project>{d9086199-78cf-45c4-8d80-d21248618f07}</Project>
+      <Name>dllPlanReportMonth</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Отчет по секции_арендатору. Отчет по оплатам\dllPlanReport\dllPlanReport\dllPlanReport\dllPlanReport.csproj">
+      <Project>{55c541ef-bfd6-4df8-8cba-f0a133bc8fb6}</Project>
+      <Name>dllPlanReport</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

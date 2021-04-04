@@ -293,9 +293,9 @@ namespace dllArendaDictonary.dicLandPlot
             Logging.StartFirstLevel(id_log);
             switch (id_log)
             {
-                case 2: Logging.Comment("Удаление Типа документа"); break;
-                case 3: Logging.Comment("Тип документа переведён в недействующие "); break;
-                case 4: Logging.Comment("Тип документа переведён  в действующие"); break;
+                case 1563: Logging.Comment("Удаление земельного участка"); break;
+                case 1542: Logging.Comment("Земельный участок переведён в недействующие "); break;
+                case 1543: Logging.Comment("Земельный участок переведён  в действующие"); break;
                 default: break;
             }
 
@@ -303,7 +303,7 @@ namespace dllArendaDictonary.dicLandPlot
             int id_ObjectLease = (int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_ObjectLease"];
             decimal AreaPlot = (decimal)dtData.DefaultView[dgvData.CurrentRow.Index]["AreaPlot"];
             string NumberPlot = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["NumberPlot"];
-            string nameObject = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["NumberPlot"];
+            string nameObject = (string)dtData.DefaultView[dgvData.CurrentRow.Index]["nameObject"];
 
 
             Logging.Comment($"ID: {id}");

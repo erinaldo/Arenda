@@ -677,7 +677,8 @@ namespace Arenda
             int RentalVacation,
             int? id_SavePayment,
             int id_TypeActivities,
-            string Agreement1C)
+            string Agreement1C,
+            string numSection)
         {
             ap.Clear();
             ap.Add(id);
@@ -712,6 +713,7 @@ namespace Arenda
             ap.Add(id_TypeActivities);
             ap.Add(Nwuram.Framework.Settings.User.UserSettings.User.Id);
             ap.Add(Agreement1C);
+            ap.Add(numSection);
 
 
             return executeProcedure("Arenda.AddEditLD",
@@ -747,7 +749,8 @@ namespace Arenda
                     "@id_SavePayment",
                     "@id_TypeActivities",
                     "@id_user",
-                    "@Agreement1C"},
+                    "@Agreement1C",
+                    "@numSection"},
                 new DbType[] {
                     DbType.Int32,
                     DbType.Int32,
@@ -780,6 +783,7 @@ namespace Arenda
                     DbType.Int32,
                     DbType.Int32,
                     DbType.Int32,
+                    DbType.String,
                     DbType.String
                 }, ap);
         }

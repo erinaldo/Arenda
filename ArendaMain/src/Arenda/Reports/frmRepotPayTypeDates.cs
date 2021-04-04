@@ -1,4 +1,5 @@
-﻿using Nwuram.Framework.Settings.Connection;
+﻿using Nwuram.Framework.Logging;
+using Nwuram.Framework.Settings.Connection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -92,8 +93,12 @@ namespace Arenda.Reports
                         blockers.RestoreControlEnabledState(this);
                         progressBar1.Visible = false;
                     }, this);
-                    return false;
+                    return false;                
                 }
+
+                Logging.StartFirstLevel(79);
+                Logging.Comment("Выгрузка отчёта по добавленным оплатам");
+                Logging.StopFirstLevel();
 
                 int indexRow = 1;
                 int maxColumns = 9;

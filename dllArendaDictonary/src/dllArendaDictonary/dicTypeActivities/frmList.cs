@@ -280,9 +280,9 @@ namespace dllArendaDictonary.dicTypeActivities
             Logging.StartFirstLevel(id_log);
             switch (id_log)
             {
-                case 2: Logging.Comment("Удаление Типа документа"); break;
-                case 3: Logging.Comment("Тип документа переведён в недействующие "); break;
-                case 4: Logging.Comment("Тип документа переведён  в действующие"); break;
+                case 1566: Logging.Comment("Удаление Вида дейтельности"); break;
+                case 1542: Logging.Comment("Вид дейтельности переведён в недействующие "); break;
+                case 1543: Logging.Comment("Вид дейтельности переведён  в действующие"); break;
                 default: break;
             }
 

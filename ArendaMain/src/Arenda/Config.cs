@@ -88,7 +88,7 @@ namespace Arenda
 
         private void Config_Load(object sender, EventArgs e)
         {
-            view = !new List<string> { "РКВ" }.Contains(TempData.Rezhim);
+            view = !new List<string> { "РКВ"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
 
             conf =_proc.EditGetConf(ConnectionSettings.GetIdProgram(),"","");
 

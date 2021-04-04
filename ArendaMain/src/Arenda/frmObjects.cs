@@ -38,7 +38,7 @@ namespace Arenda
 
         private void SetButtonsEnabled()
         {
-            if (TempData.Rezhim.Equals("РКВ"))
+            if (new List<string> { "РКВ"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim))
             {
                 btDel.Enabled = dgvObjects.Rows.Count > 0 && dgvObjects.CurrentRow != null;
                 btEdit.Enabled = dgvObjects.Rows.Count > 0 && dgvObjects.CurrentRow != null

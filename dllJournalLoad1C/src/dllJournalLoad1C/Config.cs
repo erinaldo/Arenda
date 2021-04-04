@@ -66,4 +66,10 @@ namespace dllJournalLoad1C
             if (_this.InvokeRequired) { _this.Invoke(d); } else { d(); }
         }
     }
+
+    enum logEvents
+    { 
+        Отправка_файлов_на_почту = 1633,
+        Ошибки_отправки_файлов = 1634
+    }
 }

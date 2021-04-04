@@ -43,10 +43,6 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.chbCongressAccept = new System.Windows.Forms.CheckBox();
             this.dgvData = new System.Windows.Forms.DataGridView();
-            this.tbAgreement = new System.Windows.Forms.TextBox();
-            this.tbTenant = new System.Windows.Forms.TextBox();
-            this.tbItogPenalty = new System.Windows.Forms.TextBox();
-            this.lItogoPenalty = new System.Windows.Forms.Label();
             this.nameTenant = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cTypeContract = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cAgreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,6 +54,10 @@
             this.cPrcPenalty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cSummaPenalty = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cItogPenalty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tbAgreement = new System.Windows.Forms.TextBox();
+            this.tbTenant = new System.Windows.Forms.TextBox();
+            this.tbItogPenalty = new System.Windows.Forms.TextBox();
+            this.lItogoPenalty = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -242,42 +242,6 @@
             this.dgvData.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.dgvData_RowPrePaint);
             this.dgvData.SelectionChanged += new System.EventHandler(this.dgvData_SelectionChanged);
             // 
-            // tbAgreement
-            // 
-            this.tbAgreement.Location = new System.Drawing.Point(221, 57);
-            this.tbAgreement.Name = "tbAgreement";
-            this.tbAgreement.Size = new System.Drawing.Size(100, 20);
-            this.tbAgreement.TabIndex = 19;
-            this.tbAgreement.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
-            // 
-            // tbTenant
-            // 
-            this.tbTenant.Location = new System.Drawing.Point(115, 57);
-            this.tbTenant.Name = "tbTenant";
-            this.tbTenant.Size = new System.Drawing.Size(100, 20);
-            this.tbTenant.TabIndex = 20;
-            this.tbTenant.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
-            // 
-            // tbItogPenalty
-            // 
-            this.tbItogPenalty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbItogPenalty.Location = new System.Drawing.Point(1181, 513);
-            this.tbItogPenalty.Name = "tbItogPenalty";
-            this.tbItogPenalty.ReadOnly = true;
-            this.tbItogPenalty.Size = new System.Drawing.Size(100, 20);
-            this.tbItogPenalty.TabIndex = 22;
-            this.tbItogPenalty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // lItogoPenalty
-            // 
-            this.lItogoPenalty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lItogoPenalty.AutoSize = true;
-            this.lItogoPenalty.Location = new System.Drawing.Point(1138, 516);
-            this.lItogoPenalty.Name = "lItogoPenalty";
-            this.lItogoPenalty.Size = new System.Drawing.Size(37, 13);
-            this.lItogoPenalty.TabIndex = 4;
-            this.lItogoPenalty.Text = "Итого";
-            // 
             // nameTenant
             // 
             this.nameTenant.DataPropertyName = "nameTenant";
@@ -361,11 +325,48 @@
             this.cItogPenalty.Name = "cItogPenalty";
             this.cItogPenalty.ReadOnly = true;
             // 
+            // tbAgreement
+            // 
+            this.tbAgreement.Location = new System.Drawing.Point(221, 57);
+            this.tbAgreement.Name = "tbAgreement";
+            this.tbAgreement.Size = new System.Drawing.Size(100, 20);
+            this.tbAgreement.TabIndex = 19;
+            this.tbAgreement.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
+            // 
+            // tbTenant
+            // 
+            this.tbTenant.Location = new System.Drawing.Point(115, 57);
+            this.tbTenant.Name = "tbTenant";
+            this.tbTenant.Size = new System.Drawing.Size(100, 20);
+            this.tbTenant.TabIndex = 20;
+            this.tbTenant.TextChanged += new System.EventHandler(this.tbTenant_TextChanged);
+            // 
+            // tbItogPenalty
+            // 
+            this.tbItogPenalty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbItogPenalty.Location = new System.Drawing.Point(1181, 513);
+            this.tbItogPenalty.Name = "tbItogPenalty";
+            this.tbItogPenalty.ReadOnly = true;
+            this.tbItogPenalty.Size = new System.Drawing.Size(100, 20);
+            this.tbItogPenalty.TabIndex = 22;
+            this.tbItogPenalty.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // lItogoPenalty
+            // 
+            this.lItogoPenalty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lItogoPenalty.AutoSize = true;
+            this.lItogoPenalty.Location = new System.Drawing.Point(1138, 516);
+            this.lItogoPenalty.Name = "lItogoPenalty";
+            this.lItogoPenalty.Size = new System.Drawing.Size(37, 13);
+            this.lItogoPenalty.TabIndex = 4;
+            this.lItogoPenalty.Text = "Итого";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1293, 597);
+            this.ControlBox = false;
             this.Controls.Add(this.tbItogPenalty);
             this.Controls.Add(this.tbAgreement);
             this.Controls.Add(this.tbTenant);
@@ -387,6 +388,7 @@
             this.MinimizeBox = false;
             this.Name = "frmMain";
             this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Журнал начисления пени";
             this.Load += new System.EventHandler(this.frmMain_Load);

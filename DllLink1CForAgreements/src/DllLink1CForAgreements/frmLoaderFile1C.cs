@@ -20,6 +20,7 @@ using OfficeOpenXml;
 using Xceed.Words.NET;
 using Xceed.Document.NET;
 using Microsoft.WindowsAPICodePack.Dialogs;
+using Nwuram.Framework.Logging;
 
 namespace DllLink1CForAgreements
 {
@@ -42,7 +43,7 @@ namespace DllLink1CForAgreements
             InitializeComponent();
             if(Config.hCntMain==null)
                 Config.hCntMain = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);            
-            //DataTable providers = (new OleDbEnumerator()).GetElements();
+            DataTable providers = (new OleDbEnumerator()).GetElements();
         }
 
         private void frmLoaderFile1C_Load(object sender, EventArgs e)
@@ -51,6 +52,8 @@ namespace DllLink1CForAgreements
             EnumerableRowCollection<DataRow> rowCollect = conf.AsEnumerable().Where(r => r.Field<string>("id_value").Equals("psss"));
             if (rowCollect.Count() > 0)
             {
+                net = new NetworkShare(true, false);
+                net.ConnectToShare();
                 pathSign = rowCollect.First()["value"].ToString() + "\\sign";
                 if (!Directory.Exists(pathSign))
                 {
@@ -117,26 +120,37 @@ namespace DllLink1CForAgreements
                 var listFileWord = Directory.GetFiles(tbPath.Text).Where(s => s.EndsWith(".doc") || s.EndsWith(".docx"));
                 var listFilePDF = Directory.GetFiles(tbPath.Text).Where(s => s.EndsWith(".pdf"));
 
+                Logging.StartFirstLevel((int)LogEvents.Добавление_связи_договора_в_БД);
+
+                if (listFileExcel.Count() > 0) Logging.Comment("Обработка файлов Excel");
                 foreach (string filePath in listFileExcel)
                 {
                     ParseExcelFile(filePath);
                 }
 
+                if (listFileWord.Count() > 0) Logging.Comment("Обработка файлов Word");
                 foreach (string filePath in listFileWord)
                 {
                     ParseWordFile(filePath);
                 }
 
+                Logging.StopFirstLevel();
+
+
                 if (lStringError.Count > 0)
                 {
+                    Logging.StartFirstLevel((int)LogEvents.Нет_Подписей);
                     string msg = "У следующих арендодателей\nотсутствуют файлы подписи для\nсчетов 1С.\n";
                     foreach (string s in lStringError)
                     {
+                        Logging.Comment(s);
                         msg += $"- {s}\n";
                     }
+                    Logging.StopFirstLevel();
                     msg += $"Их файлы не будут обработаны.";
                     MessageBox.Show(Config.centralText(msg + "\n"), "У арендодателей отсутствуют подписи", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                
 
                 if (lFileData.Count > 0)
                 {
@@ -149,6 +163,7 @@ namespace DllLink1CForAgreements
 
                             if (ListToParse.Count() > 0)
                             {
+                                Logging.StartFirstLevel((int)LogEvents.Ручное_добавление_связи_договора_в_БД);
                                 foreach (FileData fData in ListToParse)
                                 {
                                     if (!AddSignAndConvertToPDF(fData.tFile, fData))
@@ -156,14 +171,18 @@ namespace DllLink1CForAgreements
 
                                     }
                                 }
+                                Logging.StopFirstLevel();
 
                                 if (lStringError.Count > 0)
                                 {
+                                    Logging.StartFirstLevel((int)LogEvents.Нет_Подписей);
                                     string msg = "У следующих арендодателей\nотсутствуют файлы подписи для\nсчетов 1С.\n";
                                     foreach (string s in lStringError)
                                     {
+                                        Logging.Comment(s);
                                         msg += $"- {s}\n";
                                     }
+                                    Logging.StopFirstLevel();
                                     msg += $"Их файлы не будут обработаны.";
                                     MessageBox.Show(Config.centralText(msg + "\n"), "У арендодателей отсутствуют подписи", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 }
@@ -232,7 +251,7 @@ namespace DllLink1CForAgreements
             {
                 reSaveFile(filePath);
             }
-                OleDbConnection conn = null;
+            OleDbConnection conn = null;
             try
             {
                 DataTable dtexcel = new DataTable();
@@ -244,14 +263,15 @@ namespace DllLink1CForAgreements
                 {
                     HDR = "Yes";
                     strConn = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + filePath + ";Extended Properties=\"Excel 12.0;HDR=" + HDR + ";IMEX=1\"";
-                    delta = -2;
+                    //delta = -2;
+                    delta = -3;
                 }
                 else
                     strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + filePath + ";Extended Properties=\"Excel 8.0;HDR=" + HDR + ";IMEX=1\"";
                 conn = new OleDbConnection(strConn);
                 conn.Open();
                 DataTable schemaTable = conn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new object[] { null, null, null, "TABLE" });
-               
+
                 DataRow schemaRow = schemaTable.Rows[0];
                 string sheet = schemaRow["TABLE_NAME"].ToString();
                 if (!sheet.EndsWith("_"))
@@ -265,27 +285,44 @@ namespace DllLink1CForAgreements
                 if (conn != null)
                     conn.Close();
 
-                if (dtexcel != null && dtexcel.Rows.Count >= 23 + delta)
+                if (dtexcel != null && dtexcel.Rows.Count >= 24 + delta)
                 {
-                    string s1 = dtexcel.Rows[9 + delta][1].ToString();
+                    string s1 = dtexcel.Rows[10 + delta][1].ToString();//9
                     s1 = s1.Replace("\r\a", string.Empty);
 
-                    string s2 = dtexcel.Rows[19 + delta][6].ToString();
+                    string s2 = dtexcel.Rows[20 + delta][6].ToString();//19
                     s2 = s2.Replace("\r\a", string.Empty);
 
-                    string s3 = dtexcel.Rows[22 + delta][3].ToString();
+                    string s3 = dtexcel.Rows[23 + delta][3].ToString();//22
                     s3 = s3.Replace("\r\a", string.Empty);
 
+                    int positonInsertSign = 0;
+                    //for (int i = 23+ delta; i < dtexcel.Rows.Count; i++)
+                    //{
+                    //    if (dtexcel.Rows[i][0].ToString().ToLower().Contains("руководитель")
+                    //        || dtexcel.Rows[i][1].ToString().ToLower().Contains("руководитель")
+                    //        || dtexcel.Rows[i][2].ToString().ToLower().Contains("руководитель")
+                    //        || dtexcel.Rows[i][3].ToString().ToLower().Contains("руководитель")
+                    //        || dtexcel.Rows[i][4].ToString().ToLower().Contains("руководитель"))
+                    //    {
+                    //        positonInsertSign = i;
+                    //        break;
+                    //    }
+                    //}
 
-                    if (s1 != null && s2 != null && s3 != null && s1.Length!=0 && s2.Length != 0 && s3.Length != 0)
+                    if (s1 != null && s2 != null && s3 != null && s1.Length != 0 && s2.Length != 0 && s3.Length != 0)
                     {
-                        parserText(s1, s2, s3, filePath, typeFile.excel);                                                
+                        parserText(s1, s2, s3, filePath, typeFile.excel, positonInsertSign);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Not Find");
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{filePath}: {ex.Message}","");
+                MessageBox.Show($"{filePath}: {ex.Message}", "");
                 Console.WriteLine($"{filePath}: {ex.Message}");
             }
             finally
@@ -347,25 +384,58 @@ namespace DllLink1CForAgreements
                 ref MissingObj, ref MissingObj, ref MissingObj, ref MissingObj,
                 ref MissingObj, ref MissingObj, ref MissingObj, ref MissingObj);
 
-                int indexTable = 1;
+                int indexTable = -1;//1
                 string s1 = null, s2 = null, s3 = null;
 
                 foreach (Word.Table WordTable in doc.Tables)
                 {
+                    ////foreach (Word.Column columns in WordTable.Columns)
+                    ////{
+                    //try
+                    //{
+                    //    foreach (Word.Row row in WordTable.Rows)
+                    //    {
+                    //        try
+                    //        {
+                    //            foreach (Word.Cell cell in row.Cells)
+                    //                try
+                    //                {
+                    //                    Console.WriteLine($"[{cell.RowIndex}:{cell.ColumnIndex}]:{cell.Range.Text}");
+
+                    //                }
+                    //                catch (Exception ex)
+                    //                {
+
+                    //                }
+                    //        }
+                    //        catch (Exception ex)
+                    //        {
+
+                    //        }
+                    //    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //}
+                    ////}
+
                     if (indexTable == 1)
                     {
                         if (WordTable.Rows.Count > 10)
                         {
-                            s1 = WordTable.Cell(10, 2).Range.Text;
+                            //s1 = WordTable.Cell(10, 2).Range.Text;
+                            s1 = WordTable.Cell(1, 2).Range.Text;
                             s1 = s1.Replace("\r\a", string.Empty);
-                            Console.WriteLine(s1);
+                            //Console.WriteLine(s1);
                         }
 
-                        if (WordTable.Rows.Count > 20)
+                        //if (WordTable.Rows.Count > 20)
+                        if (WordTable.Rows.Count > 11)
                         {
-                            s2 = WordTable.Cell(20, 3).Range.Text;
+                            //s2 = WordTable.Cell(20, 3).Range.Text;
+                            s2 = WordTable.Cell(11, 3).Range.Text;
                             s2 = s2.Replace("\r\a", string.Empty);
-                            Console.WriteLine(s2);
+                            //Console.WriteLine(s2);
                         }
                     }
                     else if (indexTable == 2)
@@ -374,7 +444,7 @@ namespace DllLink1CForAgreements
                         {
                             s3 = WordTable.Cell(2, 3).Range.Text;
                             s3 = s3.Replace("\r\a", string.Empty);
-                            Console.WriteLine(3);
+                            //Console.WriteLine(s3);
                         }
                     }
                     indexTable++;
@@ -400,9 +470,13 @@ namespace DllLink1CForAgreements
 
                 if (s1 != null && s2 != null && s3 != null)
                 {
-                    parserText(s1, s2, s3, FileName.ToString(),typeFile.word);                 
+                    parserText(s1, s2, s3, FileName.ToString(), typeFile.word, 0);
                 }
-                Console.WriteLine();
+                else
+                {
+                    Console.WriteLine("Not Find");
+                }
+                //Console.WriteLine();
             }
             catch (Exception ex)
             {
@@ -431,7 +505,7 @@ namespace DllLink1CForAgreements
 
         #endregion
  
-        private void parserText(string s1, string s2, string s3, string file, typeFile tFile)
+        private void parserText(string s1, string s2, string s3, string file, typeFile tFile,int positonInsertSign)
         {
             //string num = s1.Substring(s1.IndexOf("№") + 1, s1.IndexOf("от") - s1.IndexOf("№") - 1).Trim();
             string num = s1.Substring(s1.IndexOf("№") + 1).Trim();
@@ -454,7 +528,7 @@ namespace DllLink1CForAgreements
                 string nameObject = (string)dtTmp.Rows[0]["nameObject"];
 
                 FileData fData = new FileData();
-                fData.setData(file, file, num, date, agreement, s3, id_agreement, isAdd, nameLandLord, tFile, id_Landlord, nameObject);
+                fData.setData(file, file, num, date, agreement, s3, id_agreement, isAdd, nameLandLord, tFile, id_Landlord, nameObject, positonInsertSign);
                 if (!AddSignAndConvertToPDF(tFile, fData))
                 {
 
@@ -463,7 +537,7 @@ namespace DllLink1CForAgreements
             else
             {
                 FileData fData = new FileData();
-                fData.setData(file, file, num, date, agreement, s3, 0, true, "", tFile, 0,"");
+                fData.setData(file, file, num, date, agreement, s3, 0, true, "", tFile, 0, "", positonInsertSign);
                 lFileData.Add(fData);
             }
         }
@@ -492,6 +566,8 @@ namespace DllLink1CForAgreements
             string filePDF = pathSignTmpPDF + "\\" + Path.GetFileNameWithoutExtension(FileName) + ".pdf";
             newFile = new FileInfo(FileNameToSaveAndSign);
 
+            Logging.Comment($"Начало обработки файла: { Path.GetFileNameWithoutExtension(filePDF)}");
+
 
             if (tFile == typeFile.word)
             {
@@ -517,11 +593,19 @@ namespace DllLink1CForAgreements
                     //picture.Height = 115;
                     //picture.Width = 931;
 
-                    Table table = document.Tables[3];
-                    table.Rows[7].Remove();
-                    table.Rows[8].Remove();
-                    table.Rows[7].MergeCells(0, table.Rows[7].Cells.Count);
-                    table.Rows[7].Cells[0].Paragraphs[0].AppendPicture(picture);
+                    //Table table = document.Tables[3];                    
+                    //table.Rows[7].Remove();
+                    //table.Rows[8].Remove();
+                    //table.Rows[7].MergeCells(0, table.Rows[7].Cells.Count);
+                    //table.Rows[7].Cells[0].Paragraphs[0].AppendPicture(picture);
+
+                    Table table = document.Tables[5];
+                    //table.Rows[7].Remove();
+                    table.Rows[10].Remove();
+                    table.Rows[10].MergeCells(0, table.Rows[10].Cells.Count);
+                    //table.Rows[10].Cells[0].Paragraphs[0].InsertText("test");
+                    table.Rows[10].Cells[0].Paragraphs[0].AppendPicture(picture);
+
                     document.Save();
                 }
 
@@ -582,11 +666,38 @@ namespace DllLink1CForAgreements
                     OfficeOpenXml.Drawing.ExcelPicture excelImage = null;
                     var worksheet = epp.Workbook.Worksheets[0];
 
+                    int countRow = worksheet.Dimension.End.Row;
+                    int countColumns = worksheet.Dimension.End.Column;
+                    bool isStop = false;
+                    for (int i = countRow; i > 0; i--)
+                    {
+                        for (int j = 1; j < countColumns; j++)
+                        {
+                            object value = worksheet.Cells[i, j].Value;
+                            if (value != null)
+                            {
+                                //Console.WriteLine(value);
+                                if (value.ToString().ToLower().Equals("Руководитель".ToLower()) || value.ToString().ToLower().Equals("Предприниматель".ToLower()))
+                                {
+                                    fData.positonInsertSign = i-1;
+                                    isStop = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (isStop) break;
+                    }
+
                     excelImage = worksheet.Drawings.AddPicture("image", image);
 
                     // In .SetPosition, we are using 8th Column and 8th Row, with 0 Offset 
-                    //worksheet.SetValue(34, 0, "");
-                    excelImage.SetPosition(34, 0, 0, 0);
+
+                    //var rowCnt = worksheet.Dimension.End.Row;
+                    //var colCnt = worksheet.Dimension.End.Column;
+
+                    //worksheet.SetValue(fData.positonInsertSign, 1, "test");
+                    //excelImage.SetPosition(38, 0, 0, 0);
+                    excelImage.SetPosition(fData.positonInsertSign, 0, 0, 0);
 
                     //set size of image, 100= width, 100= height
                     //excelImage.SetSize(931, 115);
@@ -596,9 +707,6 @@ namespace DllLink1CForAgreements
                 filePDF = cnvXLSToPDF.ConvertData(FileNameToSaveAndSign);
 
             }
-
-
-
 
             File.Delete(FileNameToSaveAndSign);
             newFile = new FileInfo(filePDF);
@@ -621,6 +729,8 @@ namespace DllLink1CForAgreements
                         if (File.Exists(filePDF))
                             File.Delete(filePDF);
 
+                        Logging.Comment($"{Path.GetFileNameWithoutExtension(filePDF)}: файл счёта не сохранён. Операция прервана пользователем");
+
                         MessageBox.Show(Config.centralText("PDF файл счёта не сохранён.\nОперация прервана пользователем\n"), "Сохранение PDF файла счёта", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         return false;
@@ -628,14 +738,18 @@ namespace DllLink1CForAgreements
 
                     if (dlResult == DialogResult.Yes)
                     {
+                        Logging.Comment($"{Path.GetFileNameWithoutExtension(filePDF)}: Перезапись");
                         isoverwrite = true;
                         //id_Scane = (int)rowCollectScan.First()["id"];
                     }
                     else if (dlResult == DialogResult.No)
                     {
+                        
                         string filePDFTmp = filePDF.Replace(Path.GetFileNameWithoutExtension(filePDF), Path.GetFileNameWithoutExtension(filePDF) + $"({rowCollectScan.Count()})");
                         File.Move(filePDF, filePDFTmp);
+                        Logging.Comment($"{Path.GetFileNameWithoutExtension(filePDF)}: Копирование: Новое наименование файла: {Path.GetFileNameWithoutExtension(filePDFTmp)}");
                         filePDF = filePDFTmp;
+                        
                     }
                 }
             }
@@ -655,7 +769,8 @@ namespace DllLink1CForAgreements
             //    net.CopyFile(fData.idAgreement.ToString(), filePDF, Path.GetFileNameWithoutExtension(filePDF) + newFile.Extension, isoverwrite);
             //}
 
-            Config.hCntMain.SetAgreement1CForAgreement(fData.idAgreement, fData.Number, fData.Date, fData.Agreement, fData.TypePay, fData.isAdd, id_Scane, !isoverwrite);            
+            Config.hCntMain.SetAgreement1CForAgreement(fData.idAgreement, fData.Number, fData.Date, fData.Agreement, fData.TypePay, fData.isAdd, id_Scane, !isoverwrite);
+            Logging.Comment($"Запись в БД:[idAgreement:{fData.idAgreement};Номер: {fData.Number};Дата: {fData.Date}; Agreement: {fData.Agreement}; Тип оплаты:{fData.TypePay}]");
             File.Delete(filePDF);
 
             try
@@ -671,6 +786,8 @@ namespace DllLink1CForAgreements
 
                 File.Move(FileName, FileAndParse);
             }
+
+            Logging.Comment($"Завершение обработки файла: { Path.GetFileNameWithoutExtension(filePDF)}");
 
             return true;
         }

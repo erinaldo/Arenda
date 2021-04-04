@@ -30,7 +30,7 @@ namespace Arenda
             InitializeComponent();
             mode = 1;
             ini();
-            chbIsAPPZ.Enabled = new List<string> { "РКВ" }.Contains(TempData.Rezhim);
+            chbIsAPPZ.Enabled = new List<string> { "РКВ"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
                 //= _proc.SuperUserMode();
             check();
             _Name = "";
@@ -50,7 +50,7 @@ namespace Arenda
         InitializeComponent();
         mode = 0;
         ini();
-        chbIsAPPZ.Enabled = new List<string> { "РКВ" }.Contains(TempData.Rezhim);
+        chbIsAPPZ.Enabled = new List<string> { "РКВ"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
             //= _proc.SuperUserMode();
 
             _id = id;

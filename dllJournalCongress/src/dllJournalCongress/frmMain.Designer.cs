@@ -379,6 +379,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1036, 573);
+            this.ControlBox = false;
             this.Controls.Add(this.btUpdate);
             this.Controls.Add(this.btPrint);
             this.Controls.Add(this.btExit);
@@ -401,7 +402,11 @@
             this.Controls.Add(this.dtpEnd);
             this.Controls.Add(this.dtpStart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmMain";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Журнал съездов";
             this.Load += new System.EventHandler(this.frmMain_Load);

@@ -21,7 +21,7 @@ namespace Arenda
         public AddEditZdanie()
         {
             InitializeComponent();
-             Chk = false;
+            Chk = false;
         }
 
         public AddEditZdanie(string cname, string abbr, string id, bool red)
@@ -33,7 +33,7 @@ namespace Arenda
             Abbr = abbr;
             Chk = red;
             zid = Convert.ToInt32(id);
-            
+
         }
 
 
@@ -41,17 +41,17 @@ namespace Arenda
         {
             if ("" == tbCname.Text && "" == tbAbbr.Text)
             { DialogResult = DialogResult.Cancel; }
-            else 
+            else
             if (cName != tbCname.Text || tbAbbr.Text != Abbr)
             {
                 //if (MessageBox.Show("Были внесены изменения. Выйти без сохранения?", "Внимание", MessageBoxButtons.YesNo,
-                  //                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              if (MessageBox.Show(" На форме есть несохранённые данные.\nЗакрыть форму без сохранения данных?",
-                "Закрытие формы", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              { DialogResult = DialogResult.Cancel; }
+                //                     MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                if (MessageBox.Show(" На форме есть несохранённые данные.\nЗакрыть форму без сохранения данных?",
+                  "Закрытие формы", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                { DialogResult = DialogResult.Cancel; }
             }
-            else { DialogResult = DialogResult.Cancel; } 
-            }
+            else { DialogResult = DialogResult.Cancel; }
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -74,7 +74,7 @@ namespace Arenda
                             Logging.Comment($"ID:{dtBil.Rows[0]["id"]}");
                             Logging.Comment($"Наименование здания: {dtBil.Rows[0]["cName"]}");
                             Logging.Comment($"Аббревиатура здания: {dtBil.Rows[0]["Abbreviation"]}");
-                            
+
                             Logging.StopFirstLevel();
 
                             _proc.ActiveSprav("build", uniqRec, 1);
@@ -100,7 +100,7 @@ namespace Arenda
                     + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
                     Logging.StopFirstLevel();
 
-                   
+
                     //MessageBox.Show("Запись добавлена");
                     MessageBox.Show("Данные сохранены.", "Сохранение данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     tbCname.Clear();
@@ -108,14 +108,15 @@ namespace Arenda
                     DialogResult = DialogResult.Cancel;
                 }
             }
-            else {
+            else
+            {
 
                 if (cName == tbCname.Text)
                 {
                     Logging.StartFirstLevel(1368);
                     Logging.Comment("ID: " + zid);
-                    Logging.VariableChange("Наименование здания: " ,tbCname.Text.Trim(), cName);
-                    Logging.VariableChange("Аббревиатура здания: " , tbAbbr.Text.Trim(),Abbr);
+                    Logging.VariableChange("Наименование здания: ", tbCname.Text.Trim(), cName);
+                    Logging.VariableChange("Аббревиатура здания: ", tbAbbr.Text.Trim(), Abbr);
 
                     Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
                     + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
@@ -148,7 +149,7 @@ namespace Arenda
                         tbAbbr.Clear();
                         DialogResult = DialogResult.Cancel;
                     }
-                } 
+                }
             }
         }
 

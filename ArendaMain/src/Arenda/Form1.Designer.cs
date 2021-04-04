@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,10 +66,12 @@
             this.арендодателиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.настройкиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiLoad1C = new System.Windows.Forms.ToolStripMenuItem();
-            this.выгрузкаДокументовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiReport = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmiReportPayTypeDates = new System.Windows.Forms.ToolStripMenuItem();
             this.отчётПоВидамДейтельностиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отчётПоСекцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отчётПоОплатамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.выгрузкаДокументовToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pTenant = new System.Windows.Forms.Panel();
             this.sPhone = new System.Windows.Forms.TextBox();
             this.sEmail = new System.Windows.Forms.TextBox();
@@ -131,28 +133,6 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.tbDoc = new System.Windows.Forms.TextBox();
             this.dgListDoc = new System.Windows.Forms.DataGridView();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_obj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ObjNameD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_agreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tTenant = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DataStart = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DataEnd = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ALocate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Storage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Arend = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id_lord = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cIsConfirmed = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isCancelDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isEndingDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isDocForLostTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.isUseDopData = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cIsActUse = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.cFullPayed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.cbLordland = new System.Windows.Forms.ComboBox();
             this.pListDoc = new System.Windows.Forms.Panel();
             this.label17 = new System.Windows.Forms.Label();
@@ -200,8 +180,28 @@
             this.bds = new System.Windows.Forms.BindingSource(this.components);
             this.bds1 = new System.Windows.Forms.BindingSource(this.components);
             this.dbs2 = new System.Windows.Forms.BindingSource(this.components);
-            this.отчётПоСекцииToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.отчётПоОплатамToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_obj = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ObjNameD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_agreements = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tTenant = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataStart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataEnd = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ALocate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Storage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Arend = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.id_lord = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cIsConfirmed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isCancelDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isEndingDoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isDocForLostTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isUseDopData = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cIsActUse = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.cFullPayed = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.menuStrip1.SuspendLayout();
             this.pTenant.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picConEnding)).BeginInit();
@@ -231,8 +231,8 @@
             this.арендодателиToolStripMenuItem,
             this.настройкиToolStripMenuItem,
             this.tsmiLoad1C,
-            this.выгрузкаДокументовToolStripMenuItem,
-            this.tsmiReport});
+            this.tsmiReport,
+            this.выгрузкаДокументовToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(767, 24);
@@ -499,14 +499,6 @@
             this.tsmiLoad1C.Text = "Загрузка счетов";
             this.tsmiLoad1C.Click += new System.EventHandler(this.tsmiLoad1C_Click);
             // 
-            // выгрузкаДокументовToolStripMenuItem
-            // 
-            this.выгрузкаДокументовToolStripMenuItem.Name = "выгрузкаДокументовToolStripMenuItem";
-            this.выгрузкаДокументовToolStripMenuItem.Size = new System.Drawing.Size(131, 20);
-            this.выгрузкаДокументовToolStripMenuItem.Text = "Выгрузка документов";
-            this.выгрузкаДокументовToolStripMenuItem.Visible = false;
-            this.выгрузкаДокументовToolStripMenuItem.Click += new System.EventHandler(this.выгрузкаДокументовToolStripMenuItem_Click);
-            // 
             // tsmiReport
             // 
             this.tsmiReport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -531,6 +523,28 @@
             this.отчётПоВидамДейтельностиToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
             this.отчётПоВидамДейтельностиToolStripMenuItem.Text = "Отчёт по видам дейтельности";
             this.отчётПоВидамДейтельностиToolStripMenuItem.Click += new System.EventHandler(this.отчётПоВидамДейтельностиToolStripMenuItem_Click);
+            // 
+            // отчётПоСекцииToolStripMenuItem
+            // 
+            this.отчётПоСекцииToolStripMenuItem.Name = "отчётПоСекцииToolStripMenuItem";
+            this.отчётПоСекцииToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
+            this.отчётПоСекцииToolStripMenuItem.Text = "Отчёт по секции";
+            this.отчётПоСекцииToolStripMenuItem.Click += new System.EventHandler(this.отчётПоСекцииToolStripMenuItem_Click);
+            // 
+            // отчётПоОплатамToolStripMenuItem
+            // 
+            this.отчётПоОплатамToolStripMenuItem.Name = "отчётПоОплатамToolStripMenuItem";
+            this.отчётПоОплатамToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
+            this.отчётПоОплатамToolStripMenuItem.Text = "Отчёт по оплатам";
+            this.отчётПоОплатамToolStripMenuItem.Click += new System.EventHandler(this.отчётПоОплатамToolStripMenuItem_Click);
+            // 
+            // выгрузкаДокументовToolStripMenuItem
+            // 
+            this.выгрузкаДокументовToolStripMenuItem.Name = "выгрузкаДокументовToolStripMenuItem";
+            this.выгрузкаДокументовToolStripMenuItem.Size = new System.Drawing.Size(131, 20);
+            this.выгрузкаДокументовToolStripMenuItem.Text = "Выгрузка документов";
+            this.выгрузкаДокументовToolStripMenuItem.Visible = false;
+            this.выгрузкаДокументовToolStripMenuItem.Click += new System.EventHandler(this.выгрузкаДокументовToolStripMenuItem_Click);
             // 
             // pTenant
             // 
@@ -1176,14 +1190,14 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgListDoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgListDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgListDoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgListDoc.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgListDoc.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Date,
@@ -1212,14 +1226,14 @@
             this.dgListDoc.MultiSelect = false;
             this.dgListDoc.Name = "dgListDoc";
             this.dgListDoc.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgListDoc.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgListDoc.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgListDoc.RowHeadersVisible = false;
             this.dgListDoc.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgListDoc.Size = new System.Drawing.Size(710, 259);
@@ -1230,183 +1244,6 @@
             this.dgListDoc.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgListDoc_RowStateChanged);
             this.dgListDoc.SelectionChanged += new System.EventHandler(this.dgListDoc_SelectionChanged);
             this.dgListDoc.Paint += new System.Windows.Forms.PaintEventHandler(this.dgListDoc_Paint);
-            // 
-            // Date
-            // 
-            this.Date.DataPropertyName = "Дата";
-            this.Date.FillWeight = 150F;
-            this.Date.HeaderText = "Дата";
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            // 
-            // id_obj
-            // 
-            this.id_obj.DataPropertyName = "id_ObjectLease";
-            this.id_obj.HeaderText = "id_obj";
-            this.id_obj.Name = "id_obj";
-            this.id_obj.ReadOnly = true;
-            this.id_obj.Visible = false;
-            // 
-            // ObjNameD
-            // 
-            this.ObjNameD.DataPropertyName = "ObjName";
-            this.ObjNameD.FillWeight = 120F;
-            this.ObjNameD.HeaderText = "Объект";
-            this.ObjNameD.Name = "ObjNameD";
-            this.ObjNameD.ReadOnly = true;
-            // 
-            // id_agreements
-            // 
-            this.id_agreements.DataPropertyName = "id";
-            this.id_agreements.HeaderText = "id";
-            this.id_agreements.Name = "id_agreements";
-            this.id_agreements.ReadOnly = true;
-            this.id_agreements.Visible = false;
-            // 
-            // tTenant
-            // 
-            this.tTenant.DataPropertyName = "Арендатор";
-            this.tTenant.FillWeight = 155F;
-            this.tTenant.HeaderText = "Арендатор";
-            this.tTenant.Name = "tTenant";
-            this.tTenant.ReadOnly = true;
-            // 
-            // number
-            // 
-            this.number.DataPropertyName = "№";
-            this.number.HeaderText = "№";
-            this.number.Name = "number";
-            this.number.ReadOnly = true;
-            // 
-            // id_type
-            // 
-            this.id_type.DataPropertyName = "id_TypeContract";
-            this.id_type.HeaderText = "id_type";
-            this.id_type.Name = "id_type";
-            this.id_type.ReadOnly = true;
-            this.id_type.Visible = false;
-            // 
-            // Type
-            // 
-            this.Type.DataPropertyName = "TypeContract";
-            this.Type.FillWeight = 160F;
-            this.Type.HeaderText = "Тип договора";
-            this.Type.Name = "Type";
-            this.Type.ReadOnly = true;
-            // 
-            // DataStart
-            // 
-            this.DataStart.DataPropertyName = "Начало";
-            this.DataStart.FillWeight = 150F;
-            this.DataStart.HeaderText = "Начало";
-            this.DataStart.Name = "DataStart";
-            this.DataStart.ReadOnly = true;
-            // 
-            // DataEnd
-            // 
-            this.DataEnd.DataPropertyName = "Конец";
-            this.DataEnd.FillWeight = 150F;
-            this.DataEnd.HeaderText = "Конец";
-            this.DataEnd.Name = "DataEnd";
-            this.DataEnd.ReadOnly = true;
-            // 
-            // ALocate
-            // 
-            this.ALocate.DataPropertyName = "Место";
-            this.ALocate.FillWeight = 200F;
-            this.ALocate.HeaderText = "Место";
-            this.ALocate.Name = "ALocate";
-            this.ALocate.ReadOnly = true;
-            // 
-            // Storage
-            // 
-            this.Storage.DataPropertyName = "S";
-            this.Storage.HeaderText = "S,м2";
-            this.Storage.Name = "Storage";
-            this.Storage.ReadOnly = true;
-            // 
-            // Arend
-            // 
-            this.Arend.DataPropertyName = "Аренда";
-            this.Arend.FillWeight = 120F;
-            this.Arend.HeaderText = "Аренда";
-            this.Arend.Name = "Arend";
-            this.Arend.ReadOnly = true;
-            // 
-            // Phone
-            // 
-            this.Phone.DataPropertyName = "Тел";
-            this.Phone.FillWeight = 120F;
-            this.Phone.HeaderText = "Тел.";
-            this.Phone.Name = "Phone";
-            this.Phone.ReadOnly = true;
-            // 
-            // id_lord
-            // 
-            this.id_lord.DataPropertyName = "id_lord";
-            this.id_lord.HeaderText = "id_lord";
-            this.id_lord.Name = "id_lord";
-            this.id_lord.ReadOnly = true;
-            this.id_lord.Visible = false;
-            // 
-            // cIsConfirmed
-            // 
-            this.cIsConfirmed.DataPropertyName = "isConfirmed";
-            this.cIsConfirmed.HeaderText = "isConfirmed";
-            this.cIsConfirmed.Name = "cIsConfirmed";
-            this.cIsConfirmed.ReadOnly = true;
-            this.cIsConfirmed.Visible = false;
-            // 
-            // isCancelDoc
-            // 
-            this.isCancelDoc.DataPropertyName = "isCancelDoc";
-            this.isCancelDoc.HeaderText = "isCancelDoc";
-            this.isCancelDoc.Name = "isCancelDoc";
-            this.isCancelDoc.ReadOnly = true;
-            this.isCancelDoc.Visible = false;
-            // 
-            // isEndingDoc
-            // 
-            this.isEndingDoc.DataPropertyName = "isEndingDoc";
-            this.isEndingDoc.HeaderText = "isEndingDoc";
-            this.isEndingDoc.Name = "isEndingDoc";
-            this.isEndingDoc.ReadOnly = true;
-            this.isEndingDoc.Visible = false;
-            // 
-            // isDocForLostTime
-            // 
-            this.isDocForLostTime.DataPropertyName = "isDocForLostTime";
-            this.isDocForLostTime.HeaderText = "isDocForLostTime";
-            this.isDocForLostTime.Name = "isDocForLostTime";
-            this.isDocForLostTime.ReadOnly = true;
-            this.isDocForLostTime.Visible = false;
-            // 
-            // isUseDopData
-            // 
-            this.isUseDopData.DataPropertyName = "isUseDopData";
-            this.isUseDopData.HeaderText = "isUseDopData";
-            this.isUseDopData.Name = "isUseDopData";
-            this.isUseDopData.ReadOnly = true;
-            this.isUseDopData.Visible = false;
-            // 
-            // cIsActUse
-            // 
-            this.cIsActUse.DataPropertyName = "isActUse";
-            this.cIsActUse.HeaderText = "isActUse";
-            this.cIsActUse.Name = "cIsActUse";
-            this.cIsActUse.ReadOnly = true;
-            this.cIsActUse.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.cIsActUse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.cIsActUse.Visible = false;
-            // 
-            // cFullPayed
-            // 
-            this.cFullPayed.DataPropertyName = "fullPayed";
-            this.cFullPayed.HeaderText = "fullPayed";
-            this.cFullPayed.Name = "cFullPayed";
-            this.cFullPayed.ReadOnly = true;
-            this.cFullPayed.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.cFullPayed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // cbLordland
             // 
@@ -1907,19 +1744,183 @@
             this.btPrint.UseVisualStyleBackColor = true;
             this.btPrint.Click += new System.EventHandler(this.btPrint_Click);
             // 
-            // отчётПоСекцииToolStripMenuItem
+            // Date
             // 
-            this.отчётПоСекцииToolStripMenuItem.Name = "отчётПоСекцииToolStripMenuItem";
-            this.отчётПоСекцииToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
-            this.отчётПоСекцииToolStripMenuItem.Text = "Отчёт по секции";
-            this.отчётПоСекцииToolStripMenuItem.Click += new System.EventHandler(this.отчётПоСекцииToolStripMenuItem_Click);
+            this.Date.DataPropertyName = "Дата";
+            this.Date.FillWeight = 150F;
+            this.Date.HeaderText = "Дата";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
             // 
-            // отчётПоОплатамToolStripMenuItem
+            // id_obj
             // 
-            this.отчётПоОплатамToolStripMenuItem.Name = "отчётПоОплатамToolStripMenuItem";
-            this.отчётПоОплатамToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
-            this.отчётПоОплатамToolStripMenuItem.Text = "Отчёт по оплатам";
-            this.отчётПоОплатамToolStripMenuItem.Click += new System.EventHandler(this.отчётПоОплатамToolStripMenuItem_Click);
+            this.id_obj.DataPropertyName = "id_ObjectLease";
+            this.id_obj.HeaderText = "id_obj";
+            this.id_obj.Name = "id_obj";
+            this.id_obj.ReadOnly = true;
+            this.id_obj.Visible = false;
+            // 
+            // ObjNameD
+            // 
+            this.ObjNameD.DataPropertyName = "ObjName";
+            this.ObjNameD.FillWeight = 120F;
+            this.ObjNameD.HeaderText = "Объект";
+            this.ObjNameD.Name = "ObjNameD";
+            this.ObjNameD.ReadOnly = true;
+            // 
+            // id_agreements
+            // 
+            this.id_agreements.DataPropertyName = "id";
+            this.id_agreements.HeaderText = "id";
+            this.id_agreements.Name = "id_agreements";
+            this.id_agreements.ReadOnly = true;
+            this.id_agreements.Visible = false;
+            // 
+            // tTenant
+            // 
+            this.tTenant.DataPropertyName = "Арендатор";
+            this.tTenant.FillWeight = 155F;
+            this.tTenant.HeaderText = "Арендатор";
+            this.tTenant.Name = "tTenant";
+            this.tTenant.ReadOnly = true;
+            // 
+            // number
+            // 
+            this.number.DataPropertyName = "№";
+            this.number.HeaderText = "№";
+            this.number.Name = "number";
+            this.number.ReadOnly = true;
+            // 
+            // id_type
+            // 
+            this.id_type.DataPropertyName = "id_TypeContract";
+            this.id_type.HeaderText = "id_type";
+            this.id_type.Name = "id_type";
+            this.id_type.ReadOnly = true;
+            this.id_type.Visible = false;
+            // 
+            // Type
+            // 
+            this.Type.DataPropertyName = "TypeContract";
+            this.Type.FillWeight = 160F;
+            this.Type.HeaderText = "Тип договора";
+            this.Type.Name = "Type";
+            this.Type.ReadOnly = true;
+            // 
+            // DataStart
+            // 
+            this.DataStart.DataPropertyName = "Начало";
+            this.DataStart.FillWeight = 150F;
+            this.DataStart.HeaderText = "Начало";
+            this.DataStart.Name = "DataStart";
+            this.DataStart.ReadOnly = true;
+            // 
+            // DataEnd
+            // 
+            this.DataEnd.DataPropertyName = "Конец";
+            this.DataEnd.FillWeight = 150F;
+            this.DataEnd.HeaderText = "Конец";
+            this.DataEnd.Name = "DataEnd";
+            this.DataEnd.ReadOnly = true;
+            // 
+            // ALocate
+            // 
+            this.ALocate.DataPropertyName = "Место";
+            this.ALocate.FillWeight = 200F;
+            this.ALocate.HeaderText = "Место";
+            this.ALocate.Name = "ALocate";
+            this.ALocate.ReadOnly = true;
+            // 
+            // Storage
+            // 
+            this.Storage.DataPropertyName = "S";
+            this.Storage.HeaderText = "S,м2";
+            this.Storage.Name = "Storage";
+            this.Storage.ReadOnly = true;
+            // 
+            // Arend
+            // 
+            this.Arend.DataPropertyName = "Аренда";
+            this.Arend.FillWeight = 120F;
+            this.Arend.HeaderText = "Аренда";
+            this.Arend.Name = "Arend";
+            this.Arend.ReadOnly = true;
+            // 
+            // Phone
+            // 
+            this.Phone.DataPropertyName = "Тел";
+            this.Phone.FillWeight = 120F;
+            this.Phone.HeaderText = "Тел.";
+            this.Phone.Name = "Phone";
+            this.Phone.ReadOnly = true;
+            // 
+            // id_lord
+            // 
+            this.id_lord.DataPropertyName = "id_lord";
+            this.id_lord.HeaderText = "id_lord";
+            this.id_lord.Name = "id_lord";
+            this.id_lord.ReadOnly = true;
+            this.id_lord.Visible = false;
+            // 
+            // cIsConfirmed
+            // 
+            this.cIsConfirmed.DataPropertyName = "isConfirmed";
+            this.cIsConfirmed.HeaderText = "isConfirmed";
+            this.cIsConfirmed.Name = "cIsConfirmed";
+            this.cIsConfirmed.ReadOnly = true;
+            this.cIsConfirmed.Visible = false;
+            // 
+            // isCancelDoc
+            // 
+            this.isCancelDoc.DataPropertyName = "isCancelDoc";
+            this.isCancelDoc.HeaderText = "isCancelDoc";
+            this.isCancelDoc.Name = "isCancelDoc";
+            this.isCancelDoc.ReadOnly = true;
+            this.isCancelDoc.Visible = false;
+            // 
+            // isEndingDoc
+            // 
+            this.isEndingDoc.DataPropertyName = "isEndingDoc";
+            this.isEndingDoc.HeaderText = "isEndingDoc";
+            this.isEndingDoc.Name = "isEndingDoc";
+            this.isEndingDoc.ReadOnly = true;
+            this.isEndingDoc.Visible = false;
+            // 
+            // isDocForLostTime
+            // 
+            this.isDocForLostTime.DataPropertyName = "isDocForLostTime";
+            this.isDocForLostTime.HeaderText = "isDocForLostTime";
+            this.isDocForLostTime.Name = "isDocForLostTime";
+            this.isDocForLostTime.ReadOnly = true;
+            this.isDocForLostTime.Visible = false;
+            // 
+            // isUseDopData
+            // 
+            this.isUseDopData.DataPropertyName = "isUseDopData";
+            this.isUseDopData.HeaderText = "isUseDopData";
+            this.isUseDopData.Name = "isUseDopData";
+            this.isUseDopData.ReadOnly = true;
+            this.isUseDopData.Visible = false;
+            // 
+            // cIsActUse
+            // 
+            this.cIsActUse.DataPropertyName = "isActUse";
+            this.cIsActUse.HeaderText = "isActUse";
+            this.cIsActUse.Name = "cIsActUse";
+            this.cIsActUse.ReadOnly = true;
+            this.cIsActUse.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.cIsActUse.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.cIsActUse.Visible = false;
+            // 
+            // cFullPayed
+            // 
+            this.cFullPayed.DataPropertyName = "fullPayed";
+            this.cFullPayed.HeaderText = "fullPayed";
+            this.cFullPayed.Name = "cFullPayed";
+            this.cFullPayed.ReadOnly = true;
+            this.cFullPayed.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.cFullPayed.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.cFullPayed.Visible = false;
             // 
             // mForm
             // 
@@ -2133,6 +2134,8 @@
         private System.Windows.Forms.ToolStripMenuItem отчётПоВидамДейтельностиToolStripMenuItem;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Panel pFullPay;
+        private System.Windows.Forms.ToolStripMenuItem отчётПоСекцииToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem отчётПоОплатамToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn id_obj;
         private System.Windows.Forms.DataGridViewTextBoxColumn ObjNameD;
@@ -2155,8 +2158,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn isUseDopData;
         private System.Windows.Forms.DataGridViewCheckBoxColumn cIsActUse;
         private System.Windows.Forms.DataGridViewCheckBoxColumn cFullPayed;
-        private System.Windows.Forms.ToolStripMenuItem отчётПоСекцииToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem отчётПоОплатамToolStripMenuItem;
     }
 }
 

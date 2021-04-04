@@ -78,7 +78,7 @@ namespace Arenda
         private void SetButtonsEnabled()
         {
 
-            if (!(TempData.Rezhim.ToLower() == "ркв"))
+            if (!new List<string> { "РКВ"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim))
             {
                 btAdd.Visible = btDel.Visible = btEdit.Visible = false;
             }

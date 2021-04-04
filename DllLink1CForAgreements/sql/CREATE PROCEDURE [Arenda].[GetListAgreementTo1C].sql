@@ -67,7 +67,7 @@ from
 
 		left join Arenda.s_LandPlot lp on lp.id = a.id_Section and a.id_TypeContract = 3
 where 
-	a.Agreement1C is null  
+	(a.Agreement1C is null   or LEN(a.Agreement1C) = 0)
 	and (@id_object = 0 or a.id_ObjectLease = @id_object)
 order by 
 	a.id_Tenant asc

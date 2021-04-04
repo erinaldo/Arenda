@@ -722,7 +722,7 @@ namespace dllArendaJournalAccrualsPenalties
 
                     if ((int)task.Result.Rows[0]["id"] == -1)
                     {
-                        MessageBox.Show("Не найдена запись в Arenda.s_AddPayment!", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Не заведено дополнительной оплаты типа \"Пени\"!", "Ошибка сохранения", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         isEditCell = false;
                         return;
                     }
@@ -737,11 +737,13 @@ namespace dllArendaJournalAccrualsPenalties
                     Logging.StartFirstLevel((int)logEnum.Подтверждение_пени);
                     Logging.Comment($"ID: {id}");
                     Logging.Comment($"ID договора: {id_Agreements}");
-                    foreach (DataGridViewColumn col in dgvData.Columns)
-                    {
-                        if (col.Visible)
-                            Logging.Comment($"{col.HeaderText}: {dgvData.CurrentRow.Cells[col.Name].Value.ToString()}");
-                    }
+                    foreach (DataRow row in dtData.AsEnumerable().Where(r => r.Field<int>("id") == id && r.Field<int>("id_Agreements") == id_Agreements))
+                        foreach (DataGridViewColumn col in dgvData.Columns)
+                        {
+                            if (col.Visible)
+                                //Logging.Comment($"{col.HeaderText}: {dgvData.CurrentRow.Cells[col.Name].Value.ToString()}");
+                                Logging.Comment($"{col.HeaderText}: {row[col.DataPropertyName]}");
+                        }
                     Logging.StopFirstLevel();
 
                     getData();

@@ -122,8 +122,9 @@ namespace DllLink1CForAgreements
 
         public string nameObject { set; get; }
         public bool isAdd { set; get; }        
+        public int positonInsertSign { set; get; }
 
-        public void setData(string FileName, string Path, string Number, DateTime Date, string Agreement, string TypePay, int idAgreement, bool isAdd, string nameLandLord, typeFile tFile,int id_LandLord,string nameObject)
+        public void setData(string FileName, string Path, string Number, DateTime Date, string Agreement, string TypePay, int idAgreement, bool isAdd, string nameLandLord, typeFile tFile,int id_LandLord,string nameObject,int positonInsertSign)
         {
             this.FileName = FileName;
             this.Path = Path;
@@ -137,6 +138,7 @@ namespace DllLink1CForAgreements
             this.tFile = tFile;
             this.id_Landlord = id_LandLord;
             this.nameObject = nameObject;
+            this.positonInsertSign = positonInsertSign;
         }
     }
 
@@ -146,5 +148,10 @@ namespace DllLink1CForAgreements
         word = 2
     }
 
-
+    public enum LogEvents
+    { 
+        Добавление_связи_договора_в_БД = 1630,
+        Нет_Подписей = 1631,
+        Ручное_добавление_связи_договора_в_БД = 1632
+    }
 }

@@ -357,6 +357,22 @@ namespace Arenda.AddNewDocToFolder
 
             row["Path"] = $"{net.server}{prefixPath}\\{id_Doc}";
 
+
+            Logging.StartFirstLevel(1270);
+                       
+            Logging.Comment("Наименование файла: " + nameFile + " ;Расширение: " + @Extension);
+
+            Logging.Comment("Данные договора, к которому добавляется внешний файл");
+            Logging.Comment("Дата заключения договора: " + oldDoc.ToShortDateString());
+            Logging.Comment("Номер договора: " + num_doc);
+            Logging.Comment("Арендатор ID: " + _old_id_ten + "; Наименование: " + oldTen);
+            Logging.Comment("Арендодатель ID: " + _old_id_lord + "; Наименование: " + oldLord);
+
+            Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
+          + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+            Logging.StopFirstLevel();
+
+
             dgvScan_CurrentCellChanged(null, null);
         }
 
@@ -750,11 +766,34 @@ namespace Arenda.AddNewDocToFolder
                     int id = int.Parse(dtScan.DefaultView[ind]["id"].ToString());
                     lDelete.Add(id);
                     if (dtScan.DefaultView[ind]["Path"] != DBNull.Value && dtScan.DefaultView[ind]["Path"].ToString() != "")
+                    {
                         DelPath.Add(dtScan.DefaultView[ind]["Path"].ToString()
                           + "\\" + dtScan.DefaultView[ind]["cName"].ToString()
                           + dtScan.DefaultView[ind]["Extension"].ToString());
+
+                        net.deleteFile(dtScan.DefaultView[ind]["Path"].ToString()
+                          + "\\" + dtScan.DefaultView[ind]["cName"].ToString()
+                          + dtScan.DefaultView[ind]["Extension"].ToString());
+
+                        Logging.StartFirstLevel(1271);
+
+                        Logging.Comment("Наименование файла: " + dtScan.DefaultView[ind]["cName"] + " ;Расширение: " + dtScan.DefaultView[ind]["Extension"]);
+
+                        Logging.Comment("Данные договора, к которому добавляется внешний файл");
+                        Logging.Comment("Дата заключения договора: " + oldDoc.ToShortDateString());
+                        Logging.Comment("Номер договора: " + num_doc);
+                        Logging.Comment("Арендатор ID: " + _old_id_ten + "; Наименование: " + oldTen);
+                        Logging.Comment("Арендодатель ID: " + _old_id_lord + "; Наименование: " + oldLord);
+
+                        Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
+                      + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                        Logging.StopFirstLevel();
+
+                    }
                     if (lRename != null && lRename.Count != 0 && lRename.Contains(id))
                         lRename.Remove(id);
+
+                    
                 }
 
                 int indexRow = dgvScan.CurrentRow.Index;

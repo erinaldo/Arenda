@@ -16,9 +16,10 @@ namespace Arenda
         readonly Procedures _proc = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
         DataTable Floor = null;
         DataTable _Floor = null;
+     
         public Floors()
         {
-            
+
             InitializeComponent();
 
             bgFloor.AutoGenerateColumns = false;
@@ -68,7 +69,7 @@ namespace Arenda
             {
                 try
                 {
-                    var addedit = new AddEditFloor(bgFloor.SelectedRows[0].Cells[1].Value.ToString(), bgFloor.SelectedRows[0].Cells[2].Value.ToString(), bgFloor.SelectedRows[0].Cells[0].Value.ToString(), true);
+                    var addedit = new AddEditFloor(bgFloor.SelectedRows[0].Cells["cname"].Value.ToString(), bgFloor.SelectedRows[0].Cells["abbreviation"].Value.ToString(), bgFloor.SelectedRows[0].Cells["ID"].Value.ToString(), true);
 
                     addedit.ShowDialog();
                 }
@@ -78,89 +79,89 @@ namespace Arenda
             isactive();
         }
 
-      private void button3_Click(object sender, EventArgs e)
-      {
-        try
+        private void button3_Click(object sender, EventArgs e)
         {
-          string _cName = bgFloor.SelectedRows[0].Cells[1].Value.ToString();
-          string _Abbr = bgFloor.SelectedRows[0].Cells[2].Value.ToString();
-          int zid = Convert.ToInt32(bgFloor.SelectedRows[0].Cells[0].Value);
-
-          string rez = _proc.isActiveFloor(Convert.ToInt32(bgFloor.SelectedRows[0].Cells[0].Value.ToString())).Rows[0][0].ToString();
-          if (rez == "False")
-          {
+            try
             {
-              //if (MessageBox.Show("Сделать запись снова активной?", "Внимание", MessageBoxButtons.YesNo,
-                //MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              if (MessageBox.Show("Сделать выбранную запись действующей?",
-                "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              {
-                _proc.ChgFloor(Convert.ToInt32(bgFloor.SelectedRows[0].Cells[0].Value), bgFloor.SelectedRows[0].Cells[1].Value.ToString(), bgFloor.SelectedRows[0].Cells[2].Value.ToString(), 1);
+                string _cName = bgFloor.SelectedRows[0].Cells["cname"].Value.ToString();
+                string _Abbr = bgFloor.SelectedRows[0].Cells["abbreviation"].Value.ToString();
+                int zid = Convert.ToInt32(bgFloor.SelectedRows[0].Cells["ID"].Value);
 
-                Logging.StartFirstLevel(540);
-                Logging.Comment("Произведена смена статуса на активный у этажа");
-                Logging.Comment("ID: " + zid);
-                Logging.Comment("Наименование здания: " + _cName);
-                Logging.Comment("Аббревиатура здания: " + _Abbr);
+                string rez = _proc.isActiveFloor(zid).Rows[0][0].ToString();
+                if (rez == "False")
+                {
+                    {
+                        //if (MessageBox.Show("Сделать запись снова активной?", "Внимание", MessageBoxButtons.YesNo,
+                        //MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        if (MessageBox.Show("Сделать выбранную запись действующей?",
+                          "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                          MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            _proc.ChgFloor(zid, _cName, _Abbr, 1);
 
-                Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
-                  + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
-                Logging.StopFirstLevel();
-              }
+                            Logging.StartFirstLevel(540);
+                            Logging.Comment("Произведена смена статуса на активный у этажа");
+                            Logging.Comment("ID: " + zid);
+                            Logging.Comment("Наименование здания: " + _cName);
+                            Logging.Comment("Аббревиатура здания: " + _Abbr);
+
+                            Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
+                              + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                            Logging.StopFirstLevel();
+                        }
+                    }
+                }
+                else
+                //if (MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание", MessageBoxButtons.YesNo,
+                //                  MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+                    string chk1 = _proc.befFloor(zid).Rows[0][0].ToString();
+                    string chk2 = _proc.befFloor(zid).Rows[1][0].ToString();
+                    if (chk1 == "0" && chk2 == "0")
+                    {
+                        if (MessageBox.Show("Удалить выбранную запись?", "Удаление записи",
+                          MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                          MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            _proc.delFloor(zid);
+
+                            Logging.StartFirstLevel(1372);
+                            Logging.Comment("ID: " + zid);
+                            Logging.Comment("Наименование здания: " + _cName);
+                            Logging.Comment("Аббревиатура здания: " + _Abbr);
+
+                            Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
+                              + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                            Logging.StopFirstLevel();
+                        }
+                    }
+                    else
+                    {
+                        //if (MessageBox.Show("Удаляемая запись используется и ее невозможно удалить. Сделать ее неактивной?", "Ошибка", MessageBoxButtons.YesNo,
+                        //MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        if (MessageBox.Show("Выбранная для удаления запись\n    используется в программе.\nСделать запись недействующей?",
+                          "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                          MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            _proc.ChgFloor(zid, _cName, _Abbr, 0);
+
+                            Logging.StartFirstLevel(540);
+                            Logging.Comment("Произведена смена статуса на неактивный у этажа");
+                            Logging.Comment("ID: " + zid);
+                            Logging.Comment("Наименование здания: " + _cName);
+                            Logging.Comment("Аббревиатура здания: " + _Abbr);
+
+                            Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
+                              + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                            Logging.StopFirstLevel();
+                        }
+                    }
+                }
+                ini();
+                isactive();
             }
-          }
-          else
-            //if (MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание", MessageBoxButtons.YesNo,
-            //                  MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-          {
-            string chk1 = _proc.befFloor(Convert.ToInt32(bgFloor.SelectedRows[0].Cells[0].Value.ToString())).Rows[0][0].ToString();
-            string chk2 = _proc.befFloor(Convert.ToInt32(bgFloor.SelectedRows[0].Cells[0].Value.ToString())).Rows[1][0].ToString();
-            if (chk1 == "0" && chk2 == "0")
-            {
-              if (MessageBox.Show("Удалить выбранную запись?", "Удаление записи",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              {
-                _proc.delFloor(Convert.ToInt32(bgFloor.SelectedRows[0].Cells[0].Value.ToString()));
-
-                Logging.StartFirstLevel(1372);
-                Logging.Comment("ID: " + zid);
-                Logging.Comment("Наименование здания: " + _cName);
-                Logging.Comment("Аббревиатура здания: " + _Abbr);
-
-                Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
-                  + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
-                Logging.StopFirstLevel();
-              }
-            }
-            else
-            {
-              //if (MessageBox.Show("Удаляемая запись используется и ее невозможно удалить. Сделать ее неактивной?", "Ошибка", MessageBoxButtons.YesNo,
-              //MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              if (MessageBox.Show("Выбранная для удаления запись\n    используется в программе.\nСделать запись недействующей?",
-                "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              {
-                _proc.ChgFloor(Convert.ToInt32(bgFloor.SelectedRows[0].Cells[0].Value), bgFloor.SelectedRows[0].Cells[1].Value.ToString(), bgFloor.SelectedRows[0].Cells[2].Value.ToString(), 0);
-
-                Logging.StartFirstLevel(540);
-                Logging.Comment("Произведена смена статуса на неактивный у этажа");
-                Logging.Comment("ID: " + zid);
-                Logging.Comment("Наименование здания: " + _cName);
-                Logging.Comment("Аббревиатура здания: " + _Abbr);
-
-                Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
-                  + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
-                Logging.StopFirstLevel();
-              }
-            }
-          }
-          ini();
-          isactive();
+            catch (Exception r) { MessageBox.Show("Нет записей для удаления." + "\n" + r.ToString(), "Ошибка"); }
         }
-        catch (Exception r) { MessageBox.Show("Нет записей для удаления." + "\n" + r.ToString(), "Ошибка"); }
-      }
 
         private void Floors_Load(object sender, EventArgs e)
         {
@@ -169,6 +170,8 @@ namespace Arenda
 
         private void bgFloor_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
+            if (Floor == null || Floor.DefaultView.Count == 0) return;
+
             if (Floor.DefaultView[e.RowIndex]["isActive"].ToString() == "False")
             {
                 bgFloor.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Coral;
@@ -179,6 +182,7 @@ namespace Arenda
         {
             //ini();
         }
+
         private void ini()
         {
             //if (TempData.Rezhim == "ПР")
@@ -205,16 +209,11 @@ namespace Arenda
             isActive.DataPropertyName = "isActive";
         }
 
-        private void button4_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void checAll_CheckedChanged(object sender, EventArgs e)
         {
             ini();
             isactive();
-           
+
         }
 
         private void bgFloor_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
@@ -223,14 +222,13 @@ namespace Arenda
             {
                 button2.Enabled = false;
                 button3.Enabled = false;
-                
+
             }
 
             else
             {
                 button2.Enabled = true;
                 button3.Enabled = true;
-                
             }
         }
 
@@ -241,6 +239,12 @@ namespace Arenda
 
         private void isactive()
         {
+            if (bgFloor.SelectedRows == null || bgFloor.SelectedRows.Count == 0)
+            {
+                button2.Enabled = false;
+                return;
+            }
+
             try
             {
                 if (bgFloor.SelectedRows[0].Cells[3].Value.ToString() == "False")
@@ -253,7 +257,7 @@ namespace Arenda
                 }
             }
             catch (Exception) { }
-        
+
         }
 
         private void bgFloor_CellEnter(object sender, DataGridViewCellEventArgs e)
@@ -265,6 +269,5 @@ namespace Arenda
         {
             isactive();
         }
-    
     }
 }

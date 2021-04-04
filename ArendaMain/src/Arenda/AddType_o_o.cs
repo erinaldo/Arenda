@@ -52,7 +52,7 @@ namespace Arenda
                     if (dtResult != null && dtResult.Rows.Count > 0 && dtResult.Columns.Contains("id"))
                         Logging.Comment($"ID:{dtResult.Rows[0]["id"]}");
                     Logging.Comment("Наименование типа организации: " + tbCname.Text.Trim());
-                    Logging.Comment("Аббревиатура этажа: " + tbAbbr.Text.Trim());
+                    Logging.Comment("Аббревиатура типа организации: " + tbAbbr.Text.Trim());
 
                     Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
                     + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
@@ -72,7 +72,7 @@ namespace Arenda
                     Logging.StartFirstLevel(1377);
                     Logging.Comment("ID: " + zid);
                     Logging.VariableChange("Наименование типа организации: ", tbCname.Text.Trim(), _cname);
-                    Logging.VariableChange("Аббревиатура этажа: ", tbAbbr.Text.Trim(), _abbr);
+                    Logging.VariableChange("Аббревиатура типа организации: ", tbAbbr.Text.Trim(), _abbr);
 
                     Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
                     + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
@@ -93,7 +93,7 @@ namespace Arenda
                         Logging.StartFirstLevel(1377);
                         Logging.Comment("ID: " + zid);
                         Logging.VariableChange("Наименование типа организации: ", tbCname.Text.Trim(), _cname);
-                        Logging.VariableChange("Аббревиатура этажа: ", tbAbbr.Text.Trim(), _abbr);
+                        Logging.VariableChange("Аббревиатура типа организации: ", tbAbbr.Text.Trim(), _abbr);
 
                         Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
                         + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);

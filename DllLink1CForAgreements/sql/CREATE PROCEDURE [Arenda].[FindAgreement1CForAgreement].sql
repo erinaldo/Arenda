@@ -47,7 +47,7 @@ ELSE
 			left join Arenda.s_Type_of_Organization o on o.id = ll.id_Type_Of_Organization
 			left join Arenda.s_ObjectLease ob on ob.id = a.id_ObjectLease
 		where 
-			lower(a.Agreement) = lower(@inAgreement) and a.Agreement1C is null
+			lower(a.Agreement) = lower(@inAgreement) and (a.Agreement1C is null or LEN(a.Agreement1C)= 0)
 		return
 	END
 

@@ -256,6 +256,23 @@ public class NetworkShare : IDisposable
         }
     }
 
+    public void deleteFile(string path)
+    {
+        try
+        {
+            ConnectToShare();
+
+            if (File.Exists(path))
+                File.Delete(path);
+
+            DisconnectFromShare(false);           
+        }
+        catch
+        {
+           
+        }
+    }
+
     #region P/Invoke Stuff
     [DllImport("Mpr.dll")]
     private static extern int WNetUseConnection(

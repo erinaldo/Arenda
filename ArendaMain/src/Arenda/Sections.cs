@@ -64,7 +64,7 @@ namespace Arenda
             {
                 btAddEq.Visible =
                     btEditEq.Visible =
-                    btDelEq.Visible = new List<string> { "РКВ" }.Contains(TempData.Rezhim);
+                    btDelEq.Visible = new List<string> { "РКВ"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
                 //_proc.SuperUserMode();
             }
             

@@ -93,7 +93,7 @@ namespace dllArendaDictonary.jDiscount
             {
                 string filter = "";
 
-                if((int)cmbObject.SelectedValue!= 0 )
+                if ((int)cmbObject.SelectedValue != 0)
                     filter += (filter.Length == 0 ? "" : " and ") + $"id_ObjectLease = {cmbObject.SelectedValue}";
 
                 if ((int)cmbTypeContract.SelectedValue != 0)
@@ -124,7 +124,7 @@ namespace dllArendaDictonary.jDiscount
                 dtData.DefaultView.RowFilter = "id = -1";
             }
             finally
-            {                
+            {
                 dgvData_SelectionChanged(null, null);
             }
         }
@@ -140,8 +140,8 @@ namespace dllArendaDictonary.jDiscount
             }
             btDeAcceptD.Enabled = btConfirmD.Enabled = dtData.AsEnumerable().Where(r => r.Field<bool>("selected")).Count() > 0;
             //возврат в статус 1 кнопочка
-            btnBackInPast.Enabled = new string[] { "2", "3" }.Contains(dtData.DefaultView[dgvData.CurrentRow.Index]["id_StatusDiscount"].ToString());    
-                //(int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_StatusDiscount"] == 1;
+            btnBackInPast.Enabled = new string[] { "2", "3" }.Contains(dtData.DefaultView[dgvData.CurrentRow.Index]["id_StatusDiscount"].ToString());
+            //(int)dtData.DefaultView[dgvData.CurrentRow.Index]["id_StatusDiscount"] == 1;
         }
 
         private void dgvData_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -167,8 +167,8 @@ namespace dllArendaDictonary.jDiscount
             if (e.RowIndex != -1 && dtData != null && dtData.DefaultView.Count != 0)
             {
                 Color rColor = Color.White;
-                    if ((int)dtData.DefaultView[e.RowIndex]["id_StatusDiscount"]==2)
-                        rColor = pConfirmD.BackColor;
+                if ((int)dtData.DefaultView[e.RowIndex]["id_StatusDiscount"] == 2)
+                    rColor = pConfirmD.BackColor;
                 else if ((int)dtData.DefaultView[e.RowIndex]["id_StatusDiscount"] == 3)
                     rColor = panel1.BackColor;
 
@@ -286,11 +286,11 @@ namespace dllArendaDictonary.jDiscount
                 Logging.Comment($"Дата начала:{dr["DateStart"]}");
                 Logging.Comment($"Дата окончания:{dr["DateEnd"]}");
                 Logging.Comment($"Тип скидки:{dr["nameTypeDiscount"]}");
-                Logging.Comment($"Скидка:{dr["Discount"]}");                
+                Logging.Comment($"Скидка:{dr["Discount"]}");
             }
             Logging.StopFirstLevel();
             id = id.Substring(0, id.Length - 1);
-            if (dtData.AsEnumerable().Where(r=>r.Field<bool>("selected")).Count()>0)
+            if (dtData.AsEnumerable().Where(r => r.Field<bool>("selected")).Count() > 0)
             {
                 Task<DataTable> task = Config.hCntMain.setTDiscountsAll(id, 2);
                 task.Wait();
@@ -499,7 +499,7 @@ namespace dllArendaDictonary.jDiscount
                         dr["selected"] = selected;
                 }
                 dtData.AcceptChanges();
-                if (dtData != null || dtData.Rows.Count > 0 || dtData.DefaultView.Count >0 )
+                if (dtData != null || dtData.Rows.Count > 0 || dtData.DefaultView.Count > 0)
                     btConfirmD.Enabled = btDeAcceptD.Enabled = dtData.AsEnumerable().Where(r => r.Field<bool>("selected")).Count() > 0;
                 selected = !selected;
             }
@@ -527,10 +527,10 @@ namespace dllArendaDictonary.jDiscount
 
 
             Logging.StopFirstLevel();
-            
+
             ExcelUnLoad rep = new ExcelUnLoad("Скидки");
             int row = 1;
-            rep.AddSingleValue($"Отчет по скидкам с {dtpStart.Value.ToShortDateString()}" +(!chbIsAccept.Checked ? $" по {dtpEnd.Value.ToShortDateString()}":""), row, 1) ;
+            rep.AddSingleValue($"Отчет по скидкам с {dtpStart.Value.ToShortDateString()}" + (!chbIsAccept.Checked ? $" по {dtpEnd.Value.ToShortDateString()}" : ""), row, 1);
             rep.SetFontBold(row, 1, row, 1);
             row++;
             rep.AddSingleValue($"Дата выгрузки: {DateTime.Now.ToShortDateString()} {DateTime.Now.ToShortTimeString()}", row, 1);
@@ -597,7 +597,7 @@ namespace dllArendaDictonary.jDiscount
                 rep.AddSingleValue(dr["Agreement"].ToString(), row, 3);
                 rep.AddSingleValue(dr["TypeContract"].ToString(), row, 4);
                 rep.AddSingleValue(DateTime.Parse(dr["DateStart"].ToString()).ToShortDateString(), row, 5);
-                if (dr["DateEnd"]!=DBNull.Value)
+                if (dr["DateEnd"] != DBNull.Value)
                     rep.AddSingleValue(DateTime.Parse(dr["DateEnd"].ToString()).ToShortDateString(), row, 6);
                 rep.AddSingleValue(dr["nameTypeDiscount"].ToString(), row, 7);
                 rep.AddSingleValue(dr["Discount"].ToString(), row, 8);
@@ -619,6 +619,20 @@ namespace dllArendaDictonary.jDiscount
             {
                 MessageBox.Show("Скидка возвращена в статус \"Неподтвержденные\"", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+
+            Logging.StartFirstLevel((int)logEnum.Возврат_в_неподтверждённые);
+            DataRowView dr = dtData.DefaultView[dgvData.CurrentRow.Index];
+            Logging.Comment($"ID:{dr["id"]}");
+            Logging.Comment($"Объект ID:{dr["id_ObjectLease"]}; Наименование:{dr["nameObjectLease"]}");
+            Logging.Comment($"Арендатор ID:{dr["id_Tenant"]}; Наименование:{dr["nameLandLord"]}");
+            Logging.Comment($"№ договора:{dr["Agreement"]}");
+            Logging.Comment($"Тип договора:{dr["TypeContract"]}");
+            Logging.Comment($"Дата начала:{dr["DateStart"]}");
+            Logging.Comment($"Дата окончания:{dr["DateEnd"]}");
+            Logging.Comment($"Тип скидки:{dr["nameTypeDiscount"]}");
+            Logging.Comment($"Скидка:{dr["Discount"]}");
+            Logging.StopFirstLevel();
+
             get_data();
         }
     }

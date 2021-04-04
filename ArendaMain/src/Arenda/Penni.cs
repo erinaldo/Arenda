@@ -42,6 +42,12 @@ namespace Arenda
         public int statusPenni { get; private set; } = 0;
         public int id_PaymentContract { get; private set; } = 0;
         public DataTable dtPaymentContract { get; private set; }
+
+        public bool isFullPayment() { 
+            if(dtPaymentContract==null || dtPaymentContract.Rows.Count==0) return false;
+            if (!dtPaymentContract.Columns.Contains("isFullPayment")) return false;
+            return (bool)dtPaymentContract.Rows[0]["isFullPayment"];
+        }
         /// <summary>
         /// сообщение пользователю
         /// </summary>

@@ -360,6 +360,9 @@ namespace Arenda
                         Logging.Comment($"Сумма:{tbSummaPay.Text}");
                     }
 
+                    Logging.Comment($"Примечание:{tbDescription.Text}");
+                    Logging.Comment($"Полное закрытие:{penni.isFullPayment()}");
+
                     //Logging.Comment("Признак оплаты: " + (rbAr.Checked ? "Аренда" : "Реклама"));
                     Logging.Comment("");
                     Logging.Comment("Оплата просрочена на " + penni.dtPaymentContract.Rows[0]["days"].ToString() + " дней.");
@@ -417,6 +420,10 @@ namespace Arenda
                         TempData.PereplataAfterCount.ToString(),
                         2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}")
                     + " руб. ");
+
+                Logging.Comment($"Примечание:{tbDescription.Text}");
+                Logging.Comment($"Полное закрытие:{penni.isFullPayment()}");
+
                 Logging.Comment("");
 
                 oldDate = dtpDate.Value;

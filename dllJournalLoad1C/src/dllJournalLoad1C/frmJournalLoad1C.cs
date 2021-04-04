@@ -1,4 +1,5 @@
 ﻿using EmailValidation;
+using Nwuram.Framework.Logging;
 using Nwuram.Framework.Settings.Connection;
 using System;
 using System.Collections.Generic;
@@ -449,6 +450,8 @@ namespace dllJournalLoad1C
                     return false;
                 }
 
+                Logging.StartFirstLevel((int)logEvents.Отправка_файлов_на_почту);
+
                 foreach (DataGridViewRow gridRow in dgvData.SelectedRows)
                 {
                     DataRowView viewRow = dtData.DefaultView[gridRow.Index];
@@ -456,8 +459,11 @@ namespace dllJournalLoad1C
                     string user = viewRow["emailSender"].ToString();
                     string pass = viewRow["EmailPassword"].ToString();
                     string userName = (string)viewRow["nameLandLord"];
-                    string ToEmail = viewRow["emailSend"].ToString();
-                    string ToUserName = viewRow["nameTenant"].ToString();
+                    string ToEmail = viewRow["emailSend"].ToString().Trim();
+                    string ToUserName = viewRow["nameTenant"].ToString().Trim();
+
+                    string Agreement = viewRow["Agreement"].ToString();
+                    string nameLandLord = viewRow["nameLandLord"].ToString();
 
                     int id_Scan = (int)viewRow["id_Scan"];
                     DataTable dtScanData = Config.hCntMain.getScan(0, id_Scan);
@@ -553,7 +559,20 @@ namespace dllJournalLoad1C
                         int IdLoadAccount1C = (int)viewRow["IdLoadAccount1C"];
                         Config.hCntMain.UpdateDateSendLoadAccount1C(IdLoadAccount1C);
                     }
+
+                    Logging.Comment($"Номер договора:{Agreement}| Арендодатель:{nameLandLord}| Арендатор:{userName}| Почта Арендатора:{ToEmail}| Почта Арендодателя: {user}| Название файла:{fileName}");
+
                 }
+                Logging.StopFirstLevel();
+
+                Logging.StartFirstLevel((int)logEvents.Ошибки_отправки_файлов);
+
+                foreach (string str in listError)
+                {
+                    Logging.Comment(str);
+                }
+
+                Logging.StopFirstLevel();
 
                 if (isShowLog && !isNowShow)
                 {
@@ -562,7 +581,6 @@ namespace dllJournalLoad1C
                         new frmLog() { listError = listError }.ShowDialog();
                     }, this);
                 }
-
                
                 Config.DoOnUIThread(() =>
                 {
@@ -615,7 +633,7 @@ namespace dllJournalLoad1C
             {
                 smtp.Send(m);
             }
-            catch
+            catch(Exception ex)
             {
 
                 return false;

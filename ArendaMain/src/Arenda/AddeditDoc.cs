@@ -27,7 +27,7 @@ namespace Arenda
         int _id = 0, id_ten, id_lord, pay;
         int id_build, id_floor, id_sec, id_type, _old_id_ten, _old_id_lord, _id_zdan,
           _id_floo, _id_sec, _id_tp, _id_td, _idObj,_id_ReklamPlace;
-        string rezhim, remark, oldTen, oldLord;
+        string rezhim, remark, oldTen, oldLord, strNum1c;
         bool floorFill;
         bool click, reklamm, nal;
         DataTable TypeDoc, dtTP;
@@ -148,19 +148,27 @@ namespace Arenda
 
         private void TypeToVisibleElement()
         {
+            List<int> lReclamId = new List<int>() { 2, 1002 };
+            tbNumSection.Visible = false;
             lReclamaPlace.Visible = cmbReclamaPlace.Visible = lbReklPrice.Visible = txtReklamma.Visible =
-                // lblReklNumber.Visible= tbReklNumber.Visible =
+                   // lblReklNumber.Visible= tbReklNumber.Visible =
                    lblReklSize.Visible = tbReklSize1.Visible
-                  = tbReklSize2.Visible = (int)cmbTypeDog.SelectedValue == 2;
+                  = tbReklSize2.Visible = lReclamId.Contains((int)cmbTypeDog.SelectedValue);// == 2;
 
             label5.Visible = cbZdan.Visible = (int)cmbTypeDog.SelectedValue != 3;
             lLandPlot.Visible = cbLandPlot.Visible = (int)cmbTypeDog.SelectedValue == 3;
 
             //label7.Visible = cbSec.Visible = 
-            lblS.Visible = tbS.Visible = lbPrice.Visible = tbcbm.Visible = (int)cmbTypeDog.SelectedValue != 2;
+            lblS.Visible = tbS.Visible = lbPrice.Visible = tbcbm.Visible = !lReclamId.Contains((int)cmbTypeDog.SelectedValue);// != 2;
 
             label7.Visible = cbSec.Visible = lTp.Visible = cbTp.Visible = cbFloor.Visible = lFloor.Visible = lblSt.Visible = tbSt.Visible = lblPhone.Visible = tbphone.Visible
               = (int)cmbTypeDog.SelectedValue == 1;
+
+            if ((int)cmbTypeDog.SelectedValue == 1002)
+            {
+                label7.Visible = true;
+                tbNumSection.Visible = true;
+            }
         }
 
         private void AddLoad()
@@ -286,6 +294,10 @@ namespace Arenda
             if (Rec.Rows[0]["Agreement1C"] != DBNull.Value)
                 tbNum1c.Text = Rec.Rows[0]["Agreement1C"].ToString();
 
+            if (Rec.Rows[0]["NumSection"] != DBNull.Value)
+                tbNumSection.Text = Rec.Rows[0]["NumSection"].ToString();
+
+
             //
 
             DataTable Land_Tenant = new DataTable();
@@ -386,7 +398,7 @@ namespace Arenda
             }
 
             #region "Формировнаие рекламного места или земельного участка"
-            if ((int)Rec.Rows[0]["id_TypeContract"] == 2)
+            if (new List<int>() { 2,1002}.Contains((int)Rec.Rows[0]["id_TypeContract"]))// == 2)
             {
                 GetDataReklamPlaceInfo(id_build);
                 cmbReclamaPlace.SelectedValue = (int)Rec.Rows[0]["id_Section"];
@@ -406,7 +418,7 @@ namespace Arenda
               : Rec.Rows[0]["CadastralNumber"].ToString();
 
             //договор рекламы
-            if ((cmbTypeDog.SelectedValue != null && (int)cmbTypeDog.SelectedValue == 2))
+            if (cmbTypeDog.SelectedValue != null && new List<int>() { 2, 1002 }.Contains((int)Rec.Rows[0]["id_TypeContract"]))//(int)Rec.Rows[0]["id_TypeContract"]==2
             {
                 s = tbS.Text = numTextBox.CheckAndChange(Rec.Rows[0]["ReklArea"].ToString().Trim(),
                   2, 0, 9999999999, false, defaultVal, format);
@@ -499,7 +511,8 @@ namespace Arenda
             _telhome = telhome.Text;
             _telsot = telsot.Text;
             cadNum = tbKadNum.Text;
-            
+            strNum1c = tbNum1c.Text;
+
             TypeToVisibleElement();
 
             //lReclamaPlace.Visible = cmbReclamaPlace.Visible = lbReklPrice.Visible = txtReklamma.Visible = lblReklNumber.Visible
@@ -962,18 +975,18 @@ namespace Arenda
 
                             (int)cmbTypeDog.SelectedValue == 3 ? null : (int?)cbTp.SelectedValue,
                             //если реклама, передаем 0
-                            (int)cmbTypeDog.SelectedValue == 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbS.Text)),
-                            (int)cmbTypeDog.SelectedValue == 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbSt.Text)),
-                            (int)cmbTypeDog.SelectedValue == 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbcbm.Text)),
-                            (int)cmbTypeDog.SelectedValue == 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbphone.Text)),
-                            (int)cmbTypeDog.SelectedValue == 2 ? Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(txtReklamma.Text)) : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbAr.Text)),
+                            new List<int>() { 2, 1002 }.Contains((int)cmbTypeDog.SelectedValue)/*(int)cmbTypeDog.SelectedValue == 2*/ ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbS.Text)),
+                            new List<int>() { 2, 1002 }.Contains((int)cmbTypeDog.SelectedValue)/*(int)cmbTypeDog.SelectedValue == 2*/ ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbSt.Text)),
+                            new List<int>() { 2, 1002 }.Contains((int)cmbTypeDog.SelectedValue)/*(int)cmbTypeDog.SelectedValue == 2*/ ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbcbm.Text)),
+                            new List<int>() { 2, 1002 }.Contains((int)cmbTypeDog.SelectedValue)/*(int)cmbTypeDog.SelectedValue == 2*/ ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbphone.Text)),
+                            new List<int>() { 2, 1002 }.Contains((int)cmbTypeDog.SelectedValue)/*(int)cmbTypeDog.SelectedValue == 2*/ ? Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(txtReklamma.Text)) : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbAr.Text)),
                             pay,
                             tbremark.Text,
                             //если не реклама, передаем 0
-                            (int)cmbTypeDog.SelectedValue != 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(txtReklamma.Text)),
-                            (int)cmbTypeDog.SelectedValue != 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbReklSize1.Text)),
-                            (int)cmbTypeDog.SelectedValue != 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbReklSize2.Text)),
-                            (int)cmbTypeDog.SelectedValue != 2 ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbS.Text)),
+                            !new List<int>() { 2, 1002 }.Contains((int)cmbTypeDog.SelectedValue)/*(int)cmbTypeDog.SelectedValue != 2*/ ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(txtReklamma.Text)),
+                            !new List<int>() { 2, 1002 }.Contains((int)cmbTypeDog.SelectedValue)/*(int)cmbTypeDog.SelectedValue != 2*/ ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbReklSize1.Text)),
+                            !new List<int>() { 2, 1002 }.Contains((int)cmbTypeDog.SelectedValue)/*(int)cmbTypeDog.SelectedValue != 2*/ ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbReklSize2.Text)),
+                            !new List<int>() { 2, 1002 }.Contains((int)cmbTypeDog.SelectedValue)/*(int)cmbTypeDog.SelectedValue != 2*/ ? 0 : Convert.ToDecimal(numTextBox.ConvertToCompPunctuation(tbS.Text)),
                             0,//(int)cmbTypeDog.SelectedValue != 2 ? 0 : Convert.ToInt32(numTextBox.ConvertToCompPunctuation(tbReklNumber.Text)),
                             tbFailComment.Text,
                             (int)cmbTypeDog.SelectedValue,
@@ -982,7 +995,8 @@ namespace Arenda
                             RentalVacation,
                             id_SavePayment,
                             (int)cmbTypeActivities.SelectedValue,
-                            tbNum1c.Text
+                            tbNum1c.Text,
+                            tbNumSection.Text
                             );
 
                     if ((SaveResult != null) && (SaveResult.Rows.Count > 0))
@@ -1099,6 +1113,14 @@ namespace Arenda
                             (nal ? "Нал" : "Безнал"));
                         Logging.VariableChange("Замечание/примечание: ", tbFailComment.Text, _tbFailCommen);
                         Logging.VariableChange("Примечание: ", tbremark.Text, remark);
+                        Logging.VariableChange($"Номер договора 1С",tbNum1c.Text, strNum1c);
+
+                        Logging.Comment($"ID банка:{id_LandlordTenantBank}");
+                        Logging.Comment($"Расчётный счёт банка:{tbRS.Text}");
+                        Logging.Comment($"Наименование банка:{tbName.Text}");
+                        Logging.Comment($"БИК:{tbBik.Text}");
+                        Logging.Comment($"КС:{tbKS.Text}");
+
                         Logging.Comment("");
                         Logging.Comment("Завершение операции \"" + operation + "\"");
                         Logging.StopFirstLevel();
@@ -1171,7 +1193,19 @@ namespace Arenda
                         Logging.Comment("Стоимость 1 кв.м.: " + tbcbm.Text);
                         Logging.Comment("Тип оплаты: " + (radioButton1.Checked ? "Нал" : "Безнал"));
                         Logging.Comment("Замечание/примечание: " + tbFailComment.Text);
-                        Logging.Comment("Примечание: " + tbremark.Text);                        
+                        Logging.Comment("Примечание: " + tbremark.Text);
+                        Logging.Comment($"Номер договора 1С:{tbNum1c.Text}");
+
+                        //Банк
+                       
+                        Logging.Comment($"ID банка:{id_LandlordTenantBank}");
+                        Logging.Comment($"Расчётный счёт банка:{tbRS.Text}");
+                        Logging.Comment($"Наименование банка:{tbName.Text}");
+                        Logging.Comment($"БИК:{tbBik.Text}");
+                        Logging.Comment($"КС:{tbKS.Text}");
+
+                        //
+
                         Logging.Comment("Завершение операции \"" + operation + "\"");
                         Logging.StopFirstLevel();
                     }
@@ -1234,7 +1268,7 @@ namespace Arenda
                         button4.Enabled = true;
                         this.Text = "Редактирование документа";
                         btAddDoc.Visible = true;
-                        btAddDiscount.Visible = btDelDiscount.Visible = rezhim.Equals("edit") && new List<string> { "СОА", "РКВ", "МНД" }.Contains(TempData.Rezhim);
+                        btAddDiscount.Visible = btDelDiscount.Visible = rezhim.Equals("edit") && new List<string> { "СОА", "РКВ", "МНД"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
                         cmbTypeDog.Enabled = false;
                     }
                 }
@@ -1467,9 +1501,29 @@ namespace Arenda
                     errmes += "\n- Земальный участок";
                 }
             }
+            else if ((int)cmbTypeDog.SelectedValue == 1002)
+            {
+                if (cbZdan.SelectedValue == null)
+                {
+                    err = true;
+                    errmes += "\n- Здание";
+                }
+
+                if (cmbReclamaPlace.SelectedValue == null)
+                {
+                    err = true;
+                    errmes += "\n- Рекламное место";
+                }
+
+                if (tbNumSection.Text.Trim().Length == 0)
+                {
+                    err = true;
+                    errmes += "\n- Номер секции";
+                }
+            }
 
 
-            if ((int)cmbTypeDog.SelectedValue != 2)
+            if ((int)cmbTypeDog.SelectedValue != 2 && (int)cmbTypeDog.SelectedValue != 1002)
                 if (decimal.Parse(numTextBox.ConvertToCompPunctuation(tbS.Text)) == decimal.Parse(numTextBox.ConvertToCompPunctuation(defaultVal)))
                 {
                     err = true;
@@ -1482,7 +1536,7 @@ namespace Arenda
                 errmes += "\n- Кадастровый номер";
             }
 
-            if (cmbTypeDog.SelectedValue != null && (int)cmbTypeDog.SelectedValue == 2)
+            if (cmbTypeDog.SelectedValue != null && new List<int>() { 2, 1002 }.Contains((int)cmbTypeDog.SelectedValue))// == 2)
             {
                 if (decimal.Parse(numTextBox.ConvertToCompPunctuation(tbReklSize1.Text))
                   == decimal.Parse(numTextBox.ConvertToCompPunctuation(defaultVal)))
@@ -1515,7 +1569,7 @@ namespace Arenda
 
             if ((decimal.Parse(numTextBox.ConvertToCompPunctuation(tbcbm.Text)) == 0)
               && (!(cmbTypeDog.SelectedValue != null
-              && (int)cmbTypeDog.SelectedValue == 2)))
+              && new List<int>() { 2, 1002 }.Contains((int)cmbTypeDog.SelectedValue))/*(int)cmbTypeDog.SelectedValue == 2*/))
             {
                 err = true;
                 errmes += "\n- Стоимость квадратного метра";
@@ -1540,7 +1594,7 @@ namespace Arenda
                 return false;
             }
 
-            if (cmbTypeDog.SelectedValue != null && (int)cmbTypeDog.SelectedValue == 2)
+            if (cmbTypeDog.SelectedValue != null && new List<int>() { 2, 1002 }.Contains((int)cmbTypeDog.SelectedValue))// == 2)
             {
                 //проверяем оплаты
                 if (foundPayments())
@@ -1639,7 +1693,7 @@ namespace Arenda
 
             //если включен чек-бокс рекламы то нам без разницы менялась площадь или нет
             //и тем более изменять площадь в справочнике не надо
-            if (cmbTypeDog.SelectedValue != null && (int)cmbTypeDog.SelectedValue == 2)
+            if (cmbTypeDog.SelectedValue != null && new List<int>() { 2, 1002 }.Contains((int)cmbTypeDog.SelectedValue))// (int)cmbTypeDog.SelectedValue == 2)
             {
                 return false;
             }
@@ -1782,7 +1836,7 @@ namespace Arenda
         private void GetDataReklamPlaceInfo(int id_Build)
         {
             //_idObj
-            if ((int)cmbTypeDog.SelectedValue == 2)
+            if (new List<int>() { 2, 1002 }.Contains((int)cmbTypeDog.SelectedValue))//==2
             {
                 DataTable dtReklamPLace = _proc.getReclamaPlace(_idObj, id_Build);
                 cmbReclamaPlace.DataSource = dtReklamPLace;
@@ -2164,9 +2218,9 @@ namespace Arenda
 
         private void AddeditDoc_Load(object sender, EventArgs e)
         {
-            btAddDiscount.Visible = btDelDiscount.Visible = rezhim.Equals("edit") && new List<string> { "СОА", "РКВ", "МНД" }.Contains(TempData.Rezhim);
+            btAddDiscount.Visible = btDelDiscount.Visible = rezhim.Equals("edit") && new List<string> { "СОА", "РКВ", "МНД"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
             btAccept.Visible = btunAccept.Visible = rezhim.Equals("view") && new List<string> { "Д" }.Contains(TempData.Rezhim);
-            tbNum1c.Visible = new List<string> { "СОА", "РКВ" }.Contains(TempData.Rezhim);
+            tbNum1c.Visible = new List<string> { "СОА", "РКВ"/*добавно по договору 2840*/, "КНТ" }.Contains(TempData.Rezhim);
 
             groupBox7.Enabled = true;
             dgvData.Enabled = true;
@@ -2611,7 +2665,7 @@ namespace Arenda
             //  lTp.Visible = cbTp.Visible = cbFloor.Visible = lFloor.Visible = lblSt.Visible = tbSt.Visible = lblPhone.Visible = tbphone.Visible
             //    = (int)cmbTypeDog.SelectedValue == 1;
 
-            if ((int)cmbTypeDog.SelectedValue == 2 && cbZdan.SelectedValue != null && _idObj !=0)
+            if (new List<int>() { 2, 1002 }.Contains((int)cmbTypeDog.SelectedValue) /*== 2*/ && cbZdan.SelectedValue != null && _idObj != 0)
                 GetDataReklamPlaceInfo((int)cbZdan.SelectedValue);
         }
 

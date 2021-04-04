@@ -16,6 +16,7 @@ namespace Arenda
         readonly Procedures _proc = new Procedures(ConnectionSettings.GetServer(), ConnectionSettings.GetDatabase(), ConnectionSettings.GetUsername(), ConnectionSettings.GetPassword(), ConnectionSettings.ProgramName);
         DataTable Zdan = null;
         DataTable _Zdan = null;
+
         public Zdania()
         {
             InitializeComponent();
@@ -23,12 +24,12 @@ namespace Arenda
             if (bgZdania.Rows.Count == 0)
             {
                 button2.Enabled = false;
-                button3.Enabled = false;                
+                button3.Enabled = false;
             }
             else
             {
                 button2.Enabled = true;
-                button3.Enabled = true;                
+                button3.Enabled = true;
             }
 
             if (TempData.Rezhim.ToLower().Equals("пр"))
@@ -67,7 +68,7 @@ namespace Arenda
             {
                 try
                 {
-                    var addedit = new AddEditZdanie(bgZdania.SelectedRows[0].Cells[0].Value.ToString(), bgZdania.SelectedRows[0].Cells[1].Value.ToString(), bgZdania.SelectedRows[0].Cells[2].Value.ToString(), true);
+                    var addedit = new AddEditZdanie(bgZdania.SelectedRows[0].Cells["cname"].Value.ToString(), bgZdania.SelectedRows[0].Cells["abbreviation"].Value.ToString(), bgZdania.SelectedRows[0].Cells["ID"].Value.ToString(), true);
 
                     addedit.ShowDialog();
                 }
@@ -78,99 +79,101 @@ namespace Arenda
             }
             ini();
             isactive();
-        }        
+        }
 
         private void Zdania_Load(object sender, EventArgs e)
         {
             ini();
         }
-      
-      private void button3_Click(object sender, EventArgs e)
-      {
-        try
+
+        private void button3_Click(object sender, EventArgs e)
         {
-          string _cName = bgZdania.SelectedRows[0].Cells[0].Value.ToString();
-          string _Abbr = bgZdania.SelectedRows[0].Cells[1].Value.ToString();
-          int zid = Convert.ToInt32(bgZdania.SelectedRows[0].Cells[2].Value);
-
-          string rez = _proc.isActive(Convert.ToInt32(bgZdania.SelectedRows[0].Cells[2].Value.ToString())).Rows[0][0].ToString();
-          if (rez == "False")
-          {
+            try
             {
-              //if (MessageBox.Show("Сделать запись снова активной?", "Внимание", MessageBoxButtons.YesNo,
-                //MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              if (MessageBox.Show("Сделать выбранную запись действующей?",
-                "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              {
-                _proc.ChgZdan(Convert.ToInt32(bgZdania.SelectedRows[0].Cells[2].Value), bgZdania.SelectedRows[0].Cells[0].Value.ToString(), bgZdania.SelectedRows[0].Cells[1].Value.ToString(), 1);
+                string _cName = bgZdania.SelectedRows[0].Cells["cname"].Value.ToString();
+                string _Abbr = bgZdania.SelectedRows[0].Cells["abbreviation"].Value.ToString();
+                int zid = Convert.ToInt32(bgZdania.SelectedRows[0].Cells["ID"].Value);
 
-                Logging.StartFirstLevel(540);
-                Logging.Comment("Произведена смена статуса на активный у здания");
-                Logging.Comment("ID: " + zid);
-                Logging.Comment("Наименование здания: "+ _cName);
-                Logging.Comment("Аббревиатура здания: "+ _Abbr);
+                string rez = _proc.isActive(zid).Rows[0][0].ToString();
+                if (rez == "False")
+                {
+                    {
+                        //if (MessageBox.Show("Сделать запись снова активной?", "Внимание", MessageBoxButtons.YesNo,
+                        //MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        if (MessageBox.Show("Сделать выбранную запись действующей?",
+                          "Восстановление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                          MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            _proc.ChgZdan(zid, _cName, _Abbr, 1);
 
-                Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
-                  + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
-                Logging.StopFirstLevel();
-              }
+                            Logging.StartFirstLevel(540);
+                            Logging.Comment("Произведена смена статуса на активный у здания");
+                            Logging.Comment("ID: " + zid);
+                            Logging.Comment("Наименование здания: " + _cName);
+                            Logging.Comment("Аббревиатура здания: " + _Abbr);
+
+                            Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
+                              + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                            Logging.StopFirstLevel();
+                        }
+                    }
+                }
+                else
+                {
+                    //if (MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание", MessageBoxButtons.YesNo,
+                    //                  MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                    string chk1 = _proc.befDel(zid).Rows[0][0].ToString();
+                    string chk2 = _proc.befDel(zid).Rows[1][0].ToString();
+                    if (chk1 == "0" && chk2 == "0")
+                    {
+                        if (MessageBox.Show("Удалить выбранную запись?", "Удаление записи",
+                          MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                          MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            _proc.delZdan(zid);
+
+                            Logging.StartFirstLevel(1369);
+                            Logging.Comment("ID: " + zid);
+                            Logging.Comment("Наименование здания: " + _cName);
+                            Logging.Comment("Аббревиатура здания: " + _Abbr);
+
+                            Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
+                              + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                            Logging.StopFirstLevel();
+                        }
+                    }
+                    else
+                    {
+                        //if (MessageBox.Show("Удаляемая запись используется и ее невозможно удалить. Сделать ее неактивной?", "Ошибка", MessageBoxButtons.YesNo,
+                        //MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        if (MessageBox.Show("Выбранная для удаления запись\n    используется в программе.\nСделать запись недействующей?",
+                          "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
+                          MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                        {
+                            _proc.ChgZdan(zid, _cName, _Abbr, 0);
+
+                            Logging.StartFirstLevel(540);
+                            Logging.Comment("Произведена смена статуса на неактивный у здания");
+                            Logging.Comment("ID: " + zid);
+                            Logging.Comment("Наименование здания: " + _cName);
+                            Logging.Comment("Аббревиатура здания: " + _Abbr);
+
+                            Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
+                              + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
+                            Logging.StopFirstLevel();
+                        }
+                    }
+                }
+                ini();
+                isactive();
             }
-          }
-          else
-          {
-            //if (MessageBox.Show("Вы уверены, что хотите удалить запись?", "Внимание", MessageBoxButtons.YesNo,
-            //                  MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-            string chk1 = _proc.befDel(Convert.ToInt32(bgZdania.SelectedRows[0].Cells[2].Value.ToString())).Rows[0][0].ToString();
-            string chk2 = _proc.befDel(Convert.ToInt32(bgZdania.SelectedRows[0].Cells[2].Value.ToString())).Rows[1][0].ToString();
-            if (chk1 == "0" && chk2 == "0")
-            {
-              if (MessageBox.Show("Удалить выбранную запись?", "Удаление записи",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              {
-                _proc.delZdan(Convert.ToInt32(bgZdania.SelectedRows[0].Cells[2].Value.ToString()));
-
-                Logging.StartFirstLevel(1369);
-                Logging.Comment("ID: " + zid);
-                Logging.Comment("Наименование здания: " + _cName);
-                Logging.Comment("Аббревиатура здания: " + _Abbr);
-
-                Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
-                  + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
-                Logging.StopFirstLevel();
-              }
-            }
-            else
-            {
-              //if (MessageBox.Show("Удаляемая запись используется и ее невозможно удалить. Сделать ее неактивной?", "Ошибка", MessageBoxButtons.YesNo,
-              //MessageBoxIcon.Error, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              if (MessageBox.Show("Выбранная для удаления запись\n    используется в программе.\nСделать запись недействующей?",
-                "Удаление записи", MessageBoxButtons.YesNo, MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2) == DialogResult.Yes)
-              {
-                _proc.ChgZdan(Convert.ToInt32(bgZdania.SelectedRows[0].Cells[2].Value), bgZdania.SelectedRows[0].Cells[0].Value.ToString(), bgZdania.SelectedRows[0].Cells[1].Value.ToString(), 0);
-
-                Logging.StartFirstLevel(540);
-                Logging.Comment("Произведена смена статуса на неактивный у здания");
-                Logging.Comment("ID: " + zid);
-                Logging.Comment("Наименование здания: " + _cName);
-                Logging.Comment("Аббревиатура здания: " + _Abbr);
-
-                Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
-                  + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
-                Logging.StopFirstLevel();
-              }
-            }
-          }
-          ini();
-          isactive();
+            catch (Exception r) { MessageBox.Show("Нет записей для удаления." + "\n" + r.ToString(), "Ошибка"); }
         }
-        catch (Exception r) { MessageBox.Show("Нет записей для удаления." + "\n" + r.ToString(), "Ошибка"); }
-      }
 
         private void bgZdania_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
         {
+            if (_Zdan == null || _Zdan.DefaultView.Count == 0) return;
+
             if (_Zdan.DefaultView[e.RowIndex]["isActive"].ToString() == "False")
             {
                 bgZdania.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Coral;
@@ -209,12 +212,12 @@ namespace Arenda
             if (bgZdania.Rows.Count == 0)
             {
                 button2.Enabled = false;
-                button3.Enabled = false;                
+                button3.Enabled = false;
             }
             else
             {
                 button2.Enabled = true;
-                button3.Enabled = true;                
+                button3.Enabled = true;
                 isactive();
             }
         }
@@ -231,9 +234,15 @@ namespace Arenda
 
         private void isactive()
         {
+            if (bgZdania.SelectedRows == null || bgZdania.SelectedRows.Count == 0)
+            {
+                button2.Enabled = false;
+                return;
+            }
+
             try
             {
-                if (bgZdania.SelectedRows[0].Cells[3].Value.ToString() == "False")
+                if (bgZdania.SelectedRows[0].Cells["isActive"].Value.ToString() == "False")
                 {
                     button2.Enabled = false;
                 }
@@ -242,11 +251,9 @@ namespace Arenda
                     button2.Enabled = true;
                 }
             }
-            catch (Exception) {
+            catch (Exception)
+            {
             }
         }
-         
-
     }
-
 }

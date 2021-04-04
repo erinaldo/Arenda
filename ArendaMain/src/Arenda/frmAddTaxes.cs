@@ -26,7 +26,7 @@ namespace Arenda
         int oldAnotherPayID;
         string oldAnotherPay;
 
-        int oldPlaneDateID;
+        string oldPlaneDateID;
         string oldPlaneDate;
 
         public string txtNum { set; private get; }
@@ -111,7 +111,7 @@ namespace Arenda
             oldAnotherPay = cboAnotherPay.Text;
 
 
-            oldPlaneDateID = (cmbPlaneDate.SelectedValue == null) ? 0 : int.Parse(cmbPlaneDate.SelectedValue.ToString());
+            oldPlaneDateID = (cmbPlaneDate.SelectedValue == null) ? "" : cmbPlaneDate.SelectedValue.ToString();
             oldPlaneDate = cmbPlaneDate.Text;
 
             tbDataMeters.Text = numTextBox.CheckAndChange(tbDataMeters.Text, 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}");
@@ -293,7 +293,7 @@ namespace Arenda
                 
                 Logging.Comment("");
                 Logging.Comment("id записи = " + id_row.ToString());
-                Logging.Comment("Id и наименование План отчёта: " + cmbPlaneDate.SelectedValue.ToString() + ", " + cmbPlaneDate.Text);
+                Logging.Comment($"Дата План отчёта: {cmbPlaneDate.Text}");
                 Logging.Comment("Id и наименование дополнительной оплаты: " + cboAnotherPay.SelectedValue.ToString() + ", " + cboAnotherPay.Text);
                 Logging.Comment("Дата: " + dtpDate.Value.ToShortDateString());
                 Logging.Comment("Сумма: " + txtSum.Text);
@@ -315,9 +315,7 @@ namespace Arenda
                 Logging.Comment("");
                 Logging.Comment("id записи = " + id.ToString());
 
-                Logging.VariableChange("Id и наименование План отчёта: ",
-                    cmbPlaneDate.SelectedValue.ToString() + ", " + cmbPlaneDate.Text,
-                    oldPlaneDateID.ToString() + ", " + oldPlaneDate);
+                Logging.VariableChange("Дата План отчёта: ", cmbPlaneDate.Text, oldPlaneDate);
 
                 Logging.VariableChange("Id и наименование дополнительной оплаты: ", 
                     cboAnotherPay.SelectedValue.ToString() + ", " + cboAnotherPay.Text, 

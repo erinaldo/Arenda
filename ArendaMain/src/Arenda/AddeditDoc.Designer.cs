@@ -115,6 +115,8 @@
             this.cmbSavePayment = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tbNum1c = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.btChangeBank = new System.Windows.Forms.Button();
             this.tbRS = new System.Windows.Forms.TextBox();
@@ -160,8 +162,7 @@
             this.подтвердитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.отклонитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bds = new System.Windows.Forms.BindingSource(this.components);
-            this.tbNum1c = new System.Windows.Forms.TextBox();
-            this.label23 = new System.Windows.Forms.Label();
+            this.tbNumSection = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -349,9 +350,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.tbNumSection);
             this.groupBox2.Controls.Add(this.lLandPlot);
             this.groupBox2.Controls.Add(this.cmbReclamaPlace);
-            this.groupBox2.Controls.Add(this.cbLandPlot);
             this.groupBox2.Controls.Add(this.lReclamaPlace);
             this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Controls.Add(this.tbObj);
@@ -363,6 +364,7 @@
             this.groupBox2.Controls.Add(this.cbTp);
             this.groupBox2.Controls.Add(this.cbFloor);
             this.groupBox2.Controls.Add(this.cbZdan);
+            this.groupBox2.Controls.Add(this.cbLandPlot);
             this.groupBox2.Location = new System.Drawing.Point(299, 6);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(287, 151);
@@ -1065,6 +1067,25 @@
             this.tabPage1.Text = "Основная";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // tbNum1c
+            // 
+            this.tbNum1c.Location = new System.Drawing.Point(750, 516);
+            this.tbNum1c.MaxLength = 50;
+            this.tbNum1c.Name = "tbNum1c";
+            this.tbNum1c.Size = new System.Drawing.Size(235, 20);
+            this.tbNum1c.TabIndex = 49;
+            this.tbNum1c.TabStop = false;
+            this.tbNum1c.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(633, 519);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(110, 13);
+            this.label23.TabIndex = 48;
+            this.label23.Text = "Номер договора 1С:";
+            // 
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.btChangeBank);
@@ -1538,24 +1559,14 @@
             this.отклонитьToolStripMenuItem.Text = "Отклонить";
             this.отклонитьToolStripMenuItem.Click += new System.EventHandler(this.отклонитьToolStripMenuItem_Click);
             // 
-            // tbNum1c
+            // tbNumSection
             // 
-            this.tbNum1c.Location = new System.Drawing.Point(750, 516);
-            this.tbNum1c.MaxLength = 50;
-            this.tbNum1c.Name = "tbNum1c";
-            this.tbNum1c.Size = new System.Drawing.Size(235, 20);
-            this.tbNum1c.TabIndex = 49;
-            this.tbNum1c.TabStop = false;
-            this.tbNum1c.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(633, 519);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(110, 13);
-            this.label23.TabIndex = 48;
-            this.label23.Text = "Номер договора 1С:";
+            this.tbNumSection.Location = new System.Drawing.Point(139, 99);
+            this.tbNumSection.MaxLength = 50;
+            this.tbNumSection.Name = "tbNumSection";
+            this.tbNumSection.Size = new System.Drawing.Size(142, 20);
+            this.tbNumSection.TabIndex = 17;
+            this.tbNumSection.Visible = false;
             // 
             // AddeditDoc
             // 
@@ -1729,5 +1740,6 @@
         private System.Windows.Forms.Button btChangeBank;
         private System.Windows.Forms.TextBox tbNum1c;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox tbNumSection;
     }
 }
