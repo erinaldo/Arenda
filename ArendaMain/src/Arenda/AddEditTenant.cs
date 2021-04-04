@@ -974,7 +974,23 @@ namespace Arenda
                     }*/
                     }
                 }
-                
+
+                if (dtBanks != null && dtBanks.Rows.Count > 0)
+                {
+                    Logging.Comment("Банки");
+                    foreach (DataRow row in dtBanks.Rows)
+                    {
+                        //_proc.AddLandlordTenantBank((int)row["id"], (int)row["id_Bank"], (string)row["PaymentAccount"], id_LandLord, (bool)row["isActive"], false);
+                        foreach (DataGridViewColumn col in dgvBank.Columns)
+                        {
+                            if (col.Visible)
+                            {
+                                Logging.Comment($"{col.HeaderText}:{row[col.DataPropertyName]}");
+                            }
+                        }
+                    }
+                }
+
                 Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
                     + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
                 Logging.StopFirstLevel();
@@ -1080,7 +1096,6 @@ namespace Arenda
                 }
                 #endregion
 
-
                 if (tenant)
                 {
                     if (cpTen != null && cpTen.Rows.Count > 0)
@@ -1094,6 +1109,22 @@ namespace Arenda
                         {
                             Logging.Comment($"Аредатор:{row.Cells["cTenant"].Value}");
                         }*/
+                    }
+                }
+
+                if (dtBanks != null && dtBanks.Rows.Count > 0)
+                {
+                    Logging.Comment("Банки");
+                    foreach (DataRow row in dtBanks.Rows)
+                    {
+                        //_proc.AddLandlordTenantBank((int)row["id"], (int)row["id_Bank"], (string)row["PaymentAccount"], id_LandLord, (bool)row["isActive"], false);
+                        foreach (DataGridViewColumn col in dgvBank.Columns)
+                        {
+                            if (col.Visible)
+                            {
+                                Logging.Comment($"{col.HeaderText}:{row[col.DataPropertyName]}");
+                            }
+                        }
                     }
                 }
 
@@ -1638,6 +1669,17 @@ namespace Arenda
                         }
                         else
                         {
+                            Logging.StartFirstLevel(id == 0 ? (int)logEnum.Добавление_арендодателя : (int)logEnum.Редактирование_арендодателя);
+
+                            foreach (DataGridViewColumn col in dgvBank.Columns)
+                            {
+                                if (col.Visible)
+                                {
+                                    Logging.Comment($"{col.HeaderText}:{row[col.DataPropertyName]}");
+                                }
+                            }
+                            Logging.StopFirstLevel();
+
                             row.Delete();
                             dtBanks.AcceptChanges();
                         }

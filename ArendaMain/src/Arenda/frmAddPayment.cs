@@ -424,14 +424,14 @@ namespace Arenda
                 Logging.Comment($"Примечание:{tbDescription.Text}");
                 Logging.Comment($"Полное закрытие:{penni.isFullPayment()}");
 
-                Logging.Comment("");
+                //Logging.Comment("");
 
                 oldDate = dtpDate.Value;
                 oldSum = txtSum.Text = numTextBox.CheckAndChange(txtSum.Text, 2, 0, 9999999999, false, defaultVal, "{0:# ### ### ##0.00}");
 
                 oldSign = 0;
 
-                Logging.Comment("");
+                //Logging.Comment("");
                 Logging.Comment("Завершение операции \"" + operation + "\"");
                 Logging.StopFirstLevel();
             }

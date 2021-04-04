@@ -141,6 +141,7 @@ namespace DllLink1CForAgreements
                 {
                     Logging.StartFirstLevel((int)LogEvents.Нет_Подписей);
                     string msg = "У следующих арендодателей\nотсутствуют файлы подписи для\nсчетов 1С.\n";
+                    Logging.Comment("Отсутствуют подписи для создания pdf файлов у арендодателей");
                     foreach (string s in lStringError)
                     {
                         Logging.Comment(s);
@@ -176,6 +177,7 @@ namespace DllLink1CForAgreements
                                 if (lStringError.Count > 0)
                                 {
                                     Logging.StartFirstLevel((int)LogEvents.Нет_Подписей);
+                                    Logging.Comment("Отсутствуют подписи для создания pdf файлов у арендодателей");
                                     string msg = "У следующих арендодателей\nотсутствуют файлы подписи для\nсчетов 1С.\n";
                                     foreach (string s in lStringError)
                                     {

@@ -144,6 +144,14 @@ namespace Arenda
             Logging.Comment("Арендодатель ID: " + _old_id_lord + "; Наименование: " + oldLord);
 
 
+            if (dateren.Visible) { Logging.Comment($"{label4.Text}: {dateren.Value.ToShortDateString()}"); }
+            if (dtpDeparture.Visible) { Logging.Comment($"{lblDeparture.Text}: {dtpDeparture.Value.ToShortDateString()}"); }
+            if (dtpOutDate.Visible) { Logging.Comment($"{label3.Text}: {dtpOutDate.Value.ToShortDateString()}"); }
+            if(tbAreaNew.Visible) { Logging.Comment($"{lblAreaNew.Text}: {tbAreaNew.Text}"); }
+            if (tbComment.Visible) { Logging.Comment($"{label4.Text}: {tbComment.Text}"); }
+
+
+
             Logging.Comment("Операцию выполнил: ID:" + Nwuram.Framework.Settings.User.UserSettings.User.Id
             + " ; ФИО:" + Nwuram.Framework.Settings.User.UserSettings.User.FullUsername);
             Logging.StopFirstLevel();

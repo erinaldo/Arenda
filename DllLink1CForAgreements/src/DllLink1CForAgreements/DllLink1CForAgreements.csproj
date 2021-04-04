@@ -42,7 +42,7 @@
       <HintPath>..\..\..\..\dll\Framework.dll</HintPath>
     </Reference>
     <Reference Include="MyMessageBox">
-      <HintPath>..\..\..\..\..\договор 2710\dllInventoryScaners\MyMessageBox.dll</HintPath>
+      <HintPath>..\..\..\..\DLL\MyMessageBox.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />

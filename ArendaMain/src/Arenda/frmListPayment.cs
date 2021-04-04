@@ -238,7 +238,7 @@ namespace Arenda
 
                 Logging.Comment($"Тип оплаты:{dr["typeCash"]}");
                 Logging.Comment($"Вид оплаты:{dr["typeTenant"]}");
-
+                Logging.Comment($"Примечание:{dr["Description"]}");
 
 
                 for (int i = 0; dtDetails.Rows.Count > i; i++)

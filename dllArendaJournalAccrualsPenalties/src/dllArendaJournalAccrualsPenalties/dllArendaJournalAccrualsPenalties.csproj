@@ -36,10 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EPPlus">
-      <HintPath>..\..\..\..\frameWork_mew\Framework\bin\Debug\EPPlus.dll</HintPath>
+      <HintPath>..\..\..\..\DLL\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="Framework">
-      <HintPath>..\..\..\..\frameWork_mew\Framework\bin\Debug\Framework.dll</HintPath>
+      <HintPath>..\..\..\..\DLL\Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
